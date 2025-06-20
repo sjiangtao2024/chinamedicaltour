@@ -28,10 +28,101 @@
         position: relative;
         overflow: hidden;
         z-index: 1;
-        background-image: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+      }
+
+      /* Hero carousel styles */
+      .hero-carousel-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .hero-carousel-track {
+        display: flex;
+        transition: transform 0.8s ease-in-out;
+        height: 100%;
+      }
+
+      .hero-carousel-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      .hero-carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-carousel-caption {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        z-index: 10;
+      }
+
+      .hero-carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 20;
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-carousel-nav:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .hero-carousel-prev {
+        left: 2rem;
+      }
+
+      .hero-carousel-next {
+        right: 2rem;
+      }
+
+      .hero-carousel-indicators {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+        z-index: 20;
+      }
+
+      .hero-carousel-indicator {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .hero-carousel-indicator.active {
+        background: white;
       }
       
       /* Critical styles for text elements */
@@ -271,7 +362,36 @@
     <main>
         <!-- Hero Section -->
         <section class="hero-bg text-white min-h-[70vh] flex items-center">
-            <div class="absolute inset-0 bg-black/40"></div>
+            <!-- Hero Carousel -->
+            <div class="hero-carousel-container" id="hero-carousel">
+                <div class="hero-carousel-track">
+                    <div class="hero-carousel-slide">
+                        <img src="http://i.ce.cn/ce/xwzx/gnsz/gdxw/202003/31/W020200331680210692229.jpg" alt="与大熊猫亲密互动">
+                        <div class="hero-carousel-caption">
+                            <span data-key="heroCarouselCaption1">与大熊猫亲密互动</span>
+                        </div>
+                    </div>
+                    <div class="hero-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1742218117617-d8c54f8dc6dc?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="成都夜景">
+                        <div class="hero-carousel-caption">
+                            <span data-key="heroCarouselCaption2">成都夜景</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="hero-carousel-nav hero-carousel-prev" data-carousel="hero" data-direction="prev">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="hero-carousel-nav hero-carousel-next" data-carousel="hero" data-direction="next">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+                <div class="hero-carousel-indicators">
+                    <button class="hero-carousel-indicator active" data-carousel="hero" data-slide="0"></button>
+                    <button class="hero-carousel-indicator" data-carousel="hero" data-slide="1"></button>
+                </div>
+            </div>
+
+            <!-- Hero Content Overlay -->
+            <div class="absolute inset-0 bg-black/40 z-10"></div>
             <div class="container mx-auto px-6 text-center relative z-20">
                 <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 relative z-30" data-key="heroTitle">World-Class Medical Care, Combined with an Unforgettable China Tour</h1>
                 <p class="text-lg md:text-2xl opacity-90 mb-8 relative z-30" data-key="heroSubtitle">Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.</p>
@@ -954,6 +1074,8 @@
                 heroTitle: "World-Class Medical Care, Combined with an Unforgettable China Tour",
                 heroSubtitle: "Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.",
                 viewServices: "Explore Our Services",
+                heroCarouselCaption1: "Intimate Interaction with Giant Pandas",
+                heroCarouselCaption2: "Chengdu Night Scene",
                 aboutTitle: "Why Choose China? Three Irresistible Reasons",
                 aboutSubtitle: "We reveal why a health screening in China is not just a smart choice, but the best investment in your health and time.",
                 about1Title: "1. Incredible Value: Get 10x More for Your Health Investment",
@@ -1141,6 +1263,8 @@
                 heroTitle: "世界级医疗服务，结合难忘的中国之旅",
                 heroSubtitle: "以远低于您本国的价格，获得顶级的医疗服务。省下的钱，足以支付您的全部旅费。",
                 viewServices: "探索我们的服务",
+                heroCarouselCaption1: "与大熊猫亲密互动",
+                heroCarouselCaption2: "成都夜景",
                 aboutTitle: "为什么选择中国？三大无法抗拒的理由",
                 aboutSubtitle: "我们为您揭示，为何来华进行健康筛查不仅是明智之选，更是对您健康和时间的最佳投资。",
                 about1Title: "1. 惊人的性价比：您的健康投资，价值提升不止十倍",
@@ -1581,20 +1705,25 @@
             });
 
             // Carousel functionality
-            const carousels = ['beijing', 'chengdu', 'video'];
+            const carousels = ['beijing', 'chengdu', 'video', 'hero'];
             const carouselStates = {};
 
             carousels.forEach(carouselId => {
                 const container = document.getElementById(`${carouselId}-carousel`);
                 if (!container) return;
-                
+
+                // Use different selectors for hero carousel
+                const isHeroCarousel = carouselId === 'hero';
+                const slideSelector = isHeroCarousel ? '.hero-carousel-slide' : '.carousel-slide';
+                const trackSelector = isHeroCarousel ? '.hero-carousel-track' : '.carousel-track';
+
                 carouselStates[carouselId] = {
                     currentSlide: 0,
-                    totalSlides: container.querySelectorAll('.carousel-slide').length,
+                    totalSlides: container.querySelectorAll(slideSelector).length,
                     intervalId: null
                 };
 
-                const track = container.querySelector('.carousel-track');
+                const track = container.querySelector(trackSelector);
                 const indicators = document.querySelectorAll(`[data-carousel="${carouselId}"][data-slide]`);
                 const navButtons = document.querySelectorAll(`[data-carousel="${carouselId}"][data-direction]`);
 
