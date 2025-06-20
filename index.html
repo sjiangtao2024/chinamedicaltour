@@ -18,6 +18,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 
+
+
     <!-- Critical CSS for above-the-fold content -->
     <style>
       /* Critical styles for hero section */
@@ -218,6 +220,23 @@
             border: 1px solid #e5e7eb; /* gray-200 */
             padding: 2rem;
             border-radius: 0.75rem;
+        }
+
+        /* Google Maps styles */
+        .map-container {
+            height: 400px;
+            width: 100%;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .labubu-map-container {
+            height: 500px;
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
         }
     </style>
 </head>
@@ -679,6 +698,29 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Labubu Locations Map -->
+                <div class="mt-16">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold mb-4" data-key="labubuLocationsTitle">🎀 Labubu 门店位置</h3>
+                        <p class="text-gray-600" data-key="labubuLocationsDesc">发现最近的Labubu门店，收集你最爱的盲盒</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="labubu-map-container">
+                            <iframe
+                                id="labubu-map"
+                                src="https://www.google.com/maps/embed/v1/search?key=AIzaSyC1QzUEqeQLmu9srYB6H4Ip3ldcCNZsizY&q=Labubu+store+北京&center=39.9042,116.4074&zoom=12"
+                                width="100%"
+                                height="500"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1010,10 +1052,14 @@
                 beijingSightsText: "<li>The Forbidden City & Tiananmen Square</li><li>The Great Wall (Mutianyu Section)</li><li>The Summer Palace & Temple of Heaven</li>",
                 beijingFoodTitle: "Must-Try Cuisine",
                 beijingFoodText: "<li>Peking Roast Duck</li><li>Zhajiangmian (Noodles with Soybean Paste)</li><li>Imperial Court Cuisine</li>",
+                beijingPopMartTitle: "PopMart Stores",
                 chengduSightsTitle: "Classic Tourist Routes",
                 chengduSightsText: "<li>Chengdu Research Base of Giant Panda Breeding</li><li>Jinli Ancient Street & Wuhou Shrine</li><li>People's Park & Kuanzhai Alleys</li>",
                 chengduFoodTitle: "Must-Try Cuisine",
                 chengduFoodText: "<li>Sichuan Hotpot</li><li>Mapo Tofu</li><li>Kung Pao Chicken</li>",
+                chengduPopMartTitle: "PopMart Stores",
+                labubuLocationsTitle: "🎀 Labubu Store Locations",
+                labubuLocationsDesc: "Find the nearest Labubu stores and collect your favorite blind boxes",
                 cultureTitle: "Deep Cultural Experience",
                 cultureSubtitle: "Immerse yourself in China's rich cultural heritage while receiving world-class medical care.",
                 culturePlaceholder: "Content coming soon...",
@@ -1193,10 +1239,14 @@
                 beijingSightsText: "<li>故宫 & 天安门广场</li><li>长城（慕田峪段）</li><li>颐和园 & 天坛</li>",
                 beijingFoodTitle: "必尝美食",
                 beijingFoodText: "<li>北京烤鸭</li><li>炸酱面</li><li>宫廷菜</li>",
+                beijingPopMartTitle: "泡泡玛特门店",
                 chengduSightsTitle: "经典旅游线路",
                 chengduSightsText: "<li>成都大熊猫繁育研究基地</li><li>锦里古街 & 武侯祠</li><li>人民公园 & 宽窄巷子</li>",
                 chengduFoodTitle: "必尝美食",
                 chengduFoodText: "<li>四川火锅</li><li>麻婆豆腐</li><li>宫保鸡丁</li>",
+                chengduPopMartTitle: "泡泡玛特门店",
+                labubuLocationsTitle: "🎀 Labubu 门店位置",
+                labubuLocationsDesc: "发现最近的Labubu门店，收集你最爱的盲盒",
                 cultureTitle: "深度文化体验",
                 cultureSubtitle: "在接受世界级医疗服务的同时，深度体验中国丰富的文化遗产。",
                 culturePlaceholder: "内容即将推出...",
@@ -1488,6 +1538,29 @@
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
 
+            // Map configuration for different cities
+            const cityMapConfig = {
+                'beijing': {
+                    query: 'Labubu+store+北京',
+                    center: '39.9042,116.4074',
+                    zoom: '12'
+                },
+                'chengdu': {
+                    query: 'Labubu+store+成都',
+                    center: '30.5728,104.0668',
+                    zoom: '12'
+                }
+            };
+
+            function updateLabubuMap(cityId) {
+                const mapIframe = document.getElementById('labubu-map');
+                const config = cityMapConfig[cityId];
+                if (config && mapIframe) {
+                    const newSrc = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC1QzUEqeQLmu9srYB6H4Ip3ldcCNZsizY&q=${config.query}&center=${config.center}&zoom=${config.zoom}`;
+                    mapIframe.src = newSrc;
+                }
+            }
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -1501,6 +1574,9 @@
                             content.classList.add('hidden');
                         }
                     });
+
+                    // Update Labubu map based on selected city
+                    updateLabubuMap(tabId);
                 });
             });
 
