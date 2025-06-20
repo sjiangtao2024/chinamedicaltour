@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Medical Tour - World-Class Medical Care & Tourism in China</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons & Chart.js -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+      /* Critical styles for hero section */
+      .hero-bg {
+        min-height: 70vh;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        background-image: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      
+      /* Critical styles for text elements */
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+        scroll-behavior: smooth;
+      }
+      
+      /* Add more critical styles as needed */
+
+        /* Animation keyframes */
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .section-title {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700;
+        }
+
+        /* Add responsive media container style */
+        .responsive-media {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+
+        .responsive-media iframe,
+        .responsive-media img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section-title {
+            line-height: 1.2;
+            color: #1f2937; /* gray-800 */
+        }
+        .section-subtitle {
+            font-size: 1.125rem; /* text-xl */
+            color: #4b5563; /* gray-600 */
+            margin-top: 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s linear;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .tab-button.active {
+            border-color: #3b82f6; /* blue-600 */
+            color: #3b82f6;
+            background-color: #eff6ff; /* blue-50 */
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+        }
+        .carousel-slide img, .carousel-slide iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+        .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .carousel-prev {
+            left: 1rem;
+        }
+        .carousel-next {
+            right: 1rem;
+        }
+        .carousel-indicators {
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .image-carousel-indicators {
+             position: absolute;
+             bottom: 1rem;
+             left: 50%;
+             transform: translateX(-50%);
+        }
+        .video-carousel-indicators {
+             position: relative;
+             justify-content: center;
+             margin-top: 1rem;
+        }
+
+        .carousel-indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: rgba(156, 163, 175, 0.5); /* gray-400 with opacity */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .carousel-indicator.active {
+            background: #3b82f6; /* blue-600 */
+        }
+        .nav-link.active {
+            color: #3b82f6 !important; /* blue-600 */
+            font-weight: 600;
+        }
+        .advantage-card {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            padding: 2rem;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">China Medical Tour</a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navAbout" data-section="about">About Us</a>
+                <a href="#services" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navServices" data-section="services">Services</a>
+                <a href="#travel" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navTravel" data-section="travel">Travel Services</a>
+                <a href="#culture" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navCulture" data-section="culture">Cultural Experience</a>
+                <a href="#contact" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-semibold" data-key="getQuote">Get a Quote</a>
+                <button id="language-switcher" class="ml-4 text-sm font-semibold text-gray-600 border px-3 py-1 rounded-full hover:bg-gray-100">EN / ZH</button>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navAbout" data-section="about">About Us</a>
+            <a href="#services" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navServices" data-section="services">Services</a>
+            <a href="#travel" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navTravel" data-section="travel">Travel Services</a>
+            <a href="#culture" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navCulture" data-section="culture">Cultural Experience</a>
+            <a href="#contact" class="block mt-2 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 w-full text-center" data-key="getQuote">Get a Quote</a>
+            <button id="mobile-language-switcher" class="mt-4 w-full text-sm font-semibold text-gray-600 border px-3 py-2 rounded-full hover:bg-gray-100">EN / ZH</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-bg text-white min-h-[70vh] flex items-center">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="container mx-auto px-6 text-center relative z-20">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 relative z-30" data-key="heroTitle">World-Class Medical Care, Combined with an Unforgettable China Tour</h1>
+                <p class="text-lg md:text-2xl opacity-90 mb-8 relative z-30" data-key="heroSubtitle">Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.</p>
+                <a href="#services" class="bg-white text-blue-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-100 transition relative z-30" data-key="viewServices">Explore Our Services</a>
+            </div>
+        </section>
+
+        <!-- About Us Section (Revamped) -->
+        <section id="about" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="aboutTitle">Why Choose China? Three Irresistible Reasons</h2>
+                    <p class="section-subtitle" data-key="aboutSubtitle">We reveal why a health screening in China is not just a smart choice, but the best investment in your health and time.</p>
+                </div>
+                
+                <!-- Advantage 1: Cost -->
+                <div class="mt-16">
+                    <div class="text-center mb-12">
+                        <h3 class="text-3xl font-bold text-gray-800" data-key="about1Title">1. Incredible Value: Get 10x More for Your Health Investment</h3>
+                        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto" data-key="about1Subtitle">Imagine getting a comprehensive screening with advanced imaging in China for the cost of a single specialist consultation in the US. This isn't a fantasy; it's the value leap we offer.</p>
+                    </div>
+                    <div class="max-w-4xl mx-auto advantage-card p-4 md:p-8">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Advantage 2: Speed -->
+                 <div class="mt-20">
+                    <div class="text-center mb-12">
+                        <h3 class="text-3xl font-bold text-gray-800" data-key="about2Title">2. Revolutionary Efficiency: We Save You Weeks, in Just a Few Hours</h3>
+                        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto" data-key="about2Subtitle">A full check-up process can take a month in your home country. In China, we condense it into a single morning of your trip.</p>
+                    </div>
+                     <div class="max-w-4xl mx-auto advantage-card p-4 md:p-8">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Advantage 3: Reliability -->
+                 <div class="mt-20">
+                    <div class="text-center mb-12">
+                        <h3 class="text-3xl font-bold text-gray-800" data-key="about3Title">3. Comprehensive Assurance: We Don't Just Choose, We Safeguard</h3>
+                        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto" data-key="about3Subtitle">Your health is non-negotiable. That's why we've built a threefold assurance system of expertise, service, and cultural experience.</p>
+                    </div>
+                     <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                        <div class="text-center p-4">
+                            <i data-lucide="shield-check" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="about3Card1Title">Vetted Hospital Network</h4>
+                            <p class="text-gray-600 mt-2" data-key="about3Card1Text">We partner exclusively with JCI-accredited hospitals, ensuring you receive world-class quality and safety. We've done the critical vetting work for you.</p>
+                        </div>
+                         <div class="text-center p-4">
+                            <i data-lucide="link" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="about3Card2Title">Seamless Follow-Up Care</h4>
+                            <p class="text-gray-600 mt-2" data-key="about3Card2Text">The check-up isn't the end. If an issue is found, we guarantee immediate access to China's top specialists for consultation and treatment, giving you complete peace of mind.</p>
+                        </div>
+                         <div class="text-center p-4">
+                            <i data-lucide="palmtree" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="about3Card3Title">Perfect Fusion of Health & Travel</h4>
+                            <p class="text-gray-600 mt-2" data-key="about3Card3Text">With the significant time saved, we curate unique cultural tours for you, transforming your health trip into an unforgettable life experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Stories Section -->
+        <section id="stories" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="storiesTitle">Hear Their Stories</h2>
+                    <p class="section-subtitle" data-key="storiesSubtitle">Don't just take our word for it—see how clients from around the world have experienced life-changing medical care in China.</p>
+                </div>
+                <div class="mt-12 max-w-4xl mx-auto">
+                    <div class="carousel-container" id="video-carousel">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <div class="responsive-media">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg" src="https://www.youtube.com/embed/vEelapLhqdI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video1Title">A British Family's Real Experience</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="responsive-media">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                                            src="https://www.youtube.com/embed/M8slM5U88Ms"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video2Title">Another Perspective: A Russian Family's Experience</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="responsive-media">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                                            src="https://www.youtube.com/embed/AQvWz7F2sHc"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video3Title">A Client's Journey with Traditional Chinese Medicine</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="relative" style="padding-bottom: 56.25%; height: 0;">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg" src="https://www.youtube.com/embed/P-hkfZadSeQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video4Title">An American Couple's Medical Journey in China</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="relative" style="padding-bottom: 56.25%; height: 0;">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg" src="https://www.youtube.com/embed/Hn4CIgfS2IE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video5Title">Convenient & Efficient: A Foreigner's Healthcare Experience</p>
+                            </div>
+                        </div>
+                        <button class="carousel-nav carousel-prev" data-carousel="video" data-direction="prev"><i data-lucide="chevron-left"></i></button>
+                        <button class="carousel-nav carousel-next" data-carousel="video" data-direction="next"><i data-lucide="chevron-right"></i></button>
+                    </div>
+                    <div class="carousel-indicators video-carousel-indicators">
+                        <button class="carousel-indicator active" data-carousel="video" data-slide="0"></button>
+                        <button class="carousel-indicator" data-carousel="video" data-slide="1"></button>
+                        <button class="carousel-indicator" data-carousel="video" data-slide="2"></button>
+                        <button class="carousel-indicator" data-carousel="video" data-slide="3"></button>
+                        <button class="carousel-indicator" data-carousel="video" data-slide="4"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Services Section (Existing) -->
+        <section id="services" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="servicesTitle">全面的医疗服务</h2>
+                    <p class="section-subtitle" data-key="servicesSubtitle">从预防性筛查到专项治疗，我们提供全方位的世界级医疗服务。</p>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold text-center text-gray-700" data-key="screeningTitle">健康体检套餐</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto">
+                        <!-- Elite Package -->
+                        <div class="card p-8 flex flex-col">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="eliteTitle">精英体检套餐</h3>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">$210 - $350</p>
+                            <p class="text-gray-500 mb-6" data-key="eliteSavings">相比欧美可节省 70-80%</p>
+                            <ul class="text-left space-y-3 mb-8 flex-grow">
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="eliteFeature1">一般检查 + 内外科</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="eliteFeature2">实验室检查 (血/尿常规)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="eliteFeature3">主要脏器B超</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="eliteFeature4">心电图 & 胸部摄片</span>
+                                </li>
+                            </ul>
+                            <button data-modal-target="elite-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
+                            <a href="#contact" class="mt-2 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
+                        </div>
+
+                        <!-- Platinum Package -->
+                        <div class="card p-8 flex flex-col border-2 border-blue-600 relative">
+                            <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold" data-key="mostPopular">最受欢迎</div>
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="platinumTitle">铂金深度套餐</h3>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">$490 - $700</p>
+                            <p class="text-gray-500 mb-6" data-key="platinumSavings">相比欧美可节省 70-80%</p>
+                            <ul class="text-left space-y-3 mb-8 flex-grow">
+                                <li class="flex items-start font-semibold">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="platinumFeature1">包含所有精英套餐项目</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="platinumFeature2">多项肿瘤标志物筛查</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="platinumFeature3">颈动脉 & 甲状腺彩超</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="platinumFeature4">碳13/14呼气试验 (HP)</span>
+                                </li>
+                            </ul>
+                            <button data-modal-target="platinum-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
+                            <a href="#contact" class="mt-2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
+                        </div>
+
+                        <!-- VIP Package -->
+                        <div class="card p-8 flex flex-col">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="vipTitle">VIP全面套餐</h3>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">$1,100 - $2,100</p>
+                            <p class="text-gray-500 mb-6" data-key="vipSavings">相比欧美可节省 75-85%</p>
+                            <ul class="text-left space-y-3 mb-8 flex-grow">
+                                <li class="flex items-start font-semibold">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="vipFeature1">包含所有铂金套餐项目</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="vipFeature2">头部核磁共振 (MRI)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="vipFeature3">低剂量螺旋CT (肺部)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
+                                    <span data-key="vipFeature4">无痛胃肠镜检查</span>
+                                </li>
+                            </ul>
+                            <button data-modal-target="vip-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
+                            <a href="#contact" class="mt-2 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-500 mt-6 max-w-4xl mx-auto" data-key="priceDisclaimer">具体费用可能受汇率以及相关供应商价格调整的影响，以上价格仅供参考</p>
+                </div>
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-center text-gray-700" data-key="additionalServicesTitle">其他专项服务</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mt-8 max-w-7xl mx-auto">
+                        <!-- Ophthalmology -->
+                        <div class="card p-8 text-center">
+                            <i data-lucide="eye" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                            <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceEyeTitle">眼科</h4>
+                            <p data-key="serviceEyeText">提供先进的眼科护理，包括LASIK手术、白内障摘除和青光眼治疗，均采用最新的激光技术。</p>
+                        </div>
+
+                        <!-- Dentistry -->
+                        <div class="card p-8 text-center">
+                            <i data-lucide="smile" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                            <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceDentalTitle">牙科</h4>
+                            <p data-key="serviceDentalText">全面的牙科服务，从常规洗牙、美白到种植牙、贴面和正畸等复杂项目。</p>
+                        </div>
+
+                        <!-- Traditional Chinese Medicine -->
+                        <div class="card p-8 text-center">
+                            <i data-lucide="flower-2" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                            <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceTCMTitle">中医治疗</h4>
+                            <p data-key="serviceTCMText">体验正宗的中医疗法，包括针灸、中药、拔罐和传统按摩，为您提供整体性的康复和养生服务。</p>
+                        </div>
+
+                        <!-- Tailor-Made Programs -->
+                        <div class="card p-8 text-center">
+                            <i data-lucide="settings" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                            <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceTailorMadeTitle">定制医疗项目</h4>
+                            <p data-key="serviceTailorMadeText">根据您的独特健康需求量身定制的医疗项目和治疗方案，结合多个专科领域，提供个性化的护理计划。</p>
+                        </div>
+
+                        <!-- Stem Cell Therapy -->
+                        <div class="card p-8 text-center">
+                            <i data-lucide="dna" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                            <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceStemCellTitle">干细胞治疗</h4>
+                            <p data-key="serviceStemCellText">探索再生医学，我们提供先进的干细胞疗法，用于抗衰老、关节修复和多种慢性病治疗（需经专业咨询评估）。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Travel Services Section -->
+        <section id="travel" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="travelTitle">Hassle-Free Travel & Unforgettable Journeys</h2>
+                    <p class="section-subtitle" data-key="travelSubtitle">From visas to itineraries, we plan everything so you can focus on your health and exploration.</p>
+                </div>
+                <!-- Visa Section -->
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-center text-gray-700" data-key="visaTitle">Easy Entry: Understanding the Latest Visa Policies</h3>
+                    <div class="grid md:grid-cols-3 gap-8 mt-8 max-w-7xl mx-auto">
+                        <div class="advantage-card text-center">
+                             <i data-lucide="plane" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                             <h4 class="text-xl font-semibold" data-key="visaType1Title">15/30-Day Visa-Free Entry</h4>
+                             <p class="text-gray-600 mt-2" data-key="visaType1Desc">Ideal for short-term procedures like health check-ups, dental work, or consultations. Available to citizens of France, Germany, Spain, Australia, New Zealand, Thailand, Singapore, and more.</p>
+                        </div>
+                         <div class="advantage-card text-center">
+                            <i data-lucide="map-pinned" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                             <h4 class="text-xl font-semibold" data-key="visaType2Title">10-Day Transit Visa-Free</h4>
+                             <p class="text-gray-600 mt-2" data-key="visaType2Desc">A strategic option for citizens from 54 countries including the US, UK, and Canada. Perfect for combining minor surgery with a multi-destination Asia trip, as it requires travel to a third country/region.</p>
+                        </div>
+                         <div class="advantage-card text-center">
+                           <i data-lucide="file-text" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                             <h4 class="text-xl font-semibold" data-key="visaType3Title">Medical Visa</h4>
+                             <p class="text-gray-600 mt-2" data-key="visaType3Desc">Required for complex, long-term treatments like oncology or major surgery. We provide the official hospital invitation letter to facilitate your application.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Itinerary Section -->
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-center text-gray-700" data-key="itineraryTitle">Sample Itineraries: The Perfect Blend of Health & Culture</h3>
+                    <div class="grid lg:grid-cols-2 gap-12 mt-8 max-w-6xl mx-auto">
+                        <div class="card overflow-hidden">
+                           <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="北京" class="w-full h-56 object-cover">
+                            <div class="p-6">
+                                <h4 class="text-2xl font-bold text-gray-800" data-key="itinerary1Title">7日“北京高管健康之旅”</h4>
+                                <p class="mt-2 text-gray-600" data-key="itinerary1Desc">将世界顶级的健康筛查与千年古都的文化探索相结合，体验极致效率与深度旅行的魅力。</p>
+                                <ul class="mt-4 space-y-2 text-sm">
+                                    <li class="flex"><strong class="w-20 shrink-0" data-key="itinerary1DayLabel1">第1天:</strong> <span data-key="itinerary1Day1">抵达北京，专车接机入住。</span></li>
+                                    <li class="flex"><strong class="w-20 shrink-0" data-key="itinerary1DayLabel2">第2天:</strong> <span data-key="itinerary1Day2">上午VIP体检，下午获取报告并会诊。</span></li>
+                                    <li class="flex"><strong class="w-20 shrink-0" data-key="itinerary1DayLabel3">第3-5天:</strong> <span data-key="itinerary1Day3">文化观光 (长城, 故宫)。</span></li>
+                                     <li class="flex"><strong class="w-20 shrink-0" data-key="itinerary1DayLabel6">第6天:</strong> <span data-key="itinerary1Day6">中医理疗体验或自由活动。</span></li>
+                                     <li class="flex"><strong class="w-20 shrink-0" data-key="itinerary1DayLabel7">第7天:</strong> <span data-key="itinerary1Day7">启程回国。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card overflow-hidden">
+                           <img src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="成都" class="w-full h-56 object-cover">
+                            <div class="p-6">
+                                <h4 class="text-2xl font-bold text-gray-800" data-key="itinerary2Title">10日“成都康养疗愈之旅”</h4>
+                                <p class="mt-2 text-gray-600" data-key="itinerary2Desc">在悠闲的“天府之国”完成您的医疗项目，随后在青城山或大熊猫基地进行身心疗愈。</p>
+                                <ul class="mt-4 space-y-2 text-sm">
+                                    <li class="flex"><strong class="w-24 shrink-0" data-key="itinerary2DayLabel1">第1-2天:</strong> <span data-key="itinerary2Day1">抵达成都，完成术前检查/体检。</span></li>
+                                    <li class="flex"><strong class="w-24 shrink-0" data-key="itinerary2DayLabel3">第3-5天:</strong> <span data-key="itinerary2Day3">接受治疗/手术并在酒店静养。</span></li>
+                                    <li class="flex"><strong class="w-24 shrink-0" data-key="itinerary2DayLabel6">第6-8天:</strong> <span data-key="itinerary2Day6">参观大熊猫基地，体验茶馆文化。</span></li>
+                                     <li class="flex"><strong class="w-24 shrink-0" data-key="itinerary2DayLabel9">第9-10天:</strong> <span data-key="itinerary2Day9">术后复查，启程回国或前往下一站。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Featured Destinations Section -->
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-center text-gray-700 mb-8" data-key="destinationsTitle">特色目的地</h3>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="flex border-b">
+                            <button class="tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition active" data-tab="beijing" data-key="destBeijing">北京</button>
+                            <button class="tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition" data-tab="chengdu" data-key="destChengdu">成都</button>
+                        </div>
+                        <div class="py-8">
+                            <div class="tab-content" id="beijing-content">
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3" data-key="beijingSightsTitle">经典旅游线路</h4>
+                                        <ul class="space-y-2 list-disc list-inside" data-key="beijingSightsText">
+                                            <li>故宫 & 天安门广场</li>
+                                            <li>长城（慕田峪段）</li>
+                                            <li>颐和园 & 天坛</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3" data-key="beijingFoodTitle">必尝美食</h4>
+                                        <ul class="space-y-2 list-disc list-inside" data-key="beijingFoodText">
+                                            <li>北京烤鸭</li>
+                                            <li>炸酱面</li>
+                                            <li>宫廷菜</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="carousel-container mt-6" id="beijing-carousel">
+                                    <div class="carousel-track">
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="北京故宫">
+                                        </div>
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="北京长城">
+                                        </div>
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1570797197190-8e003a00c846?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="北京天坛">
+                                        </div>
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2076&q=80" alt="北京颐和园">
+                                        </div>
+                                    </div>
+                                    <button class="carousel-nav carousel-prev" data-carousel="beijing" data-direction="prev"><i data-lucide="chevron-left"></i></button>
+                                    <button class="carousel-nav carousel-next" data-carousel="beijing" data-direction="next"><i data-lucide="chevron-right"></i></button>
+                                    <div class="carousel-indicators image-carousel-indicators">
+                                        <button class="carousel-indicator active" data-carousel="beijing" data-slide="0"></button>
+                                        <button class="carousel-indicator" data-carousel="beijing" data-slide="1"></button>
+                                        <button class="carousel-indicator" data-carousel="beijing" data-slide="2"></button>
+                                        <button class="carousel-indicator" data-carousel="beijing" data-slide="3"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content hidden" id="chengdu-content">
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3" data-key="chengduSightsTitle">经典旅游线路</h4>
+                                        <ul class="space-y-2 list-disc list-inside" data-key="chengduSightsText">
+                                            <li>成都大熊猫繁育研究基地</li>
+                                            <li>锦里古街 & 武侯祠</li>
+                                            <li>人民公园 & 宽窄巷子</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3" data-key="chengduFoodTitle">必尝美食</h4>
+                                        <ul class="space-y-2 list-disc list-inside" data-key="chengduFoodText">
+                                            <li>四川火锅</li>
+                                            <li>麻婆豆腐</li>
+                                            <li>宫保鸡丁</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="carousel-container mt-6" id="chengdu-carousel">
+                                    <div class="carousel-track">
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="成都大熊猫">
+                                        </div>
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1614357395841-0a3e233e517d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="成都城市景观">
+                                        </div>
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1548919973-5cef591cdbc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="成都宽窄巷子">
+                                        </div>
+                                        <div class="carousel-slide" style="height: 16rem;">
+                                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="成都夜景">
+                                        </div>
+                                    </div>
+                                    <button class="carousel-nav carousel-prev" data-carousel="chengdu" data-direction="prev"><i data-lucide="chevron-left"></i></button>
+                                    <button class="carousel-nav carousel-next" data-carousel="chengdu" data-direction="next"><i data-lucide="chevron-right"></i></button>
+                                    <div class="carousel-indicators image-carousel-indicators">
+                                        <button class="carousel-indicator active" data-carousel="chengdu" data-slide="0"></button>
+                                        <button class="carousel-indicator" data-carousel="chengdu" data-slide="1"></button>
+                                        <button class="carousel-indicator" data-carousel="chengdu" data-slide="2"></button>
+                                        <button class="carousel-indicator" data-carousel="chengdu" data-slide="3"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cultural Experience Section -->
+        <section id="culture" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="cultureTitle">Deep Cultural Experience</h2>
+                    <p class="section-subtitle" data-key="cultureSubtitle">Immerse yourself in China's rich cultural heritage while receiving world-class medical care.</p>
+                </div>
+                <div class="mt-16">
+                    <div class="text-center">
+                        <p class="text-lg text-gray-600" data-key="culturePlaceholder">Content coming soon...</p>
+                        <p class="text-sm text-gray-500 mt-4" data-key="cultureNote">We are preparing exciting cultural experiences for you. Stay tuned!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-blue-50">
+            <div class="container mx-auto px-6">
+                <div class="lg:flex justify-between items-center">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800" data-key="contactTitle">准备好开始您的旅程了吗？</h2>
+                        <p class="mt-4 text-lg text-gray-600" data-key="contactSubtitle">请填写表格或直接通过WhatsApp/邮件联系我们。我们的健康顾问将在24小时内回复，为您提供免费咨询和个性化报价。</p>
+                        <div class="mt-8 space-y-4">
+                            <p class="flex items-center text-lg">
+                                <i data-lucide="mail" class="w-6 h-6 text-blue-600 mr-3"></i>
+                                info@chinamedicaltour.org
+                            </p>
+                            <p class="flex items-center text-lg">
+                                <i data-lucide="message-circle" class="w-6 h-6 text-blue-600 mr-3"></i>
+                                WhatsApp: +86 199 1038 5444
+                            </p>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div class="bg-white p-8 rounded-xl shadow-lg">
+                            <form>
+                                <div class="mb-4">
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="formName">您的姓名</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="formEmail">电子邮箱</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="package" class="block text-sm font-medium text-gray-700 mb-1" data-key="formPackage">感兴趣的服务</label>
+                                    <select id="package" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        <option data-key="formPackageOption0">请选择一项服务...</option>
+                                        <option data-key="formPackageOption1">精英体检套餐</option>
+                                        <option data-key="formPackageOption2">铂金体检套餐</option>
+                                        <option data-key="formPackageOption3">VIP体检套餐</option>
+                                        <option data-key="formPackageOption5">眼科</option>
+                                        <option data-key="formPackageOption6">牙科</option>
+                                        <option data-key="formPackageOption8">中医治疗</option>
+                                        <option data-key="formPackageOption9">定制医疗项目</option>
+                                        <option data-key="formPackageOption7">干细胞治疗</option>
+                                        <option data-key="formPackageOption4">需要定制</option>
+                                    </select>
+                                </div>
+                                <div class="mb-6">
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="formMessage">您的疑问 (可选)</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" data-key="formSubmit">发送咨询，获取免费报价</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <h4 class="font-semibold mb-3" data-key="footerFollow">关注我们</h4>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Twitter">
+                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="TikTok">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14.02 1.54-.01 3.08-.01 4.63-.03 1.43-.53 2.82-1.34 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14z"></path></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Xiaohongshu">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 1024 1024"><path d="M925.3 336.4c-5-19.4-21.1-32.9-40.8-32.9H698.9V215c0-43.2-35-78.2-78.2-78.2H403.3c-43.2 0-78.2 35-78.2 78.2v88.5H139.5c-19.7 0-35.8 13.5-40.8 32.9L32 559.3c-4.3 16.7 3.9 33.9 18.6 42l319.5 174.4c18.3 10 40.6 6.3 54.6-8.5l2.6-2.9 3.2 3.1c14.6 14.2 37.3 17.5 55.1 7.6l319.5-174.4c14.8-8.1 22.9-25.3 18.6-42l-67.1-222.9z m-465.1-51.7h191.6v-69.7c0-10.1 8.2-18.3 18.3-18.3h0.1c10.1 0 18.3 8.2 18.3 18.3v69.7h8.2V215c0-26.6-21.6-48.2-48.2-48.2H403.3c-26.6 0-48.2 21.6-48.2 48.2v69.7h8.1z m-47.5 240.2L159.9 333.7h153.2l123.8 214.5-120.3-65.7z m186.2-111.4l-68.9-119.3h137.7l-68.8 119.3z m162.2 177.1l-117.2-64 121.7-210.8h153.2l-157.7 274.8z"></path></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="YouTube">
+                        <svg class="w-7 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.194 12 10 14.732V9.268L15.194 12Z" clip-rule="evenodd"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <p class="mt-8" data-key="footerCopyright">&copy; 2025 China Medical Tour. 版权所有。</p>
+            <p class="text-sm text-gray-400 mt-2" data-key="footerDisclaimer">免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。</p>
+        </div>
+    </footer>
+
+    <!-- Modals for Package Details -->
+    <!-- Elite Package Modal -->
+    <div id="elite-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="eliteModalTitle">精英体检套餐 - 详细项目</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalGeneral">一般检查</h4>
+                    <ul data-key="eliteModalGeneralItems">
+                        <li>身高、体重、血压、体重指数(BMI)</li>
+                        <li>内科、外科、眼科、耳鼻喉科检查</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalLab">实验室检查</h4>
+                    <ul data-key="eliteModalLabItems">
+                        <li>血常规、尿常规</li>
+                        <li>肝功能 (ALT, AST)</li>
+                        <li>肾功能 (BUN, Cr)</li>
+                        <li>血脂四项 (TC, TG, HDL, LDL)</li>
+                        <li>空腹血糖 (GLU)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalInstrument">仪器检查</h4>
+                    <ul data-key="eliteModalInstrumentItems">
+                        <li>静态心电图 (ECG)</li>
+                        <li>腹部超声 (肝、胆、胰、脾、双肾)</li>
+                        <li>胸部正位片</li>
+                    </ul>
+                </div>
+            </div>
+            <i data-lucide="x" class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
+        </div>
+    </div>
+    <!-- Platinum Package Modal -->
+    <div id="platinum-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="platinumModalTitle">铂金深度套餐 - 详细项目</h3>
+            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有精英套餐项目，并额外增加：</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepLab">深度实验室检查</h4>
+                    <ul data-key="platinumModalDeepLabItems">
+                        <li>全套肝功能</li>
+                        <li>全套肾功能</li>
+                        <li>甲状腺功能三项 (T3, T4, TSH)</li>
+                        <li>风湿三项 (RF, ASO, CRP)</li>
+                        <li>同型半胱氨酸 (Hcy)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalTumor">肿瘤标志物筛查</h4>
+                    <ul data-key="platinumModalTumorItems">
+                        <li>癌胚抗原 (CEA) - (广谱)</li>
+                        <li>甲胎蛋白 (AFP) - (肝癌)</li>
+                        <li>癌抗原 19-9 (CA19-9) - (消化道)</li>
+                        <li>癌抗原 125 (CA125) - (女性) / 前列腺特异性抗原 (PSA) - (男性)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepImaging">深度影像学检查</h4>
+                    <ul data-key="platinumModalDeepImagingItems">
+                        <li>颈动脉彩超</li>
+                        <li>甲状腺彩超</li>
+                        <li>泌尿系统超声 (双肾、输尿管、膀胱)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalSpecial">专项检查</h4>
+                    <ul data-key="platinumModalSpecialItems">
+                        <li>碳13或碳14呼气试验 (检测幽门螺旋杆菌)</li>
+                        <li>骨密度检测</li>
+                    </ul>
+                </div>
+            </div>
+            <i data-lucide="x" class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
+        </div>
+    </div>
+    <!-- VIP Package Modal -->
+    <div id="vip-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="vipModalTitle">VIP全面套餐 - 详细项目</h3>
+            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有铂金套餐项目，并额外增加：</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalAdvancedImaging">高端影像学筛查</h4>
+                    <ul data-key="vipModalAdvancedImagingItems">
+                        <li>头部核磁共振 (MRI) (排除脑血管疾病及肿瘤)</li>
+                        <li>肺部低剂量螺旋CT (筛查早期肺癌)</li>
+                        <li>冠状动脉钙化积分 (评估冠心病风险)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDigestive">消化道内镜检查</h4>
+                    <ul data-key="vipModalDigestiveItems">
+                        <li>无痛胃镜</li>
+                        <li>无痛肠镜</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalCardio">心血管评估</h4>
+                    <ul data-key="vipModalCardioItems">
+                        <li>心脏彩超</li>
+                        <li>24小时动态心电图 (如需要)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalFullLab">更全面的实验室检查</h4>
+                    <ul data-key="vipModalFullLabItems">
+                        <li>全套肿瘤标志物组合</li>
+                        <li>内分泌激素水平检测</li>
+                    </ul>
+                </div>
+            </div>
+            <i data-lucide="x" class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
+        </div>
+    </div>
+
+    <script>
+        // --- TRANSLATION DATA & CHART RENDERING ---
+        let chartInstances = {};
+        const translations = {
+            en: {
+                navAbout: "About Us",
+                navServices: "Services",
+                navTravel: "Travel Services",
+                navCulture: "Cultural Experience",
+                getQuote: "Get a Quote",
+                heroTitle: "World-Class Medical Care, Combined with an Unforgettable China Tour",
+                heroSubtitle: "Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.",
+                viewServices: "Explore Our Services",
+                aboutTitle: "Why Choose China? Three Irresistible Reasons",
+                aboutSubtitle: "We reveal why a health screening in China is not just a smart choice, but the best investment in your health and time.",
+                about1Title: "1. Incredible Value: Get 10x More for Your Health Investment",
+                about1Subtitle: "Imagine getting a comprehensive screening with advanced imaging in China for the cost of a single specialist consultation in the US. This isn't a fantasy; it's the value leap we offer.",
+                about2Title: "2. Revolutionary Efficiency: We Save You Weeks, in Just a Few Hours",
+                about2Subtitle: "A full check-up process can take a month in your home country. In China, we condense it into a single morning of your trip.",
+                about3Title: "3. Comprehensive Assurance: We Don't Just Choose, We Safeguard",
+                about3Subtitle: "Your health is non-negotiable. That's why we've built a threefold assurance system of expertise, service, and cultural experience.",
+                about3Card1Title: "Vetted Hospital Network",
+                about3Card1Text: "We partner exclusively with JCI-accredited hospitals, ensuring you receive world-class quality and safety. We've done the critical vetting work for you.",
+                about3Card2Title: "Seamless Follow-Up Care",
+                about3Card2Text: "The check-up isn't the end. If an issue is found, we guarantee immediate access to China's top specialists for consultation and treatment, giving you complete peace of mind.",
+                about3Card3Title: "Perfect Fusion of Health & Travel",
+                about3Card3Text: "With the significant time saved, we curate unique cultural tours for you, transforming your health trip into an unforgettable life experience.",
+
+                storiesTitle: "Hear Their Stories",
+                storiesSubtitle: "See how people from around the world have experienced medical care in China through these inspiring stories.",
+                video1Title: "A British Family's Real Experience",
+                video2Title: "Another Perspective: A Russian Family's Experience",
+                video3Title: "A Client's Journey with Traditional Chinese Medicine",
+                video4Title: "An American Couple's Medical Journey in China",
+                video5Title: "Convenient & Efficient: A Foreigner's Healthcare Experience",
+
+                servicesTitle: "Comprehensive Medical Services",
+                servicesSubtitle: "From preventative screening to specialized treatments, we offer a full spectrum of world-class medical care.",
+                screeningTitle: "Health Screening Packages",
+                eliteTitle: "Elite Package",
+                eliteSavings: "Save 70-80% vs. US/EU",
+                eliteFeature1: "General + Physical Exam",
+                eliteFeature2: "Lab Tests (Blood/Urine)",
+                eliteFeature3: "Organ Ultrasound",
+                eliteFeature4: "ECG & Chest X-Ray",
+                viewDetails: "View Details",
+                selectPackage: "Select Package",
+                mostPopular: "Most Popular",
+                platinumTitle: "Platinum Package",
+                platinumSavings: "Save 70-80% vs. US/EU",
+                platinumFeature1: "All Elite items +",
+                platinumFeature2: "Multiple Tumor Markers",
+                platinumFeature3: "Carotid & Thyroid Ultrasound",
+                platinumFeature4: "C13/14 Breath Test (H.P.)",
+                vipTitle: "VIP Package",
+                vipSavings: "Save 75-85% vs. US/EU",
+                vipFeature1: "All Platinum items +",
+                vipFeature2: "Head MRI Scan",
+                vipFeature3: "Low-Dose CT (Lungs)",
+                vipFeature4: "Painless Gastroscopy & Colonoscopy",
+                priceDisclaimer: "Actual costs may be affected by exchange rates and supplier price adjustments. The above prices are for reference only.",
+                additionalServicesTitle: "Additional Specialized Services",
+                serviceEyeTitle: "Ophthalmology",
+                serviceEyeText: "Access advanced eye care, including LASIK surgery, cataract removal, and glaucoma treatment, using the latest laser technologies.",
+                serviceDentalTitle: "Dentistry",
+                serviceDentalText: "Comprehensive dental services from routine cleanings and whitening to complex procedures like implants, veneers, and orthodontics.",
+                serviceTCMTitle: "Traditional Chinese Medicine",
+                serviceTCMText: "Experience authentic TCM treatments including acupuncture, herbal medicine, cupping therapy, and traditional massage for holistic healing and wellness.",
+                serviceTailorMadeTitle: "Tailor-Made Programs",
+                serviceTailorMadeText: "Customized medical programs and treatments designed specifically for your unique health needs, combining multiple specialties and personalized care plans.",
+                serviceStemCellTitle: "Stem Cell Therapy",
+                serviceStemCellText: "Explore regenerative medicine with advanced stem cell therapies for anti-aging, joint repair, and various chronic conditions (subject to consultation).",
+                travelTitle: "Hassle-Free Travel & Unforgettable Journeys",
+                travelSubtitle: "From visas to itineraries, we plan everything so you can focus on your health and exploration.",
+                visaTitle: "Easy Entry: Understanding the Latest Visa Policies",
+                visaType1Title: "15/30-Day Visa-Free Entry",
+                visaType1Desc: "Ideal for short-term procedures like health check-ups, dental work, or consultations. Available to citizens of France, Germany, Spain, Australia, New Zealand, Thailand, Singapore, and more.",
+                visaType2Title: "10-Day Transit Visa-Free",
+                visaType2Desc: "A strategic option for citizens from 54 countries including the US, UK, and Canada. Perfect for combining minor surgery with a multi-destination Asia trip, as it requires travel to a third country/region.",
+                visaType3Title: "Medical Visa",
+                visaType3Desc: "Required for complex, long-term treatments like oncology or major surgery. We provide the official hospital invitation letter to facilitate your application.",
+                itineraryTitle: "Sample Itineraries: The Perfect Blend of Health & Culture",
+                itinerary1Title: "7-Day Beijing Executive Health Journey",
+                itinerary1Desc: "Combine a world-class health screening with the cultural exploration of an ancient capital, experiencing ultimate efficiency and in-depth travel.",
+                itinerary2Title: "10-Day Chengdu Wellness & Recovery Tour",
+                itinerary2Desc: "Complete your medical procedure in the 'Land of Abundance,' then rejuvenate your body and soul at the Panda Base or a serene tea house.",
+                itinerary1DayLabel1: "Day 1:",
+                itinerary1Day1: "Arrive in Beijing, private transfer to hotel.",
+                itinerary1DayLabel2: "Day 2:",
+                itinerary1Day2: "VIP check-up in the morning, receive report & consultation in the afternoon.",
+                itinerary1DayLabel3: "Day 3-5:",
+                itinerary1Day3: "Cultural tour (Great Wall, Forbidden City).",
+                itinerary1DayLabel6: "Day 6:",
+                itinerary1Day6: "TCM wellness experience or free day.",
+                itinerary1DayLabel7: "Day 7:",
+                itinerary1Day7: "Depart from Beijing.",
+                itinerary2DayLabel1: "Days 1-2:",
+                itinerary2Day1: "Arrive in Chengdu, pre-op checks/check-up.",
+                itinerary2DayLabel3: "Days 3-5:",
+                itinerary2Day3: "Procedure/Surgery and hotel rest.",
+                itinerary2DayLabel6: "Days 6-8:",
+                itinerary2Day6: "Visit Panda Base, experience local tea culture.",
+                itinerary2DayLabel9: "Days 9-10:",
+                itinerary2Day9: "Post-op check, depart or travel to next destination.",
+                destinationsTitle: "Featured Destinations",
+                destBeijing: "Beijing",
+                destChengdu: "Chengdu",
+                beijingSightsTitle: "Classic Tourist Routes",
+                beijingSightsText: "<li>The Forbidden City & Tiananmen Square</li><li>The Great Wall (Mutianyu Section)</li><li>The Summer Palace & Temple of Heaven</li>",
+                beijingFoodTitle: "Must-Try Cuisine",
+                beijingFoodText: "<li>Peking Roast Duck</li><li>Zhajiangmian (Noodles with Soybean Paste)</li><li>Imperial Court Cuisine</li>",
+                chengduSightsTitle: "Classic Tourist Routes",
+                chengduSightsText: "<li>Chengdu Research Base of Giant Panda Breeding</li><li>Jinli Ancient Street & Wuhou Shrine</li><li>People's Park & Kuanzhai Alleys</li>",
+                chengduFoodTitle: "Must-Try Cuisine",
+                chengduFoodText: "<li>Sichuan Hotpot</li><li>Mapo Tofu</li><li>Kung Pao Chicken</li>",
+                cultureTitle: "Deep Cultural Experience",
+                cultureSubtitle: "Immerse yourself in China's rich cultural heritage while receiving world-class medical care.",
+                culturePlaceholder: "Content coming soon...",
+                cultureNote: "We are preparing exciting cultural experiences for you. Stay tuned!",
+                contactTitle: "Ready to Start Your Journey?",
+                contactSubtitle: "Fill out the form or contact us directly via WhatsApp/email. Our health consultants will reply within 24 hours with a free consultation and a personalized quote.",
+                formName: "Your Name",
+                formEmail: "Email Address",
+                formPackage: "Service of Interest",
+                formMessage: "Your Questions (Optional)",
+                formSubmit: "Send Inquiry & Get Free Quote",
+                formNamePlaceholder: "John Doe",
+                formEmailPlaceholder: "you@example.com",
+                formMessagePlaceholder: "e.g., I'd like more information about cardiac screening...",
+                formPackageOption0: "Please select a service...",
+                formPackageOption1: "Elite Health Package",
+                formPackageOption2: "Platinum Health Package",
+                formPackageOption3: "VIP Health Package",
+                formPackageOption5: "Ophthalmology",
+                formPackageOption6: "Dentistry",
+                formPackageOption8: "Traditional Chinese Medicine",
+                formPackageOption9: "Tailor-Made Medical Programs",
+                formPackageOption7: "Stem Cell Therapy",
+                formPackageOption4: "Need Customization",
+                footerFollow: "Follow Us",
+                footerCopyright: "© 2025 China Medical Tour. All Rights Reserved.",
+                footerDisclaimer: "Disclaimer: The information on this website is for reference only and cannot replace professional medical advice.",
+                 // Chart Data
+                costChart: {
+                    title: "What $1,000 Buys You: US vs. China",
+                    usLabel: 'USA',
+                    chinaLabel: 'China (Our Service)',
+                    baseServices: 'Base Services (Consultation, Basic Labs)',
+                    advancedServices: 'Advanced Services (MRI, CT, Endoscopy)'
+                },
+                efficiencyChart: {
+                    title: 'Total Time for Full Check-up Process (Days)',
+                    appointment: 'Appointment Wait',
+                    checkup: 'Check-up Day(s)',
+                    results: 'Waiting for Results',
+                    usLabel: 'Typical Western Process',
+                    chinaLabel: 'Our China Model',
+                    xAxisTitle: 'Days'
+                },
+                // Modal translations
+                eliteModalTitle: "Elite Health Package - Detailed Items",
+                platinumModalTitle: "Platinum Package - Detailed Items",
+                vipModalTitle: "VIP Package - Detailed Items",
+                modalSubtitle: "Includes all previous package items, plus:",
+                modalGeneral: "General Examination",
+                modalLab: "Laboratory Tests",
+                modalInstrument: "Instrumental Examination",
+                modalDeepLab: "Advanced Laboratory Tests",
+                modalTumor: "Tumor Marker Screening",
+                modalDeepImaging: "Advanced Imaging",
+                modalSpecial: "Special Tests",
+                modalAdvancedImaging: "High-end Imaging Screening",
+                modalDigestive: "Digestive Endoscopy",
+                modalCardio: "Cardiovascular Assessment",
+                modalFullLab: "Comprehensive Laboratory Tests",
+                eliteModalGeneralItems: "<li>Height, weight, blood pressure, BMI</li><li>Internal medicine, surgery, ophthalmology, ENT examination</li>",
+                eliteModalLabItems: "<li>Complete blood count, urinalysis</li><li>Liver function (ALT, AST)</li><li>Kidney function (BUN, Cr)</li><li>Lipid profile (TC, TG, HDL, LDL)</li><li>Fasting glucose (GLU)</li>",
+                eliteModalInstrumentItems: "<li>Static ECG</li><li>Abdominal ultrasound (liver, gallbladder, pancreas, spleen, kidneys)</li><li>Chest X-ray</li>",
+                platinumModalDeepLabItems: "<li>Complete liver function panel</li><li>Complete kidney function panel</li><li>Thyroid function (T3, T4, TSH)</li><li>Rheumatoid factors (RF, ASO, CRP)</li><li>Homocysteine (Hcy)</li>",
+                platinumModalTumorItems: "<li>CEA (broad spectrum)</li><li>AFP (liver cancer)</li><li>CA19-9 (digestive tract)</li><li>CA125 (female) / PSA (male)</li>",
+                platinumModalDeepImagingItems: "<li>Carotid ultrasound</li><li>Thyroid ultrasound</li><li>Urinary system ultrasound</li>",
+                platinumModalSpecialItems: "<li>C13/C14 breath test (H. pylori)</li><li>Bone density test</li>",
+                vipModalAdvancedImagingItems: "<li>Head MRI (brain vascular disease & tumor screening)</li><li>Low-dose lung CT (early lung cancer screening)</li><li>Coronary calcium scoring (coronary heart disease risk)</li>",
+                vipModalDigestiveItems: "<li>Painless gastroscopy</li><li>Painless colonoscopy</li>",
+                vipModalCardioItems: "<li>Cardiac ultrasound</li><li>24-hour Holter monitor (if needed)</li>",
+                vipModalFullLabItems: "<li>Complete tumor marker panel</li><li>Endocrine hormone level testing</li>"
+            },
+            zh: {
+                navAbout: "关于我们",
+                navServices: "医疗服务",
+                navTravel: "旅游服务",
+                navCulture: "深度文化体验",
+                getQuote: "获取报价",
+                heroTitle: "世界级医疗服务，结合难忘的中国之旅",
+                heroSubtitle: "以远低于您本国的价格，获得顶级的医疗服务。省下的钱，足以支付您的全部旅费。",
+                viewServices: "探索我们的服务",
+                aboutTitle: "为什么选择中国？三大无法抗拒的理由",
+                aboutSubtitle: "我们为您揭示，为何来华进行健康筛查不仅是明智之选，更是对您健康和时间的最佳投资。",
+                about1Title: "1. 惊人的性价比：您的健康投资，价值提升不止十倍",
+                about1Subtitle: "想象一下，用在美国仅够支付一次专家问诊的费用，在中国享受一套包含高级影像学检查的全面体检。这不是天方夜谭，而是我们为您实现的价值飞跃。",
+                about2Title: "2. 革命性的效率：我们用数小时，为您节省数周的宝贵时间",
+                about2Subtitle: "在您的国家，一次完整的体检流程可能耗时一个月。在中国，我们将其浓缩在您旅途中的一个上午。",
+                about3Title: "3. 全方位的可靠保障：我们为您精选，更为您护航",
+                about3Subtitle: "您的健康不容有失。我们深知这一点，因此我们为您建立了一个由专业、服务和文化体验构成的三重保障体系。",
+                about3Card1Title: "严格筛选的医院网络",
+                about3Card1Text: "我们只与JCI认证的顶级医院合作，确保您获得世界级的医疗质量与安全标准。我们了解中国的医疗体系，已为您完成最关键的筛选工作。",
+                about3Card2Title: "无缝衔接的后续治疗",
+                about3Card2Text: "体检不是终点。一旦发现问题，我们承诺立即为您安排中国顶尖的专家进行会诊和后续治疗，免去您的后顾之忧。",
+                about3Card3Title: "健康与旅行的完美融合",
+                about3Card3Text: "利用体检节省下来的大量时间，我们会为您量身定制独一无二的中国文化之旅，让您的健康之行同时成为一次难忘的人生体验。",
+
+                storiesTitle: "听听他们的故事：真实的体验经历",
+                storiesSubtitle: "通过这些鼓舞人心的故事，了解来自世界各地的人们在中国的医疗体验。",
+                video1Title: "一个英国家庭的真实经历",
+                video2Title: "另一个视角：一个俄罗斯家庭的体验",
+                video3Title: "一位客户的中医治疗之旅",
+                video4Title: "美国夫妇的中国求医故事",
+                video5Title: "外国人在中国看病：便捷高效",
+
+                servicesTitle: "全面的医疗服务",
+                servicesSubtitle: "从预防性筛查到专项治疗，我们提供全方位的世界级医疗服务。",
+                screeningTitle: "健康体检套餐",
+                eliteTitle: "精英体检套餐",
+                eliteSavings: "相比欧美可节省 70-80%",
+                eliteFeature1: "一般检查 + 内外科",
+                eliteFeature2: "实验室检查 (血/尿常规)",
+                eliteFeature3: "主要脏器B超",
+                eliteFeature4: "心电图 & 胸部摄片",
+                viewDetails: "查看详情",
+                selectPackage: "选择此套餐",
+                mostPopular: "最受欢迎",
+                platinumTitle: "铂金深度套餐",
+                platinumSavings: "相比欧美可节省 70-80%",
+                platinumFeature1: "包含所有精英套餐项目",
+                platinumFeature2: "多项肿瘤标志物筛查",
+                platinumFeature3: "颈动脉 & 甲状腺彩超",
+                platinumFeature4: "碳13/14呼气试验 (HP)",
+                vipTitle: "VIP全面套餐",
+                vipSavings: "相比欧美可节省 75-85%",
+                vipFeature1: "包含所有铂金套餐项目",
+                vipFeature2: "头部核磁共振 (MRI)",
+                vipFeature3: "低剂量螺旋CT (肺部)",
+                vipFeature4: "无痛胃肠镜检查",
+                priceDisclaimer: "具体费用可能受汇率以及相关供应商价格调整的影响，以上价格仅供参考",
+                additionalServicesTitle: "其他专项服务",
+                serviceEyeTitle: "眼科",
+                serviceEyeText: "提供先进的眼科护理，包括LASIK手术、白内障摘除和青光眼治疗，均采用最新的激光技术。",
+                serviceDentalTitle: "牙科",
+                serviceDentalText: "全面的牙科服务，从常规洗牙、美白到种植牙、贴面和正畸等复杂项目。",
+                serviceTCMTitle: "中医治疗",
+                serviceTCMText: "体验正宗的中医疗法，包括针灸、中药、拔罐和传统按摩，为您提供整体性的康复和养生服务。",
+                serviceTailorMadeTitle: "定制医疗项目",
+                serviceTailorMadeText: "根据您的独特健康需求量身定制的医疗项目和治疗方案，结合多个专科领域，提供个性化的护理计划。",
+                serviceStemCellTitle: "干细胞治疗",
+                serviceStemCellText: "探索再生医学，我们提供先进的干细胞疗法，用于抗衰老、关节修复和多种慢性病治疗（需经专业咨询评估）。",
+                travelTitle: "无忧旅行 & 难忘旅程",
+                travelSubtitle: "从签证到行程，我们为您规划一切，让您专注于健康与探索。",
+                visaTitle: "轻松入境：为您解读最新签证政策",
+                visaType1Title: "15/30天免签入境",
+                visaType1Desc: "适用于健康体检、牙科、医美咨询等短期项目。覆盖法国、德国、西班牙、澳大利亚、新西兰、泰国、新加坡等国。",
+                visaType2Title: "10天过境免签",
+                visaType2Desc: "适用于美国、加拿大、英国等54国公民。是结合小型手术与亚洲多地旅行的战略性选择，行程需包含第三国/地区。",
+                visaType3Title: "医疗签证",
+                visaType3Desc: "适用于肿瘤治疗、大型手术、长期康复等复杂疗程。我们将为您提供医院邀请函，协助您完成申请。",
+                itineraryTitle: "行程范例：健康与文化的完美融合",
+                itinerary1Title: "7日“北京高管健康之旅”",
+                itinerary1Desc: "将世界顶级的健康筛查与千年古都的文化探索相结合，体验极致效率与深度旅行的魅力。",
+                itinerary2Title: "10日“成都康养疗愈之旅”",
+                itinerary2Desc: "在悠闲的“天府之国”完成您的医疗项目，随后在青城山或大熊猫基地进行身心疗愈。",
+                itinerary1DayLabel1: "第1天:",
+                itinerary1Day1: "抵达北京，专车接机入住。",
+                itinerary1DayLabel2: "第2天:",
+                itinerary1Day2: "上午VIP体检，下午获取报告并会诊。",
+                itinerary1DayLabel3: "第3-5天:",
+                itinerary1Day3: "文化观光 (长城, 故宫)。",
+                itinerary1DayLabel6: "第6天:",
+                itinerary1Day6: "中医理疗体验或自由活动。",
+                itinerary1DayLabel7: "第7天:",
+                itinerary1Day7: "启程回国。",
+                itinerary2DayLabel1: "第1-2天:",
+                itinerary2Day1: "抵达成都，完成术前检查/体检。",
+                itinerary2DayLabel3: "第3-5天:",
+                itinerary2Day3: "接受治疗/手术并在酒店静养。",
+                itinerary2DayLabel6: "第6-8天:",
+                itinerary2Day6: "参观大熊猫基地，体验茶馆文化。",
+                itinerary2DayLabel9: "第9-10天:",
+                itinerary2Day9: "术后复查，启程回国或前往下一站。",
+                destinationsTitle: "特色目的地",
+                destBeijing: "北京",
+                destChengdu: "成都",
+                beijingSightsTitle: "经典旅游线路",
+                beijingSightsText: "<li>故宫 & 天安门广场</li><li>长城（慕田峪段）</li><li>颐和园 & 天坛</li>",
+                beijingFoodTitle: "必尝美食",
+                beijingFoodText: "<li>北京烤鸭</li><li>炸酱面</li><li>宫廷菜</li>",
+                chengduSightsTitle: "经典旅游线路",
+                chengduSightsText: "<li>成都大熊猫繁育研究基地</li><li>锦里古街 & 武侯祠</li><li>人民公园 & 宽窄巷子</li>",
+                chengduFoodTitle: "必尝美食",
+                chengduFoodText: "<li>四川火锅</li><li>麻婆豆腐</li><li>宫保鸡丁</li>",
+                cultureTitle: "深度文化体验",
+                cultureSubtitle: "在接受世界级医疗服务的同时，深度体验中国丰富的文化遗产。",
+                culturePlaceholder: "内容即将推出...",
+                cultureNote: "我们正在为您准备精彩的文化体验项目，敬请期待！",
+                contactTitle: "准备好开始您的旅程了吗？",
+                contactSubtitle: "请填写表格或直接通过WhatsApp/邮件联系我们。我们的健康顾问将在24小时内回复，为您提供免费咨询和个性化报价。",
+                formName: "您的姓名",
+                formEmail: "电子邮箱",
+                formPackage: "感兴趣的服务",
+                formMessage: "您的疑问 (可选)",
+                formSubmit: "发送咨询，获取免费报价",
+                formNamePlaceholder: "张三",
+                formEmailPlaceholder: "您@邮箱.com",
+                formMessagePlaceholder: "例如：我想了解关于心脏检查的更多信息...",
+                formPackageOption0: "请选择一项服务...",
+                formPackageOption1: "精英体检套餐",
+                formPackageOption2: "铂金体检套餐",
+                formPackageOption3: "VIP体检套餐",
+                formPackageOption5: "眼科",
+                formPackageOption6: "牙科",
+                formPackageOption8: "中医治疗",
+                formPackageOption9: "定制医疗项目",
+                formPackageOption7: "干细胞治疗",
+                formPackageOption4: "需要定制",
+                footerFollow: "关注我们",
+                footerCopyright: "© 2025 China Medical Tour. 版权所有。",
+                footerDisclaimer: "免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。",
+                // Chart Data
+                costChart: {
+                    title: "$1000美元购买力对比：美国 vs. 中国",
+                    usLabel: '美国',
+                    chinaLabel: '中国 (我们的服务)',
+                    baseServices: '基础服务 (问诊, 基础化验)',
+                    advancedServices: '高级服务 (MRI, CT, 内窥镜)'
+                },
+                efficiencyChart: {
+                    title: '完整体检流程总耗时（天）',
+                    appointment: '预约等待',
+                    checkup: '体检当天',
+                    results: '报告等待',
+                    usLabel: '典型西方流程',
+                    chinaLabel: '我们的中国模式',
+                    xAxisTitle: '天数'
+                },
+                // Modal translations
+                eliteModalTitle: "精英体检套餐 - 详细项目",
+                platinumModalTitle: "铂金深度套餐 - 详细项目",
+                vipModalTitle: "VIP全面套餐 - 详细项目",
+                modalSubtitle: "包含所有精英套餐项目，并额外增加：",
+                modalGeneral: "一般检查",
+                modalLab: "实验室检查",
+                modalInstrument: "仪器检查",
+                modalDeepLab: "深度实验室检查",
+                modalTumor: "肿瘤标志物筛查",
+                modalDeepImaging: "深度影像学检查",
+                modalSpecial: "专项检查",
+                modalAdvancedImaging: "高端影像学筛查",
+                modalDigestive: "消化道内镜检查",
+                modalCardio: "心血管评估",
+                modalFullLab: "更全面的实验室检查",
+                eliteModalGeneralItems: "<li>身高、体重、血压、体重指数(BMI)</li><li>内科、外科、眼科、耳鼻喉科检查</li>",
+                eliteModalLabItems: "<li>血常规、尿常规</li><li>肝功能 (ALT, AST)</li><li>肾功能 (BUN, Cr)</li><li>血脂四项 (TC, TG, HDL, LDL)</li><li>空腹血糖 (GLU)</li>",
+                eliteModalInstrumentItems: "<li>静态心电图 (ECG)</li><li>腹部超声 (肝、胆、胰、脾、双肾)</li><li>胸部正位片</li>",
+                platinumModalDeepLabItems: "<li>全套肝功能</li><li>全套肾功能</li><li>甲状腺功能三项 (T3, T4, TSH)</li><li>风湿三项 (RF, ASO, CRP)</li><li>同型半胱氨酸 (Hcy)</li>",
+                platinumModalTumorItems: "<li>癌胚抗原 (CEA) - (广谱)</li><li>甲胎蛋白 (AFP) - (肝癌)</li><li>癌抗原 19-9 (CA19-9) - (消化道)</li><li>癌抗原 125 (CA125) - (女性) / 前列腺特异性抗原 (PSA) - (男性)</li>",
+                platinumModalDeepImagingItems: "<li>颈动脉彩超</li><li>甲状腺彩超</li><li>泌尿系统超声 (双肾、输尿管、膀胱)</li>",
+                platinumModalSpecialItems: "<li>碳13或碳14呼气试验 (检测幽门螺旋杆菌)</li><li>骨密度检测</li>",
+                vipModalAdvancedImagingItems: "<li>头部核磁共振 (MRI) (排除脑血管疾病及肿瘤)</li><li>肺部低剂量螺旋CT (筛查早期肺癌)</li><li>冠状动脉钙化积分 (评估冠心病风险)</li>",
+                vipModalDigestiveItems: "<li>无痛胃镜</li><li>无痛肠镜</li>",
+                vipModalCardioItems: "<li>心脏彩超</li><li>24小时动态心电图 (如需要)</li>",
+                vipModalFullLabItems: "<li>全套肿瘤标志物组合</li><li>内分泌激素水平检测</li>"
+            }
+        };
+
+        let currentLang = 'en'; // Default to English
+
+        function renderCharts(lang) {
+            // Check if Chart.js is available
+            if (typeof Chart === 'undefined') {
+                console.warn('Chart.js is not loaded yet. Charts will not be rendered.');
+                return;
+            }
+
+            const chartData = translations[lang];
+
+            // Destroy existing charts if they exist
+            if (chartInstances.costChart) chartInstances.costChart.destroy();
+            if (chartInstances.efficiencyChart) chartInstances.efficiencyChart.destroy();
+
+            // Cost Chart - Stacked Bar
+            const costCtx = document.getElementById('costChart');
+            if (!costCtx) {
+                console.warn('Cost chart canvas not found');
+                return;
+            }
+
+            try {
+                chartInstances.costChart = new Chart(costCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: [chartData.costChart.usLabel, chartData.costChart.chinaLabel],
+                    datasets: [{
+                        label: chartData.costChart.baseServices,
+                        data: [1, 1],
+                        backgroundColor: 'rgba(239, 68, 68, 0.6)', // Red
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: chartData.costChart.advancedServices,
+                        data: [0, 1],
+                        backgroundColor: 'rgba(34, 197, 94, 0.6)', // Green
+                        borderColor: 'rgba(34, 197, 94, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: chartData.costChart.title, font: { size: 16 } },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        x: { stacked: true },
+                        y: { stacked: true, ticks: { callback: (value) => (value === 1 ? '✓' : '') } }
+                    }
+                }
+                });
+
+                // Efficiency Chart - Stacked Bar
+                const efficiencyCtx = document.getElementById('efficiencyChart');
+                if (!efficiencyCtx) {
+                    console.warn('Efficiency chart canvas not found');
+                    return;
+                }
+
+                chartInstances.efficiencyChart = new Chart(efficiencyCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                     labels: [chartData.efficiencyChart.usLabel, chartData.efficiencyChart.chinaLabel],
+                    datasets: [{
+                        label: chartData.efficiencyChart.appointment,
+                        data: [56, 3], 
+                        backgroundColor: 'rgba(251, 191, 36, 0.6)', // Amber
+                        borderColor: 'rgba(251, 191, 36, 1)',
+                         borderWidth: 1
+                    }, {
+                        label: chartData.efficiencyChart.checkup,
+                        data: [2, 2],
+                         backgroundColor: 'rgba(59, 130, 246, 0.6)', // Blue
+                         borderColor: 'rgba(59, 130, 246, 1)',
+                          borderWidth: 1
+                    }, {
+                        label: chartData.efficiencyChart.results,
+                        data: [7, 2],
+                        backgroundColor: 'rgba(239, 68, 68, 0.6)', // Red
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                         borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: chartData.efficiencyChart.title, font: { size: 16 } },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        x: { stacked: true, title: { display: true, text: chartData.efficiencyChart.xAxisTitle || (lang === 'zh' ? '天数' : 'Days') } },
+                        y: { stacked: true }
+                    }
+                }
+                });
+            } catch (error) {
+                console.error('Error creating charts:', error);
+                // Hide chart containers if charts fail to load
+                const costChart = document.getElementById('costChart');
+                const efficiencyChart = document.getElementById('efficiencyChart');
+                if (costChart) costChart.style.display = 'none';
+                if (efficiencyChart) efficiencyChart.style.display = 'none';
+            }
+        }
+
+
+        function updateContent(lang) {
+            // Handle standard text content
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                     const htmlKeys = [
+                        'beijingSightsText', 'beijingFoodText',
+                        'chengduSightsText', 'chengduFoodText',
+                        'eliteModalGeneralItems', 'eliteModalLabItems', 'eliteModalInstrumentItems',
+                        'platinumModalDeepLabItems', 'platinumModalTumorItems', 'platinumModalDeepImagingItems', 'platinumModalSpecialItems',
+                        'vipModalAdvancedImagingItems', 'vipModalDigestiveItems', 'vipModalCardioItems', 'vipModalFullLabItems'
+                    ];
+
+                    if (htmlKeys.includes(key)) {
+                         element.innerHTML = translations[lang][key];
+                    }
+                    else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Handle placeholder text for inputs/textareas
+            document.querySelectorAll('[data-key-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-key-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            document.documentElement.lang = lang;
+            renderCharts(lang);
+        }
+
+        // Function to check if Chart.js is loaded with timeout
+        function waitForChart(timeout = 10000) {
+            return new Promise((resolve, reject) => {
+                const startTime = Date.now();
+
+                function checkChart() {
+                    if (typeof Chart !== 'undefined') {
+                        resolve();
+                    } else if (Date.now() - startTime > timeout) {
+                        reject(new Error('Chart.js failed to load within timeout'));
+                    } else {
+                        setTimeout(checkChart, 100);
+                    }
+                }
+
+                checkChart();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Wait for Chart.js to be fully loaded
+            try {
+                await waitForChart();
+                console.log('Chart.js loaded successfully');
+            } catch (error) {
+                console.warn('Chart.js failed to load:', error.message);
+                // Hide chart containers if Chart.js fails to load
+                const costChart = document.getElementById('costChart');
+                const efficiencyChart = document.getElementById('efficiencyChart');
+                if (costChart && costChart.parentElement) {
+                    costChart.parentElement.style.display = 'none';
+                }
+                if (efficiencyChart && efficiencyChart.parentElement) {
+                    efficiencyChart.parentElement.style.display = 'none';
+                }
+            }
+
+            lucide.createIcons();
+            updateContent(currentLang);
+
+            const langSwitchers = [document.getElementById('language-switcher'), document.getElementById('mobile-language-switcher')];
+            langSwitchers.forEach(switcher => {
+                switcher.addEventListener('click', () => {
+                    currentLang = currentLang === 'en' ? 'zh' : 'en';
+                    updateContent(currentLang);
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('[data-modal-target]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetModal = document.getElementById(button.dataset.modalTarget);
+                    if(targetModal) {
+                        targetModal.classList.add('active');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.modal-close, .modal-overlay').forEach(element => {
+                element.addEventListener('click', (e) => {
+                    if (e.target === element) {
+                       element.closest('.modal-overlay').classList.remove('active');
+                    }
+                });
+            });
+
+            // Tab functionality for destinations
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const tabId = button.dataset.tab;
+                    tabContents.forEach(content => {
+                        if (content.id === `${tabId}-content`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Carousel functionality
+            const carousels = ['beijing', 'chengdu', 'video'];
+            const carouselStates = {};
+
+            carousels.forEach(carouselId => {
+                const container = document.getElementById(`${carouselId}-carousel`);
+                if (!container) return;
+                
+                carouselStates[carouselId] = {
+                    currentSlide: 0,
+                    totalSlides: container.querySelectorAll('.carousel-slide').length,
+                    intervalId: null
+                };
+
+                const track = container.querySelector('.carousel-track');
+                const indicators = document.querySelectorAll(`[data-carousel="${carouselId}"][data-slide]`);
+                const navButtons = document.querySelectorAll(`[data-carousel="${carouselId}"][data-direction]`);
+
+
+                function updateCarousel() {
+                    const translateX = -carouselStates[carouselId].currentSlide * 100;
+                    if(track) track.style.transform = `translateX(${translateX}%)`;
+
+                    indicators.forEach((indicator, index) => {
+                        indicator.classList.toggle('active', index === carouselStates[carouselId].currentSlide);
+                    });
+                }
+
+                function nextSlide() {
+                    carouselStates[carouselId].currentSlide = (carouselStates[carouselId].currentSlide + 1) % carouselStates[carouselId].totalSlides;
+                    updateCarousel();
+                }
+
+                function prevSlide() {
+                    carouselStates[carouselId].currentSlide = (carouselStates[carouselId].currentSlide - 1 + carouselStates[carouselId].totalSlides) % carouselStates[carouselId].totalSlides;
+                    updateCarousel();
+                }
+
+                function goToSlide(slideIndex) {
+                    carouselStates[carouselId].currentSlide = slideIndex;
+                    updateCarousel();
+                }
+                
+                function startAutoplay() {
+                    clearInterval(carouselStates[carouselId].intervalId); // Clear existing interval
+                    const intervalTime = 7000; // Set interval time
+                    carouselStates[carouselId].intervalId = setInterval(nextSlide, intervalTime);
+                }
+
+                function stopAutoplay() {
+                    clearInterval(carouselStates[carouselId].intervalId);
+                }
+
+
+                // Navigation buttons
+                navButtons.forEach(button => {
+                    if(button.dataset.direction === 'next') button.addEventListener('click',() => {
+                        nextSlide();
+                        stopAutoplay();
+                        startAutoplay();
+                    });
+                    if(button.dataset.direction === 'prev') button.addEventListener('click', () => {
+                        prevSlide();
+                        stopAutoplay();
+                        startAutoplay();
+                    });
+                })
+
+                // Indicator buttons
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                         goToSlide(index)
+                         stopAutoplay();
+                         startAutoplay();
+                    });
+                });
+                
+                container.addEventListener('mouseenter', stopAutoplay);
+                container.addEventListener('mouseleave', startAutoplay);
+                
+                startAutoplay();
+            });
+
+            // Scroll spy functionality
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+
+            function updateActiveNavLink() {
+                let currentSection = '';
+                const scrollPosition = window.scrollY + 100; // Offset for header height
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                // Remove active class from all nav links
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Add active class to current section's nav link
+                if (currentSection) {
+                    const activeLink = document.querySelector(`.nav-link[data-section="${currentSection}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            }
+
+            // Listen for scroll events
+            window.addEventListener('scroll', updateActiveNavLink);
+
+            // Initial call to set active state on page load
+            updateActiveNavLink();
+        });
+    </script>
+</body>
+</html>
