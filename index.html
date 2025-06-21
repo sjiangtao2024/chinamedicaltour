@@ -22,22 +22,12 @@
 
     <!-- Critical CSS for above-the-fold content -->
     <style>
-      /* Critical styles for hero section */
-      .hero-bg {
-        min-height: 70vh;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-      }
-
       /* Hero carousel styles */
       .hero-carousel-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
+        position: relative;
+        min-height: 250px;
+        overflow: hidden;
+        transition: height 0.5s ease;
       }
 
       .hero-carousel-track {
@@ -48,14 +38,23 @@
 
       .hero-carousel-slide {
         min-width: 100%;
-        height: 100%;
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        padding: 20px;
       }
 
       .hero-carousel-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        display: block;
       }
 
       .hero-carousel-caption {
@@ -73,56 +72,63 @@
         z-index: 10;
       }
 
-      .hero-carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        padding: 0.75rem;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.3s;
-        z-index: 20;
-        backdrop-filter: blur(10px);
-      }
 
-      .hero-carousel-nav:hover {
-        background: rgba(255, 255, 255, 0.3);
-        border-color: rgba(255, 255, 255, 0.5);
-      }
-
-      .hero-carousel-prev {
-        left: 2rem;
-      }
-
-      .hero-carousel-next {
-        right: 2rem;
-      }
 
       .hero-carousel-indicators {
         position: absolute;
-        bottom: 1rem;
+        bottom: 1.5rem;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 0.5rem;
+        gap: 0.75rem;
         z-index: 20;
       }
 
       .hero-carousel-indicator {
-        width: 0.75rem;
-        height: 0.75rem;
+        width: 1rem;
+        height: 1rem;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        border: none;
+        background: rgba(255, 255, 255, 0.6);
+        border: 2px solid rgba(255, 255, 255, 0.8);
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       }
 
       .hero-carousel-indicator.active {
-        background: white;
+        background: #059669;
+        border-color: #059669;
+        transform: scale(1.2);
+      }
+
+      /* Enhanced hero section styling */
+      .hero-section {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-carousel-indicator:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.1);
       }
       
       /* Critical styles for text elements */
@@ -329,6 +335,23 @@
             overflow: hidden;
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
         }
+
+        /* Responsive adjustments for hero carousel */
+        @media (max-width: 768px) {
+            .hero-carousel-slide {
+                padding: 15px;
+            }
+
+            .hero-carousel-indicators {
+                bottom: 1rem;
+                gap: 0.5rem;
+            }
+
+            .hero-carousel-indicator {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-700">
@@ -336,24 +359,24 @@
     <!-- Header & Navigation -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600">China Medical Tour</a>
+            <a href="#" class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China Medical Tour</a>
             <div class="hidden md:flex space-x-6 items-center">
-                <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navAbout" data-section="about">About Us</a>
-                <a href="#services" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navServices" data-section="services">Services</a>
-                <a href="#travel" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navTravel" data-section="travel">Travel Services</a>
-                <a href="#culture" class="nav-link text-gray-600 hover:text-blue-600 transition" data-key="navCulture" data-section="culture">Cultural Experience</a>
-                <a href="#contact" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-semibold" data-key="getQuote">Get a Quote</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navAbout" data-section="about">About Us</a>
+                <a href="#services" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navServices" data-section="services">Services</a>
+                <a href="#travel" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navTravel" data-section="travel">Travel Services</a>
+                <a href="#culture" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navCulture" data-section="culture">Cultural Experience</a>
+                <a href="#contact" class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold" data-key="getQuote">Get a Quote</a>
                 <button id="language-switcher" class="ml-4 text-sm font-semibold text-gray-600 border px-3 py-1 rounded-full hover:bg-gray-100">EN / ZH</button>
             </div>
             <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#about" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navAbout" data-section="about">About Us</a>
-            <a href="#services" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navServices" data-section="services">Services</a>
-            <a href="#travel" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navTravel" data-section="travel">Travel Services</a>
-            <a href="#culture" class="nav-link block py-2 text-gray-600 hover:text-blue-600" data-key="navCulture" data-section="culture">Cultural Experience</a>
-            <a href="#contact" class="block mt-2 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 w-full text-center" data-key="getQuote">Get a Quote</a>
+            <a href="#about" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navAbout" data-section="about">About Us</a>
+            <a href="#services" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navServices" data-section="services">Services</a>
+            <a href="#travel" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navTravel" data-section="travel">Travel Services</a>
+            <a href="#culture" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navCulture" data-section="culture">Cultural Experience</a>
+            <a href="#contact" class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 w-full text-center" data-key="getQuote">Get a Quote</a>
             <button id="mobile-language-switcher" class="mt-4 w-full text-sm font-semibold text-gray-600 border px-3 py-2 rounded-full hover:bg-gray-100">EN / ZH</button>
         </div>
     </header>
@@ -361,41 +384,50 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section class="hero-bg text-white min-h-[70vh] flex items-center">
-            <!-- Hero Carousel -->
-            <div class="hero-carousel-container" id="hero-carousel">
-                <div class="hero-carousel-track">
-                    <div class="hero-carousel-slide">
-                        <img src="https://p5.img.cctvpic.com/photoworkspace/2025/05/27/2025052716011198048.jpg" alt="与大熊猫亲密互动">
-                        <div class="hero-carousel-caption">
-                            <span data-key="heroCarouselCaption1">与大熊猫亲密互动</span>
-                        </div>
-                    </div>
-                    <div class="hero-carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1742218117617-d8c54f8dc6dc?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="成都夜景">
-                        <div class="hero-carousel-caption">
-                            <span data-key="heroCarouselCaption2">成都夜景</span>
-                        </div>
-                    </div>
-                </div>
-                <button class="hero-carousel-nav hero-carousel-prev" data-carousel="hero" data-direction="prev">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="hero-carousel-nav hero-carousel-next" data-carousel="hero" data-direction="next">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-                <div class="hero-carousel-indicators">
-                    <button class="hero-carousel-indicator active" data-carousel="hero" data-slide="0"></button>
-                    <button class="hero-carousel-indicator" data-carousel="hero" data-slide="1"></button>
-                </div>
+        <section class="hero-section py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-blue-50 text-gray-800">
+            <!-- Hero Content -->
+            <div class="hero-content container mx-auto px-6 text-center mb-12">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6" data-key="heroTitle">World-Class Medical Care, Combined with an Unforgettable China Tour</h1>
+                <p class="text-lg md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto" data-key="heroSubtitle">Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.</p>
+                <a href="#services" class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-8 py-4 rounded-full text-lg font-bold hover:from-emerald-700 hover:to-teal-700 transition inline-block shadow-lg" data-key="viewServices">Explore Our Services</a>
             </div>
 
-            <!-- Hero Content Overlay -->
-            <div class="absolute inset-0 bg-black/40 z-10"></div>
-            <div class="container mx-auto px-6 text-center relative z-20">
-                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 relative z-30" data-key="heroTitle">World-Class Medical Care, Combined with an Unforgettable China Tour</h1>
-                <p class="text-lg md:text-2xl opacity-90 mb-8 relative z-30" data-key="heroSubtitle">Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.</p>
-                <a href="#services" class="bg-white text-blue-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-100 transition relative z-30" data-key="viewServices">Explore Our Services</a>
+            <!-- Hero Carousel -->
+            <div class="container mx-auto px-6">
+                <div class="hero-carousel-container bg-white rounded-2xl overflow-hidden shadow-2xl" id="hero-carousel">
+                    <div class="hero-carousel-track">
+                        <div class="hero-carousel-slide">
+                            <img src="https://pic.rmb.bdstatic.com/f79a65f875f7d0015705c284b7a1aa92.jpeg" alt="与大熊猫亲密互动">
+                            <div class="hero-carousel-caption">
+                                <span data-key="heroCarouselCaption1">与大熊猫亲密互动</span>
+                            </div>
+                        </div>
+                        <div class="hero-carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1742218117617-d8c54f8dc6dc?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="成都夜景">
+                            <div class="hero-carousel-caption">
+                                <span data-key="heroCarouselCaption2">成都夜景</span>
+                            </div>
+                        </div>
+                        <div class="hero-carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1590829495436-6231c80f6a6a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="紫禁城">
+                            <div class="hero-carousel-caption">
+                                <span data-key="heroCarouselCaption3">紫禁城</span>
+                            </div>
+                        </div>
+                        <div class="hero-carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1603638672033-9d8bef363b29?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="天坛">
+                            <div class="hero-carousel-caption">
+                                <span data-key="heroCarouselCaption4">天坛</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-carousel-indicators">
+                        <button class="hero-carousel-indicator active" data-carousel="hero" data-slide="0"></button>
+                        <button class="hero-carousel-indicator" data-carousel="hero" data-slide="1"></button>
+                        <button class="hero-carousel-indicator" data-carousel="hero" data-slide="2"></button>
+                        <button class="hero-carousel-indicator" data-carousel="hero" data-slide="3"></button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1076,6 +1108,8 @@
                 viewServices: "Explore Our Services",
                 heroCarouselCaption1: "Intimate Interaction with Giant Pandas",
                 heroCarouselCaption2: "Chengdu Night Scene",
+                heroCarouselCaption3: "Forbidden City",
+                heroCarouselCaption4: "Temple of Heaven",
                 aboutTitle: "Why Choose China? Three Irresistible Reasons",
                 aboutSubtitle: "We reveal why a health screening in China is not just a smart choice, but the best investment in your health and time.",
                 about1Title: "1. Incredible Value: Get 10x More for Your Health Investment",
@@ -1265,6 +1299,8 @@
                 viewServices: "探索我们的服务",
                 heroCarouselCaption1: "与大熊猫亲密互动",
                 heroCarouselCaption2: "成都夜景",
+                heroCarouselCaption3: "紫禁城",
+                heroCarouselCaption4: "天坛",
                 aboutTitle: "为什么选择中国？三大无法抗拒的理由",
                 aboutSubtitle: "我们为您揭示，为何来华进行健康筛查不仅是明智之选，更是对您健康和时间的最佳投资。",
                 about1Title: "1. 惊人的性价比：您的健康投资，价值提升不止十倍",
@@ -1725,7 +1761,7 @@
 
                 const track = container.querySelector(trackSelector);
                 const indicators = document.querySelectorAll(`[data-carousel="${carouselId}"][data-slide]`);
-                const navButtons = document.querySelectorAll(`[data-carousel="${carouselId}"][data-direction]`);
+                const navButtons = isHeroCarousel ? [] : document.querySelectorAll(`[data-carousel="${carouselId}"][data-direction]`);
 
 
                 function updateCarousel() {
@@ -1734,6 +1770,48 @@
 
                     indicators.forEach((indicator, index) => {
                         indicator.classList.toggle('active', index === carouselStates[carouselId].currentSlide);
+                    });
+
+                    // Dynamic height adjustment for hero carousel
+                    if (isHeroCarousel) {
+                        setTimeout(() => adjustHeroCarouselHeight(), 50);
+                    }
+                }
+
+                function adjustHeroCarouselHeight() {
+                    if (!isHeroCarousel) return;
+
+                    const currentSlideElement = container.querySelectorAll(slideSelector)[carouselStates[carouselId].currentSlide];
+                    const img = currentSlideElement ? currentSlideElement.querySelector('img') : null;
+
+                    if (img) {
+                        if (img.complete && img.naturalWidth > 0) {
+                            calculateAndSetHeight(img);
+                        } else {
+                            img.onload = () => calculateAndSetHeight(img);
+                        }
+                    }
+                }
+
+                function calculateAndSetHeight(img) {
+                    const containerWidth = container.offsetWidth - 40; // Subtract padding
+                    const imgAspectRatio = img.naturalWidth / img.naturalHeight;
+
+                    // Calculate the height needed to display the image at its natural aspect ratio
+                    let targetHeight = containerWidth / imgAspectRatio + 40; // Add padding
+
+                    // Apply only minimum height constraint to prevent too small containers
+                    const minHeight = window.innerWidth <= 768 ? 200 : 250;
+
+                    targetHeight = Math.max(minHeight, targetHeight);
+
+                    // Set the container height with smooth transition
+                    container.style.height = targetHeight + 'px';
+
+                    // Also set all slide heights
+                    const slides = container.querySelectorAll(slideSelector);
+                    slides.forEach(slide => {
+                        slide.style.height = targetHeight + 'px';
                     });
                 }
 
@@ -1763,32 +1841,48 @@
                 }
 
 
-                // Navigation buttons
-                navButtons.forEach(button => {
-                    if(button.dataset.direction === 'next') button.addEventListener('click',() => {
-                        nextSlide();
-                        stopAutoplay();
-                        startAutoplay();
+                // Navigation buttons (only for non-hero carousels)
+                if (!isHeroCarousel) {
+                    navButtons.forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            if(button.dataset.direction === 'next') {
+                                nextSlide();
+                            } else if(button.dataset.direction === 'prev') {
+                                prevSlide();
+                            }
+
+                            stopAutoplay();
+                            startAutoplay();
+                        });
                     });
-                    if(button.dataset.direction === 'prev') button.addEventListener('click', () => {
-                        prevSlide();
-                        stopAutoplay();
-                        startAutoplay();
-                    });
-                })
+                }
 
                 // Indicator buttons
                 indicators.forEach((indicator, index) => {
                     indicator.addEventListener('click', () => {
-                         goToSlide(index)
-                         stopAutoplay();
-                         startAutoplay();
+                        const slideIndex = parseInt(indicator.dataset.slide);
+                        goToSlide(slideIndex);
+                        stopAutoplay();
+                        startAutoplay();
                     });
                 });
                 
                 container.addEventListener('mouseenter', stopAutoplay);
                 container.addEventListener('mouseleave', startAutoplay);
-                
+
+                // Initialize hero carousel height
+                if (isHeroCarousel) {
+                    adjustHeroCarouselHeight();
+
+                    // Handle window resize for hero carousel
+                    window.addEventListener('resize', () => {
+                        setTimeout(() => adjustHeroCarouselHeight(), 100);
+                    });
+                }
+
                 startAutoplay();
             });
 
