@@ -240,6 +240,11 @@
             color: #3b82f6;
             background-color: #eff6ff; /* blue-50 */
         }
+        .culture-tab-button.active {
+            border-color: #3b82f6; /* blue-600 */
+            color: #3b82f6;
+            background-color: #eff6ff; /* blue-50 */
+        }
         .carousel-container {
             position: relative;
             overflow: hidden;
@@ -1093,10 +1098,166 @@
                     <h2 class="section-title" data-key="cultureTitle">Deep Cultural Experience</h2>
                     <p class="section-subtitle" data-key="cultureSubtitle">Immerse yourself in China's rich cultural heritage while receiving world-class medical care.</p>
                 </div>
-                <div class="mt-16">
-                    <div class="text-center">
-                        <p class="text-lg text-gray-600" data-key="culturePlaceholder">Content coming soon...</p>
-                        <p class="text-sm text-gray-500 mt-4" data-key="cultureNote">We are preparing exciting cultural experiences for you. Stay tuned!</p>
+
+                <!-- Cultural Experience Tabs -->
+                <div class="mt-16 max-w-6xl mx-auto">
+                    <div class="flex border-b">
+                        <button class="culture-tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition active" data-culture-tab="beijing" data-key="cultureTabBeijing">🏛️ Beijing</button>
+                        <button class="culture-tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition" data-culture-tab="chengdu" data-key="cultureTabChengdu">🐼 Chengdu</button>
+                    </div>
+
+                    <!-- Beijing Cultural Experience Tab -->
+                    <div class="culture-tab-content py-8" id="beijing-culture-content">
+                        <div class="text-center mb-12">
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="beijingCultureTitle">Imperial Heritage & Traditional Culture</h3>
+                            <p class="text-lg text-gray-600 max-w-4xl mx-auto" data-key="beijingCultureSubtitle">Discover the heart of Chinese civilization in Beijing, where ancient imperial palaces meet vibrant traditional culture. Experience 600 years of history while receiving world-class medical care.</p>
+                        </div>
+
+                        <!-- Beijing Attractions Grid -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                        <!-- Forbidden City -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-red-500 to-yellow-600 flex items-center justify-center">
+                                <i data-lucide="crown" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="forbiddenCityTitle">Forbidden City (Palace Museum)</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="forbiddenCityDesc">Built in 1406-1420, home to 24 emperors for nearly 500 years. The world's largest ancient palace complex with 9,999.5 rooms.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="forbiddenCityHours">8:30-17:00 (Apr-Oct) / 8:30-16:30 (Nov-Mar)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="ticket" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="forbiddenCityPrice">¥60 (Peak) / ¥40 (Off-peak)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Summer Palace -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-blue-500 to-green-500 flex items-center justify-center">
+                                <i data-lucide="waves" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="summerPalaceTitle">Summer Palace (Yiheyuan)</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="summerPalaceDesc">UNESCO World Heritage Site featuring imperial gardens, Kunming Lake, and the famous Marble Boat. A masterpiece of Chinese landscape garden design.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="summerPalaceHours">6:00-19:00 (Apr-Oct) / 6:30-18:00 (Nov-Mar)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="ticket" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="summerPalacePrice">¥30 (Garden) + ¥20 (Attractions)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Temple of Heaven -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+                                <i data-lucide="sun" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="templeHeavenTitle">Temple of Heaven</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="templeHeavenDesc">Where emperors prayed for good harvests. Famous for its perfect acoustics in the Echo Wall and the architectural marvel of the Hall of Prayer.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="templeHeavenHours">6:00-22:00 (Park) / 8:00-17:30 (Attractions)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="ticket" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="templeHeavenPrice">¥15 (Park) + ¥20 (Attractions)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Traditional Culture Experiences -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                                <i data-lucide="brush" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="traditionalArtsTitle">Traditional Arts & Crafts</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="traditionalArtsDesc">Experience authentic Chinese culture through calligraphy, tea ceremony, traditional painting, and Beijing opera performances.</p>
+                                <div class="space-y-1 text-sm text-gray-600">
+                                    <div data-key="traditionalArtsList">• Calligraphy workshops<br>• Tea ceremony experiences<br>• Beijing Opera shows<br>• Traditional painting classes</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hutong Culture -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <i data-lucide="home" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="hutongTitle">Hutong & Courtyard Culture</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="hutongDesc">Explore Beijing's traditional alleyways and courtyard houses (Siheyuan), experiencing authentic local life and traditional architecture.</p>
+                                <div class="space-y-1 text-sm text-gray-600">
+                                    <div data-key="hutongList">• Rickshaw tours<br>• Traditional courtyard visits<br>• Local family dining<br>• Artisan workshops</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Culinary Experience -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
+                                <i data-lucide="chef-hat" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="beijingCuisineTitle">Beijing Culinary Heritage</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="beijingCuisineDesc">Savor authentic Beijing cuisine including the world-famous Peking Duck, traditional dumplings, and imperial court dishes.</p>
+                                <div class="space-y-1 text-sm text-gray-600">
+                                    <div data-key="beijingCuisineList">• Peking Duck banquets<br>• Dumpling making classes<br>• Imperial cuisine tasting<br>• Traditional tea houses</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <!-- Cultural Experience Packages -->
+                        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+                            <div class="text-center mb-8">
+                                <h3 class="text-2xl font-bold mb-4" data-key="beijingPackageTitle">🎭 Beijing Cultural Experience Packages</h3>
+                                <p class="text-blue-100 max-w-3xl mx-auto" data-key="beijingPackageDesc">Combine your medical treatment with carefully curated cultural experiences. Our packages are designed to fit perfectly with your treatment schedule.</p>
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                                    <h4 class="text-lg font-semibold mb-3" data-key="package1Title">🏛️ Imperial Heritage (Half Day)</h4>
+                                    <p class="text-sm text-blue-100 mb-3" data-key="package1Desc">Forbidden City guided tour with professional historian guide, including skip-the-line access and traditional tea ceremony.</p>
+                                    <div class="text-xs text-blue-200" data-key="package1Duration">Duration: 4-5 hours</div>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                                    <h4 class="text-lg font-semibold mb-3" data-key="package2Title">🌸 Garden & Arts (Full Day)</h4>
+                                    <p class="text-sm text-blue-100 mb-3" data-key="package2Desc">Summer Palace visit, traditional painting workshop, and authentic Beijing cuisine experience with local family.</p>
+                                    <div class="text-xs text-blue-200" data-key="package2Duration">Duration: 8 hours</div>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                                    <h4 class="text-lg font-semibold mb-3" data-key="package3Title">🎭 Cultural Immersion (2 Days)</h4>
+                                    <p class="text-sm text-blue-100 mb-3" data-key="package3Desc">Complete Beijing experience: Imperial sites, Hutong culture, traditional arts, Beijing Opera, and culinary masterclass.</p>
+                                    <div class="text-xs text-blue-200" data-key="package3Duration">Duration: 2 days</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chengdu Cultural Experience Tab -->
+                    <div class="culture-tab-content py-8 hidden" id="chengdu-culture-content">
+                        <div class="text-center mb-12">
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="chengduCultureTitle">Panda Paradise & Sichuan Culture</h3>
+                            <p class="text-lg text-gray-600 max-w-4xl mx-auto" data-key="chengduCultureSubtitle">Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Content coming soon...</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-8 text-white text-center">
+                            <i data-lucide="construction" class="w-16 h-16 mx-auto mb-4 text-white/80"></i>
+                            <h4 class="text-xl font-semibold mb-2" data-key="chengduComingSoon">Chengdu Cultural Experiences Coming Soon</h4>
+                            <p class="text-green-100" data-key="chengduComingSoonDesc">We are preparing exciting panda encounters, Sichuan cuisine experiences, and traditional tea house visits. Stay tuned!</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1485,8 +1646,59 @@
                 labubuLocationsDesc: "Find the nearest Labubu stores and collect your favorite blind boxes",
                 cultureTitle: "Deep Cultural Experience",
                 cultureSubtitle: "Immerse yourself in China's rich cultural heritage while receiving world-class medical care.",
-                culturePlaceholder: "Content coming soon...",
-                cultureNote: "We are preparing exciting cultural experiences for you. Stay tuned!",
+                cultureTabBeijing: "🏛️ Beijing",
+                cultureTabChengdu: "🐼 Chengdu",
+
+                // Beijing Cultural Experience
+                beijingCultureTitle: "🏛️ Beijing: Imperial Heritage & Traditional Culture",
+                beijingCultureSubtitle: "Discover the heart of Chinese civilization in Beijing, where ancient imperial palaces meet vibrant traditional culture. Experience 600 years of history while receiving world-class medical care.",
+
+                forbiddenCityTitle: "Forbidden City (Palace Museum)",
+                forbiddenCityDesc: "Built in 1406-1420, home to 24 emperors for nearly 500 years. The world's largest ancient palace complex with 9,999.5 rooms.",
+                forbiddenCityHours: "8:30-17:00 (Apr-Oct) / 8:30-16:30 (Nov-Mar)",
+                forbiddenCityPrice: "¥60 (Peak) / ¥40 (Off-peak)",
+
+                summerPalaceTitle: "Summer Palace (Yiheyuan)",
+                summerPalaceDesc: "UNESCO World Heritage Site featuring imperial gardens, Kunming Lake, and the famous Marble Boat. A masterpiece of Chinese landscape garden design.",
+                summerPalaceHours: "6:00-19:00 (Apr-Oct) / 6:30-18:00 (Nov-Mar)",
+                summerPalacePrice: "¥30 (Garden) + ¥20 (Attractions)",
+
+                templeHeavenTitle: "Temple of Heaven",
+                templeHeavenDesc: "Where emperors prayed for good harvests. Famous for its perfect acoustics in the Echo Wall and the architectural marvel of the Hall of Prayer.",
+                templeHeavenHours: "6:00-22:00 (Park) / 8:00-17:30 (Attractions)",
+                templeHeavenPrice: "¥15 (Park) + ¥20 (Attractions)",
+
+                traditionalArtsTitle: "Traditional Arts & Crafts",
+                traditionalArtsDesc: "Experience authentic Chinese culture through calligraphy, tea ceremony, traditional painting, and Beijing opera performances.",
+                traditionalArtsList: "• Calligraphy workshops<br>• Tea ceremony experiences<br>• Beijing Opera shows<br>• Traditional painting classes",
+
+                hutongTitle: "Hutong & Courtyard Culture",
+                hutongDesc: "Explore Beijing's traditional alleyways and courtyard houses (Siheyuan), experiencing authentic local life and traditional architecture.",
+                hutongList: "• Rickshaw tours<br>• Traditional courtyard visits<br>• Local family dining<br>• Artisan workshops",
+
+                beijingCuisineTitle: "Beijing Culinary Heritage",
+                beijingCuisineDesc: "Savor authentic Beijing cuisine including the world-famous Peking Duck, traditional dumplings, and imperial court dishes.",
+                beijingCuisineList: "• Peking Duck banquets<br>• Dumpling making classes<br>• Imperial cuisine tasting<br>• Traditional tea houses",
+
+                beijingPackageTitle: "🎭 Beijing Cultural Experience Packages",
+                beijingPackageDesc: "Combine your medical treatment with carefully curated cultural experiences. Our packages are designed to fit perfectly with your treatment schedule.",
+
+                package1Title: "🏛️ Imperial Heritage (Half Day)",
+                package1Desc: "Forbidden City guided tour with professional historian guide, including skip-the-line access and traditional tea ceremony.",
+                package1Duration: "Duration: 4-5 hours",
+
+                package2Title: "🌸 Garden & Arts (Full Day)",
+                package2Desc: "Summer Palace visit, traditional painting workshop, and authentic Beijing cuisine experience with local family.",
+                package2Duration: "Duration: 8 hours",
+
+                package3Title: "🎭 Cultural Immersion (2 Days)",
+                package3Desc: "Complete Beijing experience: Imperial sites, Hutong culture, traditional arts, Beijing Opera, and culinary masterclass.",
+                package3Duration: "Duration: 2 days",
+
+                chengduCultureTitle: "🐼 Chengdu: Panda Paradise & Sichuan Culture",
+                chengduCultureSubtitle: "Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Content coming soon...",
+                chengduComingSoon: "Chengdu Cultural Experiences Coming Soon",
+                chengduComingSoonDesc: "We are preparing exciting panda encounters, Sichuan cuisine experiences, and traditional tea house visits. Stay tuned!",
                 contactTitle: "Ready to Start Your Journey?",
                 contactSubtitle: "Fill out the form or contact us directly via WhatsApp/email. Our health consultants will reply within 24 hours with a free consultation and a personalized quote.",
                 formName: "Your Name",
@@ -1733,8 +1945,59 @@
                 labubuLocationsDesc: "发现最近的Labubu门店，收集你最爱的盲盒",
                 cultureTitle: "深度文化体验",
                 cultureSubtitle: "在接受世界级医疗服务的同时，深度体验中国丰富的文化遗产。",
-                culturePlaceholder: "内容即将推出...",
-                cultureNote: "我们正在为您准备精彩的文化体验项目，敬请期待！",
+                cultureTabBeijing: "🏛️ 北京",
+                cultureTabChengdu: "🐼 成都",
+
+                // Beijing Cultural Experience Chinese
+                beijingCultureTitle: "🏛️ 北京：皇家遗产与传统文化",
+                beijingCultureSubtitle: "探索中华文明的心脏北京，古老的皇家宫殿与充满活力的传统文化在此交融。在接受世界级医疗服务的同时，体验600年的历史文化。",
+
+                forbiddenCityTitle: "故宫博物院",
+                forbiddenCityDesc: "建于1406-1420年，近500年来24位皇帝的居所。世界最大的古代宫殿建筑群，拥有9999.5间房屋。",
+                forbiddenCityHours: "8:30-17:00（4-10月）/ 8:30-16:30（11-3月）",
+                forbiddenCityPrice: "¥60（旺季）/ ¥40（淡季）",
+
+                summerPalaceTitle: "颐和园",
+                summerPalaceDesc: "联合国教科文组织世界遗产，拥有皇家园林、昆明湖和著名的石舫。中国园林艺术的杰作。",
+                summerPalaceHours: "6:00-19:00（4-10月）/ 6:30-18:00（11-3月）",
+                summerPalacePrice: "¥30（园林）+ ¥20（景点）",
+
+                templeHeavenTitle: "天坛",
+                templeHeavenDesc: "皇帝祈求丰收的圣地。以回音壁的完美声学效果和祈年殿的建筑奇迹而闻名。",
+                templeHeavenHours: "6:00-22:00（公园）/ 8:00-17:30（景点）",
+                templeHeavenPrice: "¥15（公园）+ ¥20（景点）",
+
+                traditionalArtsTitle: "传统艺术与工艺",
+                traditionalArtsDesc: "通过书法、茶艺、传统绘画和京剧表演体验正宗的中国文化。",
+                traditionalArtsList: "• 书法工作坊<br>• 茶艺体验<br>• 京剧表演<br>• 传统绘画课程",
+
+                hutongTitle: "胡同与四合院文化",
+                hutongDesc: "探索北京传统胡同和四合院，体验正宗的当地生活和传统建筑。",
+                hutongList: "• 人力车游览<br>• 传统四合院参观<br>• 当地家庭用餐<br>• 手工艺工作坊",
+
+                beijingCuisineTitle: "北京美食文化",
+                beijingCuisineDesc: "品尝正宗北京菜，包括世界闻名的北京烤鸭、传统饺子和宫廷菜肴。",
+                beijingCuisineList: "• 北京烤鸭宴<br>• 包饺子课程<br>• 宫廷菜品尝<br>• 传统茶馆",
+
+                beijingPackageTitle: "🎭 北京文化体验套餐",
+                beijingPackageDesc: "将您的医疗治疗与精心策划的文化体验相结合。我们的套餐完美契合您的治疗时间安排。",
+
+                package1Title: "🏛️ 皇家遗产（半日游）",
+                package1Desc: "专业历史学家导游的故宫深度游，包括免排队通道和传统茶艺体验。",
+                package1Duration: "时长：4-5小时",
+
+                package2Title: "🌸 园林与艺术（全日游）",
+                package2Desc: "颐和园游览、传统绘画工作坊，以及与当地家庭的正宗北京美食体验。",
+                package2Duration: "时长：8小时",
+
+                package3Title: "🎭 文化深度体验（2日游）",
+                package3Desc: "完整北京体验：皇家景点、胡同文化、传统艺术、京剧表演和美食大师课。",
+                package3Duration: "时长：2天",
+
+                chengduCultureTitle: "🐼 成都：熊猫天堂与川蜀文化",
+                chengduCultureSubtitle: "体验成都的悠闲魅力，大熊猫的故乡和正宗川蜀文化。内容即将推出...",
+                chengduComingSoon: "成都文化体验即将推出",
+                chengduComingSoonDesc: "我们正在准备精彩的熊猫邂逅、川菜体验和传统茶馆参观。敬请期待！",
                 contactTitle: "准备好开始您的旅程了吗？",
                 contactSubtitle: "请填写表格或直接通过WhatsApp/邮件联系我们。我们的健康顾问将在24小时内回复，为您提供免费咨询和个性化报价。",
                 formName: "您的姓名",
@@ -2061,6 +2324,26 @@
 
                     // Update Labubu map based on selected city
                     updateLabubuMap(tabId);
+                });
+            });
+
+            // Culture tab functionality
+            const cultureTabButtons = document.querySelectorAll('.culture-tab-button');
+            const cultureTabContents = document.querySelectorAll('.culture-tab-content');
+
+            cultureTabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    cultureTabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const tabId = button.dataset.cultureTab;
+                    cultureTabContents.forEach(content => {
+                        if (content.id === `${tabId}-culture-content`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
                 });
             });
 
