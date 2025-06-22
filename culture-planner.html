@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep China Culture Experience Planning Tool - China Medical Tour</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .attraction-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .attraction-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .attraction-card.selected {
+            border: 3px solid #3b82f6;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+        .medical-package-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .medical-package-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .medical-package-card.selected {
+            border: 3px solid #10b981 !important;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        }
+        .city-tab {
+            transition: all 0.3s ease;
+        }
+        .city-tab.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border-color: #1d4ed8;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+        .attraction-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800 transition">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                    </a>
+                    <h1 class="text-2xl font-bold text-gray-800">Deep China Culture Experience Planning Tool</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="language-toggle" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        <span id="lang-text">中文</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- City Selection -->
+        <div class="mb-8">
+            <div class="flex justify-center space-x-4">
+                <button class="city-tab active px-8 py-4 rounded-lg border-2 font-semibold text-lg transition" data-city="beijing">
+                    🏛️ <span data-key="beijing">Beijing</span>
+                </button>
+                <button class="city-tab px-8 py-4 rounded-lg border-2 font-semibold text-lg transition" data-city="chengdu">
+                    🐼 <span data-key="chengdu">Chengdu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Medical Package Selection -->
+        <div class="mb-8">
+            <h3 class="text-xl font-bold text-center mb-6" data-key="medicalPackageTitle">Medical Package Selection</h3>
+            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <!-- Basic Package -->
+                <div class="medical-package-card bg-white rounded-xl p-6 shadow-lg cursor-pointer transition-all hover:shadow-xl flex flex-col" data-package="basic">
+                    <div class="text-center flex-grow">
+                        <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="heart-pulse" class="w-8 h-8 text-teal-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-teal-600 mb-2" data-key="basicPackageTitle">Basic Package</h4>
+                        <p class="text-2xl font-bold text-gray-800 mb-2" id="basic-price">$299</p>
+                        <p class="text-sm text-gray-600 mb-4" data-key="basicPackageDesc">Routine health check-up, suitable for annual screening</p>
+                        <div class="text-xs text-gray-500 mb-4">
+                            <span data-key="duration">Duration</span>: 1 <span data-key="day">day</span>
+                        </div>
+                    </div>
+                    <button class="medical-select-btn w-full py-2 px-4 border-2 border-teal-600 text-teal-600 rounded-lg hover:bg-teal-600 hover:text-white transition mt-auto">
+                        <span data-key="selectPackage">Select Package</span>
+                    </button>
+                </div>
+
+                <!-- Elite Package -->
+                <div class="medical-package-card bg-white rounded-xl p-6 shadow-lg cursor-pointer transition-all hover:shadow-xl border-2 border-blue-600 relative flex flex-col" data-package="elite">
+                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold" data-key="mostPopular">Most Popular</div>
+                    <div class="text-center flex-grow">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="activity" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-blue-600 mb-2" data-key="elitePackageTitle">Elite Package</h4>
+                        <p class="text-2xl font-bold text-gray-800 mb-2" id="elite-price">$599</p>
+                        <p class="text-sm text-gray-600 mb-4" data-key="elitePackageDesc">Enhanced screening with organ and cancer detection</p>
+                        <div class="text-xs text-gray-500 mb-4">
+                            <span data-key="duration">Duration</span>: 1 <span data-key="day">day</span>
+                        </div>
+                    </div>
+                    <button class="medical-select-btn w-full py-2 px-4 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition mt-auto">
+                        <span data-key="selectPackage">Select Package</span>
+                    </button>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="medical-package-card bg-white rounded-xl p-6 shadow-lg cursor-pointer transition-all hover:shadow-xl flex flex-col" data-package="premium">
+                    <div class="text-center flex-grow">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="brain" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-purple-600 mb-2" data-key="premiumPackageTitle">Premium Package</h4>
+                        <p class="text-2xl font-bold text-gray-800 mb-2" id="premium-price">$1,399</p>
+                        <p class="text-sm text-gray-600 mb-4" data-key="premiumPackageDesc">Comprehensive health assessment with cardiovascular and genetic testing</p>
+                        <div class="text-xs text-gray-500 mb-4">
+                            <span data-key="duration">Duration</span>: 1 <span data-key="day">day</span>
+                        </div>
+                    </div>
+                    <button class="medical-select-btn w-full py-2 px-4 border-2 border-purple-600 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white transition mt-auto">
+                        <span data-key="selectPackage">Select Package</span>
+                    </button>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-sm text-gray-600">
+                    <i data-lucide="car" class="w-4 h-4 inline mr-1"></i>
+                    <span data-key="transportationIncluded">包含宾馆到医院往返车费</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Planning Summary -->
+        <div class="summary-card rounded-2xl p-6 mb-8 text-center">
+            <h2 class="text-2xl font-bold mb-4" data-key="planningTitle">规划摘要：未选择景点</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-lg mb-2">
+                        <span data-key="estimateTime">预计时间：</span>
+                        <span id="total-time">未选择景点</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="text-lg mb-2">
+                        <span data-key="estimateCost">预计费用：</span>
+                        <span id="total-cost">无费用</span>
+                    </p>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2" data-key="timeNote">* 预计时间已包含用餐和交通时间，实际时间可能有偏差</p>
+            <button id="generate-itinerary" class="mt-4 bg-white text-orange-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition" data-key="generateItinerary">
+                Generate Detailed Itinerary
+            </button>
+        </div>
+
+        <!-- Attractions Grid -->
+        <div id="attractions-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Attraction cards will be dynamically generated here -->
+        </div>
+
+        <!-- Selected Attractions Summary -->
+        <div id="selected-summary" class="mt-8 bg-white rounded-xl p-6 shadow-lg hidden">
+            <h3 class="text-xl font-bold mb-4" data-key="selectedAttractions">Selected Attractions</h3>
+            <div id="selected-list" class="space-y-3">
+                <!-- Selected attractions will be listed here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 China Medical Tour. All rights reserved.</p>
+            <p class="mt-2 text-gray-400">Contact: WhatsApp +86 199 1038 5444</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Language data
+        const translations = {
+            en: {
+                beijing: "Beijing",
+                chengdu: "Chengdu",
+                planningTitle: "Planning Summary: No items selected",
+                estimateTime: "Estimate Time:",
+                estimateCost: "Estimate cost:",
+                generateItinerary: "Generate Detailed Itinerary",
+                selectedAttractions: "Selected Attractions",
+                hours: "Hours",
+                days: "Days",
+                day: "day",
+                rmb: "RMB",
+                selectAttraction: "Click to select/deselect",
+                duration: "Duration",
+                price: "Price",
+                timeNote: "* Time estimates include meals and transportation. Actual time may vary.",
+                medicalPackageTitle: "Medical Package Selection",
+                basicPackageTitle: "Basic Package",
+                basicPackageDesc: "Routine health check-up, suitable for annual screening",
+                elitePackageTitle: "Elite Package",
+                elitePackageDesc: "Enhanced screening with organ and cancer detection",
+                premiumPackageTitle: "Premium Package",
+                premiumPackageDesc: "Comprehensive health assessment with cardiovascular and genetic testing",
+                selectPackage: "Select Package",
+                mostPopular: "Most Popular",
+                medicalPackageSelected: "Medical Package Selected",
+                reportWaitTime: "Report wait time: 7 days (travel activities can be done during this period)",
+                totalMedicalTourismCost: "Total Medical Tourism Cost",
+                totalMedicalTourismTime: "Total Medical Tourism Time",
+                transportationIncluded: "Hotel-hospital round-trip transportation included"
+            },
+            zh: {
+                beijing: "北京",
+                chengdu: "成都",
+                planningTitle: "规划摘要：未选择项目",
+                estimateTime: "预计时间：",
+                estimateCost: "预计费用：",
+                generateItinerary: "生成详细行程",
+                selectedAttractions: "已选景点",
+                hours: "小时",
+                days: "天",
+                day: "天",
+                rmb: "人民币",
+                selectAttraction: "点击选择/取消选择",
+                duration: "游玩时间",
+                price: "门票价格",
+                timeNote: "* 预计时间已包含用餐和交通时间，实际时间可能有偏差",
+                medicalPackageTitle: "体检套餐选择",
+                basicPackageTitle: "基础套餐",
+                basicPackageDesc: "常规健康检查，适合年度体检",
+                elitePackageTitle: "精英套餐",
+                elitePackageDesc: "在基础套餐之上，增加重要脏器和癌症筛查",
+                premiumPackageTitle: "尊享套餐",
+                premiumPackageDesc: "全面深入的健康评估，心脑血管及基因检测",
+                selectPackage: "选择套餐",
+                mostPopular: "最受欢迎",
+                medicalPackageSelected: "已选择体检套餐",
+                reportWaitTime: "报告等待时间：7天（等待期间可进行旅游活动）",
+                totalMedicalTourismCost: "医疗旅游总费用",
+                totalMedicalTourismTime: "医疗旅游总时间",
+                transportationIncluded: "包含宾馆到医院往返车费"
+            }
+        };
+
+        // 从URL参数获取语言设置，默认为英文
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentLanguage = urlParams.get('lang') || 'en';
+        let selectedAttractions = [];
+        let selectedMedicalPackage = null;
+        let currentCity = 'beijing';
+
+        // Medical package data
+        const medicalPackagesData = {
+            basic: {
+                id: 'basic',
+                name: { en: 'Basic Package', zh: '基础套餐' },
+                description: {
+                    en: 'Routine health check-up, suitable for annual screening',
+                    zh: '常规健康检查，适合年度体检'
+                },
+                duration: 1, // days
+                price: { usd: 299, rmb: 2105 }, // Updated price: 299 USD / 2105 RMB
+                reportWaitDays: 7
+            },
+            elite: {
+                id: 'elite',
+                name: { en: 'Elite Package', zh: '精英套餐' },
+                description: {
+                    en: 'Enhanced screening with organ and cancer detection',
+                    zh: '在基础套餐之上，增加重要脏器和癌症筛查'
+                },
+                duration: 1, // days
+                price: { usd: 599, rmb: 4220 }, // 599 USD / 4220 RMB
+                reportWaitDays: 7
+            },
+            premium: {
+                id: 'premium',
+                name: { en: 'Premium Package', zh: '尊享套餐' },
+                description: {
+                    en: 'Comprehensive health assessment with cardiovascular and genetic testing',
+                    zh: '全面深入的健康评估，心脑血管及基因检测'
+                },
+                duration: 1, // days
+                price: { usd: 1399, rmb: 9853 }, // 1399 USD / 9853 RMB
+                reportWaitDays: 7
+            }
+        };
+
+        // Attraction data
+        const attractionsData = {
+            beijing: [
+                {
+                    id: 'forbidden-city',
+                    name: { en: 'Forbidden City', zh: '故宫博物院' },
+                    description: {
+                        en: 'Built 1406-1420, home to 24 emperors for nearly 500 years. World\'s largest ancient palace complex with 9999.5 rooms.',
+                        zh: '建于1406-1420年，近500年来24位皇帝的居所。世界最大的古代宫殿建筑群，拥有9999.5间房屋。'
+                    },
+                    duration: 4,
+                    price: 60,
+                    image: 'https://images.unsplash.com/photo-1603120527222-33f28c2ce89e?q=80&w=1354&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                },
+                {
+                    id: 'summer-palace',
+                    name: { en: 'Summer Palace', zh: '颐和园' },
+                    description: {
+                        en: 'UNESCO World Heritage site with royal gardens, Kunming Lake and famous marble boat. Masterpiece of Chinese garden art.',
+                        zh: '联合国教科文组织世界遗产，拥有皇家园林、昆明湖和著名的石舫。中国园林艺术的杰作。'
+                    },
+                    duration: 3,
+                    price: 50,
+                    image: 'https://images.unsplash.com/photo-1619825479213-62e158b5a79d?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHN1bW1lciUyMHBhbGFjZXxlbnwwfHwwfHx8MA%3D%3D'
+                },
+                {
+                    id: 'temple-of-heaven',
+                    name: { en: 'Temple of Heaven', zh: '天坛' },
+                    description: {
+                        en: 'Imperial complex where emperors prayed for good harvests. Famous for its circular Hall of Prayer and Echo Wall.',
+                        zh: '皇帝祈求丰收的皇家建筑群。以圆形的祈年殿和回音壁而闻名。'
+                    },
+                    duration: 2,
+                    price: 35,
+                    image: 'https://images.unsplash.com/photo-1584872589930-e99fe5bf4408?q=80&w=2677&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                },
+                {
+                    id: 'great-wall',
+                    name: { en: 'Great Wall (Mutianyu)', zh: '长城（慕田峪）' },
+                    description: {
+                        en: 'Less crowded section of the Great Wall with cable car access. Stunning mountain views and well-preserved watchtowers.',
+                        zh: '人流较少的长城段，有缆车通达。壮丽的山景和保存完好的烽火台。'
+                    },
+                    duration: 6,
+                    price: 45,
+                    image: 'https://plus.unsplash.com/premium_photo-1664304492320-8359efcaad38?q=80&w=2233&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                },
+                {
+                    id: 'hutong-tour',
+                    name: { en: 'Hutong Cultural Tour', zh: '胡同文化游' },
+                    description: {
+                        en: 'Explore traditional Beijing alleys by rickshaw, visit local family homes, and experience authentic Beijing culture.',
+                        zh: '乘坐人力车探索传统北京胡同，参观当地家庭，体验正宗的北京文化。'
+                    },
+                    duration: 3,
+                    price: 120,
+                    image: 'https://images.unsplash.com/photo-1721888664258-54f00f52b147?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                },
+                {
+                    id: 'beijing-opera',
+                    name: { en: 'Beijing Opera Show', zh: '京剧表演' },
+                    description: {
+                        en: 'Traditional Chinese opera performance with elaborate costumes, makeup, and classical music.',
+                        zh: '传统中国戏曲表演，华丽的服装、妆容和古典音乐。'
+                    },
+                    duration: 2,
+                    price: 180,
+                    image: 'https://images.unsplash.com/photo-1743074921223-704aafe873f5?q=80&w=1860&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                }
+            ],
+            chengdu: [
+                {
+                    id: 'panda-base',
+                    name: { en: 'Giant Panda Research Base', zh: '大熊猫繁育研究基地' },
+                    description: {
+                        en: 'World-famous panda conservation center where you can observe giant pandas in their natural habitat.',
+                        zh: '世界著名的大熊猫保护中心，您可以在自然栖息地观察大熊猫。'
+                    },
+                    duration: 3,
+                    price: 58,
+                    image: 'https://images.unsplash.com/photo-1698370399704-0a2259bc382b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                },
+                {
+                    id: 'jinli-street',
+                    name: { en: 'Jinli Ancient Street', zh: '锦里古街' },
+                    description: {
+                        en: 'Historic street with traditional architecture, local snacks, handicrafts, and Sichuan opera performances.',
+                        zh: '历史悠久的街道，传统建筑、当地小吃、手工艺品和川剧表演。'
+                    },
+                    duration: 2,
+                    price: 0,
+                    image: 'https://gips1.baidu.com/it/u=2265047180,47231142&fm=3074&app=3074&f=JPEG'
+                },
+                {
+                    id: 'wuhou-shrine',
+                    name: { en: 'Wuhou Shrine', zh: '武侯祠' },
+                    description: {
+                        en: 'Memorial temple dedicated to Zhuge Liang, famous strategist of Three Kingdoms period.',
+                        zh: '纪念三国时期著名军师诸葛亮的祠堂。'
+                    },
+                    duration: 2,
+                    price: 60,
+                    image: 'https://www.wuhouci.net.cn/resources/assets/images/whc2021.jpg'
+                },
+                {
+                    id: 'sichuan-cuisine',
+                    name: { en: 'Sichuan Cuisine Experience', zh: '川菜体验' },
+                    description: {
+                        en: 'Hands-on cooking class learning to make authentic Sichuan dishes like mapo tofu and kung pao chicken.',
+                        zh: '亲手学习制作正宗川菜，如麻婆豆腐和宫保鸡丁的烹饪课程。'
+                    },
+                    duration: 4,
+                    price: 280,
+                    image: 'https://miaobi-lite.bj.bcebos.com/miaobi/5mao/b%276K%2BE5YiG6auY55qE5bed6I%2Bc6aSQ5Y6FXzE3MzQ1Mzk2ODAuMjE4ODk%3D%27/0.png'
+                },
+                {
+                    id: 'tea-house',
+                    name: { en: 'Traditional Tea House', zh: '传统茶馆' },
+                    description: {
+                        en: 'Experience Chengdu\'s tea culture with traditional tea ceremony and local snacks in historic tea house.',
+                        zh: '在历史悠久的茶馆体验成都茶文化，传统茶艺和当地小食。'
+                    },
+                    duration: 2,
+                    price: 80,
+                    image: 'https://www.fjsen.com/images/2023-07/16/30e59e04-465a-44fb-8b9a-73e8c5c6ca70.jpg'
+                },
+                {
+                    id: 'face-changing',
+                    name: { en: 'Sichuan Opera Face Changing', zh: '川剧变脸' },
+                    description: {
+                        en: 'Watch the mysterious art of face-changing in traditional Sichuan opera performance.',
+                        zh: '观看川剧传统表演中神秘的变脸艺术。'
+                    },
+                    duration: 1.5,
+                    price: 120,
+                    image: 'https://qcloud.dpfile.com/pc/_9JFTErgcYwS8UKMf-39hDuvUXA5VgGRg8U9tGLRLkYaYY0PfhlEQ1WPqzILoArg.jpg'
+                }
+            ]
+        };
+
+        // Update medical package prices based on language
+        function updateMedicalPackagePrices() {
+            Object.keys(medicalPackagesData).forEach(packageId => {
+                const packageData = medicalPackagesData[packageId];
+                const priceElement = document.getElementById(`${packageId}-price`);
+                if (priceElement) {
+                    if (currentLanguage === 'en') {
+                        priceElement.textContent = `$${packageData.price.usd}`;
+                    } else {
+                        priceElement.textContent = `¥${packageData.price.rmb}`;
+                    }
+                }
+            });
+        }
+
+        // Initialize the page
+        function init() {
+            // 设置初始语言显示
+            document.getElementById('lang-text').textContent = currentLanguage === 'en' ? '中文' : 'English';
+            updateLanguage();
+            updateMedicalPackagePrices();
+            renderAttractions();
+            updateAttractionCards(); // 确保卡片状态正确
+            updateMedicalPackageCards(); // 确保医疗套餐卡片状态正确
+            updateSummary();
+            setupEventListeners();
+        }
+
+        // Render attractions based on current city
+        function renderAttractions() {
+            const container = document.getElementById('attractions-container');
+            const attractions = attractionsData[currentCity];
+            
+            container.innerHTML = attractions.map(attraction => `
+                <div class="attraction-card bg-white rounded-xl p-6 shadow-lg" data-id="${attraction.id}">
+                    <img src="${attraction.image}" alt="${attraction.name[currentLanguage]}" class="attraction-image mb-4">
+                    <h3 class="text-xl font-bold mb-3">${attraction.name[currentLanguage]}</h3>
+                    <p class="text-gray-600 mb-4 text-sm">${attraction.description[currentLanguage]}</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                        <span><i data-lucide="clock" class="w-4 h-4 inline mr-1"></i>${attraction.duration} ${translations[currentLanguage].hours}</span>
+                        <span><i data-lucide="yuan" class="w-4 h-4 inline mr-1"></i>¥${attraction.price}</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="select-btn w-full py-2 px-4 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition">
+                            ${translations[currentLanguage].selectAttraction}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Re-initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // City tab switching
+            document.querySelectorAll('.city-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.city-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentCity = tab.dataset.city;
+                    selectedAttractions = [];
+                    renderAttractions();
+                    updateSummary();
+                });
+            });
+
+            // Language toggle
+            document.getElementById('language-toggle').addEventListener('click', () => {
+                currentLanguage = currentLanguage === 'en' ? 'zh' : 'en';
+                document.getElementById('lang-text').textContent = currentLanguage === 'en' ? '中文' : 'English';
+                updateLanguage();
+                updateMedicalPackagePrices();
+                renderAttractions();
+                updateSummary();
+            });
+
+            // Medical package selection
+            document.addEventListener('click', (e) => {
+                const medicalButton = e.target.closest('.medical-select-btn');
+                const medicalCard = e.target.closest('.medical-package-card');
+
+                if (medicalButton && medicalCard) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const packageId = medicalCard.dataset.package;
+                    toggleMedicalPackage(packageId);
+                }
+            });
+
+            // Attraction selection - 使用事件委托
+            document.addEventListener('click', (e) => {
+                // 检查是否点击了选择按钮或卡片
+                const button = e.target.closest('.select-btn');
+                const card = e.target.closest('.attraction-card');
+
+                if (button && card) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const attractionId = card.dataset.id;
+                    console.log('Clicked attraction button:', attractionId); // 调试日志
+                    toggleAttraction(attractionId);
+                }
+            });
+
+            // Generate itinerary
+            document.getElementById('generate-itinerary').addEventListener('click', generateItinerary);
+        }
+
+        // Toggle medical package selection
+        function toggleMedicalPackage(packageId) {
+            if (selectedMedicalPackage === packageId) {
+                selectedMedicalPackage = null;
+            } else {
+                selectedMedicalPackage = packageId;
+            }
+            updateMedicalPackageCards();
+            updateSummary();
+        }
+
+        // Update medical package card appearance
+        function updateMedicalPackageCards() {
+            document.querySelectorAll('.medical-package-card').forEach(card => {
+                const packageId = card.dataset.package;
+                const isSelected = selectedMedicalPackage === packageId;
+
+                if (isSelected) {
+                    card.classList.add('selected');
+                    card.querySelector('.medical-select-btn span').textContent = currentLanguage === 'en' ? 'Selected ✓' : '已选择 ✓';
+                    card.querySelector('.medical-select-btn').classList.add('bg-green-600', 'text-white', 'border-green-600');
+                } else {
+                    card.classList.remove('selected');
+                    card.querySelector('.medical-select-btn span').textContent = translations[currentLanguage].selectPackage;
+                    card.querySelector('.medical-select-btn').classList.remove('bg-green-600', 'text-white', 'border-green-600');
+                }
+            });
+        }
+
+        // Toggle attraction selection
+        function toggleAttraction(attractionId) {
+            console.log('toggleAttraction called with:', attractionId); // 调试日志
+            const attraction = attractionsData[currentCity].find(a => a.id === attractionId);
+            console.log('Found attraction:', attraction); // 调试日志
+            const index = selectedAttractions.findIndex(a => a.id === attractionId);
+
+            if (index > -1) {
+                selectedAttractions.splice(index, 1);
+                console.log('Removed attraction, new array:', selectedAttractions); // 调试日志
+            } else {
+                selectedAttractions.push(attraction);
+                console.log('Added attraction, new array:', selectedAttractions); // 调试日志
+            }
+
+            updateAttractionCards();
+            updateSummary();
+        }
+
+        // Update attraction card appearance
+        function updateAttractionCards() {
+            document.querySelectorAll('.attraction-card').forEach(card => {
+                const attractionId = card.dataset.id;
+                const isSelected = selectedAttractions.some(a => a.id === attractionId);
+
+                if (isSelected) {
+                    card.classList.add('selected');
+                    card.querySelector('.select-btn').textContent = currentLanguage === 'en' ? 'Selected ✓' : '已选择 ✓';
+                    card.querySelector('.select-btn').classList.add('bg-blue-600', 'text-white');
+                } else {
+                    card.classList.remove('selected');
+                    card.querySelector('.select-btn').textContent = translations[currentLanguage].selectAttraction;
+                    card.querySelector('.select-btn').classList.remove('bg-blue-600', 'text-white');
+                }
+            });
+        }
+
+        // Convert hours to days
+        function convertHoursToDays(hours) {
+            if (hours <= 3) return 0.5;
+            if (hours <= 6) return 1;
+            if (hours <= 9) return 1.5;
+            if (hours <= 12) return 2;
+            if (hours <= 15) return 2.5;
+            if (hours <= 18) return 3;
+            return Math.ceil(hours / 6) * 0.5;
+        }
+
+        // Update summary
+        function updateSummary() {
+            // Calculate attraction totals
+            const totalHours = selectedAttractions.reduce((sum, attraction) => sum + attraction.duration, 0);
+            const totalDays = convertHoursToDays(totalHours);
+            const attractionCost = selectedAttractions.reduce((sum, attraction) => sum + attraction.price, 0);
+
+            // Calculate medical package totals
+            let medicalCost = 0;
+            let medicalDays = 0;
+            let reportWaitDays = 0;
+
+            if (selectedMedicalPackage) {
+                const medicalPackage = medicalPackagesData[selectedMedicalPackage];
+                medicalCost = currentLanguage === 'en' ? medicalPackage.price.usd : medicalPackage.price.rmb;
+                medicalDays = medicalPackage.duration;
+                reportWaitDays = medicalPackage.reportWaitDays;
+            }
+
+            // Calculate total cost and time
+            const totalCost = attractionCost + medicalCost;
+
+            // 修正时间计算逻辑：
+            // 1. 如果只有体检套餐：显示体检1天 + 等待报告7天（但等待期间可以旅游）
+            // 2. 如果只有旅游项目：显示旅游天数
+            // 3. 如果两者都有：体检1天 + 旅游天数（等待报告期间可以进行旅游活动）
+            let totalMedicalTourismDays;
+            if (selectedMedicalPackage && selectedAttractions.length > 0) {
+                // 体检1天 + 旅游天数（等待报告期间进行旅游）
+                totalMedicalTourismDays = medicalDays + totalDays;
+            } else if (selectedMedicalPackage) {
+                // 只有体检：1天体检 + 7天等待（但实际行程只需要1天，其余时间可自由安排）
+                totalMedicalTourismDays = medicalDays;
+            } else {
+                // 只有旅游
+                totalMedicalTourismDays = totalDays;
+            }
+
+            console.log('updateSummary called'); // 调试日志
+            console.log('Selected attractions:', selectedAttractions); // 调试日志
+            console.log('Selected medical package:', selectedMedicalPackage); // 调试日志
+            console.log('Medical days:', medicalDays, 'Tourism days:', totalDays, 'Total days:', totalMedicalTourismDays); // 调试日志
+
+            const timeElement = document.getElementById('total-time');
+            const costElement = document.getElementById('total-cost');
+
+            console.log('Time element found:', timeElement); // 调试日志
+            console.log('Cost element found:', costElement); // 调试日志
+
+            if (timeElement && costElement) {
+                // 如果没有选择任何项目，显示提示文字
+                if (selectedAttractions.length === 0 && !selectedMedicalPackage) {
+                    timeElement.textContent = currentLanguage === 'en' ? 'No items selected' : '未选择项目';
+                    costElement.textContent = currentLanguage === 'en' ? 'No cost' : '无费用';
+                } else {
+                    // 显示总时间和费用
+                    timeElement.textContent = `${totalMedicalTourismDays} ${translations[currentLanguage].days}`;
+                    const currencySymbol = currentLanguage === 'en' ? '$' : '¥';
+                    costElement.textContent = `${currencySymbol}${totalCost}`;
+                }
+                console.log('Updated time and cost elements'); // 调试日志
+            } else {
+                console.error('Could not find time or cost elements'); // 调试日志
+            }
+
+            // Update planning summary title
+            let summaryItems = [];
+            if (selectedMedicalPackage) {
+                summaryItems.push(medicalPackagesData[selectedMedicalPackage].name[currentLanguage]);
+            }
+            if (selectedAttractions.length > 0) {
+                summaryItems.push(...selectedAttractions.map(a => a.name[currentLanguage]));
+            }
+
+            if (summaryItems.length > 0) {
+                document.querySelector('[data-key="planningTitle"]').textContent =
+                    `${currentLanguage === 'en' ? 'Planning Summary' : '规划摘要'}: ${summaryItems.join(', ')}`;
+            } else {
+                document.querySelector('[data-key="planningTitle"]').textContent =
+                    currentLanguage === 'en' ? 'Planning Summary: No items selected' : '规划摘要：未选择项目';
+            }
+
+            // Show/hide selected summary
+            const summaryDiv = document.getElementById('selected-summary');
+            if (selectedAttractions.length > 0 || selectedMedicalPackage) {
+                summaryDiv.classList.remove('hidden');
+                updateSelectedList();
+            } else {
+                summaryDiv.classList.add('hidden');
+            }
+        }
+
+        // Update selected attractions list
+        function updateSelectedList() {
+            const listContainer = document.getElementById('selected-list');
+            let listHTML = '';
+
+            // Add medical package if selected
+            if (selectedMedicalPackage) {
+                const medicalPackage = medicalPackagesData[selectedMedicalPackage];
+                listHTML += `
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                        <div>
+                            <h4 class="font-semibold text-green-800">${medicalPackage.name[currentLanguage]}</h4>
+                            <p class="text-sm text-green-600">${medicalPackage.duration} ${translations[currentLanguage].day} • ${currentLanguage === 'en' ? '$' + medicalPackage.price.usd : '¥' + medicalPackage.price.rmb}</p>
+                            <p class="text-xs text-green-500">${translations[currentLanguage].reportWaitTime}</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700" onclick="toggleMedicalPackage('${medicalPackage.id}')">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Add attractions
+            listHTML += selectedAttractions.map(attraction => `
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <div>
+                        <h4 class="font-semibold">${attraction.name[currentLanguage]}</h4>
+                        <p class="text-sm text-gray-600">${attraction.duration} ${translations[currentLanguage].hours} • ¥${attraction.price}</p>
+                    </div>
+                    <button class="text-red-500 hover:text-red-700" onclick="toggleAttraction('${attraction.id}')">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            listContainer.innerHTML = listHTML;
+
+            // Re-initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        // Update language for all elements
+        function updateLanguage() {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.dataset.key;
+                if (translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+        }
+
+        // Generate detailed itinerary
+        function generateItinerary() {
+            if (selectedAttractions.length === 0 && !selectedMedicalPackage) {
+                alert(currentLanguage === 'en' ? 'Please select at least one item (medical package or attraction).' : '请至少选择一个项目（体检套餐或景点）。');
+                return;
+            }
+
+            // Calculate totals
+            const totalHours = selectedAttractions.reduce((sum, attraction) => sum + attraction.duration, 0);
+            const totalDays = convertHoursToDays(totalHours);
+            const attractionCost = selectedAttractions.reduce((sum, attraction) => sum + attraction.price, 0);
+
+            let medicalCost = 0;
+            let medicalDays = 0;
+            let reportWaitDays = 0;
+
+            if (selectedMedicalPackage) {
+                const medicalPackage = medicalPackagesData[selectedMedicalPackage];
+                medicalCost = currentLanguage === 'en' ? medicalPackage.price.usd : medicalPackage.price.rmb;
+                medicalDays = medicalPackage.duration;
+                reportWaitDays = medicalPackage.reportWaitDays;
+            }
+
+            const totalCost = attractionCost + medicalCost;
+
+            // 修正时间计算逻辑（与updateSummary保持一致）
+            let totalMedicalTourismDays;
+            if (selectedMedicalPackage && selectedAttractions.length > 0) {
+                // 体检1天 + 旅游天数（等待报告期间进行旅游）
+                totalMedicalTourismDays = medicalDays + totalDays;
+            } else if (selectedMedicalPackage) {
+                // 只有体检：1天体检（7天等待期间可自由安排）
+                totalMedicalTourismDays = medicalDays;
+            } else {
+                // 只有旅游
+                totalMedicalTourismDays = totalDays;
+            }
+
+            let itinerary = currentLanguage === 'en' ?
+                `🎯 Your ${currentCity.charAt(0).toUpperCase() + currentCity.slice(1)} Medical Tourism Itinerary\n\n` :
+                `🎯 您的${currentCity === 'beijing' ? '北京' : '成都'}医疗旅游行程\n\n`;
+
+            // Add medical package if selected
+            if (selectedMedicalPackage) {
+                const medicalPackage = medicalPackagesData[selectedMedicalPackage];
+                itinerary += `🏥 ${currentLanguage === 'en' ? 'Medical Package' : '体检套餐'}:\n`;
+                itinerary += `   ${medicalPackage.name[currentLanguage]}\n`;
+                itinerary += `   ${currentLanguage === 'en' ? 'Check-up Duration' : '体检时长'}: ${medicalPackage.duration} ${translations[currentLanguage].day}\n`;
+                itinerary += `   ${currentLanguage === 'en' ? 'Price' : '价格'}: ${currentLanguage === 'en' ? '$' + medicalPackage.price.usd : '¥' + medicalPackage.price.rmb}\n`;
+                itinerary += `   ${medicalPackage.description[currentLanguage]}\n`;
+                itinerary += `   ${translations[currentLanguage].reportWaitTime}\n\n`;
+            }
+
+            // Add attractions if selected
+            if (selectedAttractions.length > 0) {
+                itinerary += `🎭 ${currentLanguage === 'en' ? 'Cultural Experiences' : '文化体验'}:\n`;
+                selectedAttractions.forEach((attraction, index) => {
+                    itinerary += `${index + 1}. ${attraction.name[currentLanguage]}\n`;
+                    itinerary += `   ${currentLanguage === 'en' ? 'Duration' : '时长'}: ${attraction.duration} ${translations[currentLanguage].hours}\n`;
+                    itinerary += `   ${currentLanguage === 'en' ? 'Price' : '价格'}: ¥${attraction.price}\n`;
+                    itinerary += `   ${attraction.description[currentLanguage]}\n\n`;
+                });
+            }
+
+            itinerary += `📊 ${currentLanguage === 'en' ? 'Summary' : '总结'}:\n`;
+            if (selectedMedicalPackage && selectedAttractions.length > 0) {
+                itinerary += `${translations[currentLanguage].totalMedicalTourismTime}: ${totalMedicalTourismDays} ${translations[currentLanguage].days}\n`;
+                itinerary += `   (${currentLanguage === 'en' ? 'Medical check-up' : '体检'}: ${medicalDays} ${translations[currentLanguage].day} + ${currentLanguage === 'en' ? 'Tourism' : '旅游'}: ${totalDays} ${translations[currentLanguage].days})\n`;
+                itinerary += `${translations[currentLanguage].totalMedicalTourismCost}: ${currentLanguage === 'en' ? '$' + totalCost : '¥' + totalCost}\n`;
+            } else if (selectedMedicalPackage) {
+                itinerary += `${currentLanguage === 'en' ? 'Medical Package Time' : '体检套餐时间'}: ${totalMedicalTourismDays} ${translations[currentLanguage].day}\n`;
+                itinerary += `   (${currentLanguage === 'en' ? 'Report available after 7 days, travel activities can be done during waiting period' : '7天后出报告，等待期间可进行旅游活动'})\n`;
+                itinerary += `${currentLanguage === 'en' ? 'Medical Package Cost' : '体检套餐费用'}: ${currentLanguage === 'en' ? '$' + medicalCost : '¥' + medicalCost}\n`;
+            } else {
+                itinerary += `${currentLanguage === 'en' ? 'Cultural Experience Time' : '文化体验时间'}: ${totalDays} ${translations[currentLanguage].days}\n`;
+                itinerary += `${currentLanguage === 'en' ? 'Cultural Experience Cost' : '文化体验费用'}: ¥${attractionCost}\n`;
+            }
+            itinerary += `\n${translations[currentLanguage].timeNote}\n\n`;
+            itinerary += `📞 ${currentLanguage === 'en' ? 'Contact us for booking' : '联系我们预订'}: WhatsApp +86 199 1038 5444`;
+
+            // Create a modal or new window to display the itinerary
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.id = 'itinerary-modal';
+
+            // Close modal function
+            const closeModal = () => {
+                const modalElement = document.getElementById('itinerary-modal');
+                if (modalElement) {
+                    modalElement.remove();
+                }
+            };
+
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto relative" onclick="event.stopPropagation()">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">${currentLanguage === 'en' ? 'Your Itinerary' : '您的行程'}</h3>
+                        <button id="close-modal-btn" class="text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full p-1 transition-colors">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    <pre class="whitespace-pre-wrap text-sm text-gray-700">${itinerary}</pre>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <button id="copy-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            ${currentLanguage === 'en' ? 'Copy to Clipboard' : '复制到剪贴板'}
+                        </button>
+                        <button id="whatsapp-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            ${currentLanguage === 'en' ? 'Send via WhatsApp' : '通过WhatsApp发送'}
+                        </button>
+                        <button id="close-modal-btn-2" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                            ${currentLanguage === 'en' ? 'Close' : '关闭'}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Add click event to close modal when clicking outside
+            modal.addEventListener('click', closeModal);
+
+            document.body.appendChild(modal);
+            lucide.createIcons();
+
+            // Add event listeners for close buttons
+            document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+            document.getElementById('close-modal-btn-2').addEventListener('click', closeModal);
+
+            // Add event listener for copy button
+            document.getElementById('copy-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(itinerary).then(() => {
+                    // Optional: Show a brief success message
+                    const btn = document.getElementById('copy-btn');
+                    const originalText = btn.textContent;
+                    btn.textContent = currentLanguage === 'en' ? 'Copied!' : '已复制!';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                    }, 2000);
+                });
+            });
+
+            // Add event listener for WhatsApp button
+            document.getElementById('whatsapp-btn').addEventListener('click', () => {
+                // Create a properly formatted message for WhatsApp
+                const whatsappMessage = encodeURIComponent(itinerary);
+                const whatsappUrl = `https://wa.me/8619910385444?text=${whatsappMessage}`;
+                window.open(whatsappUrl, '_blank');
+            });
+
+            // Add ESC key listener to close modal
+            const handleEscKey = (event) => {
+                if (event.key === 'Escape') {
+                    closeModal();
+                    document.removeEventListener('keydown', handleEscKey);
+                }
+            };
+            document.addEventListener('keydown', handleEscKey);
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

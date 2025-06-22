@@ -777,86 +777,223 @@
                 <div class="mt-12">
                     <h3 class="text-2xl font-bold text-center text-gray-700" data-key="screeningTitle">健康体检套餐</h3>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto">
-                        <!-- Elite Package -->
+                        <!-- 基础套餐 -->
                         <div class="card p-8 flex flex-col">
-                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="eliteTitle">精英体检套餐</h3>
-                            <p class="text-4xl font-bold text-gray-800 mb-2">$210 - $350</p>
-                            <p class="text-gray-500 mb-6" data-key="eliteSavings">相比欧美可节省 70-80%</p>
-                            <ul class="text-left space-y-3 mb-8 flex-grow">
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="eliteFeature1">一般检查 + 内外科</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="eliteFeature2">实验室检查 (血/尿常规)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="eliteFeature3">主要脏器B超</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="eliteFeature4">心电图 & 胸部摄片</span>
-                                </li>
-                            </ul>
-                            <button data-modal-target="elite-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
-                            <a href="#contact" class="mt-2 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
+                            <h3 class="text-2xl font-bold text-teal-600 mb-4" data-key="basicTitle">基础套餐</h3>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">$299</p>
+                            <p class="text-gray-500 mb-6" data-key="basicSavings">常规健康检查，适合年度体检</p>
+
+                            <!-- 医生检查 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="basicDoctorExam">医生检查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicDoctorItem1">内科、外科、眼科、耳鼻喉科、口腔科检查</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 仪器检查 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="basicInstrumentExam">仪器检查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicInstrumentItem1">身高、体重、血压、心电图</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicInstrumentItem2">胸部X光（正位）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicInstrumentItem3">上腹部超声（肝胆胰脾肾）</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 实验室检查 -->
+                            <div class="mb-6 flex-grow">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="basicLabExam">实验室检查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicLabItem1">血常规、尿常规</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicLabItem2">肝功能十一项</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicLabItem3">肾功能三项</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicLabItem4">血脂四项</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="basicLabItem5">空腹血糖</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <button data-modal-target="basic-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
+                            <a href="#contact" class="mt-2 bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
                         </div>
 
-                        <!-- Platinum Package -->
+                        <!-- 精英套餐 -->
                         <div class="card p-8 flex flex-col border-2 border-blue-600 relative">
                             <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold" data-key="mostPopular">最受欢迎</div>
-                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="platinumTitle">铂金深度套餐</h3>
-                            <p class="text-4xl font-bold text-gray-800 mb-2">$490 - $700</p>
-                            <p class="text-gray-500 mb-6" data-key="platinumSavings">相比欧美可节省 70-80%</p>
-                            <ul class="text-left space-y-3 mb-8 flex-grow">
-                                <li class="flex items-start font-semibold">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="platinumFeature1">包含所有精英套餐项目</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="platinumFeature2">多项肿瘤标志物筛查</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="platinumFeature3">颈动脉 & 甲状腺彩超</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="platinumFeature4">碳13/14呼气试验 (HP)</span>
-                                </li>
-                            </ul>
-                            <button data-modal-target="platinum-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="eliteTitle">精英套餐</h3>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">$599</p>
+                            <p class="text-gray-500 mb-6" data-key="eliteSavings">在基础套餐之上，增加重要脏器和癌症筛查</p>
+
+                            <!-- 包含基础套餐 -->
+                            <div class="mb-4">
+                                <p class="font-medium text-blue-700 bg-blue-100 p-3 rounded-lg text-sm" data-key="eliteIncludesBasic">包含基础套餐所有项目</p>
+                            </div>
+
+                            <!-- 深度仪器检查 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteDeepInstrument">深度仪器检查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteDeepItem1">胸部CT</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteDeepItem2">甲状腺超声</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteDeepItem3">颈动脉超声</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteDeepItem4">盆腔超声（男：前列腺；女：子宫附件）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteDeepItem5">骨密度检测</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 肿瘤标志物筛查 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteTumorMarkers">肿瘤标志物筛查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteTumorItem1">癌胚抗原（CEA）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteTumorItem2">甲胎蛋白（AFP）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteTumorItem3">前列腺特异性抗原（男，PSA）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteTumorItem4">糖类抗原125（女，CA-125）</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 其他检查 -->
+                            <div class="mb-6 flex-grow">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteOtherExams">其他检查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteOtherItem1">同型半胱氨酸（Hcy）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="eliteOtherItem2">幽门螺旋杆菌抗体检测</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <button data-modal-target="elite-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
                             <a href="#contact" class="mt-2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
                         </div>
 
-                        <!-- VIP Package -->
+                        <!-- 尊享套餐 -->
                         <div class="card p-8 flex flex-col">
-                            <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="vipTitle">VIP全面套餐</h3>
-                            <p class="text-4xl font-bold text-gray-800 mb-2">$1,100 - $2,100</p>
-                            <p class="text-gray-500 mb-6" data-key="vipSavings">相比欧美可节省 75-85%</p>
-                            <ul class="text-left space-y-3 mb-8 flex-grow">
-                                <li class="flex items-start font-semibold">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="vipFeature1">包含所有铂金套餐项目</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="vipFeature2">头部核磁共振 (MRI)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="vipFeature3">低剂量螺旋CT (肺部)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-1"></i>
-                                    <span data-key="vipFeature4">无痛胃肠镜检查</span>
-                                </li>
-                            </ul>
+                            <h3 class="text-2xl font-bold text-purple-600 mb-4" data-key="vipTitle">尊享套餐</h3>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">$1,399</p>
+                            <p class="text-gray-500 mb-6" data-key="vipSavings">全面深入的健康评估，心脑血管及基因检测</p>
+
+                            <!-- 包含精英套餐 -->
+                            <div class="mb-4">
+                                <p class="font-medium text-purple-700 bg-purple-100 p-3 rounded-lg text-sm" data-key="vipIncludesElite">包含精英套餐所有项目</p>
+                            </div>
+
+                            <!-- 高端影像学检查 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="vipAdvancedImaging">高端影像学检查</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipImagingItem1">心脏冠状动脉CTA或头颈CTA（二选一）</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipImagingItem2">低剂量螺旋CT肺癌筛查</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 内分泌及风湿免疫 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="vipEndocrine">内分泌及风湿免疫</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipEndocrineItem1">甲状腺功能五项</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipEndocrineItem2">性激素六项</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipEndocrineItem3">风湿三项</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 基因检测 -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="vipGenetic">基因检测</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipGeneticItem1">常见肿瘤易感基因筛查（13项）</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 专业评估 -->
+                            <div class="mb-6 flex-grow">
+                                <h4 class="font-semibold text-gray-800 mb-2" data-key="vipProfessional">专业评估</h4>
+                                <ul class="text-left space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                        <span data-key="vipProfessionalItem1">专家一对一报告解读</span>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <button data-modal-target="vip-modal" class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block" data-key="viewDetails">查看详情</button>
-                            <a href="#contact" class="mt-2 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
+                            <a href="#contact" class="mt-2 bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition w-full block text-center" data-key="selectPackage">选择此套餐</a>
                         </div>
                     </div>
                     <p class="text-center text-xs text-gray-500 mt-6 max-w-4xl mx-auto" data-key="priceDisclaimer">具体费用可能受汇率以及相关供应商价格调整的影响，以上价格仅供参考</p>
@@ -1244,6 +1381,13 @@
                                     <div class="text-xs text-blue-200" data-key="package3Duration">Duration: 2 days</div>
                                 </div>
                             </div>
+                            <div class="text-center mt-8">
+                                <a href="#" id="culture-planner-link" class="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition shadow-lg" data-key="culturePlannerButton">
+                                    <i data-lucide="calculator" class="w-6 h-6 mr-3"></i>
+                                    <span>Deep China Culture Experience Planning Tool</span>
+                                </a>
+                                <p class="text-blue-100 text-sm mt-3" data-key="culturePlannerDesc">Create your personalized cultural itinerary with cost and time estimates</p>
+                            </div>
                         </div>
                     </div>
 
@@ -1491,8 +1635,8 @@
                 about3Subtitle: "Your health is non-negotiable. Based on global medical tourism research showing 97.2% of patients prioritize trust, we've built a comprehensive six-pillar assurance system that addresses every concern international patients have.",
                 about3Card1Title: "🏥 Top-Tier Hospital Network (Grade 3A)",
                 about3Card1Text: "We partner exclusively with China's highest-rated 'Grade 3A' hospitals - equivalent to major university medical centers in the US/EU. These represent only 4.4% of all Chinese hospitals and are trusted by 71% of medical tourists worldwide for their international-standard care.",
-                about3Card2Title: "👨‍⚕️ Verified Medical Credentials & Transparency",
-                about3Card2Text: "All our doctors hold international certifications and have verifiable track records. We provide complete transparency about physician qualifications, success rates, and patient testimonials - addressing the trust concerns of 78% of medical tourists.",
+                about3Card2Title: "👨‍⚕️ Meet China's World-Class Doctors",
+                about3Card2Text: "China's medical professionals are among the most highly trained in Asia, many holding advanced degrees from top domestic and international institutions. Licensed under rigorous national standards, Chinese doctors undergo years of intensive education and clinical training, with specialists in Traditional Chinese Medicine (TCM), internal medicine, and regenerative therapy often having decades of hands-on experience. Many physicians in major cities like Beijing, Shanghai, and Chengdu are bilingual and accustomed to treating international patients in globally accredited hospitals. Whether it's a full-body check-up, acupuncture session, or stem cell consultation, you'll be in safe, expert hands.",
                 about3Card3Title: "🔒 Secure Payment & Financial Protection",
                 about3Card3Text: "Secure payment systems with full financial transparency and no hidden costs. We provide detailed cost breakdowns upfront, addressing the financial concerns that deter 34.6% of potential medical tourists.",
                 about3Card4Title: "📞 Comprehensive Post-Treatment Follow-Up",
@@ -1564,27 +1708,61 @@
                 servicesTitle: "Comprehensive Medical Services",
                 servicesSubtitle: "From preventative screening to specialized treatments, we offer a full spectrum of world-class medical care.",
                 screeningTitle: "Health Screening Packages",
+
+                // Basic Package
+                basicTitle: "Basic Package",
+                basicSavings: "Routine health check-up, suitable for annual screening",
+                basicDoctorExam: "Doctor Examination",
+                basicDoctorItem1: "Internal medicine, surgery, ophthalmology, ENT, dental examination",
+                basicInstrumentExam: "Instrument Examination",
+                basicInstrumentItem1: "Height, weight, blood pressure, ECG",
+                basicInstrumentItem2: "Chest X-ray (frontal view)",
+                basicInstrumentItem3: "Upper abdominal ultrasound (liver, gallbladder, pancreas, spleen, kidney)",
+                basicLabExam: "Laboratory Tests",
+                basicLabItem1: "Complete blood count, urinalysis",
+                basicLabItem2: "Liver function (11 items)",
+                basicLabItem3: "Kidney function (3 items)",
+                basicLabItem4: "Lipid profile (4 items)",
+                basicLabItem5: "Fasting blood glucose",
+
+                // Elite Package
                 eliteTitle: "Elite Package",
-                eliteSavings: "Save 70-80% vs. US/EU",
-                eliteFeature1: "General + Physical Exam",
-                eliteFeature2: "Lab Tests (Blood/Urine)",
-                eliteFeature3: "Organ Ultrasound",
-                eliteFeature4: "ECG & Chest X-Ray",
+                eliteSavings: "Enhanced screening with organ and cancer detection",
+                eliteIncludesBasic: "Includes all Basic Package items",
+                eliteDeepInstrument: "Advanced Instrument Examination",
+                eliteDeepItem1: "Chest CT",
+                eliteDeepItem2: "Thyroid ultrasound",
+                eliteDeepItem3: "Carotid ultrasound",
+                eliteDeepItem4: "Pelvic ultrasound (Male: prostate; Female: uterus & ovaries)",
+                eliteDeepItem5: "Bone density test",
+                eliteTumorMarkers: "Tumor Marker Screening",
+                eliteTumorItem1: "Carcinoembryonic antigen (CEA)",
+                eliteTumorItem2: "Alpha-fetoprotein (AFP)",
+                eliteTumorItem3: "Prostate-specific antigen (Male, PSA)",
+                eliteTumorItem4: "Cancer antigen 125 (Female, CA-125)",
+                eliteOtherExams: "Other Tests",
+                eliteOtherItem1: "Homocysteine (Hcy)",
+                eliteOtherItem2: "Helicobacter pylori antibody test",
+
+                // VIP Package
+                vipTitle: "Premium Package",
+                vipSavings: "Comprehensive health assessment with cardiovascular and genetic testing",
+                vipIncludesElite: "Includes all Elite Package items",
+                vipAdvancedImaging: "Advanced Imaging Studies",
+                vipImagingItem1: "Cardiac coronary CTA or head & neck CTA (choose one)",
+                vipImagingItem2: "Low-dose spiral CT lung cancer screening",
+                vipEndocrine: "Endocrine & Rheumatology",
+                vipEndocrineItem1: "Thyroid function (5 items)",
+                vipEndocrineItem2: "Sex hormone panel (6 items)",
+                vipEndocrineItem3: "Rheumatology panel (3 items)",
+                vipGenetic: "Genetic Testing",
+                vipGeneticItem1: "Common cancer susceptibility gene screening (13 items)",
+                vipProfessional: "Professional Assessment",
+                vipProfessionalItem1: "One-on-one expert report interpretation",
+
                 viewDetails: "View Details",
                 selectPackage: "Select Package",
                 mostPopular: "Most Popular",
-                platinumTitle: "Platinum Package",
-                platinumSavings: "Save 70-80% vs. US/EU",
-                platinumFeature1: "All Elite items +",
-                platinumFeature2: "Multiple Tumor Markers",
-                platinumFeature3: "Carotid & Thyroid Ultrasound",
-                platinumFeature4: "C13/14 Breath Test (H.P.)",
-                vipTitle: "VIP Package",
-                vipSavings: "Save 75-85% vs. US/EU",
-                vipFeature1: "All Platinum items +",
-                vipFeature2: "Head MRI Scan",
-                vipFeature3: "Low-Dose CT (Lungs)",
-                vipFeature4: "Painless Gastroscopy & Colonoscopy",
                 priceDisclaimer: "Actual costs may be affected by exchange rates and supplier price adjustments. The above prices are for reference only.",
                 additionalServicesTitle: "Additional Specialized Services",
                 serviceEyeTitle: "Ophthalmology",
@@ -1695,6 +1873,9 @@
                 package3Desc: "Complete Beijing experience: Imperial sites, Hutong culture, traditional arts, Beijing Opera, and culinary masterclass.",
                 package3Duration: "Duration: 2 days",
 
+                culturePlannerButton: "Deep China Culture Experience Planning Tool",
+                culturePlannerDesc: "Create your personalized cultural itinerary with cost and time estimates",
+
                 chengduCultureTitle: "🐼 Chengdu: Panda Paradise & Sichuan Culture",
                 chengduCultureSubtitle: "Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Content coming soon...",
                 chengduComingSoon: "Chengdu Cultural Experiences Coming Soon",
@@ -1790,8 +1971,8 @@
                 about3Subtitle: "您的健康不容有失。基于全球医疗旅游研究显示97.2%的患者最重视信任度，我们建立了全面的六大保障支柱体系，解决国际患者的每一个担忧。",
                 about3Card1Title: "🏥 顶级医院网络（三级甲等）",
                 about3Card1Text: "我们只与中国最高等级的'三级甲等'医院合作——相当于美国/欧洲的大学医学中心。这些医院仅占中国医院总数的4.4%，是全球71%医疗旅游者信赖的国际标准医疗机构。",
-                about3Card2Title: "👨‍⚕️ 医生资质验证与透明度",
-                about3Card2Text: "所有医生都持有国际认证并拥有可验证的成功记录。我们完全透明地提供医生资质、成功率和患者见证，解决78%医疗旅游者的信任担忧。",
+                about3Card2Title: "👨‍⚕️ 邂逅中国世界级医生",
+                about3Card2Text: "中国的医疗专业人士是亚洲训练最为严格的医生群体之一，许多人拥有国内外顶尖院校的高级学位。在严格的国家标准下获得执业资格，中国医生经过多年密集的教育和临床培训，中医、内科和再生医学等专科医生往往拥有数十年的实践经验。北京、上海、成都等主要城市的许多医生都能说双语，习惯在国际认证医院为国际患者提供治疗。无论是全身体检、针灸治疗还是干细胞咨询，您都将得到安全、专业的医疗服务。",
                 about3Card3Title: "🔒 安全支付与财务保护",
                 about3Card3Text: "安全的支付系统，完全财务透明，无隐藏费用。我们提前提供详细的费用明细，解决阻碍34.6%潜在医疗旅游者的财务担忧。",
                 about3Card4Title: "📞 全面的术后跟进服务",
@@ -1863,27 +2044,61 @@
                 servicesTitle: "全面的医疗服务",
                 servicesSubtitle: "从预防性筛查到专项治疗，我们提供全方位的世界级医疗服务。",
                 screeningTitle: "健康体检套餐",
-                eliteTitle: "精英体检套餐",
-                eliteSavings: "相比欧美可节省 70-80%",
-                eliteFeature1: "一般检查 + 内外科",
-                eliteFeature2: "实验室检查 (血/尿常规)",
-                eliteFeature3: "主要脏器B超",
-                eliteFeature4: "心电图 & 胸部摄片",
+
+                // 基础套餐
+                basicTitle: "基础套餐",
+                basicSavings: "常规健康检查，适合年度体检",
+                basicDoctorExam: "医生检查",
+                basicDoctorItem1: "内科、外科、眼科、耳鼻喉科、口腔科检查",
+                basicInstrumentExam: "仪器检查",
+                basicInstrumentItem1: "身高、体重、血压、心电图",
+                basicInstrumentItem2: "胸部X光（正位）",
+                basicInstrumentItem3: "上腹部超声（肝胆胰脾肾）",
+                basicLabExam: "实验室检查",
+                basicLabItem1: "血常规、尿常规",
+                basicLabItem2: "肝功能十一项",
+                basicLabItem3: "肾功能三项",
+                basicLabItem4: "血脂四项",
+                basicLabItem5: "空腹血糖",
+
+                // 精英套餐
+                eliteTitle: "精英套餐",
+                eliteSavings: "在基础套餐之上，增加重要脏器和癌症筛查",
+                eliteIncludesBasic: "包含基础套餐所有项目",
+                eliteDeepInstrument: "深度仪器检查",
+                eliteDeepItem1: "胸部CT",
+                eliteDeepItem2: "甲状腺超声",
+                eliteDeepItem3: "颈动脉超声",
+                eliteDeepItem4: "盆腔超声（男：前列腺；女：子宫附件）",
+                eliteDeepItem5: "骨密度检测",
+                eliteTumorMarkers: "肿瘤标志物筛查",
+                eliteTumorItem1: "癌胚抗原（CEA）",
+                eliteTumorItem2: "甲胎蛋白（AFP）",
+                eliteTumorItem3: "前列腺特异性抗原（男，PSA）",
+                eliteTumorItem4: "糖类抗原125（女，CA-125）",
+                eliteOtherExams: "其他检查",
+                eliteOtherItem1: "同型半胱氨酸（Hcy）",
+                eliteOtherItem2: "幽门螺旋杆菌抗体检测",
+
+                // 尊享套餐
+                vipTitle: "尊享套餐",
+                vipSavings: "全面深入的健康评估，心脑血管及基因检测",
+                vipIncludesElite: "包含精英套餐所有项目",
+                vipAdvancedImaging: "高端影像学检查",
+                vipImagingItem1: "心脏冠状动脉CTA或头颈CTA（二选一）",
+                vipImagingItem2: "低剂量螺旋CT肺癌筛查",
+                vipEndocrine: "内分泌及风湿免疫",
+                vipEndocrineItem1: "甲状腺功能五项",
+                vipEndocrineItem2: "性激素六项",
+                vipEndocrineItem3: "风湿三项",
+                vipGenetic: "基因检测",
+                vipGeneticItem1: "常见肿瘤易感基因筛查（13项）",
+                vipProfessional: "专业评估",
+                vipProfessionalItem1: "专家一对一报告解读",
+
                 viewDetails: "查看详情",
                 selectPackage: "选择此套餐",
                 mostPopular: "最受欢迎",
-                platinumTitle: "铂金深度套餐",
-                platinumSavings: "相比欧美可节省 70-80%",
-                platinumFeature1: "包含所有精英套餐项目",
-                platinumFeature2: "多项肿瘤标志物筛查",
-                platinumFeature3: "颈动脉 & 甲状腺彩超",
-                platinumFeature4: "碳13/14呼气试验 (HP)",
-                vipTitle: "VIP全面套餐",
-                vipSavings: "相比欧美可节省 75-85%",
-                vipFeature1: "包含所有铂金套餐项目",
-                vipFeature2: "头部核磁共振 (MRI)",
-                vipFeature3: "低剂量螺旋CT (肺部)",
-                vipFeature4: "无痛胃肠镜检查",
                 priceDisclaimer: "具体费用可能受汇率以及相关供应商价格调整的影响，以上价格仅供参考",
                 additionalServicesTitle: "其他专项服务",
                 serviceEyeTitle: "眼科",
@@ -1993,6 +2208,9 @@
                 package3Title: "🎭 文化深度体验（2日游）",
                 package3Desc: "完整北京体验：皇家景点、胡同文化、传统艺术、京剧表演和美食大师课。",
                 package3Duration: "时长：2天",
+
+                culturePlannerButton: "深度中华文化体验规划工具",
+                culturePlannerDesc: "创建您的个性化文化行程，包含费用和时间预估",
 
                 chengduCultureTitle: "🐼 成都：熊猫天堂与川蜀文化",
                 chengduCultureSubtitle: "体验成都的悠闲魅力，大熊猫的故乡和正宗川蜀文化。内容即将推出...",
@@ -2529,6 +2747,16 @@
 
             // Initial call to set active state on page load
             updateActiveNavLink();
+
+            // Handle culture planner link with language parameter
+            const culturePlannerLink = document.getElementById('culture-planner-link');
+            if (culturePlannerLink) {
+                culturePlannerLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = `culture-planner.html?lang=${currentLang}`;
+                    window.location.href = url;
+                });
+            }
         });
     </script>
 </body>
