@@ -410,14 +410,14 @@
         /* Enhanced visual effects */
         .price-impact {
             position: relative;
-            background: linear-gradient(135deg, #fee2e2, #fecaca);
-            border: 2px solid #f87171;
+            background: linear-gradient(135deg, #fef3f2, #fed7d7);
+            border: 2px solid #f4a5a5;
         }
 
         .value-impact {
             position: relative;
-            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-            border: 2px solid #4ade80;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 2px solid #86efac;
         }
 
         .comparison-arrow {
@@ -568,7 +568,7 @@
                     <!-- Enhanced Price Comparison Section -->
                     <div class="max-w-6xl mx-auto">
                         <!-- Main Comparison Chart -->
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 mb-8 shadow-lg price-comparison-container">
+                        <div class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 mb-8 shadow-lg price-comparison-container">
                             <div class="text-center mb-8">
                                 <h4 class="text-2xl font-bold text-gray-800 mb-2" data-key="priceComparisonTitle">Medical Checkup Price Comparison</h4>
                                 <p class="text-gray-600" data-key="priceComparisonSubtitle">Same quality, dramatically different costs</p>
@@ -587,18 +587,18 @@
                                     <div class="bg-white rounded-xl p-6 shadow-md price-impact">
                                         <div class="flex items-center justify-center mb-4">
                                             <span class="text-2xl mr-2">🇺🇸</span>
-                                            <h5 class="text-xl font-bold text-red-600" data-key="usaLabel">United States</h5>
+                                            <h5 class="text-xl font-bold text-slate-700" data-key="usaLabel">United States</h5>
                                         </div>
 
                                         <!-- Price Bar USA -->
                                         <div class="relative mb-4">
-                                            <div class="bg-red-100 rounded-lg h-64 flex items-end justify-center relative overflow-hidden">
-                                                <div class="bg-gradient-to-t from-red-500 to-red-400 w-full h-full rounded-lg flex items-end justify-center relative price-bar-animation">
+                                            <div class="bg-orange-50 rounded-lg h-64 flex items-end justify-center relative overflow-hidden">
+                                                <div class="bg-gradient-to-t from-orange-400 to-orange-300 w-full h-full rounded-lg flex items-end justify-center relative price-bar-animation">
                                                     <div class="text-white font-bold text-lg mb-4 z-10" data-key="usaPrice">$8,000 - $15,000</div>
-                                                    <div class="absolute inset-0 bg-red-600 opacity-20"></div>
+                                                    <div class="absolute inset-0 bg-orange-500 opacity-20"></div>
                                                 </div>
                                             </div>
-                                            <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
+                                            <div class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
                                                 <span data-key="expensiveLabel">EXPENSIVE</span>
                                             </div>
                                         </div>
@@ -621,35 +621,43 @@
 
                                         <!-- Price Bar China -->
                                         <div class="relative mb-4">
-                                            <div class="bg-green-100 rounded-lg h-64 flex items-end justify-center relative overflow-hidden">
-                                                <div class="bg-gradient-to-t from-green-500 to-green-400 w-full h-16 rounded-lg flex items-end justify-center relative price-bar-animation" style="animation-delay: 0.5s;">
-                                                    <div class="text-white font-bold text-lg mb-2 z-10" data-key="chinaPrice">$800 - $1,500</div>
-                                                    <div class="absolute inset-0 bg-green-600 opacity-20"></div>
+                                            <div class="bg-blue-100 rounded-lg h-64 flex flex-col justify-end relative overflow-hidden">
+                                                <!-- Medical Part (Bottom ~15%) -->
+                                                <div class="bg-gradient-to-t from-green-600 to-green-500 w-full rounded-b-lg flex items-center justify-center relative price-bar-animation" style="height: 15%; animation-delay: 0.5s;">
+                                                    <div class="text-white font-bold text-xs z-10">🏥 Medical $1,399</div>
+                                                </div>
+                                                <!-- Travel & Experience Part (Top ~85%) -->
+                                                <div class="bg-gradient-to-t from-blue-500 to-blue-400 w-full rounded-t-lg flex items-center justify-center relative price-bar-animation" style="height: 85%; animation-delay: 0.8s;">
+                                                    <div class="text-white font-bold text-sm z-10">✈️ Travel + Cultural Experience</div>
+                                                </div>
+                                                <!-- Total Price Display at Bottom -->
+                                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+                                                    <div class="text-white font-bold text-lg mb-2 z-10" data-key="chinaPrice">$8,000 - $15,000</div>
                                                 </div>
                                             </div>
-                                            <div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
-                                                <span data-key="valueLabel">INCREDIBLE VALUE</span>
+                                            <div class="absolute -top-2 -right-2 bg-gradient-to-r from-green-500 to-blue-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
+                                                <span data-key="valueLabel">MEDICAL + TRAVEL</span>
                                             </div>
                                         </div>
 
                                         <div class="text-sm text-gray-600 space-y-1">
-                                            <p data-key="chinaWaitTime">⚡ Same day or next day</p>
-                                            <p data-key="chinaInclusive">✅ All-inclusive pricing</p>
-                                            <p data-key="chinaComprehensive">🔬 More comprehensive tests</p>
+                                            <p data-key="chinaWaitTime">🏥 <span class="text-green-600 font-medium">Premium medical screening ($1,399)</span></p>
+                                            <p data-key="chinaInclusive">✈️ <span class="text-blue-600 font-medium">Luxury travel + cultural experience</span></p>
+                                            <p data-key="chinaComprehensive">🌟 <span class="text-purple-600 font-medium">Same total cost as US basic checkup</span></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Savings Highlight -->
-                            <div class="text-center bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 savings-highlight">
+                            <div class="text-center bg-amber-50 border-2 border-amber-200 rounded-xl p-6 savings-highlight">
                                 <div class="text-3xl font-bold dramatic-savings mb-2" data-key="savingsAmount">Save $6,000 - $13,500</div>
                                 <p class="text-lg text-gray-700" data-key="savingsDescription">That's enough for a luxury vacation AND your medical checkup!</p>
                                 <div class="mt-4 flex justify-center items-center space-x-4 text-sm text-gray-600">
                                     <span data-key="savingsPercent">85-90% Cost Savings</span>
-                                    <span class="text-yellow-500">•</span>
+                                    <span class="text-amber-500">•</span>
                                     <span data-key="sameTechnology">Same Technology</span>
-                                    <span class="text-yellow-500">•</span>
+                                    <span class="text-amber-500">•</span>
                                     <span data-key="betterService">Better Service</span>
                                 </div>
                             </div>
@@ -657,7 +665,7 @@
 
                         <!-- Detailed Procedure Comparison -->
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
                                 <h4 class="text-xl font-bold text-center" data-key="procedureComparisonTitle">Specific Procedure Price Comparison (USD)</h4>
                                 <p class="text-center text-blue-100 mt-2" data-key="procedureComparisonSubtitle">Real prices from Grade 3A hospitals vs. US medical centers</p>
                             </div>
@@ -668,47 +676,47 @@
                                         <thead>
                                             <tr class="border-b-2 border-gray-200">
                                                 <th class="text-left py-3 px-4 font-semibold text-gray-700" data-key="procedureHeader">Medical Procedure</th>
-                                                <th class="text-center py-3 px-4 font-semibold text-red-600" data-key="usaPriceHeader">USA Price</th>
+                                                <th class="text-center py-3 px-4 font-semibold text-orange-600" data-key="usaPriceHeader">USA Price</th>
                                                 <th class="text-center py-3 px-4 font-semibold text-green-600" data-key="chinaPriceHeader">China Price</th>
                                                 <th class="text-center py-3 px-4 font-semibold text-blue-600" data-key="savingsHeader">You Save</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure1">Full Body MRI Scan</td>
-                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$3,000 - $5,000</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$300 - $500</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$2,700 - $4,500</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure1">Basic Health Checkup</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">$8,000 - $15,000</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$8,000 - $15,000</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">Standard screening only</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure2">Comprehensive Blood Panel</td>
-                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$800 - $1,500</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$80 - $150</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$720 - $1,350</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure2">What You Get in China</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Same Budget</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Same Budget</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Comprehensive screening</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure3">CT Scan (Chest/Abdomen)</td>
-                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$1,200 - $3,000</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$120 - $300</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$1,080 - $2,700</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure3">Additional Benefits</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">None</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Included</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Cultural travel experience</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure4">Cardiac Stress Test</td>
-                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$1,000 - $2,000</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$100 - $200</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$900 - $1,800</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure4">Accommodation</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Not included</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Included</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Hotel & meals</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure5">Endoscopy (Upper GI)</td>
-                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$1,500 - $3,500</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$150 - $350</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$1,350 - $3,150</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure5">Cultural Tours</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Not included</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Included</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Guided cultural experiences</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure6">Ultrasound (Full Abdominal)</td>
-                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$500 - $1,200</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$50 - $120</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$450 - $1,080</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure6">Total Value</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Medical only</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Medical + Travel + Culture</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">10x more value</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -721,18 +729,18 @@
                                         <div class="grid md:grid-cols-3 gap-4 items-center">
                                             <div>
                                                 <p class="text-sm text-gray-600" data-key="usaTotalLabel">USA Total Cost</p>
-                                                <p class="text-2xl font-bold text-red-600">$8,000 - $15,000</p>
+                                                <p class="text-2xl font-bold text-orange-600">$8,000 - $15,000</p>
                                             </div>
                                             <div class="text-center">
                                                 <div class="text-4xl mb-2">→</div>
                                                 <p class="text-sm font-medium text-gray-700" data-key="vsLabel">VS</p>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-gray-600" data-key="chinaTotalLabel">China Total Cost</p>
-                                                <p class="text-2xl font-bold text-green-600">$800 - $1,500</p>
+                                                <p class="text-sm text-gray-600" data-key="chinaTotalLabel">China Complete Package</p>
+                                                <p class="text-2xl font-bold text-green-600">$8,000 - $15,000</p>
                                             </div>
                                         </div>
-                                        <div class="mt-4 p-4 bg-yellow-100 rounded-lg savings-highlight">
+                                        <div class="mt-4 p-4 bg-amber-100 rounded-lg savings-highlight">
                                             <p class="text-xl font-bold dramatic-savings" data-key="finalSavings">Your Total Savings: $7,200 - $13,500</p>
                                             <p class="text-sm text-gray-600 mt-1" data-key="savingsNote">Plus travel, accommodation, and cultural experience included!</p>
                                         </div>
@@ -743,7 +751,7 @@
 
                         <!-- Call to Action -->
                         <div class="mt-8 text-center">
-                            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 savings-highlight">
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 savings-highlight">
                                 <h5 class="text-xl font-bold mb-2" data-key="ctaTitle">Ready to Experience 10x Value?</h5>
                                 <p class="mb-4" data-key="ctaDescription">Get your comprehensive health screening at a fraction of US costs</p>
                                 <a href="#contact" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 value-badge" data-key="ctaButton">Get Your Quote Now</a>
@@ -2037,7 +2045,7 @@
                 navCulture: "Cultural Experience",
                 getQuote: "Get a Quote",
                 heroTitle: "World-Class Medical Care, Combined with an Unforgettable China Tour",
-                heroSubtitle: "Receive top-tier medical services at a fraction of the cost in your home country. The savings can cover your entire trip.",
+                heroSubtitle: "For the same out-of-pocket cost as a single health checkup in your home country, get comprehensive medical care PLUS an unforgettable cultural journey in China.",
                 viewServices: "Explore Our Services",
                 heroCarouselCaption1: "Intimate Interaction with Giant Pandas",
                 heroCarouselCaption2: "Chengdu Night Scene",
@@ -2046,50 +2054,50 @@
                 aboutTitle: "Why Choose China? Three Irresistible Reasons",
                 aboutSubtitle: "We reveal why a health screening in China is not just a smart choice, but the best investment in your health and time.",
                 about1Title: "1. Incredible Value: Get 10x More for Your Health Investment",
-                about1Subtitle: "Imagine getting a comprehensive screening with advanced imaging in China for the cost of a single specialist consultation in the US. This isn't a fantasy; it's the value leap we offer.",
+                about1Subtitle: "For the same amount you'd pay out-of-pocket for a single health checkup in the US, you can come to China and get a more comprehensive medical examination PLUS enjoy an amazing cultural travel experience.",
 
                 // Price Comparison Section
-                priceComparisonTitle: "Medical Checkup Price Comparison",
-                priceComparisonSubtitle: "Same quality, dramatically different costs",
-                usaLabel: "United States",
-                chinaLabel: "China (Our Service)",
+                priceComparisonTitle: "What Your Out-of-Pocket Payment Gets You",
+                priceComparisonSubtitle: "Same money, dramatically different value",
+                usaLabel: "United States (Out-of-Pocket)",
+                chinaLabel: "China (Our Complete Package)",
                 usaPrice: "$8,000 - $15,000",
-                chinaPrice: "$800 - $1,500",
-                expensiveLabel: "EXPENSIVE",
-                valueLabel: "INCREDIBLE VALUE",
+                chinaPrice: "$8,000 - $15,000",
+                expensiveLabel: "LIMITED SCOPE",
+                valueLabel: "COMPREHENSIVE + TRAVEL",
                 usaWaitTime: "⏰ 4-8 weeks wait time",
-                usaInsurance: "💳 Often not covered by insurance",
-                usaLimitedScope: "📋 Limited scope for the price",
-                chinaWaitTime: "⚡ Same day or next day",
-                chinaInclusive: "✅ All-inclusive pricing",
-                chinaComprehensive: "🔬 More comprehensive tests",
-                savingsAmount: "Save $6,000 - $13,500",
-                savingsDescription: "That's enough for a luxury vacation AND your medical checkup!",
-                savingsPercent: "85-90% Cost Savings",
-                sameTechnology: "Same Technology",
-                betterService: "Better Service",
+                usaInsurance: "💳 Basic checkup only",
+                usaLimitedScope: "📋 Standard screening package",
+                chinaWaitTime: "🏥 Premium medical screening ($1,399)",
+                chinaInclusive: "✈️ Luxury travel + cultural experience",
+                chinaComprehensive: "🌟 Same total cost as US basic checkup",
+                savingsAmount: "Same Investment, 10x More Value",
+                savingsDescription: "Comprehensive medical screening + unforgettable cultural journey!",
+                savingsPercent: "Same Budget",
+                sameTechnology: "Advanced Technology",
+                betterService: "Enhanced Experience",
 
                 // Procedure Comparison Table
-                procedureComparisonTitle: "Specific Procedure Price Comparison (USD)",
-                procedureComparisonSubtitle: "Real prices from Grade 3A hospitals vs. US medical centers",
+                procedureComparisonTitle: "What Your Out-of-Pocket Budget Gets You (USD)",
+                procedureComparisonSubtitle: "Same money, different value: Grade 3A hospitals vs. US out-of-pocket costs",
                 procedureHeader: "Medical Procedure",
-                usaPriceHeader: "USA Price",
-                chinaPriceHeader: "China Price",
-                savingsHeader: "You Save",
+                usaPriceHeader: "USA Out-of-Pocket",
+                chinaPriceHeader: "China Full Package",
+                savingsHeader: "Extra Value",
                 procedure1: "Full Body MRI Scan",
                 procedure2: "Comprehensive Blood Panel",
                 procedure3: "CT Scan (Chest/Abdomen)",
                 procedure4: "Cardiac Stress Test",
                 procedure5: "Endoscopy (Upper GI)",
                 procedure6: "Ultrasound (Full Abdominal)",
-                totalSavingsTitle: "Complete Health Screening Package",
-                usaTotalLabel: "USA Total Cost",
-                chinaTotalLabel: "China Total Cost",
+                totalSavingsTitle: "Your Out-of-Pocket Investment Comparison",
+                usaTotalLabel: "USA Out-of-Pocket Cost",
+                chinaTotalLabel: "China Complete Package",
                 vsLabel: "VS",
-                finalSavings: "Your Total Savings: $7,200 - $13,500",
-                savingsNote: "Plus travel, accommodation, and cultural experience included!",
+                finalSavings: "Same Investment, Exponentially More Value",
+                savingsNote: "Medical screening + travel + accommodation + cultural experience!",
                 ctaTitle: "Ready to Experience 10x Value?",
-                ctaDescription: "Get your comprehensive health screening at a fraction of US costs",
+                ctaDescription: "Get comprehensive health screening PLUS cultural journey for the same out-of-pocket cost",
                 ctaButton: "Get Your Quote Now",
                 about2Title: "2. Revolutionary Efficiency: We Save You Weeks, in Just a Few Hours",
                 about2Subtitle: "A full check-up process can take a month in your home country. In China, we condense it into a single morning of your trip.",
@@ -2486,50 +2494,50 @@
                 aboutTitle: "为什么选择中国？三大无法抗拒的理由",
                 aboutSubtitle: "我们为您揭示，为何来华进行健康筛查不仅是明智之选，更是对您健康和时间的最佳投资。",
                 about1Title: "1. 惊人的性价比：您的健康投资，价值提升不止十倍",
-                about1Subtitle: "想象一下，用在美国仅够支付一次专家问诊的费用，在中国享受一套包含高级影像学检查的全面体检。这不是天方夜谭，而是我们为您实现的价值飞跃。",
+                about1Subtitle: "用您在美国自费进行一次健康体检的同样费用，来中国不仅能获得更全面的医疗检查，还能享受精彩的文化旅行体验。",
 
                 // Price Comparison Section Chinese
-                priceComparisonTitle: "医疗体检价格对比",
-                priceComparisonSubtitle: "相同质量，价格天壤之别",
-                usaLabel: "美国",
-                chinaLabel: "中国（我们的服务）",
+                priceComparisonTitle: "您的自费投资能获得什么",
+                priceComparisonSubtitle: "相同费用，价值天壤之别",
+                usaLabel: "美国（自费部分）",
+                chinaLabel: "中国（完整套餐）",
                 usaPrice: "$8,000 - $15,000",
-                chinaPrice: "$800 - $1,500",
-                expensiveLabel: "昂贵",
-                valueLabel: "超值",
+                chinaPrice: "$8,000 - $15,000",
+                expensiveLabel: "范围有限",
+                valueLabel: "全面体验+旅行",
                 usaWaitTime: "⏰ 等待时间4-8周",
-                usaInsurance: "💳 保险通常不覆盖",
-                usaLimitedScope: "📋 价格高但检查范围有限",
-                chinaWaitTime: "⚡ 当天或次日完成",
-                chinaInclusive: "✅ 全包价格",
-                chinaComprehensive: "🔬 更全面的检查项目",
-                savingsAmount: "节省 $6,000 - $13,500",
-                savingsDescription: "这笔钱足够您享受豪华假期并完成医疗体检！",
-                savingsPercent: "节省85-90%费用",
-                sameTechnology: "相同技术",
-                betterService: "更好服务",
+                usaInsurance: "💳 仅基础体检",
+                usaLimitedScope: "📋 标准筛查套餐",
+                chinaWaitTime: "🏥 高端医疗筛查（$1,399）",
+                chinaInclusive: "✈️ 豪华旅行+文化体验",
+                chinaComprehensive: "🌟 与美国基础体检总费用相同",
+                savingsAmount: "相同投资，十倍价值",
+                savingsDescription: "全面医疗筛查 + 难忘文化之旅！",
+                savingsPercent: "相同预算",
+                sameTechnology: "先进技术",
+                betterService: "增强体验",
 
                 // Procedure Comparison Table Chinese
-                procedureComparisonTitle: "具体检查项目价格对比（美元）",
-                procedureComparisonSubtitle: "三甲医院与美国医疗中心的真实价格对比",
+                procedureComparisonTitle: "您的自费预算能获得什么（美元）",
+                procedureComparisonSubtitle: "相同费用，不同价值：三甲医院 vs 美国自费成本",
                 procedureHeader: "医疗检查项目",
-                usaPriceHeader: "美国价格",
-                chinaPriceHeader: "中国价格",
-                savingsHeader: "您的节省",
+                usaPriceHeader: "美国自费",
+                chinaPriceHeader: "中国完整套餐",
+                savingsHeader: "额外价值",
                 procedure1: "全身MRI扫描",
                 procedure2: "全面血液检查",
                 procedure3: "CT扫描（胸部/腹部）",
                 procedure4: "心脏负荷试验",
                 procedure5: "内窥镜检查（上消化道）",
                 procedure6: "超声检查（全腹部）",
-                totalSavingsTitle: "完整健康筛查套餐",
-                usaTotalLabel: "美国总费用",
-                chinaTotalLabel: "中国总费用",
+                totalSavingsTitle: "您的自费投资对比",
+                usaTotalLabel: "美国自费成本",
+                chinaTotalLabel: "中国完整套餐",
                 vsLabel: "对比",
-                finalSavings: "您的总节省：$7,200 - $13,500",
-                savingsNote: "还包含旅行、住宿和文化体验！",
+                finalSavings: "相同投资，价值成倍增长",
+                savingsNote: "医疗筛查 + 旅行 + 住宿 + 文化体验！",
                 ctaTitle: "准备体验10倍价值？",
-                ctaDescription: "以美国费用的一小部分获得全面健康筛查",
+                ctaDescription: "用相同的自费成本获得全面健康筛查加文化之旅",
                 ctaButton: "立即获取报价",
                 about2Title: "2. 革命性的效率：我们用数小时，为您节省数周的宝贵时间",
                 about2Subtitle: "在您的国家，一次完整的体检流程可能耗时一个月。在中国，我们将其浓缩在您旅途中的一个上午。",
