@@ -3084,12 +3084,22 @@
             // Initial call to set active state on page load
             updateActiveNavLink();
 
-            // Handle culture planner link with language parameter
+            // Handle culture planner links with language parameter
             const culturePlannerLink = document.getElementById('culture-planner-link');
             if (culturePlannerLink) {
                 culturePlannerLink.addEventListener('click', (e) => {
                     e.preventDefault();
                     const url = `culture-planner.html?lang=${currentLang}`;
+                    window.location.href = url;
+                });
+            }
+
+            // Handle Chengdu culture planner link with language parameter and city selection
+            const chengduCulturePlannerLink = document.getElementById('chengdu-culture-planner-link');
+            if (chengduCulturePlannerLink) {
+                chengduCulturePlannerLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = `culture-planner.html?lang=${currentLang}&city=chengdu`;
                     window.location.href = url;
                 });
             }

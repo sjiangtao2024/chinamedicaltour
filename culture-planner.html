@@ -276,12 +276,12 @@
             }
         };
 
-        // 从URL参数获取语言设置，默认为英文
+        // 从URL参数获取语言和城市设置，默认为英文和北京
         const urlParams = new URLSearchParams(window.location.search);
         let currentLanguage = urlParams.get('lang') || 'en';
+        let currentCity = urlParams.get('city') || 'beijing';
         let selectedAttractions = [];
         let selectedMedicalPackage = null;
-        let currentCity = 'beijing';
 
         // Medical package data
         const medicalPackagesData = {
@@ -587,6 +587,15 @@
         function init() {
             // 设置初始语言显示
             document.getElementById('lang-text').textContent = currentLanguage === 'en' ? '中文' : 'English';
+
+            // 根据URL参数设置正确的城市标签页
+            document.querySelectorAll('.city-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.city === currentCity) {
+                    tab.classList.add('active');
+                }
+            });
+
             updateLanguage();
             updateMedicalPackagePrices();
             renderAttractions();
