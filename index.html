@@ -751,6 +751,12 @@
                                 </div>
                                 <p class="text-center font-semibold mt-4 text-gray-700" data-key="video5Title">Convenient & Efficient: A Foreigner's Healthcare Experience</p>
                             </div>
+                            <div class="carousel-slide">
+                                <div class="relative" style="padding-bottom: 56.25%; height: 0;">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg" src="https://www.youtube.com/embed/INMlDjbF9nw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video6Title">Medical Tourism Success Story</p>
+                            </div>
                         </div>
                         <button class="carousel-nav carousel-prev" data-carousel="video" data-direction="prev"><i data-lucide="chevron-left"></i></button>
                         <button class="carousel-nav carousel-next" data-carousel="video" data-direction="next"><i data-lucide="chevron-right"></i></button>
@@ -761,6 +767,7 @@
                         <button class="carousel-indicator" data-carousel="video" data-slide="2"></button>
                         <button class="carousel-indicator" data-carousel="video" data-slide="3"></button>
                         <button class="carousel-indicator" data-carousel="video" data-slide="4"></button>
+                        <button class="carousel-indicator" data-carousel="video" data-slide="5"></button>
                     </div>
                 </div>
             </div>
@@ -1356,6 +1363,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Beijing Imperial Palace Banquet -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center">
+                                <i data-lucide="crown" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="beijingPalaceBanquetTitle">Beijing Imperial Palace Banquet</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="beijingPalaceBanquetDesc">Experience a royal feast in an authentic imperial setting with traditional performances, court cuisine, and period costumes. Immerse yourself in 600 years of palace culture.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="beijingPalaceBanquetPrice">USD 70-85 (¥498-598) per person</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="beijingPalaceBanquetTime">Lunch 12:00-14:00, Dinner 19:00-21:00</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="users" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="beijingPalaceBanquetFeatures">Traditional performances + Court cuisine + Period costumes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                         <!-- Cultural Experience Packages -->
@@ -1389,19 +1421,203 @@
                                 <p class="text-blue-100 text-sm mt-3" data-key="culturePlannerDesc">Create your personalized cultural itinerary with cost and time estimates</p>
                             </div>
                         </div>
+                        <!-- Price Disclaimer for Cultural Experiences -->
+                        <p class="text-center text-xs text-gray-500 mt-8 max-w-4xl mx-auto" data-key="priceDisclaimer">具体费用可能受汇率以及相关供应商价格调整的影响，以上价格仅供参考</p>
                     </div>
 
                     <!-- Chengdu Cultural Experience Tab -->
                     <div class="culture-tab-content py-8 hidden" id="chengdu-culture-content">
                         <div class="text-center mb-12">
-                            <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="chengduCultureTitle">Panda Paradise & Sichuan Culture</h3>
-                            <p class="text-lg text-gray-600 max-w-4xl mx-auto" data-key="chengduCultureSubtitle">Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Content coming soon...</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="chengduCultureTitle">🐼 Panda Paradise & Sichuan Culture</h3>
+                            <p class="text-lg text-gray-600 max-w-4xl mx-auto" data-key="chengduCultureSubtitle">Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Discover the perfect blend of wildlife encounters, traditional tea culture, and Sichuan cuisine while receiving world-class medical care.</p>
                         </div>
-                        <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-8 text-white text-center">
-                            <i data-lucide="construction" class="w-16 h-16 mx-auto mb-4 text-white/80"></i>
-                            <h4 class="text-xl font-semibold mb-2" data-key="chengduComingSoon">Chengdu Cultural Experiences Coming Soon</h4>
-                            <p class="text-green-100" data-key="chengduComingSoonDesc">We are preparing exciting panda encounters, Sichuan cuisine experiences, and traditional tea house visits. Stay tuned!</p>
+
+                        <!-- Chengdu Attractions Grid -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                        <!-- Panda Interaction -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                                <i data-lucide="heart" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="pandaInteractionTitle">🐼 Giant Panda Interaction</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="pandaInteractionDesc">Unique opportunity to interact with 1-year-old panda cubs. Professional handlers guide you through a 2-minute interaction and photo session.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="pandaInteractionPrice">USD 1000/person (including transport)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="pandaInteractionTime">2-minute interaction + photos</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Panda Volunteer -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center">
+                                <i data-lucide="users" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="pandaVolunteerTitle">🐼 Panda Volunteer Experience</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="pandaVolunteerDesc">Full-day volunteer program including enclosure cleaning, bamboo preparation, and educational activities. Receive official volunteer certificate.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="pandaVolunteerPrice">USD 500/person (transport + lunch + certificate)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="pandaVolunteerTime">7:00-15:30 (8.5 hours)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Qingcheng Mountain -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-blue-500 to-green-500 flex items-center justify-center">
+                                <i data-lucide="mountain" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="qingchengTitle">⛰️ Qingcheng Mountain</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="qingchengDesc">Birthplace of Taoism, known as the "Fifth Grotto-heaven". Founded by Zhang Daoling in Eastern Han Dynasty. Stay overnight at Yuanming Palace for deep cultural immersion.</p>
+                                <div class="space-y-1 text-sm text-gray-600">
+                                    <div data-key="qingchengFeatures">• Taoist temples and cultural sites<br>• Mountain hiking trails<br>• Traditional accommodation available<br>• Historical significance</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dujiangyan -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center">
+                                <i data-lucide="waves" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="dujiangyanTitle">🌊 Dujiangyan Irrigation System</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="dujiangyanDesc">Ancient irrigation system built in 256 BC, creating the "Land of Abundance". Marvel at the ingenious "Fish Mouth", "Flying Sand Weir", and "Bottle Neck" design.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="ticket" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="dujiangyanPrice">¥80 entrance fee</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="dujiangyanHours">8:00-18:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wuhou Shrine -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
+                                <i data-lucide="landmark" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="wuhouTitle">🏯 Wuhou Shrine</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="wuhouDesc">China's only temple dedicated to both emperor and minister, commemorating Liu Bei and Zhuge Liang. Famous for "Red Walls and Bamboo Shadows", adjacent to Jinli Ancient Street.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="ticket" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="wuhouPrice">¥50 entrance fee</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="wuhouHours">8:00-18:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kuanzhai Alley -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                                <i data-lucide="home" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="kuanzhaiTitle">🏘️ Kuanzhai Alley</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="kuanzhaiDesc">Qing Dynasty hutong heritage consisting of Wide, Narrow, and Well alleys. Blend of Sichuan folk architecture and Western elements, perfect for experiencing Chengdu's slow life.</p>
+                                <div class="space-y-1 text-sm text-gray-600">
+                                    <div data-key="kuanzhaiFeatures">• Traditional tea houses<br>• Face-changing performances (¥68+)<br>• Local snacks and crafts<br>• Free admission</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mahjong Culture -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                                <i data-lucide="gamepad-2" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="mahjongTitle">🀄️ Mahjong Culture Experience</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="mahjongDesc">Experience unique "stream mahjong" in Huanglongxi or Dujiangyan Hongkou. Playing mahjong in cool stream water is a distinctive Chengdu summer tradition.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="mahjongPrice">¥100-200/table/hour or farmhouse packages ¥80-150/person</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Palace Banquet -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-yellow-600 to-red-600 flex items-center justify-center">
+                                <i data-lucide="crown" class="w-16 h-16 text-white"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="palaceBanquetTitle">👑 Shu Kingdom Palace Banquet</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="palaceBanquetDesc">Immersive Han-Tang court dining experience with traditional music, bamboo crafts, lacquerware, and live performances. Interactive NPCs and dynamic ancient paintings.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="palaceBanquetPrice">¥498-888/person (various packages)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="palaceBanquetTime">Lunch 12:30, Dinner 18:30, Evening 21:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Cultural Experience Packages -->
+                        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white">
+                            <div class="text-center mb-8">
+                                <h3 class="text-2xl font-bold mb-4" data-key="chengduPackageTitle">🐼 Chengdu Cultural Experience Packages</h3>
+                                <p class="text-green-100 max-w-3xl mx-auto" data-key="chengduPackageDesc">Combine your medical treatment with carefully curated panda encounters and Sichuan cultural experiences. Our packages are designed to fit perfectly with your treatment schedule.</p>
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                                    <h4 class="text-lg font-semibold mb-3" data-key="chengduPackage1Title">🐼 Panda Encounter (Half Day)</h4>
+                                    <p class="text-sm text-green-100 mb-3" data-key="chengduPackage1Desc">Giant Panda Research Base visit with volunteer experience, including bamboo preparation and educational activities with certificate.</p>
+                                    <div class="text-xs text-green-200" data-key="chengduPackage1Duration">Duration: 4-5 hours</div>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                                    <h4 class="text-lg font-semibold mb-3" data-key="chengduPackage2Title">🌶️ Sichuan Culture & Cuisine (Full Day)</h4>
+                                    <p class="text-sm text-green-100 mb-3" data-key="chengduPackage2Desc">Kuanzhai Alley exploration, traditional tea house experience, Sichuan cooking class, and authentic hotpot dinner with local family.</p>
+                                    <div class="text-xs text-green-200" data-key="chengduPackage2Duration">Duration: 8 hours</div>
+                                </div>
+                                <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                                    <h4 class="text-lg font-semibold mb-3" data-key="chengduPackage3Title">👑 Complete Chengdu Experience (2 Days)</h4>
+                                    <p class="text-sm text-green-100 mb-3" data-key="chengduPackage3Desc">Full panda interaction, Taoist mountain retreat, palace banquet experience, traditional crafts, and comprehensive Sichuan cultural immersion.</p>
+                                    <div class="text-xs text-green-200" data-key="chengduPackage3Duration">Duration: 2 days</div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-8">
+                                <a href="#" id="chengdu-culture-planner-link" class="inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition shadow-lg" data-key="culturePlannerButton">
+                                    <i data-lucide="calculator" class="w-6 h-6 mr-3"></i>
+                                    <span>Deep China Culture Experience Planning Tool</span>
+                                </a>
+                                <p class="text-green-100 text-sm mt-3" data-key="culturePlannerDesc">Create your personalized cultural itinerary with cost and time estimates</p>
+                            </div>
+                        </div>
+                        <!-- Price Disclaimer for Cultural Experiences -->
+                        <p class="text-center text-xs text-gray-500 mt-8 max-w-4xl mx-auto" data-key="priceDisclaimer">具体费用可能受汇率以及相关供应商价格调整的影响，以上价格仅供参考</p>
                     </div>
                 </div>
             </div>
@@ -1704,6 +1920,7 @@
                 video3Title: "A Client's Journey with Traditional Chinese Medicine",
                 video4Title: "An American Couple's Medical Journey in China",
                 video5Title: "Convenient & Efficient: A Foreigner's Healthcare Experience",
+                video6Title: "Medical Tourism Success Story",
 
                 servicesTitle: "Comprehensive Medical Services",
                 servicesSubtitle: "From preventative screening to specialized treatments, we offer a full spectrum of world-class medical care.",
@@ -1834,17 +2051,17 @@
                 forbiddenCityTitle: "Forbidden City (Palace Museum)",
                 forbiddenCityDesc: "Built in 1406-1420, home to 24 emperors for nearly 500 years. The world's largest ancient palace complex with 9,999.5 rooms.",
                 forbiddenCityHours: "8:30-17:00 (Apr-Oct) / 8:30-16:30 (Nov-Mar)",
-                forbiddenCityPrice: "¥60 (Peak) / ¥40 (Off-peak)",
+                forbiddenCityPrice: "USD 8 (¥60) Peak / USD 6 (¥40) Off-peak",
 
                 summerPalaceTitle: "Summer Palace (Yiheyuan)",
                 summerPalaceDesc: "UNESCO World Heritage Site featuring imperial gardens, Kunming Lake, and the famous Marble Boat. A masterpiece of Chinese landscape garden design.",
                 summerPalaceHours: "6:00-19:00 (Apr-Oct) / 6:30-18:00 (Nov-Mar)",
-                summerPalacePrice: "¥30 (Garden) + ¥20 (Attractions)",
+                summerPalacePrice: "USD 4 (¥30) Garden + USD 3 (¥20) Attractions",
 
                 templeHeavenTitle: "Temple of Heaven",
                 templeHeavenDesc: "Where emperors prayed for good harvests. Famous for its perfect acoustics in the Echo Wall and the architectural marvel of the Hall of Prayer.",
                 templeHeavenHours: "6:00-22:00 (Park) / 8:00-17:30 (Attractions)",
-                templeHeavenPrice: "¥15 (Park) + ¥20 (Attractions)",
+                templeHeavenPrice: "USD 2 (¥15) Park + USD 3 (¥20) Attractions",
 
                 traditionalArtsTitle: "Traditional Arts & Crafts",
                 traditionalArtsDesc: "Experience authentic Chinese culture through calligraphy, tea ceremony, traditional painting, and Beijing opera performances.",
@@ -1857,6 +2074,12 @@
                 beijingCuisineTitle: "Beijing Culinary Heritage",
                 beijingCuisineDesc: "Savor authentic Beijing cuisine including the world-famous Peking Duck, traditional dumplings, and imperial court dishes.",
                 beijingCuisineList: "• Peking Duck banquets<br>• Dumpling making classes<br>• Imperial cuisine tasting<br>• Traditional tea houses",
+
+                beijingPalaceBanquetTitle: "Beijing Imperial Palace Banquet",
+                beijingPalaceBanquetDesc: "Experience a royal feast in an authentic imperial setting with traditional performances, court cuisine, and period costumes. Immerse yourself in 600 years of palace culture.",
+                beijingPalaceBanquetPrice: "USD 70-85 (¥498-598) per person",
+                beijingPalaceBanquetTime: "Lunch 12:00-14:00, Dinner 19:00-21:00",
+                beijingPalaceBanquetFeatures: "Traditional performances + Court cuisine + Period costumes",
 
                 beijingPackageTitle: "🎭 Beijing Cultural Experience Packages",
                 beijingPackageDesc: "Combine your medical treatment with carefully curated cultural experiences. Our packages are designed to fit perfectly with your treatment schedule.",
@@ -1877,9 +2100,61 @@
                 culturePlannerDesc: "Create your personalized cultural itinerary with cost and time estimates",
 
                 chengduCultureTitle: "🐼 Chengdu: Panda Paradise & Sichuan Culture",
-                chengduCultureSubtitle: "Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Content coming soon...",
-                chengduComingSoon: "Chengdu Cultural Experiences Coming Soon",
-                chengduComingSoonDesc: "We are preparing exciting panda encounters, Sichuan cuisine experiences, and traditional tea house visits. Stay tuned!",
+                chengduCultureSubtitle: "Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Discover the perfect blend of wildlife encounters, traditional tea culture, and Sichuan cuisine while receiving world-class medical care.",
+
+                // Chengdu Attractions
+                pandaInteractionTitle: "🐼 Giant Panda Interaction",
+                pandaInteractionDesc: "Unique opportunity to interact with 1-year-old panda cubs. Professional handlers guide you through a 2-minute interaction and photo session.",
+                pandaInteractionPrice: "USD 1000/person (¥7200) including transport",
+                pandaInteractionTime: "2-minute interaction + photos",
+
+                pandaVolunteerTitle: "🐼 Panda Volunteer Experience",
+                pandaVolunteerDesc: "Full-day volunteer program including enclosure cleaning, bamboo preparation, and educational activities. Receive official volunteer certificate.",
+                pandaVolunteerPrice: "USD 500/person (¥3600) transport + lunch + certificate",
+                pandaVolunteerTime: "7:00-15:30 (8.5 hours)",
+
+                qingchengTitle: "⛰️ Qingcheng Mountain",
+                qingchengDesc: "Birthplace of Taoism, known as the \"Fifth Grotto-heaven\". Founded by Zhang Daoling in Eastern Han Dynasty. Stay overnight at Yuanming Palace for deep cultural immersion.",
+                qingchengFeatures: "• Taoist temples and cultural sites<br>• Mountain hiking trails<br>• Traditional accommodation available<br>• Historical significance",
+
+                dujiangyanTitle: "🌊 Dujiangyan Irrigation System",
+                dujiangyanDesc: "Ancient irrigation system built in 256 BC, creating the \"Land of Abundance\". Marvel at the ingenious \"Fish Mouth\", \"Flying Sand Weir\", and \"Bottle Neck\" design.",
+                dujiangyanPrice: "USD 11 (¥80) entrance fee",
+                dujiangyanHours: "8:00-18:00",
+
+                wuhouTitle: "🏯 Wuhou Shrine",
+                wuhouDesc: "China's only temple dedicated to both emperor and minister, commemorating Liu Bei and Zhuge Liang. Famous for \"Red Walls and Bamboo Shadows\", adjacent to Jinli Ancient Street.",
+                wuhouPrice: "USD 7 (¥50) entrance fee",
+                wuhouHours: "8:00-18:00",
+
+                kuanzhaiTitle: "🏘️ Kuanzhai Alley",
+                kuanzhaiDesc: "Qing Dynasty hutong heritage consisting of Wide, Narrow, and Well alleys. Blend of Sichuan folk architecture and Western elements, perfect for experiencing Chengdu's slow life.",
+                kuanzhaiFeatures: "• Traditional tea houses<br>• Face-changing performances USD 9+ (¥68+)<br>• Local snacks and crafts<br>• Free admission",
+
+                mahjongTitle: "🀄️ Mahjong Culture Experience",
+                mahjongDesc: "Experience unique \"stream mahjong\" in Huanglongxi or Dujiangyan Hongkou. Playing mahjong in cool stream water is a distinctive Chengdu summer tradition.",
+                mahjongPrice: "USD 14-28/table/hour (¥100-200) or farmhouse packages USD 11-21/person (¥80-150)",
+
+                palaceBanquetTitle: "👑 Shu Kingdom Palace Banquet",
+                palaceBanquetDesc: "Immersive Han-Tang court dining experience with traditional music, bamboo crafts, lacquerware, and live performances. Interactive NPCs and dynamic ancient paintings.",
+                palaceBanquetPrice: "USD 69-123/person (¥498-888) various packages",
+                palaceBanquetTime: "Lunch 12:30, Dinner 18:30, Evening 21:00",
+
+                // Chengdu Packages
+                chengduPackageTitle: "🐼 Chengdu Cultural Experience Packages",
+                chengduPackageDesc: "Combine your medical treatment with carefully curated panda encounters and Sichuan cultural experiences. Our packages are designed to fit perfectly with your treatment schedule.",
+
+                chengduPackage1Title: "🐼 Panda Encounter (Half Day)",
+                chengduPackage1Desc: "Giant Panda Research Base visit with volunteer experience, including bamboo preparation and educational activities with certificate.",
+                chengduPackage1Duration: "Duration: 4-5 hours",
+
+                chengduPackage2Title: "🌶️ Sichuan Culture & Cuisine (Full Day)",
+                chengduPackage2Desc: "Kuanzhai Alley exploration, traditional tea house experience, Sichuan cooking class, and authentic hotpot dinner with local family.",
+                chengduPackage2Duration: "Duration: 8 hours",
+
+                chengduPackage3Title: "👑 Complete Chengdu Experience (2 Days)",
+                chengduPackage3Desc: "Full panda interaction, Taoist mountain retreat, palace banquet experience, traditional crafts, and comprehensive Sichuan cultural immersion.",
+                chengduPackage3Duration: "Duration: 2 days",
                 contactTitle: "Ready to Start Your Journey?",
                 contactSubtitle: "Fill out the form or contact us directly via WhatsApp/email. Our health consultants will reply within 24 hours with a free consultation and a personalized quote.",
                 formName: "Your Name",
@@ -2040,6 +2315,7 @@
                 video3Title: "一位客户的中医治疗之旅",
                 video4Title: "美国夫妇的中国求医故事",
                 video5Title: "外国人在中国看病：便捷高效",
+                video6Title: "医疗旅游成功案例",
 
                 servicesTitle: "全面的医疗服务",
                 servicesSubtitle: "从预防性筛查到专项治疗，我们提供全方位的世界级医疗服务。",
@@ -2170,17 +2446,17 @@
                 forbiddenCityTitle: "故宫博物院",
                 forbiddenCityDesc: "建于1406-1420年，近500年来24位皇帝的居所。世界最大的古代宫殿建筑群，拥有9999.5间房屋。",
                 forbiddenCityHours: "8:30-17:00（4-10月）/ 8:30-16:30（11-3月）",
-                forbiddenCityPrice: "¥60（旺季）/ ¥40（淡季）",
+                forbiddenCityPrice: "USD 8 (¥60) 旺季 / USD 6 (¥40) 淡季",
 
                 summerPalaceTitle: "颐和园",
                 summerPalaceDesc: "联合国教科文组织世界遗产，拥有皇家园林、昆明湖和著名的石舫。中国园林艺术的杰作。",
                 summerPalaceHours: "6:00-19:00（4-10月）/ 6:30-18:00（11-3月）",
-                summerPalacePrice: "¥30（园林）+ ¥20（景点）",
+                summerPalacePrice: "USD 4 (¥30) 园林 + USD 3 (¥20) 景点",
 
                 templeHeavenTitle: "天坛",
                 templeHeavenDesc: "皇帝祈求丰收的圣地。以回音壁的完美声学效果和祈年殿的建筑奇迹而闻名。",
                 templeHeavenHours: "6:00-22:00（公园）/ 8:00-17:30（景点）",
-                templeHeavenPrice: "¥15（公园）+ ¥20（景点）",
+                templeHeavenPrice: "USD 2 (¥15) 公园 + USD 3 (¥20) 景点",
 
                 traditionalArtsTitle: "传统艺术与工艺",
                 traditionalArtsDesc: "通过书法、茶艺、传统绘画和京剧表演体验正宗的中国文化。",
@@ -2193,6 +2469,12 @@
                 beijingCuisineTitle: "北京美食文化",
                 beijingCuisineDesc: "品尝正宗北京菜，包括世界闻名的北京烤鸭、传统饺子和宫廷菜肴。",
                 beijingCuisineList: "• 北京烤鸭宴<br>• 包饺子课程<br>• 宫廷菜品尝<br>• 传统茶馆",
+
+                beijingPalaceBanquetTitle: "北京宫廷宴会",
+                beijingPalaceBanquetDesc: "在正宗的皇家环境中体验皇室盛宴，包含传统表演、宫廷菜肴和古装服饰。沉浸在600年的宫廷文化中。",
+                beijingPalaceBanquetPrice: "USD 70-85 (¥498-598) 每人",
+                beijingPalaceBanquetTime: "午宴 12:00-14:00，晚宴 19:00-21:00",
+                beijingPalaceBanquetFeatures: "传统表演 + 宫廷菜肴 + 古装服饰",
 
                 beijingPackageTitle: "🎭 北京文化体验套餐",
                 beijingPackageDesc: "将您的医疗治疗与精心策划的文化体验相结合。我们的套餐完美契合您的治疗时间安排。",
@@ -2213,9 +2495,61 @@
                 culturePlannerDesc: "创建您的个性化文化行程，包含费用和时间预估",
 
                 chengduCultureTitle: "🐼 成都：熊猫天堂与川蜀文化",
-                chengduCultureSubtitle: "体验成都的悠闲魅力，大熊猫的故乡和正宗川蜀文化。内容即将推出...",
-                chengduComingSoon: "成都文化体验即将推出",
-                chengduComingSoonDesc: "我们正在准备精彩的熊猫邂逅、川菜体验和传统茶馆参观。敬请期待！",
+                chengduCultureSubtitle: "体验成都的悠闲魅力，大熊猫的故乡和正宗川蜀文化。在接受世界级医疗服务的同时，探索野生动物邂逅、传统茶文化和川菜的完美融合。",
+
+                // 成都景点
+                pandaInteractionTitle: "🐼 大熊猫互动",
+                pandaInteractionDesc: "与1岁左右的熊猫幼崽互动的独特机会。专业饲养员指导您进行2分钟的互动和拍照。",
+                pandaInteractionPrice: "USD 1000/人 (¥7200) 含交通",
+                pandaInteractionTime: "2分钟互动+拍照",
+
+                pandaVolunteerTitle: "🐼 熊猫志愿者体验",
+                pandaVolunteerDesc: "全天志愿者项目，包括清理圈舍、准备竹子和教育活动。获得官方志愿者证书。",
+                pandaVolunteerPrice: "USD 500/人 (¥3600) 含交通+午餐+证书",
+                pandaVolunteerTime: "7:00-15:30（8.5小时）",
+
+                qingchengTitle: "⛰️ 青城山",
+                qingchengDesc: "道教发源地，被誉为\"第五洞天\"。东汉张道陵于此创教。可在圆明宫过夜，深度体验道家文化。",
+                qingchengFeatures: "• 道教寺庙和文化遗址<br>• 山地徒步小径<br>• 传统住宿可选<br>• 历史意义深远",
+
+                dujiangyanTitle: "🌊 都江堰水利工程",
+                dujiangyanDesc: "公元前256年建成的古代水利工程，造就\"天府之国\"。欣赏巧夺天工的\"鱼嘴分水\"、\"飞沙堰泄洪\"、\"宝瓶口控流\"设计。",
+                dujiangyanPrice: "USD 11 (¥80) 门票",
+                dujiangyanHours: "8:00-18:00",
+
+                wuhouTitle: "🏯 武侯祠",
+                wuhouDesc: "中国唯一的君臣合祀祠庙，纪念刘备与诸葛亮。以\"红墙竹影\"著称，紧邻锦里古街。",
+                wuhouPrice: "USD 7 (¥50) 门票",
+                wuhouHours: "8:00-18:00",
+
+                kuanzhaiTitle: "🏘️ 宽窄巷子",
+                kuanzhaiDesc: "清代胡同遗存，由宽、窄、井三条巷子组成。融合川西民居与西洋元素，是体验成都慢生活的好去处。",
+                kuanzhaiFeatures: "• 传统茶馆<br>• 变脸表演 USD 9起 (¥68+)<br>• 当地小食和手工艺品<br>• 免费参观",
+
+                mahjongTitle: "🀄️ 麻将文化体验",
+                mahjongDesc: "在黄龙溪或都江堰虹口体验独特的\"溪水麻将\"。在清凉溪水中搓麻将是成都夏季特色。",
+                mahjongPrice: "USD 14-28/桌/小时 (¥100-200) 或农家乐套餐 USD 11-21/人 (¥80-150)",
+
+                palaceBanquetTitle: "👑 蜀国宫庭宴会",
+                palaceBanquetDesc: "沉浸式汉唐宫廷用餐体验，融合传统音乐、竹编、漆器和现场表演。互动NPC和动态古画展示。",
+                palaceBanquetPrice: "USD 69-123/人 (¥498-888) 多种套餐",
+                palaceBanquetTime: "午宴12:30，晚宴18:30，酒宴21:00",
+
+                // 成都套餐
+                chengduPackageTitle: "🐼 成都文化体验套餐",
+                chengduPackageDesc: "将您的医疗治疗与精心策划的熊猫邂逅和川蜀文化体验相结合。我们的套餐完美契合您的治疗时间安排。",
+
+                chengduPackage1Title: "🐼 熊猫邂逅（半日游）",
+                chengduPackage1Desc: "大熊猫研究基地参观和志愿者体验，包括竹子准备和教育活动，获得证书。",
+                chengduPackage1Duration: "时长：4-5小时",
+
+                chengduPackage2Title: "🌶️ 川蜀文化与美食（全日游）",
+                chengduPackage2Desc: "宽窄巷子探索、传统茶馆体验、川菜烹饪课程，以及与当地家庭的正宗火锅晚餐。",
+                chengduPackage2Duration: "时长：8小时",
+
+                chengduPackage3Title: "👑 完整成都体验（2日游）",
+                chengduPackage3Desc: "完整熊猫互动、道教山地静修、宫庭宴会体验、传统工艺和全面川蜀文化沉浸。",
+                chengduPackage3Duration: "时长：2天",
                 contactTitle: "准备好开始您的旅程了吗？",
                 contactSubtitle: "请填写表格或直接通过WhatsApp/邮件联系我们。我们的健康顾问将在24小时内回复，为您提供免费咨询和个性化报价。",
                 formName: "您的姓名",
@@ -2404,7 +2738,9 @@
                         'chengduSightsText', 'chengduFoodText',
                         'eliteModalGeneralItems', 'eliteModalLabItems', 'eliteModalInstrumentItems',
                         'platinumModalDeepLabItems', 'platinumModalTumorItems', 'platinumModalDeepImagingItems', 'platinumModalSpecialItems',
-                        'vipModalAdvancedImagingItems', 'vipModalDigestiveItems', 'vipModalCardioItems', 'vipModalFullLabItems'
+                        'vipModalAdvancedImagingItems', 'vipModalDigestiveItems', 'vipModalCardioItems', 'vipModalFullLabItems',
+                        'traditionalArtsList', 'hutongList', 'beijingCuisineList',
+                        'qingchengFeatures', 'kuanzhaiFeatures'
                     ];
 
                     if (htmlKeys.includes(key)) {
