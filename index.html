@@ -324,6 +324,120 @@
             border-radius: 0.75rem;
         }
 
+        /* Enhanced Price Comparison Styles */
+        .price-comparison-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-bar-animation {
+            animation: slideUp 1.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+            to {
+                height: 100%;
+                opacity: 1;
+            }
+        }
+
+        .savings-highlight {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .price-table-row:hover {
+            background-color: #f8fafc;
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        .dramatic-savings {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .value-badge {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+
+        /* Number counting animation */
+        .count-up {
+            display: inline-block;
+        }
+
+        /* Enhanced visual effects */
+        .price-impact {
+            position: relative;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border: 2px solid #f87171;
+        }
+
+        .value-impact {
+            position: relative;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border: 2px solid #4ade80;
+        }
+
+        .comparison-arrow {
+            font-size: 2rem;
+            color: #3b82f6;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
         /* Google Maps styles */
         .map-container {
             height: 400px;
@@ -450,8 +564,191 @@
                         <h3 class="text-3xl font-bold text-gray-800" data-key="about1Title">1. Incredible Value: Get 10x More for Your Health Investment</h3>
                         <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto" data-key="about1Subtitle">Imagine getting a comprehensive screening with advanced imaging in China for the cost of a single specialist consultation in the US. This isn't a fantasy; it's the value leap we offer.</p>
                     </div>
-                    <div class="max-w-4xl mx-auto advantage-card p-4 md:p-8">
-                        <canvas id="costChart"></canvas>
+
+                    <!-- Enhanced Price Comparison Section -->
+                    <div class="max-w-6xl mx-auto">
+                        <!-- Main Comparison Chart -->
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 mb-8 shadow-lg price-comparison-container">
+                            <div class="text-center mb-8">
+                                <h4 class="text-2xl font-bold text-gray-800 mb-2" data-key="priceComparisonTitle">Medical Checkup Price Comparison</h4>
+                                <p class="text-gray-600" data-key="priceComparisonSubtitle">Same quality, dramatically different costs</p>
+                            </div>
+
+                            <!-- Visual Price Bars -->
+                            <div class="grid md:grid-cols-2 gap-8 mb-8 relative">
+                                <!-- Comparison Arrow (visible on larger screens) -->
+                                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                                    <div class="bg-white rounded-full p-3 shadow-lg border-2 border-blue-200">
+                                        <span class="comparison-arrow">→</span>
+                                    </div>
+                                </div>
+                                <!-- USA Column -->
+                                <div class="text-center">
+                                    <div class="bg-white rounded-xl p-6 shadow-md price-impact">
+                                        <div class="flex items-center justify-center mb-4">
+                                            <span class="text-2xl mr-2">🇺🇸</span>
+                                            <h5 class="text-xl font-bold text-red-600" data-key="usaLabel">United States</h5>
+                                        </div>
+
+                                        <!-- Price Bar USA -->
+                                        <div class="relative mb-4">
+                                            <div class="bg-red-100 rounded-lg h-64 flex items-end justify-center relative overflow-hidden">
+                                                <div class="bg-gradient-to-t from-red-500 to-red-400 w-full h-full rounded-lg flex items-end justify-center relative price-bar-animation">
+                                                    <div class="text-white font-bold text-lg mb-4 z-10" data-key="usaPrice">$8,000 - $15,000</div>
+                                                    <div class="absolute inset-0 bg-red-600 opacity-20"></div>
+                                                </div>
+                                            </div>
+                                            <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
+                                                <span data-key="expensiveLabel">EXPENSIVE</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-sm text-gray-600 space-y-1">
+                                            <p data-key="usaWaitTime">⏰ 4-8 weeks wait time</p>
+                                            <p data-key="usaInsurance">💳 Often not covered by insurance</p>
+                                            <p data-key="usaLimitedScope">📋 Limited scope for the price</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- China Column -->
+                                <div class="text-center">
+                                    <div class="bg-white rounded-xl p-6 shadow-md value-impact">
+                                        <div class="flex items-center justify-center mb-4">
+                                            <span class="text-2xl mr-2">🇨🇳</span>
+                                            <h5 class="text-xl font-bold text-green-600" data-key="chinaLabel">China (Our Service)</h5>
+                                        </div>
+
+                                        <!-- Price Bar China -->
+                                        <div class="relative mb-4">
+                                            <div class="bg-green-100 rounded-lg h-64 flex items-end justify-center relative overflow-hidden">
+                                                <div class="bg-gradient-to-t from-green-500 to-green-400 w-full h-16 rounded-lg flex items-end justify-center relative price-bar-animation" style="animation-delay: 0.5s;">
+                                                    <div class="text-white font-bold text-lg mb-2 z-10" data-key="chinaPrice">$800 - $1,500</div>
+                                                    <div class="absolute inset-0 bg-green-600 opacity-20"></div>
+                                                </div>
+                                            </div>
+                                            <div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
+                                                <span data-key="valueLabel">INCREDIBLE VALUE</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-sm text-gray-600 space-y-1">
+                                            <p data-key="chinaWaitTime">⚡ Same day or next day</p>
+                                            <p data-key="chinaInclusive">✅ All-inclusive pricing</p>
+                                            <p data-key="chinaComprehensive">🔬 More comprehensive tests</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Savings Highlight -->
+                            <div class="text-center bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 savings-highlight">
+                                <div class="text-3xl font-bold dramatic-savings mb-2" data-key="savingsAmount">Save $6,000 - $13,500</div>
+                                <p class="text-lg text-gray-700" data-key="savingsDescription">That's enough for a luxury vacation AND your medical checkup!</p>
+                                <div class="mt-4 flex justify-center items-center space-x-4 text-sm text-gray-600">
+                                    <span data-key="savingsPercent">85-90% Cost Savings</span>
+                                    <span class="text-yellow-500">•</span>
+                                    <span data-key="sameTechnology">Same Technology</span>
+                                    <span class="text-yellow-500">•</span>
+                                    <span data-key="betterService">Better Service</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Procedure Comparison -->
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
+                                <h4 class="text-xl font-bold text-center" data-key="procedureComparisonTitle">Specific Procedure Price Comparison (USD)</h4>
+                                <p class="text-center text-blue-100 mt-2" data-key="procedureComparisonSubtitle">Real prices from Grade 3A hospitals vs. US medical centers</p>
+                            </div>
+
+                            <div class="p-6">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead>
+                                            <tr class="border-b-2 border-gray-200">
+                                                <th class="text-left py-3 px-4 font-semibold text-gray-700" data-key="procedureHeader">Medical Procedure</th>
+                                                <th class="text-center py-3 px-4 font-semibold text-red-600" data-key="usaPriceHeader">USA Price</th>
+                                                <th class="text-center py-3 px-4 font-semibold text-green-600" data-key="chinaPriceHeader">China Price</th>
+                                                <th class="text-center py-3 px-4 font-semibold text-blue-600" data-key="savingsHeader">You Save</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-100">
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure1">Full Body MRI Scan</td>
+                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$3,000 - $5,000</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$300 - $500</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$2,700 - $4,500</td>
+                                            </tr>
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure2">Comprehensive Blood Panel</td>
+                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$800 - $1,500</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$80 - $150</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$720 - $1,350</td>
+                                            </tr>
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure3">CT Scan (Chest/Abdomen)</td>
+                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$1,200 - $3,000</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$120 - $300</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$1,080 - $2,700</td>
+                                            </tr>
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure4">Cardiac Stress Test</td>
+                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$1,000 - $2,000</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$100 - $200</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$900 - $1,800</td>
+                                            </tr>
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure5">Endoscopy (Upper GI)</td>
+                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$1,500 - $3,500</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$150 - $350</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$1,350 - $3,150</td>
+                                            </tr>
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure6">Ultrasound (Full Abdominal)</td>
+                                                <td class="py-4 px-4 text-center text-red-600 font-bold">$500 - $1,200</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$50 - $120</td>
+                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">$450 - $1,080</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Total Savings Summary -->
+                                <div class="mt-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-200">
+                                    <div class="text-center">
+                                        <h5 class="text-lg font-bold text-gray-800 mb-2" data-key="totalSavingsTitle">Complete Health Screening Package</h5>
+                                        <div class="grid md:grid-cols-3 gap-4 items-center">
+                                            <div>
+                                                <p class="text-sm text-gray-600" data-key="usaTotalLabel">USA Total Cost</p>
+                                                <p class="text-2xl font-bold text-red-600">$8,000 - $15,000</p>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="text-4xl mb-2">→</div>
+                                                <p class="text-sm font-medium text-gray-700" data-key="vsLabel">VS</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600" data-key="chinaTotalLabel">China Total Cost</p>
+                                                <p class="text-2xl font-bold text-green-600">$800 - $1,500</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 p-4 bg-yellow-100 rounded-lg savings-highlight">
+                                            <p class="text-xl font-bold dramatic-savings" data-key="finalSavings">Your Total Savings: $7,200 - $13,500</p>
+                                            <p class="text-sm text-gray-600 mt-1" data-key="savingsNote">Plus travel, accommodation, and cultural experience included!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Call to Action -->
+                        <div class="mt-8 text-center">
+                            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 savings-highlight">
+                                <h5 class="text-xl font-bold mb-2" data-key="ctaTitle">Ready to Experience 10x Value?</h5>
+                                <p class="mb-4" data-key="ctaDescription">Get your comprehensive health screening at a fraction of US costs</p>
+                                <a href="#contact" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 value-badge" data-key="ctaButton">Get Your Quote Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1750,6 +2047,50 @@
                 aboutSubtitle: "We reveal why a health screening in China is not just a smart choice, but the best investment in your health and time.",
                 about1Title: "1. Incredible Value: Get 10x More for Your Health Investment",
                 about1Subtitle: "Imagine getting a comprehensive screening with advanced imaging in China for the cost of a single specialist consultation in the US. This isn't a fantasy; it's the value leap we offer.",
+
+                // Price Comparison Section
+                priceComparisonTitle: "Medical Checkup Price Comparison",
+                priceComparisonSubtitle: "Same quality, dramatically different costs",
+                usaLabel: "United States",
+                chinaLabel: "China (Our Service)",
+                usaPrice: "$8,000 - $15,000",
+                chinaPrice: "$800 - $1,500",
+                expensiveLabel: "EXPENSIVE",
+                valueLabel: "INCREDIBLE VALUE",
+                usaWaitTime: "⏰ 4-8 weeks wait time",
+                usaInsurance: "💳 Often not covered by insurance",
+                usaLimitedScope: "📋 Limited scope for the price",
+                chinaWaitTime: "⚡ Same day or next day",
+                chinaInclusive: "✅ All-inclusive pricing",
+                chinaComprehensive: "🔬 More comprehensive tests",
+                savingsAmount: "Save $6,000 - $13,500",
+                savingsDescription: "That's enough for a luxury vacation AND your medical checkup!",
+                savingsPercent: "85-90% Cost Savings",
+                sameTechnology: "Same Technology",
+                betterService: "Better Service",
+
+                // Procedure Comparison Table
+                procedureComparisonTitle: "Specific Procedure Price Comparison (USD)",
+                procedureComparisonSubtitle: "Real prices from Grade 3A hospitals vs. US medical centers",
+                procedureHeader: "Medical Procedure",
+                usaPriceHeader: "USA Price",
+                chinaPriceHeader: "China Price",
+                savingsHeader: "You Save",
+                procedure1: "Full Body MRI Scan",
+                procedure2: "Comprehensive Blood Panel",
+                procedure3: "CT Scan (Chest/Abdomen)",
+                procedure4: "Cardiac Stress Test",
+                procedure5: "Endoscopy (Upper GI)",
+                procedure6: "Ultrasound (Full Abdominal)",
+                totalSavingsTitle: "Complete Health Screening Package",
+                usaTotalLabel: "USA Total Cost",
+                chinaTotalLabel: "China Total Cost",
+                vsLabel: "VS",
+                finalSavings: "Your Total Savings: $7,200 - $13,500",
+                savingsNote: "Plus travel, accommodation, and cultural experience included!",
+                ctaTitle: "Ready to Experience 10x Value?",
+                ctaDescription: "Get your comprehensive health screening at a fraction of US costs",
+                ctaButton: "Get Your Quote Now",
                 about2Title: "2. Revolutionary Efficiency: We Save You Weeks, in Just a Few Hours",
                 about2Subtitle: "A full check-up process can take a month in your home country. In China, we condense it into a single morning of your trip.",
                 about3Title: "3. Comprehensive Assurance: We Select for You, We Safeguard for You",
@@ -1792,7 +2133,7 @@
                 testimonialsTitle: "What Our Patients Say",
                 testimonialsSubtitle: "Real experiences from patients who trusted us with their health journey",
                 testimonial1Name: "John M.",
-                testimonial1Location: "United Kingdom",
+                testimonial1Location: "United States",
                 testimonial1Text: "\"The pre-consultation gave me complete confidence. The Grade 3A hospital exceeded all expectations, and the post-treatment follow-up was exceptional.\"",
                 testimonial2Name: "Sarah M.",
                 testimonial2Location: "Australia",
@@ -2146,6 +2487,50 @@
                 aboutSubtitle: "我们为您揭示，为何来华进行健康筛查不仅是明智之选，更是对您健康和时间的最佳投资。",
                 about1Title: "1. 惊人的性价比：您的健康投资，价值提升不止十倍",
                 about1Subtitle: "想象一下，用在美国仅够支付一次专家问诊的费用，在中国享受一套包含高级影像学检查的全面体检。这不是天方夜谭，而是我们为您实现的价值飞跃。",
+
+                // Price Comparison Section Chinese
+                priceComparisonTitle: "医疗体检价格对比",
+                priceComparisonSubtitle: "相同质量，价格天壤之别",
+                usaLabel: "美国",
+                chinaLabel: "中国（我们的服务）",
+                usaPrice: "$8,000 - $15,000",
+                chinaPrice: "$800 - $1,500",
+                expensiveLabel: "昂贵",
+                valueLabel: "超值",
+                usaWaitTime: "⏰ 等待时间4-8周",
+                usaInsurance: "💳 保险通常不覆盖",
+                usaLimitedScope: "📋 价格高但检查范围有限",
+                chinaWaitTime: "⚡ 当天或次日完成",
+                chinaInclusive: "✅ 全包价格",
+                chinaComprehensive: "🔬 更全面的检查项目",
+                savingsAmount: "节省 $6,000 - $13,500",
+                savingsDescription: "这笔钱足够您享受豪华假期并完成医疗体检！",
+                savingsPercent: "节省85-90%费用",
+                sameTechnology: "相同技术",
+                betterService: "更好服务",
+
+                // Procedure Comparison Table Chinese
+                procedureComparisonTitle: "具体检查项目价格对比（美元）",
+                procedureComparisonSubtitle: "三甲医院与美国医疗中心的真实价格对比",
+                procedureHeader: "医疗检查项目",
+                usaPriceHeader: "美国价格",
+                chinaPriceHeader: "中国价格",
+                savingsHeader: "您的节省",
+                procedure1: "全身MRI扫描",
+                procedure2: "全面血液检查",
+                procedure3: "CT扫描（胸部/腹部）",
+                procedure4: "心脏负荷试验",
+                procedure5: "内窥镜检查（上消化道）",
+                procedure6: "超声检查（全腹部）",
+                totalSavingsTitle: "完整健康筛查套餐",
+                usaTotalLabel: "美国总费用",
+                chinaTotalLabel: "中国总费用",
+                vsLabel: "对比",
+                finalSavings: "您的总节省：$7,200 - $13,500",
+                savingsNote: "还包含旅行、住宿和文化体验！",
+                ctaTitle: "准备体验10倍价值？",
+                ctaDescription: "以美国费用的一小部分获得全面健康筛查",
+                ctaButton: "立即获取报价",
                 about2Title: "2. 革命性的效率：我们用数小时，为您节省数周的宝贵时间",
                 about2Subtitle: "在您的国家，一次完整的体检流程可能耗时一个月。在中国，我们将其浓缩在您旅途中的一个上午。",
                 about3Title: "3. 全方位的可靠保障：我们为您精选，更为您护航",
@@ -2539,48 +2924,12 @@
             const chartData = translations[lang];
 
             // Destroy existing charts if they exist
-            if (chartInstances.costChart) chartInstances.costChart.destroy();
             if (chartInstances.efficiencyChart) chartInstances.efficiencyChart.destroy();
 
-            // Cost Chart - Stacked Bar
-            const costCtx = document.getElementById('costChart');
-            if (!costCtx) {
-                console.warn('Cost chart canvas not found');
-                return;
-            }
+            // Note: Cost chart is now replaced with static visual comparison
+            // Only render efficiency chart
 
             try {
-                chartInstances.costChart = new Chart(costCtx.getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: [chartData.costChart.usLabel, chartData.costChart.chinaLabel],
-                    datasets: [{
-                        label: chartData.costChart.baseServices,
-                        data: [1, 1],
-                        backgroundColor: 'rgba(239, 68, 68, 0.6)', // Red
-                        borderColor: 'rgba(239, 68, 68, 1)',
-                        borderWidth: 1
-                    }, {
-                        label: chartData.costChart.advancedServices,
-                        data: [0, 1],
-                        backgroundColor: 'rgba(34, 197, 94, 0.6)', // Green
-                        borderColor: 'rgba(34, 197, 94, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: { display: true, text: chartData.costChart.title, font: { size: 16 } },
-                        tooltip: { mode: 'index', intersect: false }
-                    },
-                    scales: {
-                        x: { stacked: true },
-                        y: { stacked: true, ticks: { callback: (value) => (value === 1 ? '✓' : '') } }
-                    }
-                }
-                });
-
                 // Efficiency Chart - Stacked Bar
                 const efficiencyCtx = document.getElementById('efficiencyChart');
                 if (!efficiencyCtx) {
@@ -2594,7 +2943,7 @@
                      labels: [chartData.efficiencyChart.usLabel, chartData.efficiencyChart.chinaLabel],
                     datasets: [{
                         label: chartData.efficiencyChart.appointment,
-                        data: [56, 3], 
+                        data: [56, 3],
                         backgroundColor: 'rgba(251, 191, 36, 0.6)', // Amber
                         borderColor: 'rgba(251, 191, 36, 1)',
                          borderWidth: 1
@@ -2627,9 +2976,7 @@
             } catch (error) {
                 console.error('Error creating charts:', error);
                 // Hide chart containers if charts fail to load
-                const costChart = document.getElementById('costChart');
                 const efficiencyChart = document.getElementById('efficiencyChart');
-                if (costChart) costChart.style.display = 'none';
                 if (efficiencyChart) efficiencyChart.style.display = 'none';
             }
         }
@@ -2690,6 +3037,81 @@
             });
         }
 
+        // Number counting animation
+        function animateNumber(element, start, end, duration) {
+            const startTime = performance.now();
+            const range = end - start;
+
+            function updateNumber(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function for smooth animation
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + (range * easeOutQuart));
+
+                element.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+
+            requestAnimationFrame(updateNumber);
+        }
+
+        // Enhanced price comparison animations
+        function initializePriceComparison() {
+            // Intersection Observer for triggering animations when section comes into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add staggered animation delays to price bars
+                        const priceBars = entry.target.querySelectorAll('.price-bar-animation');
+                        priceBars.forEach((bar, index) => {
+                            bar.style.animationDelay = `${index * 0.3}s`;
+                            bar.classList.add('price-bar-animation');
+                        });
+
+                        // Trigger savings highlight animation
+                        const savingsElements = entry.target.querySelectorAll('.savings-highlight');
+                        savingsElements.forEach((element, index) => {
+                            setTimeout(() => {
+                                element.style.animationDelay = `${index * 0.5}s`;
+                                element.classList.add('savings-highlight');
+                            }, 1000);
+                        });
+
+                        // Animate savings numbers
+                        setTimeout(() => {
+                            const savingsNumbers = entry.target.querySelectorAll('.dramatic-savings');
+                            savingsNumbers.forEach(numberElement => {
+                                const text = numberElement.textContent;
+                                const matches = text.match(/\$?([\d,]+)/g);
+                                if (matches && matches.length > 0) {
+                                    // Extract the first number for animation
+                                    const firstNumber = parseInt(matches[0].replace(/[$,]/g, ''));
+                                    if (firstNumber > 1000) {
+                                        const tempSpan = document.createElement('span');
+                                        tempSpan.className = 'count-up';
+                                        numberElement.innerHTML = text.replace(matches[0], tempSpan.outerHTML);
+                                        const countElement = numberElement.querySelector('.count-up');
+                                        animateNumber(countElement, 0, firstNumber, 2000);
+                                    }
+                                }
+                            });
+                        }, 1500);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            // Observe the price comparison section
+            const priceSection = document.querySelector('.price-comparison-container');
+            if (priceSection) {
+                observer.observe(priceSection);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             // Wait for Chart.js to be fully loaded
             try {
@@ -2698,11 +3120,7 @@
             } catch (error) {
                 console.warn('Chart.js failed to load:', error.message);
                 // Hide chart containers if Chart.js fails to load
-                const costChart = document.getElementById('costChart');
                 const efficiencyChart = document.getElementById('efficiencyChart');
-                if (costChart && costChart.parentElement) {
-                    costChart.parentElement.style.display = 'none';
-                }
                 if (efficiencyChart && efficiencyChart.parentElement) {
                     efficiencyChart.parentElement.style.display = 'none';
                 }
@@ -2710,6 +3128,9 @@
 
             lucide.createIcons();
             updateContent(currentLang);
+
+            // Initialize price comparison animations
+            initializePriceComparison();
 
             const langSwitchers = [document.getElementById('language-switcher'), document.getElementById('mobile-language-switcher')];
             langSwitchers.forEach(switcher => {
