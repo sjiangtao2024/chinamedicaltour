@@ -567,101 +567,7 @@
 
                     <!-- Enhanced Price Comparison Section -->
                     <div class="max-w-6xl mx-auto">
-                        <!-- Main Comparison Chart -->
-                        <div class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 mb-8 shadow-lg price-comparison-container">
-                            <div class="text-center mb-8">
-                                <h4 class="text-2xl font-bold text-gray-800 mb-2" data-key="priceComparisonTitle">Medical Checkup Price Comparison</h4>
-                                <p class="text-gray-600" data-key="priceComparisonSubtitle">Same quality, dramatically different costs</p>
-                            </div>
 
-                            <!-- Visual Price Bars -->
-                            <div class="grid md:grid-cols-2 gap-8 mb-8 relative">
-                                <!-- Comparison Arrow (visible on larger screens) -->
-                                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                                    <div class="bg-white rounded-full p-3 shadow-lg border-2 border-blue-200">
-                                        <span class="comparison-arrow">→</span>
-                                    </div>
-                                </div>
-                                <!-- USA Column -->
-                                <div class="text-center">
-                                    <div class="bg-white rounded-xl p-6 shadow-md price-impact">
-                                        <div class="flex items-center justify-center mb-4">
-                                            <span class="text-2xl mr-2">🇺🇸</span>
-                                            <h5 class="text-xl font-bold text-slate-700" data-key="usaLabel">United States</h5>
-                                        </div>
-
-                                        <!-- Price Bar USA -->
-                                        <div class="relative mb-4">
-                                            <div class="bg-orange-50 rounded-lg h-64 flex items-end justify-center relative overflow-hidden">
-                                                <div class="bg-gradient-to-t from-orange-400 to-orange-300 w-full h-full rounded-lg flex items-end justify-center relative price-bar-animation">
-                                                    <div class="text-white font-bold text-lg mb-4 z-10" data-key="usaPrice">$8,000 - $15,000</div>
-                                                    <div class="absolute inset-0 bg-orange-500 opacity-20"></div>
-                                                </div>
-                                            </div>
-                                            <div class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
-                                                <span data-key="expensiveLabel">EXPENSIVE</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-sm text-gray-600 space-y-1">
-                                            <p data-key="usaWaitTime">⏰ 4-8 weeks wait time</p>
-                                            <p data-key="usaInsurance">💳 Often not covered by insurance</p>
-                                            <p data-key="usaLimitedScope">📋 Limited scope for the price</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- China Column -->
-                                <div class="text-center">
-                                    <div class="bg-white rounded-xl p-6 shadow-md value-impact">
-                                        <div class="flex items-center justify-center mb-4">
-                                            <span class="text-2xl mr-2">🇨🇳</span>
-                                            <h5 class="text-xl font-bold text-green-600" data-key="chinaLabel">China (Our Service)</h5>
-                                        </div>
-
-                                        <!-- Price Bar China -->
-                                        <div class="relative mb-4">
-                                            <div class="bg-blue-100 rounded-lg h-64 flex flex-col justify-end relative overflow-hidden">
-                                                <!-- Medical Part (Bottom ~15%) -->
-                                                <div class="bg-gradient-to-t from-green-600 to-green-500 w-full rounded-b-lg flex items-center justify-center relative price-bar-animation" style="height: 15%; animation-delay: 0.5s;">
-                                                    <div class="text-white font-bold text-xs z-10">🏥 Medical $1,399</div>
-                                                </div>
-                                                <!-- Travel & Experience Part (Top ~85%) -->
-                                                <div class="bg-gradient-to-t from-blue-500 to-blue-400 w-full rounded-t-lg flex items-center justify-center relative price-bar-animation" style="height: 85%; animation-delay: 0.8s;">
-                                                    <div class="text-white font-bold text-sm z-10">✈️ Travel + Cultural Experience</div>
-                                                </div>
-                                                <!-- Total Price Display at Bottom -->
-                                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-                                                    <div class="text-white font-bold text-lg mb-2 z-10" data-key="chinaPrice">$8,000 - $15,000</div>
-                                                </div>
-                                            </div>
-                                            <div class="absolute -top-2 -right-2 bg-gradient-to-r from-green-500 to-blue-500 text-white text-xs px-2 py-1 rounded-full font-bold value-badge">
-                                                <span data-key="valueLabel">MEDICAL + TRAVEL</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-sm text-gray-600 space-y-1">
-                                            <p data-key="chinaWaitTime">🏥 <span class="text-green-600 font-medium">Premium medical screening ($1,399)</span></p>
-                                            <p data-key="chinaInclusive">✈️ <span class="text-blue-600 font-medium">Luxury travel + cultural experience</span></p>
-                                            <p data-key="chinaComprehensive">🌟 <span class="text-purple-600 font-medium">Same total cost as US basic checkup</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Savings Highlight -->
-                            <div class="text-center bg-amber-50 border-2 border-amber-200 rounded-xl p-6 savings-highlight">
-                                <div class="text-3xl font-bold dramatic-savings mb-2" data-key="savingsAmount">Save $6,000 - $13,500</div>
-                                <p class="text-lg text-gray-700" data-key="savingsDescription">That's enough for a luxury vacation AND your medical checkup!</p>
-                                <div class="mt-4 flex justify-center items-center space-x-4 text-sm text-gray-600">
-                                    <span data-key="savingsPercent">85-90% Cost Savings</span>
-                                    <span class="text-amber-500">•</span>
-                                    <span data-key="sameTechnology">Same Technology</span>
-                                    <span class="text-amber-500">•</span>
-                                    <span data-key="betterService">Better Service</span>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Detailed Procedure Comparison -->
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -675,77 +581,58 @@
                                     <table class="w-full">
                                         <thead>
                                             <tr class="border-b-2 border-gray-200">
-                                                <th class="text-left py-3 px-4 font-semibold text-gray-700" data-key="procedureHeader">Medical Procedure</th>
-                                                <th class="text-center py-3 px-4 font-semibold text-orange-600" data-key="usaPriceHeader">USA Price</th>
-                                                <th class="text-center py-3 px-4 font-semibold text-green-600" data-key="chinaPriceHeader">China Price</th>
-                                                <th class="text-center py-3 px-4 font-semibold text-blue-600" data-key="savingsHeader">You Save</th>
+                                                <th class="text-left py-3 px-4 font-semibold text-gray-700" data-key="procedureHeader">Service Item</th>
+                                                <th class="text-center py-3 px-4 font-semibold text-orange-600" data-key="usaPriceHeader">USA Out-of-Pocket</th>
+                                                <th class="text-center py-3 px-4 font-semibold text-green-600" data-key="chinaPriceHeader">China Full Package</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure1">Basic Health Checkup</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure1">Full Body Check</td>
                                                 <td class="py-4 px-4 text-center text-orange-600 font-bold">$8,000 - $15,000</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$8,000 - $15,000</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">Standard screening only</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$1,399</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure2">What You Get in China</td>
-                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Same Budget</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Same Budget</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Comprehensive screening</td>
-                                            </tr>
-                                            <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure3">Additional Benefits</td>
-                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">None</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Included</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Cultural travel experience</td>
-                                            </tr>
-                                            <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure4">Accommodation</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure2">Travel & Transportation</td>
                                                 <td class="py-4 px-4 text-center text-orange-600 font-bold">Not included</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Included</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Hotel & meals</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$1,200 - $2,500</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure5">Cultural Tours</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure3">Accommodation & Meals</td>
                                                 <td class="py-4 px-4 text-center text-orange-600 font-bold">Not included</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Included</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">+ Guided cultural experiences</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$800 - $1,500</td>
                                             </tr>
                                             <tr class="price-table-row">
-                                                <td class="py-4 px-4 font-medium" data-key="procedure6">Total Value</td>
-                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Medical only</td>
-                                                <td class="py-4 px-4 text-center text-green-600 font-bold">Medical + Travel + Culture</td>
-                                                <td class="py-4 px-4 text-center text-blue-600 font-bold">10x more value</td>
+                                                <td class="py-4 px-4 font-medium" data-key="procedure4">Cultural Tours & Experiences</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Not included</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$200 - $1,500</td>
+                                            </tr>
+                                            <tr class="price-table-row">
+                                                <td class="py-4 px-4 font-medium" data-key="procedure5">Shopping & Tax Refund</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold">Not included</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold">$500 - $3,000 (up to 13% tax refund)</td>
+                                            </tr>
+                                            <tr class="price-table-row bg-blue-50">
+                                                <td class="py-4 px-4 font-bold text-lg" data-key="procedure6">Total Budget</td>
+                                                <td class="py-4 px-4 text-center text-orange-600 font-bold text-lg">$8,000 - $15,000</td>
+                                                <td class="py-4 px-4 text-center text-green-600 font-bold text-lg">$4,100 - $8,900</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <!-- Total Savings Summary -->
-                                <div class="mt-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-200">
-                                    <div class="text-center">
-                                        <h5 class="text-lg font-bold text-gray-800 mb-2" data-key="totalSavingsTitle">Complete Health Screening Package</h5>
-                                        <div class="grid md:grid-cols-3 gap-4 items-center">
-                                            <div>
-                                                <p class="text-sm text-gray-600" data-key="usaTotalLabel">USA Total Cost</p>
-                                                <p class="text-2xl font-bold text-orange-600">$8,000 - $15,000</p>
-                                            </div>
-                                            <div class="text-center">
-                                                <div class="text-4xl mb-2">→</div>
-                                                <p class="text-sm font-medium text-gray-700" data-key="vsLabel">VS</p>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm text-gray-600" data-key="chinaTotalLabel">China Complete Package</p>
-                                                <p class="text-2xl font-bold text-green-600">$8,000 - $15,000</p>
-                                            </div>
-                                        </div>
-                                        <div class="mt-4 p-4 bg-amber-100 rounded-lg savings-highlight">
-                                            <p class="text-xl font-bold dramatic-savings" data-key="finalSavings">Your Total Savings: $7,200 - $13,500</p>
-                                            <p class="text-sm text-gray-600 mt-1" data-key="savingsNote">Plus travel, accommodation, and cultural experience included!</p>
-                                        </div>
+                                <!-- Cost Breakdown Explanation -->
+                                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                                    <h5 class="font-semibold text-gray-800 mb-3" data-key="costBreakdownTitle">Cost Breakdown Explanation:</h5>
+                                    <div class="text-sm text-gray-600 space-y-2">
+                                        <div><strong data-key="travelCostLabel">Travel & Transportation ($1,200-$2,500):</strong> <span data-key="travelCostDesc">International flights, domestic transportation, airport transfers</span></div>
+                                        <div><strong data-key="accommodationCostLabel">Accommodation & Meals ($800-$1,500):</strong> <span data-key="accommodationCostDesc">4-star hotels, daily meals, local dining experiences</span></div>
+                                        <div><strong data-key="culturalCostLabel">Cultural Tours & Experiences ($200-$1,500):</strong> <span data-key="culturalCostDesc">Beijing/Chengdu attractions, guided tours, cultural activities</span></div>
+                                        <div><strong data-key="shoppingCostLabel">Shopping & Tax Refund ($500-$3,000):</strong> <span data-key="shoppingCostDesc">Personal shopping budget with up to 13% tax refund</span></div>
                                     </div>
+                                    <p class="text-xs text-gray-500 mt-3" data-key="costDisclaimer">Actual costs may be affected by exchange rates and supplier price adjustments. The above prices are for reference only.</p>
                                 </div>
+
                             </div>
                         </div>
 
@@ -794,9 +681,9 @@
                             <p class="text-gray-600 mt-2" data-key="about3Card3Text">Secure payment systems with full financial transparency and no hidden costs. We provide detailed cost breakdowns upfront, addressing the financial concerns that deter 34.6% of potential medical tourists.</p>
                         </div>
                          <div class="text-center p-4">
-                            <i data-lucide="headphones" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
-                            <h4 class="text-xl font-semibold" data-key="about3Card4Title">📞 Comprehensive Post-Treatment Follow-Up</h4>
-                            <p class="text-gray-600 mt-2" data-key="about3Card4Text">Addressing the #1 concern of 53.8% of medical tourists, we provide 24/7 post-treatment support, telemedicine consultations, and seamless coordination with your home country physicians for continued care.</p>
+                            <i data-lucide="shield-check" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="about3Card4Title">🛡️ Comprehensive Medical Report & Documentation</h4>
+                            <p class="text-gray-600 mt-2" data-key="about3Card4Text">Receive detailed medical reports in both English and Chinese, complete with digital copies and official hospital documentation. All results are provided within 7 days with clear explanations and recommendations for your ongoing health management.</p>
                         </div>
                          <div class="text-center p-4">
                             <i data-lucide="video" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
@@ -831,8 +718,8 @@
                             <div class="text-sm text-blue-100 mt-1" data-key="trustStat3">prefer pre-treatment consultations</div>
                         </div>
                         <div class="bg-white/10 rounded-lg p-4">
-                            <div class="text-3xl font-bold text-yellow-300">53.8%</div>
-                            <div class="text-sm text-blue-100 mt-1" data-key="trustStat4">worry about post-treatment care</div>
+                            <div class="text-3xl font-bold text-yellow-300">89.2%</div>
+                            <div class="text-sm text-blue-100 mt-1" data-key="trustStat4">value comprehensive medical documentation</div>
                         </div>
                     </div>
                     <div class="text-center mt-6">
@@ -963,7 +850,7 @@
                                 <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
                                 <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
                             </div>
-                            <p class="text-gray-700 text-sm" data-key="testimonial1Text">"The pre-consultation gave me complete confidence. The Grade 3A hospital exceeded all expectations, and the post-treatment follow-up was exceptional."</p>
+                            <p class="text-gray-700 text-sm" data-key="testimonial1Text">"The pre-consultation gave me complete confidence. The Grade 3A hospital exceeded all expectations, and the detailed medical reports were incredibly thorough."</p>
                         </div>
                         <div class="bg-white p-6 rounded-lg shadow-md">
                             <div class="flex items-center mb-4">
@@ -1001,7 +888,7 @@
                                 <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
                                 <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
                             </div>
-                            <p class="text-gray-700 text-sm" data-key="testimonial3Text">"The 24/7 support and telemedicine follow-ups addressed my biggest concern about post-treatment care. Truly professional service."</p>
+                            <p class="text-gray-700 text-sm" data-key="testimonial3Text">"The comprehensive medical documentation and bilingual reports made it easy to share results with my home doctor. Truly professional service."</p>
                         </div>
                     </div>
                 </div>
@@ -2056,46 +1943,33 @@
                 about1Title: "1. Incredible Value: Get 10x More for Your Health Investment",
                 about1Subtitle: "For the same amount you'd pay out-of-pocket for a single health checkup in the US, you can come to China and get a more comprehensive medical examination PLUS enjoy an amazing cultural travel experience.",
 
-                // Price Comparison Section
-                priceComparisonTitle: "What Your Out-of-Pocket Payment Gets You",
-                priceComparisonSubtitle: "Same money, dramatically different value",
-                usaLabel: "United States (Out-of-Pocket)",
-                chinaLabel: "China (Our Complete Package)",
-                usaPrice: "$8,000 - $15,000",
-                chinaPrice: "$8,000 - $15,000",
-                expensiveLabel: "LIMITED SCOPE",
-                valueLabel: "COMPREHENSIVE + TRAVEL",
-                usaWaitTime: "⏰ 4-8 weeks wait time",
-                usaInsurance: "💳 Basic checkup only",
-                usaLimitedScope: "📋 Standard screening package",
-                chinaWaitTime: "🏥 Premium medical screening ($1,399)",
-                chinaInclusive: "✈️ Luxury travel + cultural experience",
-                chinaComprehensive: "🌟 Same total cost as US basic checkup",
-                savingsAmount: "Same Investment, 10x More Value",
-                savingsDescription: "Comprehensive medical screening + unforgettable cultural journey!",
-                savingsPercent: "Same Budget",
-                sameTechnology: "Advanced Technology",
-                betterService: "Enhanced Experience",
+
 
                 // Procedure Comparison Table
                 procedureComparisonTitle: "What Your Out-of-Pocket Budget Gets You (USD)",
                 procedureComparisonSubtitle: "Same money, different value: Grade 3A hospitals vs. US out-of-pocket costs",
-                procedureHeader: "Medical Procedure",
+                procedureHeader: "Service Item",
                 usaPriceHeader: "USA Out-of-Pocket",
                 chinaPriceHeader: "China Full Package",
-                savingsHeader: "Extra Value",
-                procedure1: "Full Body MRI Scan",
-                procedure2: "Comprehensive Blood Panel",
-                procedure3: "CT Scan (Chest/Abdomen)",
-                procedure4: "Cardiac Stress Test",
-                procedure5: "Endoscopy (Upper GI)",
-                procedure6: "Ultrasound (Full Abdominal)",
-                totalSavingsTitle: "Your Out-of-Pocket Investment Comparison",
-                usaTotalLabel: "USA Out-of-Pocket Cost",
-                chinaTotalLabel: "China Complete Package",
-                vsLabel: "VS",
-                finalSavings: "Same Investment, Exponentially More Value",
-                savingsNote: "Medical screening + travel + accommodation + cultural experience!",
+                procedure1: "Full Body Check",
+                procedure2: "Travel & Transportation",
+                procedure3: "Accommodation & Meals",
+                procedure4: "Cultural Tours & Experiences",
+                procedure5: "Shopping & Tax Refund",
+                procedure6: "Total Budget",
+
+                // Cost Breakdown
+                costBreakdownTitle: "Cost Breakdown Explanation:",
+                travelCostLabel: "Travel & Transportation ($1,200-$2,500):",
+                travelCostDesc: "International flights, domestic transportation, airport transfers",
+                accommodationCostLabel: "Accommodation & Meals ($800-$1,500):",
+                accommodationCostDesc: "4-star hotels, daily meals, local dining experiences",
+                culturalCostLabel: "Cultural Tours & Experiences ($200-$1,500):",
+                culturalCostDesc: "Beijing/Chengdu attractions, guided tours, cultural activities",
+                shoppingCostLabel: "Shopping & Tax Refund ($500-$3,000):",
+                shoppingCostDesc: "Personal shopping budget with up to 13% tax refund",
+                costDisclaimer: "Actual costs may be affected by exchange rates and supplier price adjustments. The above prices are for reference only.",
+
                 ctaTitle: "Ready to Experience 10x Value?",
                 ctaDescription: "Get comprehensive health screening PLUS cultural journey for the same out-of-pocket cost",
                 ctaButton: "Get Your Quote Now",
@@ -2109,8 +1983,8 @@
                 about3Card2Text: "China's medical professionals are among the most highly trained in Asia, many holding advanced degrees from top domestic and international institutions. Licensed under rigorous national standards, Chinese doctors undergo years of intensive education and clinical training, with specialists in Traditional Chinese Medicine (TCM), internal medicine, and regenerative therapy often having decades of hands-on experience. Many physicians in major cities like Beijing, Shanghai, and Chengdu are bilingual and accustomed to treating international patients in globally accredited hospitals. Whether it's a full-body check-up, acupuncture session, or stem cell consultation, you'll be in safe, expert hands.",
                 about3Card3Title: "🔒 Secure Payment & Financial Protection",
                 about3Card3Text: "Secure payment systems with full financial transparency and no hidden costs. We provide detailed cost breakdowns upfront, addressing the financial concerns that deter 34.6% of potential medical tourists.",
-                about3Card4Title: "📞 Comprehensive Post-Treatment Follow-Up",
-                about3Card4Text: "Addressing the #1 concern of 53.8% of medical tourists, we provide 24/7 post-treatment support, telemedicine consultations, and seamless coordination with your home country physicians for continued care.",
+                about3Card4Title: "🛡️ Comprehensive Medical Report & Documentation",
+                about3Card4Text: "Receive detailed medical reports in both English and Chinese, complete with digital copies and official hospital documentation. All results are provided within 7 days with clear explanations and recommendations for your ongoing health management.",
                 about3Card5Title: "💻 Free Pre-Treatment Teleconsultations",
                 about3Card5Text: "65.4% of patients are more likely to travel when offered pre-treatment consultations. We provide free video consultations with specialists before your trip, building trust and ensuring treatment suitability.",
                 about3Card6Title: "🌟 Perfect Fusion of Health & Cultural Experience",
@@ -2122,7 +1996,7 @@
                 trustStat1: "of patients prioritize trust above all",
                 trustStat2: "choose top-tier hospitals (Grade 3A)",
                 trustStat3: "prefer pre-treatment consultations",
-                trustStat4: "worry about post-treatment care",
+                trustStat4: "value comprehensive medical documentation",
                 trustStatsNote: "We've designed our services to address every one of these concerns",
 
                 // Certifications
@@ -2142,13 +2016,13 @@
                 testimonialsSubtitle: "Real experiences from patients who trusted us with their health journey",
                 testimonial1Name: "John M.",
                 testimonial1Location: "United States",
-                testimonial1Text: "\"The pre-consultation gave me complete confidence. The Grade 3A hospital exceeded all expectations, and the post-treatment follow-up was exceptional.\"",
+                testimonial1Text: "\"The pre-consultation gave me complete confidence. The Grade 3A hospital exceeded all expectations, and the detailed medical reports were incredibly thorough.\"",
                 testimonial2Name: "Sarah M.",
                 testimonial2Location: "Australia",
                 testimonial2Text: "\"Complete transparency in pricing, no hidden costs. The cultural tour was an amazing bonus that made this more than just a medical trip.\"",
                 testimonial3Name: "David R.",
                 testimonial3Location: "Canada",
-                testimonial3Text: "\"The 24/7 support and telemedicine follow-ups addressed my biggest concern about post-treatment care. Truly professional service.\"",
+                testimonial3Text: "\"The comprehensive medical documentation and bilingual reports made it easy to share results with my home doctor. Truly professional service.\"",
 
                 // Hospital Grade Explanation
                 hospitalGradeTitle: "Understanding China's Hospital Classification System",
@@ -2496,46 +2370,33 @@
                 about1Title: "1. 惊人的性价比：您的健康投资，价值提升不止十倍",
                 about1Subtitle: "用您在美国自费进行一次健康体检的同样费用，来中国不仅能获得更全面的医疗检查，还能享受精彩的文化旅行体验。",
 
-                // Price Comparison Section Chinese
-                priceComparisonTitle: "您的自费投资能获得什么",
-                priceComparisonSubtitle: "相同费用，价值天壤之别",
-                usaLabel: "美国（自费部分）",
-                chinaLabel: "中国（完整套餐）",
-                usaPrice: "$8,000 - $15,000",
-                chinaPrice: "$8,000 - $15,000",
-                expensiveLabel: "范围有限",
-                valueLabel: "全面体验+旅行",
-                usaWaitTime: "⏰ 等待时间4-8周",
-                usaInsurance: "💳 仅基础体检",
-                usaLimitedScope: "📋 标准筛查套餐",
-                chinaWaitTime: "🏥 高端医疗筛查（$1,399）",
-                chinaInclusive: "✈️ 豪华旅行+文化体验",
-                chinaComprehensive: "🌟 与美国基础体检总费用相同",
-                savingsAmount: "相同投资，十倍价值",
-                savingsDescription: "全面医疗筛查 + 难忘文化之旅！",
-                savingsPercent: "相同预算",
-                sameTechnology: "先进技术",
-                betterService: "增强体验",
+
 
                 // Procedure Comparison Table Chinese
                 procedureComparisonTitle: "您的自费预算能获得什么（美元）",
                 procedureComparisonSubtitle: "相同费用，不同价值：三甲医院 vs 美国自费成本",
-                procedureHeader: "医疗检查项目",
+                procedureHeader: "服务项目",
                 usaPriceHeader: "美国自费",
                 chinaPriceHeader: "中国完整套餐",
-                savingsHeader: "额外价值",
-                procedure1: "全身MRI扫描",
-                procedure2: "全面血液检查",
-                procedure3: "CT扫描（胸部/腹部）",
-                procedure4: "心脏负荷试验",
-                procedure5: "内窥镜检查（上消化道）",
-                procedure6: "超声检查（全腹部）",
-                totalSavingsTitle: "您的自费投资对比",
-                usaTotalLabel: "美国自费成本",
-                chinaTotalLabel: "中国完整套餐",
-                vsLabel: "对比",
-                finalSavings: "相同投资，价值成倍增长",
-                savingsNote: "医疗筛查 + 旅行 + 住宿 + 文化体验！",
+                procedure1: "全身体检",
+                procedure2: "旅行与交通",
+                procedure3: "住宿与餐饮",
+                procedure4: "文化旅游体验",
+                procedure5: "购物与退税",
+                procedure6: "总预算",
+
+                // Cost Breakdown Chinese
+                costBreakdownTitle: "费用明细说明：",
+                travelCostLabel: "旅行与交通（$1,200-$2,500）：",
+                travelCostDesc: "国际航班、国内交通、机场接送",
+                accommodationCostLabel: "住宿与餐饮（$800-$1,500）：",
+                accommodationCostDesc: "四星级酒店、每日餐饮、当地美食体验",
+                culturalCostLabel: "文化旅游体验（$200-$1,500）：",
+                culturalCostDesc: "北京/成都景点、导游服务、文化活动",
+                shoppingCostLabel: "购物与退税（$500-$3,000）：",
+                shoppingCostDesc: "个人购物预算，享受高达13%退税",
+                costDisclaimer: "实际费用可能受汇率和供应商价格调整影响。以上价格仅供参考。",
+
                 ctaTitle: "准备体验10倍价值？",
                 ctaDescription: "用相同的自费成本获得全面健康筛查加文化之旅",
                 ctaButton: "立即获取报价",
@@ -2549,8 +2410,8 @@
                 about3Card2Text: "中国的医疗专业人士是亚洲训练最为严格的医生群体之一，许多人拥有国内外顶尖院校的高级学位。在严格的国家标准下获得执业资格，中国医生经过多年密集的教育和临床培训，中医、内科和再生医学等专科医生往往拥有数十年的实践经验。北京、上海、成都等主要城市的许多医生都能说双语，习惯在国际认证医院为国际患者提供治疗。无论是全身体检、针灸治疗还是干细胞咨询，您都将得到安全、专业的医疗服务。",
                 about3Card3Title: "🔒 安全支付与财务保护",
                 about3Card3Text: "安全的支付系统，完全财务透明，无隐藏费用。我们提前提供详细的费用明细，解决阻碍34.6%潜在医疗旅游者的财务担忧。",
-                about3Card4Title: "📞 全面的术后跟进服务",
-                about3Card4Text: "解决53.8%医疗旅游者的首要担忧，我们提供24/7术后支持、远程医疗咨询，以及与您本国医生的无缝协调，确保持续护理。",
+                about3Card4Title: "🛡️ 全面的医疗报告与文档服务",
+                about3Card4Text: "提供中英文双语详细医疗报告，包含数字副本和官方医院文档。所有检查结果将在7天内提供，附有清晰的解释和健康管理建议。",
                 about3Card5Title: "💻 免费术前远程咨询",
                 about3Card5Text: "65.4%的患者在获得术前咨询机会时更愿意出行。我们在您出行前提供与专家的免费视频咨询，建立信任并确保治疗适宜性。",
                 about3Card6Title: "🌟 健康与文化体验的完美融合",
@@ -2562,7 +2423,7 @@
                 trustStat1: "的患者将信任视为首要考虑",
                 trustStat2: "选择顶级医院（三甲）",
                 trustStat3: "偏好术前咨询服务",
-                trustStat4: "担心术后护理问题",
+                trustStat4: "重视全面医疗文档服务",
                 trustStatsNote: "我们的服务设计专门解决每一个担忧",
 
                 // Certifications Chinese
@@ -2582,13 +2443,13 @@
                 testimonialsSubtitle: "信任我们健康之旅的患者真实体验",
                 testimonial1Name: "约翰 M.",
                 testimonial1Location: "英国",
-                testimonial1Text: "\"术前咨询让我完全放心。三甲医院超出了所有期望，术后跟进服务非常出色。\"",
+                testimonial1Text: "\"术前咨询让我完全放心。三甲医院超出了所有期望，详细的医疗报告非常全面。\"",
                 testimonial2Name: "莎拉 M.",
                 testimonial2Location: "澳大利亚",
                 testimonial2Text: "\"价格完全透明，没有隐藏费用。文化之旅是惊喜加分项，让这不仅仅是一次医疗旅行。\"",
                 testimonial3Name: "大卫 R.",
                 testimonial3Location: "加拿大",
-                testimonial3Text: "\"24/7支持和远程医疗跟进解决了我对术后护理的最大担忧。真正专业的服务。\"",
+                testimonial3Text: "\"全面的医疗文档和双语报告让我能轻松与家庭医生分享结果。真正专业的服务。\"",
 
                 // Hospital Grade Explanation Chinese
                 hospitalGradeTitle: "了解中国医院分级制度",
