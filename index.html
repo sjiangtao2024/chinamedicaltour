@@ -1747,35 +1747,42 @@
                     </div>
                     <div class="lg:w-1/2">
                         <div class="bg-white p-8 rounded-xl shadow-lg">
-                            <form>
+                            <form id="inquiry-form">
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="formName">您的姓名</label>
-                                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
+                                    <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="formEmail">电子邮箱</label>
-                                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
+                                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
                                 </div>
                                 <div class="mb-4">
                                     <label for="package" class="block text-sm font-medium text-gray-700 mb-1" data-key="formPackage">感兴趣的服务</label>
-                                    <select id="package" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                        <option data-key="formPackageOption0">请选择一项服务...</option>
-                                        <option data-key="formPackageOption1">精英体检套餐</option>
-                                        <option data-key="formPackageOption2">铂金体检套餐</option>
-                                        <option data-key="formPackageOption3">VIP体检套餐</option>
-                                        <option data-key="formPackageOption5">眼科</option>
-                                        <option data-key="formPackageOption6">牙科</option>
-                                        <option data-key="formPackageOption8">中医治疗</option>
-                                        <option data-key="formPackageOption9">定制医疗项目</option>
-                                        <option data-key="formPackageOption7">干细胞治疗</option>
-                                        <option data-key="formPackageOption4">需要定制</option>
+                                    <select id="package" name="package" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="" data-key="formPackageOption0">请选择一项服务...</option>
+                                        <option value="elite" data-key="formPackageOption1">精英体检套餐</option>
+                                        <option value="platinum" data-key="formPackageOption2">铂金体检套餐</option>
+                                        <option value="vip" data-key="formPackageOption3">VIP体检套餐</option>
+                                        <option value="ophthalmology" data-key="formPackageOption5">眼科</option>
+                                        <option value="dentistry" data-key="formPackageOption6">牙科</option>
+                                        <option value="tcm" data-key="formPackageOption8">中医治疗</option>
+                                        <option value="custom-medical" data-key="formPackageOption9">定制医疗项目</option>
+                                        <option value="stem-cell" data-key="formPackageOption7">干细胞治疗</option>
+                                        <option value="customization" data-key="formPackageOption4">需要定制</option>
                                     </select>
                                 </div>
                                 <div class="mb-6">
                                     <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="formMessage">您的疑问 (可选)</label>
-                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
+                                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
                                 </div>
+
+                                <!-- 提交按钮 -->
                                 <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" data-key="formSubmit">发送咨询，获取免费报价</button>
+
+                                <!-- 提示信息 -->
+                                <div class="text-center text-sm text-gray-600 mt-3" data-key="formNote">
+                                    点击按钮后可选择邮件、WhatsApp或复制信息
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -2298,6 +2305,7 @@
                 formPackage: "Service of Interest",
                 formMessage: "Your Questions (Optional)",
                 formSubmit: "Send Inquiry & Get Free Quote",
+                formNote: "Click the button to choose email, WhatsApp or copy information",
                 formNamePlaceholder: "John Doe",
                 formEmailPlaceholder: "you@example.com",
                 formMessagePlaceholder: "e.g., I'd like more information about cardiac screening...",
@@ -2725,6 +2733,7 @@
                 formPackage: "感兴趣的服务",
                 formMessage: "您的疑问 (可选)",
                 formSubmit: "发送咨询，获取免费报价",
+                formNote: "点击按钮后可选择邮件、WhatsApp或复制信息",
                 formNamePlaceholder: "张三",
                 formEmailPlaceholder: "您@邮箱.com",
                 formMessagePlaceholder: "例如：我想了解关于心脏检查的更多信息...",
@@ -3313,7 +3322,317 @@
                     window.location.href = url;
                 });
             }
+
+            // Handle inquiry form submission
+            const inquiryForm = document.getElementById('inquiry-form');
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    handleFormSubmission();
+                });
+            }
+
+
         });
+
+        // Form submission handler
+        function handleFormSubmission() {
+            const form = document.getElementById('inquiry-form');
+            const formData = new FormData(form);
+
+            // Validate required fields
+            const name = formData.get('name').trim();
+            const email = formData.get('email').trim();
+            const packageType = formData.get('package');
+
+            if (!name || !email || !packageType) {
+                alert(currentLang === 'en' ?
+                    'Please fill in all required fields.' :
+                    '请填写所有必填字段。');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert(currentLang === 'en' ?
+                    'Please enter a valid email address.' :
+                    '请输入有效的邮箱地址。');
+                return;
+            }
+
+            // Show submission options modal
+            showSubmissionModal(formData);
+        }
+
+        // Open email client with pre-filled content
+        function openEmailClient(formData = null) {
+            const subject = currentLang === 'en' ?
+                'Medical Tourism Inquiry - China Medical Tour' :
+                '医疗旅游咨询 - China Medical Tour';
+
+            let body = '';
+
+            if (formData) {
+                // Format form data into email body
+                body = formatEmailBody(formData);
+            } else {
+                // Default email template
+                body = currentLang === 'en' ?
+                    'Hello,\n\nI am interested in your medical tourism services. Please provide more information.\n\nBest regards,' :
+                    '您好，\n\n我对您的医疗旅游服务感兴趣，请提供更多信息。\n\n此致敬礼，';
+            }
+
+            const mailtoLink = `mailto:info@chinamedicaltour.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // Format form data into email body
+        function formatEmailBody(formData) {
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const packageType = formData.get('package');
+            const message = formData.get('message') || '';
+
+            // Get package display name
+            const packageSelect = document.getElementById('package');
+            const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+            const packageDisplayName = selectedOption.textContent;
+
+            if (currentLang === 'en') {
+                return `Hello,
+
+I would like to inquire about your medical tourism services.
+
+Contact Information:
+- Name: ${name}
+- Email: ${email}
+
+Service of Interest:
+- ${packageDisplayName}
+
+Additional Questions:
+${message || 'No additional questions'}
+
+Please provide me with:
+1. Detailed information about the selected service
+2. Pricing and package options
+3. Available dates and scheduling
+4. Accommodation and travel arrangements
+5. Any special requirements or preparations needed
+
+I look forward to hearing from you soon.
+
+Best regards,
+${name}`;
+            } else {
+                return `您好，
+
+我想咨询您的医疗旅游服务。
+
+联系信息：
+- 姓名：${name}
+- 邮箱：${email}
+
+感兴趣的服务：
+- ${packageDisplayName}
+
+其他疑问：
+${message || '无其他疑问'}
+
+请为我提供以下信息：
+1. 所选服务的详细信息
+2. 价格和套餐选项
+3. 可预约日期和时间安排
+4. 住宿和旅行安排
+5. 任何特殊要求或准备事项
+
+期待您的回复。
+
+此致敬礼，
+${name}`;
+            }
+        }
+
+        // Show submission options modal
+        function showSubmissionModal(formData) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.id = 'submission-modal';
+
+            const modalContent = `
+                <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+                    <h3 class="text-xl font-semibold mb-4 text-center" data-key="submissionModalTitle">
+                        ${currentLang === 'en' ? 'Choose Contact Method' : '选择联系方式'}
+                    </h3>
+                    <p class="text-gray-600 mb-6 text-center" data-key="submissionModalDesc">
+                        ${currentLang === 'en' ?
+                            'How would you like to send your inquiry?' :
+                            '您希望如何发送咨询？'}
+                    </p>
+
+                    <div class="space-y-3">
+                        <button id="submit-email" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center">
+                            <i data-lucide="mail" class="w-5 h-5 mr-2"></i>
+                            ${currentLang === 'en' ? 'Open Email Client' : '打开邮件客户端'}
+                        </button>
+
+                        <button id="submit-whatsapp" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition flex items-center justify-center">
+                            <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                            ${currentLang === 'en' ? 'Send via WhatsApp' : '通过WhatsApp发送'}
+                        </button>
+
+                        <button id="copy-info" class="w-full bg-gray-600 text-white py-3 rounded-lg font-semibold hover:bg-gray-700 transition flex items-center justify-center">
+                            <i data-lucide="copy" class="w-5 h-5 mr-2"></i>
+                            ${currentLang === 'en' ? 'Copy Information' : '复制信息'}
+                        </button>
+                    </div>
+
+                    <button id="close-modal" class="w-full mt-4 text-gray-500 hover:text-gray-700 transition">
+                        ${currentLang === 'en' ? 'Cancel' : '取消'}
+                    </button>
+                </div>
+            `;
+
+            modal.innerHTML = modalContent;
+            document.body.appendChild(modal);
+
+            // Initialize Lucide icons for the modal
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Add event listeners
+            document.getElementById('submit-email').addEventListener('click', () => {
+                openEmailClient(formData);
+                closeSubmissionModal();
+            });
+
+            document.getElementById('submit-whatsapp').addEventListener('click', () => {
+                sendViaWhatsApp(formData);
+                closeSubmissionModal();
+            });
+
+            document.getElementById('copy-info').addEventListener('click', () => {
+                copyFormInfo(formData);
+            });
+
+            document.getElementById('close-modal').addEventListener('click', closeSubmissionModal);
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeSubmissionModal();
+                }
+            });
+        }
+
+        // Close submission modal
+        function closeSubmissionModal() {
+            const modal = document.getElementById('submission-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Send via WhatsApp
+        function sendViaWhatsApp(formData) {
+            const message = formatEmailBody(formData);
+            const whatsappUrl = `https://wa.me/8619910385444?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Copy form information to clipboard
+        function copyFormInfo(formData) {
+            const info = formatEmailBody(formData);
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(info).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(info);
+                });
+            } else {
+                fallbackCopyTextToClipboard(info);
+            }
+        }
+
+        // Fallback copy method for older browsers
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+                alert(currentLang === 'en' ?
+                    'Copy failed. Please manually copy the information.' :
+                    '复制失败，请手动复制信息。');
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        // Show copy success message
+        function showCopySuccess() {
+            const copyBtn = document.getElementById('copy-info');
+            if (copyBtn) {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<i data-lucide="check" class="w-5 h-5 mr-2"></i>${currentLang === 'en' ? 'Copied!' : '已复制！'}`;
+                copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                copyBtn.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    copyBtn.classList.add('bg-gray-600', 'hover:bg-gray-700');
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }, 2000);
+            }
+        }
     </script>
+
+    <!-- Optional: Tawk.to Live Chat Integration -->
+    <!-- Uncomment the following script and replace YOUR_TAWK_TO_ID with your actual Tawk.to property ID -->
+    <!--
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/YOUR_TAWK_TO_ID/1hqr8r8r8';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    -->
+
+    <!-- Optional: Crisp Chat Integration -->
+    <!-- Uncomment the following script and replace YOUR_CRISP_WEBSITE_ID with your actual Crisp website ID -->
+    <!--
+    <script type="text/javascript">
+        window.$crisp=[];
+        window.CRISP_WEBSITE_ID="YOUR_CRISP_WEBSITE_ID";
+        (function(){
+            d=document;
+            s=d.createElement("script");
+            s.src="https://client.crisp.chat/l.js";
+            s.async=1;
+            d.getElementsByTagName("head")[0].appendChild(s);
+        })();
+    </script>
+    -->
 </body>
 </html>
