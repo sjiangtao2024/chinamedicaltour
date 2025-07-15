@@ -453,6 +453,45 @@
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
+        /* Multi-step form styles */
+        .form-step {
+            display: none;
+            animation: slideIn 0.3s ease-in-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Enhanced checkbox styles */
+        .form-step input[type="checkbox"]:checked + span {
+            color: #2563eb;
+            font-weight: 500;
+        }
+
+        .form-step label:has(input[type="checkbox"]:checked) {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        /* Responsive improvements for mobile */
+        @media (max-width: 768px) {
+            .form-step .grid.grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Google Maps styles */
         .map-container {
             height: 400px;
@@ -1755,111 +1794,139 @@
                     </div>
                     <div class="lg:w-1/2">
                         <div class="bg-white p-8 rounded-xl shadow-lg">
-                            <form>
-                                <div class="mb-4">
-                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="formName">您的姓名</label>
-                                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
+                            <!-- Form Progress Indicator -->
+                            <div class="mb-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-blue-600" data-key="formStep1">步骤 1</span>
+                                    <span class="text-sm text-gray-500" data-key="formStepIndicator">1 / 3</span>
                                 </div>
-                                <div class="mb-4">
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="formEmail">电子邮箱</label>
-                                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 33.33%" id="form-progress"></div>
                                 </div>
-                                <div class="mb-4">
-                                    <label for="package" class="block text-sm font-medium text-gray-700 mb-1" data-key="formPackage">感兴趣的服务</label>
-                                    <select id="package" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                        <option data-key="formPackageOption0">请选择一项服务...</option>
-                                        <option data-key="formPackageOption1">精英体检套餐</option>
-                                        <option data-key="formPackageOption2">铂金体检套餐</option>
-                                        <option data-key="formPackageOption3">VIP体检套餐</option>
-                                        <option data-key="formPackageOption5">眼科</option>
-                                        <option data-key="formPackageOption6">牙科</option>
-                                        <option data-key="formPackageOption8">中医治疗</option>
-                                        <option data-key="formPackageOption9">定制医疗项目</option>
-                                        <option data-key="formPackageOption7">干细胞治疗</option>
-                                        <option data-key="formPackageOption4">需要定制</option>
-                                    </select>
+                            </div>
+
+                            <form id="multi-step-form">
+                                <!-- Step 1: Basic Information -->
+                                <div class="form-step active" id="step-1">
+                                    <h3 class="text-xl font-semibold text-gray-800 mb-4" data-key="formStep1Title">基本信息</h3>
+                                    <div class="mb-4">
+                                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="formName">您的姓名</label>
+                                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="formEmail">电子邮箱</label>
+                                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
+                                    </div>
+                                    <div class="mb-6">
+                                        <label for="package" class="block text-sm font-medium text-gray-700 mb-1" data-key="formPackage">感兴趣的服务</label>
+                                        <select id="package" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                            <option data-key="formPackageOption0">请选择一项服务...</option>
+                                            <option data-key="formPackageOption1">精英体检套餐</option>
+                                            <option data-key="formPackageOption2">铂金体检套餐</option>
+                                            <option data-key="formPackageOption3">VIP体检套餐</option>
+                                            <option data-key="formPackageOption5">眼科</option>
+                                            <option data-key="formPackageOption6">牙科</option>
+                                            <option data-key="formPackageOption8">中医治疗</option>
+                                            <option data-key="formPackageOption9">定制医疗项目</option>
+                                            <option data-key="formPackageOption7">干细胞治疗</option>
+                                            <option data-key="formPackageOption4">需要定制</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" onclick="nextStep()" data-key="formNext">下一步</button>
                                 </div>
-                                <div class="mb-4">
-                                    <label for="groupSize" class="block text-sm font-medium text-gray-700 mb-1" data-key="formGroupSize">人数</label>
-                                    <select id="groupSize" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                        <option data-key="formGroupSizeOption0">请选择人数...</option>
-                                        <option data-key="formGroupSizeOption1">1人</option>
-                                        <option data-key="formGroupSizeOption2">2人</option>
-                                        <option data-key="formGroupSizeOption3">3-4人</option>
-                                        <option data-key="formGroupSizeOption4">5-6人</option>
-                                        <option data-key="formGroupSizeOption5">7人以上</option>
-                                    </select>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="destination" class="block text-sm font-medium text-gray-700 mb-1" data-key="formDestination">目的地城市</label>
-                                    <select id="destination" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                        <option data-key="formDestinationOption0">请选择目的地...</option>
-                                        <option data-key="formDestinationOption1">北京</option>
-                                        <option data-key="formDestinationOption2">成都</option>
-                                        <option data-key="formDestinationOption3">上海</option>
-                                        <option data-key="formDestinationOption4">广州</option>
-                                        <option data-key="formDestinationOption5">深圳</option>
-                                        <option data-key="formDestinationOption6">杭州</option>
-                                        <option data-key="formDestinationOption7">其他城市</option>
-                                    </select>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1" data-key="formDuration">预计停留天数</label>
-                                    <select id="duration" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                        <option data-key="formDurationOption0">请选择停留天数...</option>
-                                        <option data-key="formDurationOption1">1-2天</option>
-                                        <option data-key="formDurationOption2">3-5天</option>
-                                        <option data-key="formDurationOption3">6-7天</option>
-                                        <option data-key="formDurationOption4">1-2周</option>
-                                        <option data-key="formDurationOption5">2周以上</option>
-                                    </select>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="interests" class="block text-sm font-medium text-gray-700 mb-1" data-key="formInterests">期望体验内容</label>
-                                    <div class="space-y-2">
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="medical-checkup">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsMedical">医疗体检</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="tcm-treatment">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsTCM">中医治疗</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="wellness">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsWellness">健康疗养</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="cultural">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsCultural">文化体验</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="food">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsFood">美食探索</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="nature">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsNature">自然风光</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="shopping">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsShopping">购物体验</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="relaxation">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsRelaxation">休闲放松</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="adventure">
-                                            <span class="ml-2 text-sm text-gray-700" data-key="formInterestsAdventure">探险活动</span>
-                                        </label>
+
+                                <!-- Step 2: Travel Details -->
+                                <div class="form-step" id="step-2">
+                                    <h3 class="text-xl font-semibold text-gray-800 mb-4" data-key="formStep2Title">行程详情</h3>
+                                    <div class="mb-4">
+                                        <label for="groupSize" class="block text-sm font-medium text-gray-700 mb-1" data-key="formGroupSize">人数</label>
+                                        <select id="groupSize" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                            <option data-key="formGroupSizeOption0">请选择人数...</option>
+                                            <option data-key="formGroupSizeOption1">1人</option>
+                                            <option data-key="formGroupSizeOption2">2人</option>
+                                            <option data-key="formGroupSizeOption3">3-4人</option>
+                                            <option data-key="formGroupSizeOption4">5-6人</option>
+                                            <option data-key="formGroupSizeOption5">7人以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="destination" class="block text-sm font-medium text-gray-700 mb-1" data-key="formDestination">目的地城市</label>
+                                        <select id="destination" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                            <option data-key="formDestinationOption0">请选择目的地...</option>
+                                            <option data-key="formDestinationOption1">北京</option>
+                                            <option data-key="formDestinationOption2">成都</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-6">
+                                        <label for="duration" class="block text-sm font-medium text-gray-700 mb-1" data-key="formDuration">预计停留天数</label>
+                                        <select id="duration" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                            <option data-key="formDurationOption0">请选择停留天数...</option>
+                                            <option data-key="formDurationOption1">1-2天</option>
+                                            <option data-key="formDurationOption2">3-5天</option>
+                                            <option data-key="formDurationOption3">6-7天</option>
+                                            <option data-key="formDurationOption4">1-2周</option>
+                                            <option data-key="formDurationOption5">2周以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <button type="button" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition" onclick="prevStep()" data-key="formPrev">上一步</button>
+                                        <button type="button" class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" onclick="nextStep()" data-key="formNext">下一步</button>
                                     </div>
                                 </div>
-                                <div class="mb-6">
-                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="formMessage">您的疑问 (可选)</label>
-                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
+
+                                <!-- Step 3: Interests & Message -->
+                                <div class="form-step" id="step-3">
+                                    <h3 class="text-xl font-semibold text-gray-800 mb-4" data-key="formStep3Title">兴趣偏好</h3>
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-3" data-key="formInterests">期望体验内容</label>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="medical-checkup">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsMedical">医疗体检</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="tcm-treatment">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsTCM">中医治疗</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="wellness">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsWellness">健康疗养</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="cultural">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsCultural">文化体验</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="food">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsFood">美食探索</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="nature">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsNature">自然风光</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="shopping">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsShopping">购物体验</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="relaxation">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsRelaxation">休闲放松</span>
+                                            </label>
+                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="adventure">
+                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsAdventure">探险活动</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-6">
+                                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="formMessage">您的疑问 (可选)</label>
+                                        <textarea id="message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <button type="button" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition" onclick="prevStep()" data-key="formPrev">上一步</button>
+                                        <button type="submit" class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" data-key="formSubmit">发送咨询</button>
+                                    </div>
                                 </div>
-                                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" data-key="formSubmit">发送咨询，获取免费报价</button>
                             </form>
                         </div>
                     </div>
@@ -2386,6 +2453,17 @@
                 formInterests: "What You'd Like to Experience",
                 formMessage: "Your Questions (Optional)",
                 formSubmit: "Send Inquiry & Get Free Quote",
+
+                // Multi-step form
+                formStep1: "Step 1",
+                formStep2: "Step 2",
+                formStep3: "Step 3",
+                formStepIndicator: "1 / 3",
+                formStep1Title: "Basic Information",
+                formStep2Title: "Travel Details",
+                formStep3Title: "Interests & Preferences",
+                formNext: "Next",
+                formPrev: "Previous",
                 formNamePlaceholder: "John Doe",
                 formEmailPlaceholder: "you@example.com",
                 formMessagePlaceholder: "e.g., I'd like more information about cardiac screening...",
@@ -2408,11 +2486,6 @@
                 formDestinationOption0: "Please select destination...",
                 formDestinationOption1: "Beijing",
                 formDestinationOption2: "Chengdu",
-                formDestinationOption3: "Shanghai",
-                formDestinationOption4: "Guangzhou",
-                formDestinationOption5: "Shenzhen",
-                formDestinationOption6: "Hangzhou",
-                formDestinationOption7: "Other cities",
                 formDurationOption0: "Please select duration...",
                 formDurationOption1: "1-2 days",
                 formDurationOption2: "3-5 days",
@@ -2846,6 +2919,17 @@
                 formInterests: "期望体验内容",
                 formMessage: "您的疑问 (可选)",
                 formSubmit: "发送咨询，获取免费报价",
+
+                // Multi-step form
+                formStep1: "步骤 1",
+                formStep2: "步骤 2",
+                formStep3: "步骤 3",
+                formStepIndicator: "1 / 3",
+                formStep1Title: "基本信息",
+                formStep2Title: "行程详情",
+                formStep3Title: "兴趣偏好",
+                formNext: "下一步",
+                formPrev: "上一步",
                 formNamePlaceholder: "张三",
                 formEmailPlaceholder: "您@邮箱.com",
                 formMessagePlaceholder: "例如：我想了解关于心脏检查的更多信息...",
@@ -2868,11 +2952,6 @@
                 formDestinationOption0: "请选择目的地...",
                 formDestinationOption1: "北京",
                 formDestinationOption2: "成都",
-                formDestinationOption3: "上海",
-                formDestinationOption4: "广州",
-                formDestinationOption5: "深圳",
-                formDestinationOption6: "杭州",
-                formDestinationOption7: "其他城市",
                 formDurationOption0: "请选择停留天数...",
                 formDurationOption1: "1-2天",
                 formDurationOption2: "3-5天",
@@ -3465,7 +3544,7 @@
             }
 
             // Handle form submission
-            const contactForm = document.querySelector('form');
+            const contactForm = document.querySelector('#multi-step-form');
             if (contactForm) {
                 contactForm.addEventListener('submit', handleFormSubmit);
 
@@ -3806,6 +3885,122 @@ ${name}`;
             if (modal) {
                 modal.remove();
             }
+        }
+
+        // Multi-step form functionality
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function nextStep() {
+            // Validate current step before proceeding
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    // Hide current step
+                    document.getElementById(`step-${currentStep}`).classList.remove('active');
+
+                    // Show next step
+                    currentStep++;
+                    document.getElementById(`step-${currentStep}`).classList.add('active');
+
+                    // Update progress bar
+                    updateProgressBar();
+
+                    // Update step indicator
+                    updateStepIndicator();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                // Hide current step
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+
+                // Show previous step
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+
+                // Update progress bar
+                updateProgressBar();
+
+                // Update step indicator
+                updateStepIndicator();
+            }
+        }
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('form-progress');
+            const progressPercentage = (currentStep / totalSteps) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        function updateStepIndicator() {
+            const stepIndicator = document.querySelector('[data-key="formStepIndicator"]');
+            if (stepIndicator) {
+                stepIndicator.textContent = `${currentStep} / ${totalSteps}`;
+            }
+
+            // Update step title
+            const stepTitles = {
+                1: currentLang === 'en' ? 'Step 1' : '步骤 1',
+                2: currentLang === 'en' ? 'Step 2' : '步骤 2',
+                3: currentLang === 'en' ? 'Step 3' : '步骤 3'
+            };
+
+            const stepTitle = document.querySelector('[data-key="formStep1"]');
+            if (stepTitle) {
+                stepTitle.textContent = stepTitles[currentStep];
+            }
+        }
+
+        function validateCurrentStep() {
+            const errors = [];
+
+            if (currentStep === 1) {
+                // Validate step 1: Basic information
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const package = document.getElementById('package').value;
+
+                if (!name) {
+                    errors.push({ field: 'name', message: currentLang === 'en' ? 'Please enter your name' : '请输入您的姓名' });
+                }
+
+                if (!email) {
+                    errors.push({ field: 'email', message: currentLang === 'en' ? 'Please enter your email' : '请输入您的邮箱' });
+                } else if (!isValidEmail(email)) {
+                    errors.push({ field: 'email', message: currentLang === 'en' ? 'Please enter a valid email' : '请输入有效的邮箱地址' });
+                }
+
+                if (!package || package === (currentLang === 'en' ? 'Please select a service...' : '请选择一项服务...')) {
+                    errors.push({ field: 'package', message: currentLang === 'en' ? 'Please select a service' : '请选择感兴趣的服务' });
+                }
+            } else if (currentStep === 2) {
+                // Validate step 2: Travel details
+                const groupSize = document.getElementById('groupSize').value;
+                const destination = document.getElementById('destination').value;
+                const duration = document.getElementById('duration').value;
+
+                if (!groupSize || groupSize === (currentLang === 'en' ? 'Please select group size...' : '请选择人数...')) {
+                    errors.push({ field: 'groupSize', message: currentLang === 'en' ? 'Please select group size' : '请选择人数' });
+                }
+
+                if (!destination || destination === (currentLang === 'en' ? 'Please select destination...' : '请选择目的地...')) {
+                    errors.push({ field: 'destination', message: currentLang === 'en' ? 'Please select destination' : '请选择目的地城市' });
+                }
+
+                if (!duration || duration === (currentLang === 'en' ? 'Please select duration...' : '请选择停留天数...')) {
+                    errors.push({ field: 'duration', message: currentLang === 'en' ? 'Please select duration' : '请选择预计停留天数' });
+                }
+            }
+
+            // Show errors if any
+            if (errors.length > 0) {
+                showFormErrors(errors);
+                return false;
+            }
+
+            return true;
         }
     </script>
 </body>
