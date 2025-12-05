@@ -438,60 +438,6 @@
             }
         }
 
-        /* Form validation styles */
-        .error-message {
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .border-red-500 {
-            border-color: #ef4444 !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-        }
-
-        /* Multi-step form styles */
-        .form-step {
-            display: none;
-            animation: slideIn 0.3s ease-in-out;
-        }
-
-        .form-step.active {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Enhanced checkbox styles */
-        .form-step input[type="checkbox"]:checked + span {
-            color: #2563eb;
-            font-weight: 500;
-        }
-
-        .form-step label:has(input[type="checkbox"]:checked) {
-            background-color: #eff6ff;
-            border-color: #3b82f6;
-        }
-
-        /* Responsive improvements for mobile */
-        @media (max-width: 768px) {
-            .form-step .grid.grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* Google Maps styles */
         .map-container {
             height: 400px;
@@ -1003,6 +949,12 @@
                                 </div>
                                 <p class="text-center font-semibold mt-4 text-gray-700" data-key="video6Title">Medical Tourism Success Story</p>
                             </div>
+                            <div class="carousel-slide">
+                                <div class="relative" style="padding-bottom: 56.25%; height: 0;">
+                                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg" src="https://www.youtube.com/embed/Jz4RU44XdSw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center font-semibold mt-4 text-gray-700" data-key="video7Title">New Medical Experience Video</p>
+                            </div>
                         </div>
                         <button class="carousel-nav carousel-prev" data-carousel="video" data-direction="prev"><i data-lucide="chevron-left"></i></button>
                         <button class="carousel-nav carousel-next" data-carousel="video" data-direction="next"><i data-lucide="chevron-right"></i></button>
@@ -1014,6 +966,7 @@
                         <button class="carousel-indicator" data-carousel="video" data-slide="3"></button>
                         <button class="carousel-indicator" data-carousel="video" data-slide="4"></button>
                         <button class="carousel-indicator" data-carousel="video" data-slide="5"></button>
+                        <button class="carousel-indicator" data-carousel="video" data-slide="6"></button>
                     </div>
                 </div>
             </div>
@@ -1033,7 +986,7 @@
                         <!-- 基础套餐 -->
                         <div class="card p-8 flex flex-col">
                             <h3 class="text-2xl font-bold text-teal-600 mb-4" data-key="basicTitle">基础套餐</h3>
-                            <p class="text-4xl font-bold text-gray-800 mb-2">$299</p>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">Starting from $299</p>
                             <p class="text-gray-500 mb-6" data-key="basicSavings">常规健康检查，适合年度体检</p>
 
                             <!-- 医生检查 -->
@@ -1101,7 +1054,7 @@
                         <div class="card p-8 flex flex-col border-2 border-blue-600 relative">
                             <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold" data-key="mostPopular">最受欢迎</div>
                             <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="eliteTitle">精英套餐</h3>
-                            <p class="text-4xl font-bold text-gray-800 mb-2">$599</p>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">Starting from $599</p>
                             <p class="text-gray-500 mb-6" data-key="eliteSavings">在基础套餐之上，增加重要脏器和癌症筛查</p>
 
                             <!-- 包含基础套餐 -->
@@ -1181,7 +1134,7 @@
                         <!-- 尊享套餐 -->
                         <div class="card p-8 flex flex-col">
                             <h3 class="text-2xl font-bold text-purple-600 mb-4" data-key="vipTitle">尊享套餐</h3>
-                            <p class="text-4xl font-bold text-gray-800 mb-2">$1,399</p>
+                            <p class="text-4xl font-bold text-gray-800 mb-2">Starting from $1,399</p>
                             <p class="text-gray-500 mb-6" data-key="vipSavings">全面深入的健康评估，心脑血管及基因检测</p>
 
                             <!-- 包含精英套餐 -->
@@ -1558,7 +1511,26 @@
 
                         <!-- Chengdu Attractions Grid -->
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-
+                        <!-- Panda Interaction -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="h-48 bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center overflow-hidden">
+                                <img src="https://img1.baidu.com/it/u=2469835100,830741675&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500" alt="Panda Interaction" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-2" data-key="pandaInteractionTitle">🐼 Giant Panda Interaction</h4>
+                                <p class="text-gray-600 text-sm mb-3" data-key="pandaInteractionDesc">Unique opportunity to interact with 1-year-old panda cubs. Professional handlers guide you through a 2-minute interaction and photo session.</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="pandaInteractionPrice">USD 1000/person (including transport)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                                        <span data-key="pandaInteractionTime">2-minute interaction + photos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Panda Volunteer -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
@@ -1775,138 +1747,41 @@
                     </div>
                     <div class="lg:w-1/2">
                         <div class="bg-white p-8 rounded-xl shadow-lg">
-                            <!-- Form Progress Indicator -->
-                            <div class="mb-6">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-sm font-medium text-blue-600" data-key="formStep1">步骤 1</span>
-                                    <span class="text-sm text-gray-500" data-key="formStepIndicator">1 / 3</span>
+                            <form id="inquiry-form">
+                                <div class="mb-4">
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="formName">您的姓名</label>
+                                    <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2">
-                                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 33.33%" id="form-progress"></div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="formEmail">电子邮箱</label>
+                                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
                                 </div>
-                            </div>
-
-                            <form id="multi-step-form">
-                                <!-- Step 1: Basic Information -->
-                                <div class="form-step active" id="step-1">
-                                    <h3 class="text-xl font-semibold text-gray-800 mb-4" data-key="formStep1Title">基本信息</h3>
-                                    <div class="mb-4">
-                                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="formName">您的姓名</label>
-                                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="张三" data-key-placeholder="formNamePlaceholder">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="formEmail">电子邮箱</label>
-                                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="您@邮箱.com" data-key-placeholder="formEmailPlaceholder">
-                                    </div>
-                                    <div class="mb-6">
-                                        <label for="package" class="block text-sm font-medium text-gray-700 mb-1" data-key="formPackage">感兴趣的服务</label>
-                                        <select id="package" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                            <option data-key="formPackageOption0">请选择一项服务...</option>
-                                            <option data-key="formPackageOption1">精英体检套餐</option>
-                                            <option data-key="formPackageOption2">铂金体检套餐</option>
-                                            <option data-key="formPackageOption3">VIP体检套餐</option>
-                                            <option data-key="formPackageOption5">眼科</option>
-                                            <option data-key="formPackageOption6">牙科</option>
-                                            <option data-key="formPackageOption8">中医治疗</option>
-                                            <option data-key="formPackageOption9">定制医疗项目</option>
-                                            <option data-key="formPackageOption7">干细胞治疗</option>
-                                            <option data-key="formPackageOption4">需要定制</option>
-                                        </select>
-                                    </div>
-                                    <button type="button" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" onclick="nextStep()" data-key="formNext">下一步</button>
+                                <div class="mb-4">
+                                    <label for="package" class="block text-sm font-medium text-gray-700 mb-1" data-key="formPackage">感兴趣的服务</label>
+                                    <select id="package" name="package" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="" data-key="formPackageOption0">请选择一项服务...</option>
+                                        <option value="elite" data-key="formPackageOption1">精英体检套餐</option>
+                                        <option value="platinum" data-key="formPackageOption2">铂金体检套餐</option>
+                                        <option value="vip" data-key="formPackageOption3">VIP体检套餐</option>
+                                        <option value="ophthalmology" data-key="formPackageOption5">眼科</option>
+                                        <option value="dentistry" data-key="formPackageOption6">牙科</option>
+                                        <option value="tcm" data-key="formPackageOption8">中医治疗</option>
+                                        <option value="custom-medical" data-key="formPackageOption9">定制医疗项目</option>
+                                        <option value="stem-cell" data-key="formPackageOption7">干细胞治疗</option>
+                                        <option value="customization" data-key="formPackageOption4">需要定制</option>
+                                    </select>
+                                </div>
+                                <div class="mb-6">
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="formMessage">您的疑问 (可选)</label>
+                                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
                                 </div>
 
-                                <!-- Step 2: Travel Details -->
-                                <div class="form-step" id="step-2">
-                                    <h3 class="text-xl font-semibold text-gray-800 mb-4" data-key="formStep2Title">行程详情</h3>
-                                    <div class="mb-4">
-                                        <label for="groupSize" class="block text-sm font-medium text-gray-700 mb-1" data-key="formGroupSize">人数</label>
-                                        <select id="groupSize" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                            <option data-key="formGroupSizeOption0">请选择人数...</option>
-                                            <option data-key="formGroupSizeOption1">1人</option>
-                                            <option data-key="formGroupSizeOption2">2人</option>
-                                            <option data-key="formGroupSizeOption3">3-4人</option>
-                                            <option data-key="formGroupSizeOption4">5-6人</option>
-                                            <option data-key="formGroupSizeOption5">7人以上</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="destination" class="block text-sm font-medium text-gray-700 mb-1" data-key="formDestination">目的地城市</label>
-                                        <select id="destination" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                            <option data-key="formDestinationOption0">请选择目的地...</option>
-                                            <option data-key="formDestinationOption1">北京</option>
-                                            <option data-key="formDestinationOption2">成都</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-6">
-                                        <label for="duration" class="block text-sm font-medium text-gray-700 mb-1" data-key="formDuration">预计停留天数</label>
-                                        <select id="duration" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                            <option data-key="formDurationOption0">请选择停留天数...</option>
-                                            <option data-key="formDurationOption1">1-2天</option>
-                                            <option data-key="formDurationOption2">3-5天</option>
-                                            <option data-key="formDurationOption3">6-7天</option>
-                                            <option data-key="formDurationOption4">1-2周</option>
-                                            <option data-key="formDurationOption5">2周以上</option>
-                                        </select>
-                                    </div>
-                                    <div class="flex gap-3">
-                                        <button type="button" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition" onclick="prevStep()" data-key="formPrev">上一步</button>
-                                        <button type="button" class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" onclick="nextStep()" data-key="formNext">下一步</button>
-                                    </div>
-                                </div>
+                                <!-- 提交按钮 -->
+                                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" data-key="formSubmit">发送咨询，获取免费报价</button>
 
-                                <!-- Step 3: Interests & Message -->
-                                <div class="form-step" id="step-3">
-                                    <h3 class="text-xl font-semibold text-gray-800 mb-4" data-key="formStep3Title">兴趣偏好</h3>
-                                    <div class="mb-4">
-                                        <label class="block text-sm font-medium text-gray-700 mb-3" data-key="formInterests">期望体验内容</label>
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="medical-checkup">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsMedical">医疗体检</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="tcm-treatment">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsTCM">中医治疗</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="wellness">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsWellness">健康疗养</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="cultural">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsCultural">文化体验</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="food">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsFood">美食探索</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="nature">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsNature">自然风光</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="shopping">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsShopping">购物体验</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="relaxation">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsRelaxation">休闲放松</span>
-                                            </label>
-                                            <label class="flex items-center p-2 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition">
-                                                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="adventure">
-                                                <span class="ml-2 text-sm text-gray-700" data-key="formInterestsAdventure">探险活动</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-6">
-                                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="formMessage">您的疑问 (可选)</label>
-                                        <textarea id="message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="例如：我想了解关于心脏检查的更多信息..." data-key-placeholder="formMessagePlaceholder"></textarea>
-                                    </div>
-                                    <div class="flex gap-3">
-                                        <button type="button" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition" onclick="prevStep()" data-key="formPrev">上一步</button>
-                                        <button type="submit" class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition" data-key="formSubmit">发送咨询</button>
-                                    </div>
+                                <!-- 提示信息 -->
+                                <div class="text-center text-sm text-gray-600 mt-3" data-key="formNote">
+                                    点击按钮后可选择邮件、WhatsApp或复制信息
                                 </div>
                             </form>
                         </div>
@@ -1922,8 +1797,8 @@
             <div class="mb-6">
                 <h4 class="font-semibold mb-3" data-key="footerFollow">关注我们</h4>
                 <div class="flex justify-center space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Twitter">
-                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+                    <a href="https://x.com/Vita_Scout" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition" aria-label="Follow Vita_Scout on X">
+                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-white transition" aria-label="TikTok">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14.02 1.54-.01 3.08-.01 4.63-.03 1.43-.53 2.82-1.34 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14z"></path></svg>
@@ -2370,6 +2245,10 @@
                 chengduCultureSubtitle: "Experience the laid-back charm of Chengdu, home to giant pandas and authentic Sichuan culture. Discover the perfect blend of wildlife encounters, traditional tea culture, and Sichuan cuisine while receiving world-class medical care.",
 
                 // Chengdu Attractions
+                pandaInteractionTitle: "🐼 Giant Panda Interaction",
+                pandaInteractionDesc: "Unique opportunity to interact with 1-year-old panda cubs. Professional handlers guide you through a 2-minute interaction and photo session.",
+                pandaInteractionPrice: "USD 1000/person (¥7200) including transport",
+                pandaInteractionTime: "2-minute interaction + photos",
 
                 pandaVolunteerTitle: "🐼 Panda Volunteer Experience",
                 pandaVolunteerDesc: "Full-day volunteer program including enclosure cleaning, bamboo preparation, and educational activities. Receive official volunteer certificate.",
@@ -2424,23 +2303,9 @@
                 formName: "Your Name",
                 formEmail: "Email Address",
                 formPackage: "Service of Interest",
-                formGroupSize: "Group Size",
-                formDestination: "Destination City",
-                formDuration: "Expected Stay Duration",
-                formInterests: "What You'd Like to Experience",
                 formMessage: "Your Questions (Optional)",
                 formSubmit: "Send Inquiry & Get Free Quote",
-
-                // Multi-step form
-                formStep1: "Step 1",
-                formStep2: "Step 2",
-                formStep3: "Step 3",
-                formStepIndicator: "1 / 3",
-                formStep1Title: "Basic Information",
-                formStep2Title: "Travel Details",
-                formStep3Title: "Interests & Preferences",
-                formNext: "Next",
-                formPrev: "Previous",
+                formNote: "Click the button to choose email, WhatsApp or copy information",
                 formNamePlaceholder: "John Doe",
                 formEmailPlaceholder: "you@example.com",
                 formMessagePlaceholder: "e.g., I'd like more information about cardiac screening...",
@@ -2454,30 +2319,6 @@
                 formPackageOption9: "Tailor-Made Medical Programs",
                 formPackageOption7: "Stem Cell Therapy",
                 formPackageOption4: "Need Customization",
-                formGroupSizeOption0: "Please select group size...",
-                formGroupSizeOption1: "1 person",
-                formGroupSizeOption2: "2 people",
-                formGroupSizeOption3: "3-4 people",
-                formGroupSizeOption4: "5-6 people",
-                formGroupSizeOption5: "7+ people",
-                formDestinationOption0: "Please select destination...",
-                formDestinationOption1: "Beijing",
-                formDestinationOption2: "Chengdu",
-                formDurationOption0: "Please select duration...",
-                formDurationOption1: "1-2 days",
-                formDurationOption2: "3-5 days",
-                formDurationOption3: "6-7 days",
-                formDurationOption4: "1-2 weeks",
-                formDurationOption5: "2+ weeks",
-                formInterestsMedical: "Medical checkup",
-                formInterestsTCM: "Traditional Chinese Medicine",
-                formInterestsWellness: "Health & wellness therapy",
-                formInterestsCultural: "Cultural experiences",
-                formInterestsFood: "Food exploration",
-                formInterestsNature: "Natural scenery",
-                formInterestsShopping: "Shopping experiences",
-                formInterestsRelaxation: "Relaxation & wellness",
-                formInterestsAdventure: "Adventure activities",
                 footerFollow: "Follow Us",
                 footerCopyright: "© 2025 China Medical Tour. All Rights Reserved.",
                 footerDisclaimer: "Disclaimer: The information on this website is for reference only and cannot replace professional medical advice.",
@@ -2832,6 +2673,10 @@
                 chengduCultureSubtitle: "体验成都的悠闲魅力，大熊猫的故乡和正宗川蜀文化。在接受世界级医疗服务的同时，探索野生动物邂逅、传统茶文化和川菜的完美融合。",
 
                 // 成都景点
+                pandaInteractionTitle: "🐼 大熊猫互动",
+                pandaInteractionDesc: "与1岁左右的熊猫幼崽互动的独特机会。专业饲养员指导您进行2分钟的互动和拍照。",
+                pandaInteractionPrice: "USD 1000/人 (¥7200) 含交通",
+                pandaInteractionTime: "2分钟互动+拍照",
 
                 pandaVolunteerTitle: "🐼 熊猫志愿者体验",
                 pandaVolunteerDesc: "全天志愿者项目，包括清理圈舍、准备竹子和教育活动。获得官方志愿者证书。",
@@ -2886,23 +2731,9 @@
                 formName: "您的姓名",
                 formEmail: "电子邮箱",
                 formPackage: "感兴趣的服务",
-                formGroupSize: "人数",
-                formDestination: "目的地城市",
-                formDuration: "预计停留天数",
-                formInterests: "期望体验内容",
                 formMessage: "您的疑问 (可选)",
                 formSubmit: "发送咨询，获取免费报价",
-
-                // Multi-step form
-                formStep1: "步骤 1",
-                formStep2: "步骤 2",
-                formStep3: "步骤 3",
-                formStepIndicator: "1 / 3",
-                formStep1Title: "基本信息",
-                formStep2Title: "行程详情",
-                formStep3Title: "兴趣偏好",
-                formNext: "下一步",
-                formPrev: "上一步",
+                formNote: "点击按钮后可选择邮件、WhatsApp或复制信息",
                 formNamePlaceholder: "张三",
                 formEmailPlaceholder: "您@邮箱.com",
                 formMessagePlaceholder: "例如：我想了解关于心脏检查的更多信息...",
@@ -2916,30 +2747,6 @@
                 formPackageOption9: "定制医疗项目",
                 formPackageOption7: "干细胞治疗",
                 formPackageOption4: "需要定制",
-                formGroupSizeOption0: "请选择人数...",
-                formGroupSizeOption1: "1人",
-                formGroupSizeOption2: "2人",
-                formGroupSizeOption3: "3-4人",
-                formGroupSizeOption4: "5-6人",
-                formGroupSizeOption5: "7人以上",
-                formDestinationOption0: "请选择目的地...",
-                formDestinationOption1: "北京",
-                formDestinationOption2: "成都",
-                formDurationOption0: "请选择停留天数...",
-                formDurationOption1: "1-2天",
-                formDurationOption2: "3-5天",
-                formDurationOption3: "6-7天",
-                formDurationOption4: "1-2周",
-                formDurationOption5: "2周以上",
-                formInterestsMedical: "医疗体检",
-                formInterestsTCM: "中医治疗",
-                formInterestsWellness: "健康疗养",
-                formInterestsCultural: "文化体验",
-                formInterestsFood: "美食探索",
-                formInterestsNature: "自然风光",
-                formInterestsShopping: "购物体验",
-                formInterestsRelaxation: "休闲放松",
-                formInterestsAdventure: "探险活动",
                 footerFollow: "关注我们",
                 footerCopyright: "© 2025 China Medical Tour. 版权所有。",
                 footerDisclaimer: "免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。",
@@ -3516,465 +3323,316 @@
                 });
             }
 
-            // Handle form submission
-            const contactForm = document.querySelector('#multi-step-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', handleFormSubmit);
-
-                // Add real-time validation listeners
-                setupRealTimeValidation();
+            // Handle inquiry form submission
+            const inquiryForm = document.getElementById('inquiry-form');
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    handleFormSubmission();
+                });
             }
+
+
         });
 
-        // Setup real-time validation
-        function setupRealTimeValidation() {
-            const fields = [
-                { id: 'name', type: 'input' },
-                { id: 'email', type: 'input' },
-                { id: 'package', type: 'select' },
-                { id: 'groupSize', type: 'select' },
-                { id: 'destination', type: 'select' },
-                { id: 'duration', type: 'select' }
-            ];
+        // Form submission handler
+        function handleFormSubmission() {
+            const form = document.getElementById('inquiry-form');
+            const formData = new FormData(form);
 
-            fields.forEach(field => {
-                const element = document.getElementById(field.id);
-                if (element) {
-                    if (field.type === 'input') {
-                        element.addEventListener('input', () => clearFieldError(field.id));
-                        element.addEventListener('blur', () => validateSingleField(field.id));
-                    } else if (field.type === 'select') {
-                        element.addEventListener('change', () => {
-                            clearFieldError(field.id);
-                            validateSingleField(field.id);
-                        });
-                    }
-                }
-            });
-        }
+            // Validate required fields
+            const name = formData.get('name').trim();
+            const email = formData.get('email').trim();
+            const packageType = formData.get('package');
 
-        function clearFieldError(fieldId) {
-            const field = document.getElementById(fieldId);
-            if (field) {
-                // Remove error styling
-                field.classList.remove('border-red-500');
-                field.classList.add('border-gray-300');
-
-                // Remove error message
-                const errorMessage = field.parentNode.querySelector('.error-message');
-                if (errorMessage) {
-                    errorMessage.remove();
-                }
-            }
-        }
-
-        function validateSingleField(fieldId) {
-            const field = document.getElementById(fieldId);
-            if (!field) return;
-
-            const value = field.value.trim();
-            let isValid = true;
-            let errorMessage = '';
-
-            switch (fieldId) {
-                case 'name':
-                    if (!value) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Name is required' : '请填写姓名';
-                    }
-                    break;
-                case 'email':
-                    if (!value) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Email is required' : '请填写邮箱';
-                    } else if (!isValidEmail(value)) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Please enter a valid email' : '请输入有效的邮箱地址';
-                    }
-                    break;
-                case 'package':
-                    if (!value || value === (currentLang === 'en' ? 'Please select a service...' : '请选择一项服务...')) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Please select a service' : '请选择感兴趣的服务';
-                    }
-                    break;
-                case 'groupSize':
-                    if (!value || value === (currentLang === 'en' ? 'Please select group size...' : '请选择人数...')) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Please select group size' : '请选择人数';
-                    }
-                    break;
-                case 'destination':
-                    if (!value || value === (currentLang === 'en' ? 'Please select destination...' : '请选择目的地...')) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Please select destination' : '请选择目的地城市';
-                    }
-                    break;
-                case 'duration':
-                    if (!value || value === (currentLang === 'en' ? 'Please select duration...' : '请选择停留天数...')) {
-                        isValid = false;
-                        errorMessage = currentLang === 'en' ? 'Please select duration' : '请选择预计停留天数';
-                    }
-                    break;
-            }
-
-            if (!isValid) {
-                showSingleFieldError(fieldId, errorMessage);
-            }
-
-            return isValid;
-        }
-
-        function showSingleFieldError(fieldId, message) {
-            const field = document.getElementById(fieldId);
-            if (field) {
-                // Clear any existing error first
-                clearFieldError(fieldId);
-
-                // Add error styling
-                field.classList.remove('border-gray-300');
-                field.classList.add('border-red-500');
-
-                // Add error message
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'error-message text-red-500 text-sm mt-1';
-                errorDiv.textContent = message;
-                field.parentNode.appendChild(errorDiv);
-            }
-        }
-
-        // Form validation and submission handler
-        function handleFormSubmit(e) {
-            e.preventDefault();
-
-            // Get form elements
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const package = document.getElementById('package').value;
-            const groupSize = document.getElementById('groupSize').value;
-            const destination = document.getElementById('destination').value;
-            const duration = document.getElementById('duration').value;
-            const message = document.getElementById('message').value.trim();
-
-            // Get selected interests
-            const interestCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            const interests = Array.from(interestCheckboxes).map(cb => cb.value);
-
-            // Validation
-            const errors = [];
-
-            if (!name) {
-                errors.push({ field: 'name', message: currentLang === 'en' ? 'Name is required' : '请填写姓名' });
-            }
-
-            if (!email) {
-                errors.push({ field: 'email', message: currentLang === 'en' ? 'Email is required' : '请填写邮箱' });
-            } else if (!isValidEmail(email)) {
-                errors.push({ field: 'email', message: currentLang === 'en' ? 'Please enter a valid email' : '请输入有效的邮箱地址' });
-            }
-
-            if (!package || package === (currentLang === 'en' ? 'Please select a service...' : '请选择一项服务...')) {
-                errors.push({ field: 'package', message: currentLang === 'en' ? 'Please select a service' : '请选择感兴趣的服务' });
-            }
-
-            if (!groupSize || groupSize === (currentLang === 'en' ? 'Please select group size...' : '请选择人数...')) {
-                errors.push({ field: 'groupSize', message: currentLang === 'en' ? 'Please select group size' : '请选择人数' });
-            }
-
-            if (!destination || destination === (currentLang === 'en' ? 'Please select destination...' : '请选择目的地...')) {
-                errors.push({ field: 'destination', message: currentLang === 'en' ? 'Please select destination' : '请选择目的地城市' });
-            }
-
-            if (!duration || duration === (currentLang === 'en' ? 'Please select duration...' : '请选择停留天数...')) {
-                errors.push({ field: 'duration', message: currentLang === 'en' ? 'Please select duration' : '请选择预计停留天数' });
-            }
-
-            // Show errors if any
-            if (errors.length > 0) {
-                showFormErrors(errors);
+            if (!name || !email || !packageType) {
+                alert(currentLang === 'en' ?
+                    'Please fill in all required fields.' :
+                    '请填写所有必填字段。');
                 return;
             }
 
-            // If validation passes, show submission options
-            showSubmissionOptions(name, email, package, groupSize, destination, duration, interests, message);
-        }
-
-        function isValidEmail(email) {
+            // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
+            if (!emailRegex.test(email)) {
+                alert(currentLang === 'en' ?
+                    'Please enter a valid email address.' :
+                    '请输入有效的邮箱地址。');
+                return;
+            }
+
+            // Show submission options modal
+            showSubmissionModal(formData);
         }
 
-        function showFormErrors(errors) {
-            // Clear all previous errors first
-            const allFields = ['name', 'email', 'package', 'groupSize', 'destination', 'duration'];
-            allFields.forEach(fieldId => clearFieldError(fieldId));
+        // Open email client with pre-filled content
+        function openEmailClient(formData = null) {
+            const subject = currentLang === 'en' ?
+                'Medical Tourism Inquiry - China Medical Tour' :
+                '医疗旅游咨询 - China Medical Tour';
 
-            // Show new errors
-            errors.forEach(error => {
-                showSingleFieldError(error.field, error.message);
+            let body = '';
 
-                // Scroll to first error
-                if (errors.indexOf(error) === 0) {
-                    const field = document.getElementById(error.field);
-                    if (field) {
-                        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
-            });
+            if (formData) {
+                // Format form data into email body
+                body = formatEmailBody(formData);
+            } else {
+                // Default email template
+                body = currentLang === 'en' ?
+                    'Hello,\n\nI am interested in your medical tourism services. Please provide more information.\n\nBest regards,' :
+                    '您好，\n\n我对您的医疗旅游服务感兴趣，请提供更多信息。\n\n此致敬礼，';
+            }
+
+            const mailtoLink = `mailto:info@chinamedicaltour.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
         }
 
-        function showSubmissionOptions(name, email, package, groupSize, destination, duration, interests, message) {
-            const interestsText = interests.length > 0 ? interests.join(', ') : (currentLang === 'en' ? 'None specified' : '未指定');
+        // Format form data into email body
+        function formatEmailBody(formData) {
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const packageType = formData.get('package');
+            const message = formData.get('message') || '';
 
-            // Create formatted inquiry text
-            const inquiryText = currentLang === 'en' ?
-                `Medical Tourism Inquiry
+            // Get package display name
+            const packageSelect = document.getElementById('package');
+            const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+            const packageDisplayName = selectedOption.textContent;
 
-Name: ${name}
-Email: ${email}
-Service of Interest: ${package}
-Group Size: ${groupSize}
-Destination: ${destination}
-Duration: ${duration}
-Interests: ${interestsText}
-${message ? `Additional Questions: ${message}` : ''}
+            if (currentLang === 'en') {
+                return `Hello,
 
-Please provide a personalized quote and consultation.
+I would like to inquire about your medical tourism services.
+
+Contact Information:
+- Name: ${name}
+- Email: ${email}
+
+Service of Interest:
+- ${packageDisplayName}
+
+Additional Questions:
+${message || 'No additional questions'}
+
+Please provide me with:
+1. Detailed information about the selected service
+2. Pricing and package options
+3. Available dates and scheduling
+4. Accommodation and travel arrangements
+5. Any special requirements or preparations needed
+
+I look forward to hearing from you soon.
 
 Best regards,
-${name}` :
-                `医疗旅游咨询
-
-姓名：${name}
-邮箱：${email}
-感兴趣的服务：${package}
-人数：${groupSize}
-目的地：${destination}
-停留时间：${duration}
-期望体验：${interestsText}
-${message ? `其他问题：${message}` : ''}
-
-请提供个性化报价和咨询。
-
-此致
 ${name}`;
+            } else {
+                return `您好，
 
-            // Create modal
+我想咨询您的医疗旅游服务。
+
+联系信息：
+- 姓名：${name}
+- 邮箱：${email}
+
+感兴趣的服务：
+- ${packageDisplayName}
+
+其他疑问：
+${message || '无其他疑问'}
+
+请为我提供以下信息：
+1. 所选服务的详细信息
+2. 价格和套餐选项
+3. 可预约日期和时间安排
+4. 住宿和旅行安排
+5. 任何特殊要求或准备事项
+
+期待您的回复。
+
+此致敬礼，
+${name}`;
+            }
+        }
+
+        // Show submission options modal
+        function showSubmissionModal(formData) {
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-            modal.innerHTML = `
-                <div class="bg-white rounded-xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
-                    <h3 class="text-xl font-bold mb-4 text-center">${currentLang === 'en' ? 'Choose How to Send Your Inquiry' : '选择发送方式'}</h3>
+            modal.id = 'submission-modal';
+
+            const modalContent = `
+                <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+                    <h3 class="text-xl font-semibold mb-4 text-center" data-key="submissionModalTitle">
+                        ${currentLang === 'en' ? 'Choose Contact Method' : '选择联系方式'}
+                    </h3>
+                    <p class="text-gray-600 mb-6 text-center" data-key="submissionModalDesc">
+                        ${currentLang === 'en' ?
+                            'How would you like to send your inquiry?' :
+                            '您希望如何发送咨询？'}
+                    </p>
 
                     <div class="space-y-3">
-                        <button onclick="sendViaWhatsApp('${encodeURIComponent(inquiryText)}')"
-                                class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.787"/>
-                            </svg>
-                            <span>${currentLang === 'en' ? 'Send via WhatsApp' : '通过WhatsApp发送'}</span>
+                        <button id="submit-email" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center">
+                            <i data-lucide="mail" class="w-5 h-5 mr-2"></i>
+                            ${currentLang === 'en' ? 'Open Email Client' : '打开邮件客户端'}
                         </button>
 
-                        <button onclick="sendViaEmail('${encodeURIComponent(inquiryText)}')"
-                                class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                            <span>${currentLang === 'en' ? 'Send via Email' : '通过邮件发送'}</span>
+                        <button id="submit-whatsapp" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition flex items-center justify-center">
+                            <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                            ${currentLang === 'en' ? 'Send via WhatsApp' : '通过WhatsApp发送'}
                         </button>
 
-                        <button onclick="copyToClipboard('${encodeURIComponent(inquiryText)}')"
-                                class="w-full bg-gray-500 hover:bg-gray-600 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                            </svg>
-                            <span>${currentLang === 'en' ? 'Copy Information' : '复制信息'}</span>
+                        <button id="copy-info" class="w-full bg-gray-600 text-white py-3 rounded-lg font-semibold hover:bg-gray-700 transition flex items-center justify-center">
+                            <i data-lucide="copy" class="w-5 h-5 mr-2"></i>
+                            ${currentLang === 'en' ? 'Copy Information' : '复制信息'}
                         </button>
                     </div>
 
-                    <button onclick="closeModal()"
-                            class="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg transition">
+                    <button id="close-modal" class="w-full mt-4 text-gray-500 hover:text-gray-700 transition">
                         ${currentLang === 'en' ? 'Cancel' : '取消'}
                     </button>
                 </div>
             `;
 
+            modal.innerHTML = modalContent;
             document.body.appendChild(modal);
-        }
 
-        function sendViaWhatsApp(encodedText) {
-            const text = decodeURIComponent(encodedText);
-            const whatsappUrl = `https://wa.me/8619910385444?text=${encodeURIComponent(text)}`;
-            window.open(whatsappUrl, '_blank');
-            closeModal();
-        }
+            // Initialize Lucide icons for the modal
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
 
-        function sendViaEmail(encodedText) {
-            const text = decodeURIComponent(encodedText);
-            const subject = currentLang === 'en' ? 'Medical Tourism Inquiry' : '医疗旅游咨询';
-            const emailUrl = `mailto:info@chinamedicaltour.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-            window.location.href = emailUrl;
-            closeModal();
-        }
+            // Add event listeners
+            document.getElementById('submit-email').addEventListener('click', () => {
+                openEmailClient(formData);
+                closeSubmissionModal();
+            });
 
-        function copyToClipboard(encodedText) {
-            const text = decodeURIComponent(encodedText);
-            navigator.clipboard.writeText(text).then(() => {
-                // Show success message
-                const successMsg = document.createElement('div');
-                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg z-50';
-                successMsg.textContent = currentLang === 'en' ? 'Information copied to clipboard!' : '信息已复制到剪贴板！';
-                document.body.appendChild(successMsg);
+            document.getElementById('submit-whatsapp').addEventListener('click', () => {
+                sendViaWhatsApp(formData);
+                closeSubmissionModal();
+            });
 
-                setTimeout(() => {
-                    successMsg.remove();
-                }, 3000);
+            document.getElementById('copy-info').addEventListener('click', () => {
+                copyFormInfo(formData);
+            });
 
-                closeModal();
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
+            document.getElementById('close-modal').addEventListener('click', closeSubmissionModal);
 
-                const successMsg = document.createElement('div');
-                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg z-50';
-                successMsg.textContent = currentLang === 'en' ? 'Information copied to clipboard!' : '信息已复制到剪贴板！';
-                document.body.appendChild(successMsg);
-
-                setTimeout(() => {
-                    successMsg.remove();
-                }, 3000);
-
-                closeModal();
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeSubmissionModal();
+                }
             });
         }
 
-        function closeModal() {
-            const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
+        // Close submission modal
+        function closeSubmissionModal() {
+            const modal = document.getElementById('submission-modal');
             if (modal) {
                 modal.remove();
             }
         }
 
-        // Multi-step form functionality
-        let currentStep = 1;
-        const totalSteps = 3;
+        // Send via WhatsApp
+        function sendViaWhatsApp(formData) {
+            const message = formatEmailBody(formData);
+            const whatsappUrl = `https://wa.me/8619910385444?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
 
-        function nextStep() {
-            // Validate current step before proceeding
-            if (validateCurrentStep()) {
-                if (currentStep < totalSteps) {
-                    // Hide current step
-                    document.getElementById(`step-${currentStep}`).classList.remove('active');
+        // Copy form information to clipboard
+        function copyFormInfo(formData) {
+            const info = formatEmailBody(formData);
 
-                    // Show next step
-                    currentStep++;
-                    document.getElementById(`step-${currentStep}`).classList.add('active');
-
-                    // Update progress bar
-                    updateProgressBar();
-
-                    // Update step indicator
-                    updateStepIndicator();
-                }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(info).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(info);
+                });
+            } else {
+                fallbackCopyTextToClipboard(info);
             }
         }
 
-        function prevStep() {
-            if (currentStep > 1) {
-                // Hide current step
-                document.getElementById(`step-${currentStep}`).classList.remove('active');
+        // Fallback copy method for older browsers
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
 
-                // Show previous step
-                currentStep--;
-                document.getElementById(`step-${currentStep}`).classList.add('active');
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
 
-                // Update progress bar
-                updateProgressBar();
-
-                // Update step indicator
-                updateStepIndicator();
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+                alert(currentLang === 'en' ?
+                    'Copy failed. Please manually copy the information.' :
+                    '复制失败，请手动复制信息。');
             }
+
+            document.body.removeChild(textArea);
         }
 
-        function updateProgressBar() {
-            const progressBar = document.getElementById('form-progress');
-            const progressPercentage = (currentStep / totalSteps) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-        }
+        // Show copy success message
+        function showCopySuccess() {
+            const copyBtn = document.getElementById('copy-info');
+            if (copyBtn) {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<i data-lucide="check" class="w-5 h-5 mr-2"></i>${currentLang === 'en' ? 'Copied!' : '已复制！'}`;
+                copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                copyBtn.classList.remove('bg-gray-600', 'hover:bg-gray-700');
 
-        function updateStepIndicator() {
-            const stepIndicator = document.querySelector('[data-key="formStepIndicator"]');
-            if (stepIndicator) {
-                stepIndicator.textContent = `${currentStep} / ${totalSteps}`;
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    copyBtn.classList.add('bg-gray-600', 'hover:bg-gray-700');
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }, 2000);
             }
-
-            // Update step title
-            const stepTitles = {
-                1: currentLang === 'en' ? 'Step 1' : '步骤 1',
-                2: currentLang === 'en' ? 'Step 2' : '步骤 2',
-                3: currentLang === 'en' ? 'Step 3' : '步骤 3'
-            };
-
-            const stepTitle = document.querySelector('[data-key="formStep1"]');
-            if (stepTitle) {
-                stepTitle.textContent = stepTitles[currentStep];
-            }
-        }
-
-        function validateCurrentStep() {
-            const errors = [];
-
-            if (currentStep === 1) {
-                // Validate step 1: Basic information
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const package = document.getElementById('package').value;
-
-                if (!name) {
-                    errors.push({ field: 'name', message: currentLang === 'en' ? 'Please enter your name' : '请输入您的姓名' });
-                }
-
-                if (!email) {
-                    errors.push({ field: 'email', message: currentLang === 'en' ? 'Please enter your email' : '请输入您的邮箱' });
-                } else if (!isValidEmail(email)) {
-                    errors.push({ field: 'email', message: currentLang === 'en' ? 'Please enter a valid email' : '请输入有效的邮箱地址' });
-                }
-
-                if (!package || package === (currentLang === 'en' ? 'Please select a service...' : '请选择一项服务...')) {
-                    errors.push({ field: 'package', message: currentLang === 'en' ? 'Please select a service' : '请选择感兴趣的服务' });
-                }
-            } else if (currentStep === 2) {
-                // Validate step 2: Travel details
-                const groupSize = document.getElementById('groupSize').value;
-                const destination = document.getElementById('destination').value;
-                const duration = document.getElementById('duration').value;
-
-                if (!groupSize || groupSize === (currentLang === 'en' ? 'Please select group size...' : '请选择人数...')) {
-                    errors.push({ field: 'groupSize', message: currentLang === 'en' ? 'Please select group size' : '请选择人数' });
-                }
-
-                if (!destination || destination === (currentLang === 'en' ? 'Please select destination...' : '请选择目的地...')) {
-                    errors.push({ field: 'destination', message: currentLang === 'en' ? 'Please select destination' : '请选择目的地城市' });
-                }
-
-                if (!duration || duration === (currentLang === 'en' ? 'Please select duration...' : '请选择停留天数...')) {
-                    errors.push({ field: 'duration', message: currentLang === 'en' ? 'Please select duration' : '请选择预计停留天数' });
-                }
-            }
-
-            // Show errors if any
-            if (errors.length > 0) {
-                showFormErrors(errors);
-                return false;
-            }
-
-            return true;
         }
     </script>
+
+    <!-- Optional: Tawk.to Live Chat Integration -->
+    <!-- Uncomment the following script and replace YOUR_TAWK_TO_ID with your actual Tawk.to property ID -->
+    <!--
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/YOUR_TAWK_TO_ID/1hqr8r8r8';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    -->
+
+    <!-- Optional: Crisp Chat Integration -->
+    <!-- Uncomment the following script and replace YOUR_CRISP_WEBSITE_ID with your actual Crisp website ID -->
+    <!--
+    <script type="text/javascript">
+        window.$crisp=[];
+        window.CRISP_WEBSITE_ID="YOUR_CRISP_WEBSITE_ID";
+        (function(){
+            d=document;
+            s=d.createElement("script");
+            s.src="https://client.crisp.chat/l.js";
+            s.async=1;
+            d.getElementsByTagName("head")[0].appendChild(s);
+        })();
+    </script>
+    -->
 </body>
 </html>
