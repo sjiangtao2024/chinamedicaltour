@@ -419,7 +419,18 @@
                 }
             ],
             chengdu: [
-
+                {
+                    id: 'panda-interaction',
+                    name: { en: 'Giant Panda Interaction', zh: '大熊猫互动' },
+                    description: {
+                        en: 'Unique opportunity to interact with 1-year-old panda cubs. Professional handlers guide you through a 2-minute interaction and photo session.',
+                        zh: '与1岁左右的熊猫幼崽互动的独特机会。专业饲养员指导您进行2分钟的互动和拍照。'
+                    },
+                    duration: 2,
+                    priceUSD: 1000,
+                    priceRMB: 7200,
+                    image: 'https://img20.360buyimg.com/openfeedback/jfs/t1/293098/18/13293/371821/6858c2fdFd18bfc3c/81cfff05979e1541.jpg'
+                },
                 {
                     id: 'panda-volunteer',
                     name: { en: 'Panda Volunteer Experience', zh: '熊猫志愿者体验' },
@@ -574,9 +585,9 @@
                 const priceElement = document.getElementById(`${packageId}-price`);
                 if (priceElement) {
                     if (currentLanguage === 'en') {
-                        priceElement.textContent = `$${packageData.price.usd}`;
+                        priceElement.textContent = `Starting from $${packageData.price.usd}`;
                     } else {
-                        priceElement.textContent = `¥${packageData.price.rmb}`;
+                        priceElement.textContent = `¥${packageData.price.rmb}起`;
                     }
                 }
             });
