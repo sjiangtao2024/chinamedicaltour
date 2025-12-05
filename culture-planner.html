@@ -585,9 +585,9 @@
                 const priceElement = document.getElementById(`${packageId}-price`);
                 if (priceElement) {
                     if (currentLanguage === 'en') {
-                        priceElement.textContent = `Starting from $${packageData.price.usd}`;
+                        priceElement.innerHTML = `<span class="text-sm font-normal text-gray-500 mr-1">from</span>$${packageData.price.usd}`;
                     } else {
-                        priceElement.textContent = `¥${packageData.price.rmb}起`;
+                        priceElement.innerHTML = `¥${packageData.price.rmb}<span class="text-sm font-normal text-gray-500 ml-1">起</span>`;
                     }
                 }
             });
