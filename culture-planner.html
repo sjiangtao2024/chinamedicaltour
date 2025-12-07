@@ -179,61 +179,47 @@
                     <button
                         class="medical-select-btn w-full py-2 px-4 border-2 border-purple-600 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white transition mt-auto">
                         <span data-key="selectPackage">Select Package</span>
-                    </button>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="text-lg mb-2">
+                                    <span data-key="estimateTime">预计时间：</span>
+                                    <span id="total-time">未选择景点</span>
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-lg mb-2">
+                                    <span data-key="estimateCost">预计费用：</span>
+                                    <span id="total-cost">无费用</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2" data-key="timeNote">* 预计时间已包含用餐和交通时间，实际时间可能有偏差</p>
+                        <button id="generate-itinerary"
+                            class="mt-4 bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition shadow-md"
+                            data-key="generateItinerary">
+                            Generate Detailed Itinerary
+                        </button>
                 </div>
-            </div>
-            <div class="text-center mt-4">
-                <p class="text-sm text-gray-600">
-                    <i data-lucide="car" class="w-4 h-4 inline mr-1"></i>
-                    <span data-key="transportationIncluded">包含宾馆到医院往返车费</span>
-                </p>
-            </div>
-        </div>
 
-        <!-- Planning Summary -->
-        <div class="summary-card rounded-2xl p-6 mb-8 text-center">
-            <h2 class="text-2xl font-bold mb-4" data-key="planningTitle">规划摘要：未选择景点</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <p class="text-lg mb-2">
-                        <span data-key="estimateTime">预计时间：</span>
-                        <span id="total-time">未选择景点</span>
+                <!-- Attractions Grid -->
+                <div id="attractions-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Attraction cards will be dynamically generated here -->
+                </div>
+
+                <!-- Price Disclaimer -->
+                <div class="text-center mt-8">
+                    <p class="text-xs text-gray-500 max-w-4xl mx-auto" data-key="priceDisclaimer">
+                        本工具只是根据现有的数据提供建议，实际的时间和费用可能会因为季节，交通，管制以及其他一切不可控和人为因素造成变化。请以当天的实际情况为准！我们并不承担以此工具所建议的时间和费用所带来的一切后果。
                     </p>
                 </div>
-                <div>
-                    <p class="text-lg mb-2">
-                        <span data-key="estimateCost">预计费用：</span>
-                        <span id="total-cost">无费用</span>
-                    </p>
+
+                <!-- Selected Attractions Summary -->
+                <div id="selected-summary" class="mt-8 bg-white rounded-xl p-6 shadow-lg hidden">
+                    <h3 class="text-xl font-bold mb-4" data-key="selectedAttractions">Selected Attractions</h3>
+                    <div id="selected-list" class="space-y-3">
+                        <!-- Selected attractions will be listed here -->
+                    </div>
                 </div>
-            </div>
-            <p class="text-xs text-gray-500 mt-2" data-key="timeNote">* 预计时间已包含用餐和交通时间，实际时间可能有偏差</p>
-            <button id="generate-itinerary"
-                class="mt-4 bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition shadow-md"
-                data-key="generateItinerary">
-                Generate Detailed Itinerary
-            </button>
-        </div>
-
-        <!-- Attractions Grid -->
-        <div id="attractions-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Attraction cards will be dynamically generated here -->
-        </div>
-
-        <!-- Price Disclaimer -->
-        <div class="text-center mt-8">
-            <p class="text-xs text-gray-500 max-w-4xl mx-auto" data-key="priceDisclaimer">
-                本工具只是根据现有的数据提供建议，实际的时间和费用可能会因为季节，交通，管制以及其他一切不可控和人为因素造成变化。请以当天的实际情况为准！我们并不承担以此工具所建议的时间和费用所带来的一切后果。
-            </p>
-        </div>
-
-        <!-- Selected Attractions Summary -->
-        <div id="selected-summary" class="mt-8 bg-white rounded-xl p-6 shadow-lg hidden">
-            <h3 class="text-xl font-bold mb-4" data-key="selectedAttractions">Selected Attractions</h3>
-            <div id="selected-list" class="space-y-3">
-                <!-- Selected attractions will be listed here -->
-            </div>
-        </div>
     </main>
 
     <!-- Footer -->

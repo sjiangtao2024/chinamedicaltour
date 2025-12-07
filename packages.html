@@ -55,75 +55,79 @@
 
 <body class="text-gray-700">
     <!-- Header & Navigation -->
-<header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="/" class="flex items-center space-x-3">
-            <img src="/assets/images/logo.png" alt="China Medical Tour Logo" class="h-10 w-10">
-            <span
-                class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
-                Medical Tour</span>
-        </a>
-        <div class="hidden md:flex space-x-6 items-center">
-            <a href="/#about" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                data-key="navAbout" data-section="about">About Us</a>
-            <a href="/#services" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                data-key="navServices" data-section="services">Services</a>
-            <a href="/#travel" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                data-key="navTravel" data-section="travel">Travel Services</a>
-            <a href="/#culture" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                data-key="navCulture" data-section="culture">Cultural Experience</a>
+    <header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="/assets/images/logo.png" alt="China Medical Tour Logo" class="h-10 w-10">
+                <span
+                    class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
+                    Medical Tour</span>
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="/#about" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navAbout"
+                    data-section="about">About Us</a>
+                <a href="/#services" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                    data-key="navServices" data-section="services">Services</a>
+                <a href="/#travel" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navTravel"
+                    data-section="travel">Travel Services</a>
+                <a href="/#culture" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                    data-key="navCulture" data-section="culture">Cultural Experience</a>
+                <a href="/#contact"
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold"
+                    data-key="getQuote">Get a Quote</a>
+
+            </div>
+            <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="/#about" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navAbout"
+                data-section="about">About Us</a>
+            <a href="/#services" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navServices"
+                data-section="services">Services</a>
+            <a href="/#travel" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navTravel"
+                data-section="travel">Travel Services</a>
+            <a href="/#culture" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navCulture"
+                data-section="culture">Cultural Experience</a>
             <a href="/#contact"
-                class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold"
+                class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 w-full text-center"
                 data-key="getQuote">Get a Quote</a>
 
         </div>
-        <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
-    </nav>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-        <a href="/#about" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-            data-key="navAbout" data-section="about">About Us</a>
-        <a href="/#services" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-            data-key="navServices" data-section="services">Services</a>
-        <a href="/#travel" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-            data-key="navTravel" data-section="travel">Travel Services</a>
-        <a href="/#culture" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-            data-key="navCulture" data-section="culture">Cultural Experience</a>
-        <a href="/#contact"
-            class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 w-full text-center"
-            data-key="getQuote">Get a Quote</a>
-
-    </div>
-</header>
+    </header>
 
     <!-- Main Content -->
     <main>
         <!DOCTYPE html>
-<html lang="en">
+        <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
-    <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
-    <meta name="description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
+            <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
+            <meta name="description"
+                content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://chinamedicaltour.org/">
-    <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
-    <meta property="og:description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
-    <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
+            <!-- Open Graph / Facebook -->
+            <meta property="og:type" content="website">
+            <meta property="og:url" content="https://chinamedicaltour.org/">
+            <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+            <meta property="og:description"
+                content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+            <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://chinamedicaltour.org/">
-    <meta property="twitter:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
-    <meta property="twitter:description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
-    <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:url" content="https://chinamedicaltour.org/">
+            <meta property="twitter:title"
+                content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+            <meta property="twitter:description"
+                content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+            <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
 
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
+            <!-- Schema.org JSON-LD -->
+            <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
@@ -135,523 +139,588 @@
     }
     </script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+            <!-- Tailwind CSS -->
+            <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+            <!-- Google Fonts: Inter -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+                rel="stylesheet">
 
-    <!-- Lucide Icons & Chart.js -->
-    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+            <!-- Lucide Icons & Chart.js -->
+            <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+            <script src="https://unpkg.com/lucide@latest"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+            <!-- Custom CSS -->
+            <link rel="stylesheet" href="/assets/css/style.css">
 
-</head>
+        </head>
 
-<body class="text-gray-700">
-    {% include header.html %}
+        <body class="text-gray-700">
+            {% include header.html %}
 
-    <!-- Main Content -->
-    <main>
-        
-<!-- Services Section (Medical Packages) -->
-<section id="services" class="py-20">
-    <div class="container mx-auto px-6">
-        <div class="text-center">
-            <h2 class="section-title" data-key="servicesTitle">Comprehensive Medical Services</h2>
-            <p class="section-subtitle" data-key="servicesSubtitle">From preventive screenings to specialized
-                treatments, we provide a full range of world-class medical services.</p>
-        </div>
-        <div class="mt-12">
-            <h3 class="text-2xl font-bold text-center text-gray-700" data-key="screeningTitle">Health Checkup Packages
-            </h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto">
-                <!-- Basic Package -->
-                <div class="card p-8 flex flex-col">
-                    <h3 class="text-2xl font-bold text-teal-600 mb-4" data-key="basicTitle">Basic Package</h3>
-                    <p class="text-4xl font-bold text-gray-800 mb-2"><span
-                            class="text-sm font-normal text-gray-500 mr-1">from</span>$299</p>
-                    <p class="text-gray-500 mb-6" data-key="basicSavings">Standard health check, suitable for annual
-                        physicals</p>
+            <!-- Main Content -->
+            <main>
 
-                    <!-- Doctor Exam -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="basicDoctorExam">Doctor Consultation</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicDoctorItem1">Internal Medicine, Surgery, Ophthalmology, ENT,
-                                    Stomatology</span>
-                            </li>
-                        </ul>
+                <!-- Services Section (Medical Packages) -->
+                <section id="services" class="py-20">
+                    <div class="container mx-auto px-6">
+                        <div class="text-center">
+                            <h2 class="section-title" data-key="servicesTitle">Comprehensive Medical Services</h2>
+                            <p class="section-subtitle" data-key="servicesSubtitle">From preventive screenings to
+                                specialized
+                                treatments, we provide a full range of world-class medical services.</p>
+                        </div>
+                        <div class="mt-12">
+                            <h3 class="text-2xl font-bold text-center text-gray-700" data-key="screeningTitle">Health
+                                Checkup Packages
+                            </h3>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto">
+                                <!-- Basic Package -->
+                                <div class="card p-8 flex flex-col">
+                                    <h3 class="text-2xl font-bold text-teal-600 mb-4" data-key="basicTitle">Basic
+                                        Package</h3>
+                                    <p class="text-4xl font-bold text-gray-800 mb-2"><span
+                                            class="text-sm font-normal text-gray-500 mr-1">from</span>$299</p>
+                                    <p class="text-gray-500 mb-6" data-key="basicSavings">Standard health check,
+                                        suitable for annual
+                                        physicals</p>
+
+                                    <!-- Doctor Exam -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="basicDoctorExam">Doctor
+                                            Consultation</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicDoctorItem1">Internal Medicine, Surgery,
+                                                    Ophthalmology, ENT,
+                                                    Stomatology</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Instrument Exam -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="basicInstrumentExam">
+                                            Instrumental
+                                            Examination</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicInstrumentItem1">Height, Weight, Blood Pressure,
+                                                    ECG</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicInstrumentItem2">Chest X-Ray (PA View)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicInstrumentItem3">Upper Abdominal Ultrasound (Liver,
+                                                    Gallbladder,
+                                                    Pancreas, Spleen, Kidney)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Lab Exam -->
+                                    <div class="mb-6 flex-grow">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="basicLabExam">Laboratory
+                                            Tests</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicLabItem1">Complete Blood Count, Urinalysis</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicLabItem2">Liver Function (11 items)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicLabItem3">Kidney Function (3 items)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicLabItem4">Lipid Profile (4 items)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="basicLabItem5">Fasting Blood Glucose</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <button data-modal-target="basic-modal"
+                                        class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
+                                        data-key="viewDetails">View Details</button>
+                                    <a href="/#contact"
+                                        class="mt-2 bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition w-full block text-center"
+                                        data-key="selectPackage" data-package="basic">Select Package</a>
+                                </div>
+
+                                <!-- Elite Package -->
+                                <div class="card p-8 flex flex-col border-2 border-blue-600 relative">
+                                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold"
+                                        data-key="mostPopular">Most Popular</div>
+                                    <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="eliteTitle">Elite
+                                        Package</h3>
+                                    <p class="text-4xl font-bold text-gray-800 mb-2"><span
+                                            class="text-sm font-normal text-gray-500 mr-1">from</span>$599</p>
+                                    <p class="text-gray-500 mb-6" data-key="eliteSavings">Includes vital organ and
+                                        cancer screenings on
+                                        top of Basic</p>
+
+                                    <!-- Includes Basic -->
+                                    <div class="mb-4">
+                                        <p class="font-medium text-blue-700 bg-blue-100 p-3 rounded-lg text-sm"
+                                            data-key="eliteIncludesBasic">Includes all Basic Package items</p>
+                                    </div>
+
+                                    <!-- Deep Instrument -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteDeepInstrument">Deep
+                                            Instrumental
+                                            Exam</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteDeepItem1">Chest CT</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteDeepItem2">Thyroid Ultrasound</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteDeepItem3">Carotid Artery Ultrasound</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteDeepItem4">Pelvic Ultrasound (Male: Prostate;
+                                                    Female:
+                                                    Uterus/Adnexa)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteDeepItem5">Bone Density Scan</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Tumor Markers -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteTumorMarkers">Tumor
+                                            Marker Screening
+                                        </h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteTumorItem1">CEA (Carcinoembryonic Antigen)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteTumorItem2">AFP (Alpha-fetoprotein)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteTumorItem3">PSA (Prostate Specific Antigen) -
+                                                    Male</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteTumorItem4">CA-125 - Female</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Other Exams -->
+                                    <div class="mb-6 flex-grow">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteOtherExams">Other
+                                            Tests</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteOtherItem1">Homocysteine (Hcy)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="eliteOtherItem2">H. Pylori Antibody Test</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <button data-modal-target="elite-modal"
+                                        class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
+                                        data-key="viewDetails">View Details</button>
+                                    <a href="/#contact"
+                                        class="mt-2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center"
+                                        data-key="selectPackage" data-package="elite">Select Package</a>
+                                </div>
+
+                                <!-- VIP Package -->
+                                <div class="card p-8 flex flex-col">
+                                    <h3 class="text-2xl font-bold text-purple-600 mb-4" data-key="vipTitle">VIP Package
+                                    </h3>
+                                    <p class="text-4xl font-bold text-gray-800 mb-2"><span
+                                            class="text-sm font-normal text-gray-500 mr-1">from</span>$1,399</p>
+                                    <p class="text-gray-500 mb-6" data-key="vipSavings">Comprehensive health assessment,
+                                        cardiovascular
+                                        & genetic testing</p>
+
+                                    <!-- Includes Elite -->
+                                    <div class="mb-4">
+                                        <p class="font-medium text-purple-700 bg-purple-100 p-3 rounded-lg text-sm"
+                                            data-key="vipIncludesElite">Includes all Elite Package items</p>
+                                    </div>
+
+                                    <!-- Advanced Imaging -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipAdvancedImaging">
+                                            Advanced Imaging</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipImagingItem1">Coronary CTA or Head/Neck CTA (Select
+                                                    One)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipImagingItem2">Low-Dose Spiral CT Lung Cancer
+                                                    Screening</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Endocrine -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipEndocrine">Endocrine &
+                                            Immune</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipEndocrineItem1">Thyroid Function (5 items)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipEndocrineItem2">Sex Hormones (6 items)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipEndocrineItem3">Rheumatism (3 items)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Genetic -->
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipGenetic">Genetic
+                                            Testing</h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipGeneticItem1">Common Tumor Susceptibility Genes (13
+                                                    items)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Professional -->
+                                    <div class="mb-6 flex-grow">
+                                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipProfessional">
+                                            Professional Assessment
+                                        </h4>
+                                        <ul class="text-left space-y-2 text-sm">
+                                            <li class="flex items-start">
+                                                <i data-lucide="check-circle-2"
+                                                    class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
+                                                <span data-key="vipProfessionalItem1">1-on-1 Expert Report
+                                                    Interpretation</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <button data-modal-target="vip-modal"
+                                        class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
+                                        data-key="viewDetails">View Details</button>
+                                    <a href="/#contact"
+                                        class="mt-2 bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition w-full block text-center"
+                                        data-key="selectPackage" data-package="vip">Select Package</a>
+                                </div>
+                            </div>
+                            <p class="text-center text-xs text-gray-500 mt-6 max-w-4xl mx-auto"
+                                data-key="priceDisclaimer">
+                                Specific costs may be affected by exchange rates and supplier price adjustments. Above
+                                prices are for
+                                reference only.</p>
+                        </div>
+                        <div class="mt-20">
+                            <h3 class="text-2xl font-bold text-center text-gray-700" data-key="additionalServicesTitle">
+                                Other Specialized Services
+                            </h3>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mt-8 max-w-7xl mx-auto">
+                                <!-- Ophthalmology -->
+                                <div class="card p-8 text-center">
+                                    <i data-lucide="eye" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceEyeTitle">
+                                        Ophthalmology</h4>
+                                    <p data-key="serviceEyeText">Advanced eye care including LASIK, cataract removal,
+                                        and glaucoma
+                                        treatment using latest laser technology.</p>
+                                </div>
+
+                                <!-- Dentistry -->
+                                <div class="card p-8 text-center">
+                                    <i data-lucide="smile" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceDentalTitle">
+                                        Dentistry</h4>
+                                    <p data-key="serviceDentalText">Comprehensive dental services from routine cleaning
+                                        and whitening to
+                                        implants, veneers, and orthodontics.</p>
+                                </div>
+
+                                <!-- Traditional Chinese Medicine -->
+                                <div class="card p-8 text-center">
+                                    <i data-lucide="flower-2" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceTCMTitle">TCM
+                                        Therapy</h4>
+                                    <p data-key="serviceTCMText">Authentic Traditional Chinese Medicine including
+                                        acupuncture, herbal
+                                        medicine, cupping, and massage for holistic healing.</p>
+                                </div>
+
+                                <!-- Tailor-Made Programs -->
+                                <div class="card p-8 text-center">
+                                    <i data-lucide="settings" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceTailorMadeTitle">
+                                        Custom Programs
+                                    </h4>
+                                    <p data-key="serviceTailorMadeText">Tailor-made medical programs and treatment plans
+                                        based on your
+                                        unique health needs, combining multiple specialties.</p>
+                                </div>
+
+                                <!-- Stem Cell Therapy -->
+                                <div class="card p-8 text-center">
+                                    <i data-lucide="dna" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
+                                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceStemCellTitle">
+                                        Stem Cell Therapy</h4>
+                                    <p data-key="serviceStemCellText">Explore regenerative medicine with advanced stem
+                                        cell therapies
+                                        for anti-aging, joint repair, and chronic conditions.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </section>
+            </main>
 
-                    <!-- Instrument Exam -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="basicInstrumentExam">Instrumental
-                            Examination</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicInstrumentItem1">Height, Weight, Blood Pressure, ECG</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicInstrumentItem2">Chest X-Ray (PA View)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicInstrumentItem3">Upper Abdominal Ultrasound (Liver, Gallbladder,
-                                    Pancreas, Spleen, Kidney)</span>
-                            </li>
-                        </ul>
-                    </div>
+            {% include footer.html %}
+            {% include modals.html %}
+        </body>
 
-                    <!-- Lab Exam -->
-                    <div class="mb-6 flex-grow">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="basicLabExam">Laboratory Tests</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicLabItem1">Complete Blood Count, Urinalysis</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicLabItem2">Liver Function (11 items)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicLabItem3">Kidney Function (3 items)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicLabItem4">Lipid Profile (4 items)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="basicLabItem5">Fasting Blood Glucose</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <button data-modal-target="basic-modal"
-                        class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
-                        data-key="viewDetails">View Details</button>
-                    <a href="/#contact"
-                        class="mt-2 bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition w-full block text-center"
-                        data-key="selectPackage" data-package="basic">Select Package</a>
-                </div>
-
-                <!-- Elite Package -->
-                <div class="card p-8 flex flex-col border-2 border-blue-600 relative">
-                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold"
-                        data-key="mostPopular">Most Popular</div>
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4" data-key="eliteTitle">Elite Package</h3>
-                    <p class="text-4xl font-bold text-gray-800 mb-2"><span
-                            class="text-sm font-normal text-gray-500 mr-1">from</span>$599</p>
-                    <p class="text-gray-500 mb-6" data-key="eliteSavings">Includes vital organ and cancer screenings on
-                        top of Basic</p>
-
-                    <!-- Includes Basic -->
-                    <div class="mb-4">
-                        <p class="font-medium text-blue-700 bg-blue-100 p-3 rounded-lg text-sm"
-                            data-key="eliteIncludesBasic">Includes all Basic Package items</p>
-                    </div>
-
-                    <!-- Deep Instrument -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteDeepInstrument">Deep Instrumental
-                            Exam</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteDeepItem1">Chest CT</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteDeepItem2">Thyroid Ultrasound</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteDeepItem3">Carotid Artery Ultrasound</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteDeepItem4">Pelvic Ultrasound (Male: Prostate; Female:
-                                    Uterus/Adnexa)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteDeepItem5">Bone Density Scan</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Tumor Markers -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteTumorMarkers">Tumor Marker Screening
-                        </h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteTumorItem1">CEA (Carcinoembryonic Antigen)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteTumorItem2">AFP (Alpha-fetoprotein)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteTumorItem3">PSA (Prostate Specific Antigen) - Male</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteTumorItem4">CA-125 - Female</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Other Exams -->
-                    <div class="mb-6 flex-grow">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="eliteOtherExams">Other Tests</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteOtherItem1">Homocysteine (Hcy)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="eliteOtherItem2">H. Pylori Antibody Test</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <button data-modal-target="elite-modal"
-                        class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
-                        data-key="viewDetails">View Details</button>
-                    <a href="/#contact"
-                        class="mt-2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center"
-                        data-key="selectPackage" data-package="elite">Select Package</a>
-                </div>
-
-                <!-- VIP Package -->
-                <div class="card p-8 flex flex-col">
-                    <h3 class="text-2xl font-bold text-purple-600 mb-4" data-key="vipTitle">VIP Package</h3>
-                    <p class="text-4xl font-bold text-gray-800 mb-2"><span
-                            class="text-sm font-normal text-gray-500 mr-1">from</span>$1,399</p>
-                    <p class="text-gray-500 mb-6" data-key="vipSavings">Comprehensive health assessment, cardiovascular
-                        & genetic testing</p>
-
-                    <!-- Includes Elite -->
-                    <div class="mb-4">
-                        <p class="font-medium text-purple-700 bg-purple-100 p-3 rounded-lg text-sm"
-                            data-key="vipIncludesElite">Includes all Elite Package items</p>
-                    </div>
-
-                    <!-- Advanced Imaging -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipAdvancedImaging">Advanced Imaging</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipImagingItem1">Coronary CTA or Head/Neck CTA (Select One)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipImagingItem2">Low-Dose Spiral CT Lung Cancer Screening</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Endocrine -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipEndocrine">Endocrine & Immune</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipEndocrineItem1">Thyroid Function (5 items)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipEndocrineItem2">Sex Hormones (6 items)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipEndocrineItem3">Rheumatism (3 items)</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Genetic -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipGenetic">Genetic Testing</h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipGeneticItem1">Common Tumor Susceptibility Genes (13 items)</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Professional -->
-                    <div class="mb-6 flex-grow">
-                        <h4 class="font-semibold text-gray-800 mb-2" data-key="vipProfessional">Professional Assessment
-                        </h4>
-                        <ul class="text-left space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5"></i>
-                                <span data-key="vipProfessionalItem1">1-on-1 Expert Report Interpretation</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <button data-modal-target="vip-modal"
-                        class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
-                        data-key="viewDetails">View Details</button>
-                    <a href="/#contact"
-                        class="mt-2 bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition w-full block text-center"
-                        data-key="selectPackage" data-package="vip">Select Package</a>
-                </div>
-            </div>
-            <p class="text-center text-xs text-gray-500 mt-6 max-w-4xl mx-auto" data-key="priceDisclaimer">
-                Specific costs may be affected by exchange rates and supplier price adjustments. Above prices are for
-                reference only.</p>
-        </div>
-        <div class="mt-20">
-            <h3 class="text-2xl font-bold text-center text-gray-700" data-key="additionalServicesTitle">
-                Other Specialized Services
-            </h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mt-8 max-w-7xl mx-auto">
-                <!-- Ophthalmology -->
-                <div class="card p-8 text-center">
-                    <i data-lucide="eye" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
-                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceEyeTitle">Ophthalmology</h4>
-                    <p data-key="serviceEyeText">Advanced eye care including LASIK, cataract removal, and glaucoma
-                        treatment using latest laser technology.</p>
-                </div>
-
-                <!-- Dentistry -->
-                <div class="card p-8 text-center">
-                    <i data-lucide="smile" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
-                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceDentalTitle">Dentistry</h4>
-                    <p data-key="serviceDentalText">Comprehensive dental services from routine cleaning and whitening to
-                        implants, veneers, and orthodontics.</p>
-                </div>
-
-                <!-- Traditional Chinese Medicine -->
-                <div class="card p-8 text-center">
-                    <i data-lucide="flower-2" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
-                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceTCMTitle">TCM Therapy</h4>
-                    <p data-key="serviceTCMText">Authentic Traditional Chinese Medicine including acupuncture, herbal
-                        medicine, cupping, and massage for holistic healing.</p>
-                </div>
-
-                <!-- Tailor-Made Programs -->
-                <div class="card p-8 text-center">
-                    <i data-lucide="settings" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
-                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceTailorMadeTitle">
-                        Custom Programs
-                    </h4>
-                    <p data-key="serviceTailorMadeText">Tailor-made medical programs and treatment plans based on your
-                        unique health needs, combining multiple specialties.</p>
-                </div>
-
-                <!-- Stem Cell Therapy -->
-                <div class="card p-8 text-center">
-                    <i data-lucide="dna" class="w-16 h-16 text-blue-600 mb-4 mx-auto"></i>
-                    <h4 class="text-xl font-bold mb-2 text-gray-800" data-key="serviceStemCellTitle">
-                        Stem Cell Therapy</h4>
-                    <p data-key="serviceStemCellText">Explore regenerative medicine with advanced stem cell therapies
-                        for anti-aging, joint repair, and chronic conditions.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    </main>
-
-    {% include footer.html %}
-    {% include modals.html %}
-</body>
-
-</html>
+        </html>
     </main>
 
     <!-- Footer -->
-<footer class="bg-gray-800 text-white pt-10 pb-6">
-    <div class="container mx-auto px-6 text-center">
-        <div class="mb-8">
-            <img src="/assets/images/logo.png" alt="China Medical Tour Logo"
-                class="h-16 w-16 mx-auto mb-4 opacity-80">
-        </div>
-        <div class="mb-6">
-            <h4 class="font-semibold mb-3" data-key="footerFollow">关注我们</h4>
-            <div class="flex justify-center space-x-6">
-                <a href="https://x.com/Vita_Scout" target="_blank" rel="noopener"
-                    class="text-gray-400 hover:text-white transition" aria-label="Follow Vita_Scout on X">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
-                        </path>
-                    </svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition" aria-label="TikTok">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14.02 1.54-.01 3.08-.01 4.63-.03 1.43-.53 2.82-1.34 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14z">
-                        </path>
-                    </svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Xiaohongshu">
-                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 1024 1024">
-                        <path
-                            d="M925.3 336.4c-5-19.4-21.1-32.9-40.8-32.9H698.9V215c0-43.2-35-78.2-78.2-78.2H403.3c-43.2 0-78.2 35-78.2 78.2v88.5H139.5c-19.7 0-35.8 13.5-40.8 32.9L32 559.3c-4.3 16.7 3.9 33.9 18.6 42l319.5 174.4c18.3 10 40.6 6.3 54.6-8.5l2.6-2.9 3.2 3.1c14.6 14.2 37.3 17.5 55.1 7.6l319.5-174.4c14.8-8.1 22.9-25.3 18.6-42l-67.1-222.9z m-465.1-51.7h191.6v-69.7c0-10.1 8.2-18.3 18.3-18.3h0.1c10.1 0 18.3 8.2 18.3 18.3v69.7h8.2V215c0-26.6-21.6-48.2-48.2-48.2H403.3c-26.6 0-48.2 21.6-48.2 48.2v69.7h8.1z m-47.5 240.2L159.9 333.7h153.2l123.8 214.5-120.3-65.7z m186.2-111.4l-68.9-119.3h137.7l-68.8 119.3z m162.2 177.1l-117.2-64 121.7-210.8h153.2l-157.7 274.8z">
-                        </path>
-                    </svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition" aria-label="YouTube">
-                    <svg class="w-7 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.194 12 10 14.732V9.268L15.194 12Z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </a>
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <img src="/assets/images/logo.png" alt="China Medical Tour Logo"
+                    class="h-16 w-16 mx-auto mb-4 opacity-80">
             </div>
+            <div class="mb-6">
+                <h4 class="font-semibold mb-3" data-key="footerFollow">Follow Us</h4>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://x.com/Vita_Scout" target="_blank" rel="noopener"
+                        class="text-gray-400 hover:text-white transition" aria-label="Follow Vita_Scout on X">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="TikTok">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14.02 1.54-.01 3.08-.01 4.63-.03 1.43-.53 2.82-1.34 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Xiaohongshu">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 1024 1024">
+                            <path
+                                d="M925.3 336.4c-5-19.4-21.1-32.9-40.8-32.9H698.9V215c0-43.2-35-78.2-78.2-78.2H403.3c-43.2 0-78.2 35-78.2 78.2v88.5H139.5c-19.7 0-35.8 13.5-40.8 32.9L32 559.3c-4.3 16.7 3.9 33.9 18.6 42l319.5 174.4c18.3 10 40.6 6.3 54.6-8.5l2.6-2.9 3.2 3.1c14.6 14.2 37.3 17.5 55.1 7.6l319.5-174.4c14.8-8.1 22.9-25.3 18.6-42l-67.1-222.9z m-465.1-51.7h191.6v-69.7c0-10.1 8.2-18.3 18.3-18.3h0.1c10.1 0 18.3 8.2 18.3 18.3v69.7h8.2V215c0-26.6-21.6-48.2-48.2-48.2H403.3c-26.6 0-48.2 21.6-48.2 48.2v69.7h8.1z m-47.5 240.2L159.9 333.7h153.2l123.8 214.5-120.3-65.7z m186.2-111.4l-68.9-119.3h137.7l-68.8 119.3z m162.2 177.1l-117.2-64 121.7-210.8h153.2l-157.7 274.8z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition" aria-label="YouTube">
+                        <svg class="w-7 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.194 12 10 14.732V9.268L15.194 12Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <p class="mt-8" data-key="footerCopyright">&copy; 2025 China Medical Tour. 版权所有。</p>
+            <p class="text-sm text-gray-400 mt-2" data-key="footerDisclaimer">免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。</p>
         </div>
-        <p class="mt-8" data-key="footerCopyright">&copy; 2025 China Medical Tour. 版权所有。</p>
-        <p class="text-sm text-gray-400 mt-2" data-key="footerDisclaimer">免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。</p>
-    </div>
-</footer>
+    </footer>
 
-<script src="/assets/js/translations.js"></script>
-<script src="/assets/js/main.js"></script>
+    <script src="/assets/js/translations.js"></script>
+    <script src="/assets/js/main.js"></script>
     <!-- Modals for Package Details -->
-<!-- Elite Package Modal -->
-<div id="elite-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="eliteModalTitle">精英体检套餐 - 详细项目</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalGeneral">一般检查</h4>
-                <ul data-key="eliteModalGeneralItems">
-                    <li>身高、体重、血压、体重指数(BMI)</li>
-                    <li>内科、外科、眼科、耳鼻喉科检查</li>
-                </ul>
+    <!-- Elite Package Modal -->
+    <div id="elite-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="eliteModalTitle">精英体检套餐 - 详细项目</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalGeneral">一般检查</h4>
+                    <ul data-key="eliteModalGeneralItems">
+                        <li>身高、体重、血压、体重指数(BMI)</li>
+                        <li>内科、外科、眼科、耳鼻喉科检查</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalLab">实验室检查</h4>
+                    <ul data-key="eliteModalLabItems">
+                        <li>血常规、尿常规</li>
+                        <li>肝功能 (ALT, AST)</li>
+                        <li>肾功能 (BUN, Cr)</li>
+                        <li>血脂四项 (TC, TG, HDL, LDL)</li>
+                        <li>空腹血糖 (GLU)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalInstrument">仪器检查</h4>
+                    <ul data-key="eliteModalInstrumentItems">
+                        <li>静态心电图 (ECG)</li>
+                        <li>腹部超声 (肝、胆、胰、脾、双肾)</li>
+                        <li>胸部正位片</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalLab">实验室检查</h4>
-                <ul data-key="eliteModalLabItems">
-                    <li>血常规、尿常规</li>
-                    <li>肝功能 (ALT, AST)</li>
-                    <li>肾功能 (BUN, Cr)</li>
-                    <li>血脂四项 (TC, TG, HDL, LDL)</li>
-                    <li>空腹血糖 (GLU)</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalInstrument">仪器检查</h4>
-                <ul data-key="eliteModalInstrumentItems">
-                    <li>静态心电图 (ECG)</li>
-                    <li>腹部超声 (肝、胆、胰、脾、双肾)</li>
-                    <li>胸部正位片</li>
-                </ul>
-            </div>
+            <i data-lucide="x"
+                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
         </div>
-        <i data-lucide="x"
-            class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
     </div>
-</div>
-<!-- Platinum Package Modal -->
-<div id="platinum-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="platinumModalTitle">铂金深度套餐 - 详细项目</h3>
-        <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有精英套餐项目，并额外增加：</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepLab">深度实验室检查</h4>
-                <ul data-key="platinumModalDeepLabItems">
-                    <li>全套肝功能</li>
-                    <li>全套肾功能</li>
-                    <li>甲状腺功能三项 (T3, T4, TSH)</li>
-                    <li>风湿三项 (RF, ASO, CRP)</li>
-                    <li>同型半胱氨酸 (Hcy)</li>
-                </ul>
+    <!-- Platinum Package Modal -->
+    <div id="platinum-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="platinumModalTitle">铂金深度套餐 - 详细项目</h3>
+            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有精英套餐项目，并额外增加：</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepLab">深度实验室检查</h4>
+                    <ul data-key="platinumModalDeepLabItems">
+                        <li>全套肝功能</li>
+                        <li>全套肾功能</li>
+                        <li>甲状腺功能三项 (T3, T4, TSH)</li>
+                        <li>风湿三项 (RF, ASO, CRP)</li>
+                        <li>同型半胱氨酸 (Hcy)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalTumor">肿瘤标志物筛查</h4>
+                    <ul data-key="platinumModalTumorItems">
+                        <li>癌胚抗原 (CEA) - (广谱)</li>
+                        <li>甲胎蛋白 (AFP) - (肝癌)</li>
+                        <li>癌抗原 19-9 (CA19-9) - (消化道)</li>
+                        <li>癌抗原 125 (CA125) - (女性) / 前列腺特异性抗原 (PSA) - (男性)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepImaging">深度影像学检查</h4>
+                    <ul data-key="platinumModalDeepImagingItems">
+                        <li>颈动脉彩超</li>
+                        <li>甲状腺彩超</li>
+                        <li>泌尿系统超声 (双肾、输尿管、膀胱)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalSpecial">专项检查</h4>
+                    <ul data-key="platinumModalSpecialItems">
+                        <li>碳13或碳14呼气试验 (检测幽门螺旋杆菌)</li>
+                        <li>骨密度检测</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalTumor">肿瘤标志物筛查</h4>
-                <ul data-key="platinumModalTumorItems">
-                    <li>癌胚抗原 (CEA) - (广谱)</li>
-                    <li>甲胎蛋白 (AFP) - (肝癌)</li>
-                    <li>癌抗原 19-9 (CA19-9) - (消化道)</li>
-                    <li>癌抗原 125 (CA125) - (女性) / 前列腺特异性抗原 (PSA) - (男性)</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepImaging">深度影像学检查</h4>
-                <ul data-key="platinumModalDeepImagingItems">
-                    <li>颈动脉彩超</li>
-                    <li>甲状腺彩超</li>
-                    <li>泌尿系统超声 (双肾、输尿管、膀胱)</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalSpecial">专项检查</h4>
-                <ul data-key="platinumModalSpecialItems">
-                    <li>碳13或碳14呼气试验 (检测幽门螺旋杆菌)</li>
-                    <li>骨密度检测</li>
-                </ul>
-            </div>
+            <i data-lucide="x"
+                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
         </div>
-        <i data-lucide="x"
-            class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
     </div>
-</div>
-<!-- VIP Package Modal -->
-<div id="vip-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="vipModalTitle">VIP全面套餐 - 详细项目</h3>
-        <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有铂金套餐项目，并额外增加：</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalAdvancedImaging">高端影像学筛查
-                </h4>
-                <ul data-key="vipModalAdvancedImagingItems">
-                    <li>头部核磁共振 (MRI) (排除脑血管疾病及肿瘤)</li>
-                    <li>肺部低剂量螺旋CT (筛查早期肺癌)</li>
-                    <li>冠状动脉钙化积分 (评估冠心病风险)</li>
-                </ul>
+    <!-- VIP Package Modal -->
+    <div id="vip-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="vipModalTitle">VIP全面套餐 - 详细项目</h3>
+            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有铂金套餐项目，并额外增加：</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalAdvancedImaging">高端影像学筛查
+                    </h4>
+                    <ul data-key="vipModalAdvancedImagingItems">
+                        <li>头部核磁共振 (MRI) (排除脑血管疾病及肿瘤)</li>
+                        <li>肺部低剂量螺旋CT (筛查早期肺癌)</li>
+                        <li>冠状动脉钙化积分 (评估冠心病风险)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDigestive">消化道内镜检查</h4>
+                    <ul data-key="vipModalDigestiveItems">
+                        <li>无痛胃镜</li>
+                        <li>无痛肠镜</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalCardio">心血管评估</h4>
+                    <ul data-key="vipModalCardioItems">
+                        <li>心脏彩超</li>
+                        <li>24小时动态心电图 (如需要)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalFullLab">更全面的实验室检查</h4>
+                    <ul data-key="vipModalFullLabItems">
+                        <li>全套肿瘤标志物组合</li>
+                        <li>内分泌激素水平检测</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDigestive">消化道内镜检查</h4>
-                <ul data-key="vipModalDigestiveItems">
-                    <li>无痛胃镜</li>
-                    <li>无痛肠镜</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalCardio">心血管评估</h4>
-                <ul data-key="vipModalCardioItems">
-                    <li>心脏彩超</li>
-                    <li>24小时动态心电图 (如需要)</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalFullLab">更全面的实验室检查</h4>
-                <ul data-key="vipModalFullLabItems">
-                    <li>全套肿瘤标志物组合</li>
-                    <li>内分泌激素水平检测</li>
-                </ul>
-            </div>
+            <i data-lucide="x"
+                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
         </div>
-        <i data-lucide="x"
-            class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
     </div>
-</div>
 </body>
 
 </html>
