@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-        <html lang="en">
+<html lang="en">
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
-            <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
-            <meta name="description"
-                content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
+    <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
+    <meta name="description"
+        content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
 
-            <!-- Open Graph / Facebook -->
-            <meta property="og:type" content="website">
-            <meta property="og:url" content="https://chinamedicaltour.org/">
-            <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
-            <meta property="og:description"
-                content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
-            <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chinamedicaltour.org/">
+    <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta property="og:description"
+        content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+    <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
 
-            <!-- Twitter -->
-            <meta property="twitter:card" content="summary_large_image">
-            <meta property="twitter:url" content="https://chinamedicaltour.org/">
-            <meta property="twitter:title"
-                content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
-            <meta property="twitter:description"
-                content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
-            <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chinamedicaltour.org/">
+    <meta property="twitter:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta property="twitter:description"
+        content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+    <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
 
-            <!-- Schema.org JSON-LD -->
-            <script type="application/ld+json">
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
@@ -39,969 +38,793 @@
     }
     </script>
 
-            <!-- Tailwind CSS -->
-            <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-            <!-- Google Fonts: Inter -->
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-                rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-            <!-- Lucide Icons & Chart.js -->
-            <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
-            <script src="https://unpkg.com/lucide@latest"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <!-- Lucide Icons & Chart.js -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 
-            <!-- Custom CSS -->
-            <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
 
-        </head>
+</head>
 
-        <body class="text-gray-700">
-            <!-- Header & Navigation -->
-            <header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
-                <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-                    <a href="/" class="flex items-center space-x-3">
-                        <img src="/assets/images/logo.png" alt="China Medical Tour Logo" class="h-10 w-10">
-                        <span
-                            class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
-                            Medical Tour</span>
-                    </a>
-                    <div class="hidden md:flex space-x-6 items-center">
-                        <a href="/#about" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                            data-key="navAbout" data-section="about">About Us</a>
-                        <a href="/#services" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                            data-key="navServices" data-section="services">Services</a>
-                        <a href="/#travel" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                            data-key="navTravel" data-section="travel">Travel Services</a>
-                        <a href="/#culture" class="nav-link text-gray-600 hover:text-emerald-600 transition"
-                            data-key="navCulture" data-section="culture">Cultural Experience</a>
-                        <a href="/#contact"
-                            class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold"
-                            data-key="getQuote">Get a Quote</a>
+<body class="text-gray-700">
+    <!-- Header & Navigation -->
+    <header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="/assets/images/logo.png" alt="China Medical Tour Logo" class="h-10 w-10">
+                <span
+                    class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
+                    Medical Tour</span>
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="/#about" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navAbout"
+                    data-section="about">About Us</a>
+                <a href="/#services" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                    data-key="navServices" data-section="services">Services</a>
+                <a href="/#travel" class="nav-link text-gray-600 hover:text-emerald-600 transition" data-key="navTravel"
+                    data-section="travel">Travel Services</a>
+                <a href="/#culture" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                    data-key="navCulture" data-section="culture">Cultural Experience</a>
+                <a href="/#contact"
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold"
+                    data-key="getQuote">Get a Quote</a>
 
-                    </div>
-                    <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
-                </nav>
-                <!-- Mobile Menu -->
-                <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-                    <a href="/#about" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-                        data-key="navAbout" data-section="about">About Us</a>
-                    <a href="/#services" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-                        data-key="navServices" data-section="services">Services</a>
-                    <a href="/#travel" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-                        data-key="navTravel" data-section="travel">Travel Services</a>
-                    <a href="/#culture" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
-                        data-key="navCulture" data-section="culture">Cultural Experience</a>
-                    <a href="/#contact"
-                        class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 w-full text-center"
-                        data-key="getQuote">Get a Quote</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="/#about" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navAbout"
+                data-section="about">About Us</a>
+            <a href="/#services" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navServices"
+                data-section="services">Services</a>
+            <a href="/#travel" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navTravel"
+                data-section="travel">Travel Services</a>
+            <a href="/#culture" class="nav-link block py-2 text-gray-600 hover:text-emerald-600" data-key="navCulture"
+                data-section="culture">Cultural Experience</a>
+            <a href="/#contact"
+                class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 w-full text-center"
+                data-key="getQuote">Get a Quote</a>
 
-                </div>
-            </header>
+        </div>
+    </header>
 
-            <!-- Main Content -->
-            <main>
+    <!-- Main Content -->
+    <main>
 
-                <!-- Hero Section -->
-                <!-- Split Screen Hero Section -->
-                <section id="hero" class="relative">
-                    <div class="hero-split-container">
-                        <!-- Left Side: Medical Trust -->
-                        <div class="hero-side bg-teal-50 group">
-                            <img src="assets/images/hero_medical_placeholder.png"
-                                alt="Professional Medical Checkup in China" class="hero-bg-image">
-                            <div
-                                class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
-                                <div
-                                    class="inline-block bg-teal-600/10 text-teal-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-teal-200">
-                                    Trusted Healthcare</div>
-                                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                                    World-Class <span class="text-teal-600">Medical Care</span>
-                                </h1>
-                                <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
-                                    Save 70% on premium health checkups. JCI-accredited hospitals, expert specialists,
-                                    and
-                                    state-of-the-art technology.
-                                </p>
-                                <a href="#packages-teaser"
-                                    class="inline-block bg-teal-600 text-white px-8 py-3 rounded-full font-bold hover:bg-teal-700 transition shadow-lg transform hover:-translate-y-1">View
-                                    Medical Packages</a>
-                            </div>
-                        </div>
-
-                        <!-- Right Side: Cultural Adventure -->
-                        <div class="hero-side bg-amber-50 group">
-                            <img src="assets/images/hero_culture_placeholder.png" alt="Cultural Experience in China"
-                                class="hero-bg-image">
-                            <div
-                                class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
-                                <div
-                                    class="inline-block bg-amber-600/10 text-amber-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-amber-200">
-                                    Unforgettable Journey</div>
-                                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                                    Timeless <span class="text-amber-600">Culture</span>
-                                </h1>
-                                <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
-                                    Explore the Great Wall, savor authentic cuisine, and immerse yourself in thousands
-                                    of years of
-                                    history.
-                                </p>
-                                <a href="#culture"
-                                    class="mt-6 inline-block bg-white text-amber-600 px-8 py-3 rounded-full font-bold hover:bg-amber-50 transition shadow-lg">Explore
-                                    Activities</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Center Badge (Desktop Only) -->
-                    <div
-                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl hidden md:block">
+        <!-- Hero Section -->
+        <!-- Split Screen Hero Section -->
+        <section id="hero" class="relative">
+            <div class="hero-split-container">
+                <!-- Left Side: Medical Trust -->
+                <div class="hero-side bg-teal-50 group">
+                    <img src="assets/images/hero_medical_placeholder.png" alt="Professional Medical Checkup in China"
+                        class="hero-bg-image">
+                    <div class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
                         <div
-                            class="border-4 border-dashed border-gray-200 rounded-full p-2 w-24 h-24 flex flex-col justify-center items-center text-center">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Perfect</span>
-                            <span
-                                class="block text-xl font-black bg-gradient-to-r from-teal-600 to-amber-500 bg-clip-text text-transparent">BALANCE</span>
-                        </div>
+                            class="inline-block bg-teal-600/10 text-teal-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-teal-200">
+                            Trusted Healthcare</div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                            World-Class <span class="text-teal-600">Medical Care</span>
+                        </h1>
+                        <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
+                            Save 70% on premium health checkups. JCI-accredited hospitals, expert specialists,
+                            and
+                            state-of-the-art technology.
+                        </p>
+                        <a href="#packages-teaser"
+                            class="inline-block bg-teal-600 text-white px-8 py-3 rounded-full font-bold hover:bg-teal-700 transition shadow-lg transform hover:-translate-y-1">View
+                            Medical Packages</a>
                     </div>
-                </section>
+                </div>
 
-                <!-- Culture Planner Widget Section -->
-                <section class="relative -mt-10 z-40 container mx-auto px-4 mb-20">
-                    <div
-                        class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto transform hover:-translate-y-1 transition duration-300 border border-gray-100">
-                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-2 flex items-center">
-                                    <i data-lucide="map" class="w-6 h-6 mr-2 text-teal-600"></i>
-                                    Plan Your Trip
-                                </h3>
-                                <p class="text-gray-600">Customize your medical and cultural itinerary in seconds. Get
-                                    an instant quote
-                                    estimate.</p>
-                            </div>
-                            <a href="culture-planner.html" id="culture-planner-link"
-                                class="w-full md:w-auto bg-gradient-to-r from-teal-600 to-amber-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition flex items-center justify-center space-x-2 group">
-                                <i data-lucide="sparkles"
-                                    class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
-                                <span>Start Planning</span>
-                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                            </a>
-                        </div>
+                <!-- Right Side: Cultural Adventure -->
+                <div class="hero-side bg-amber-50 group">
+                    <img src="assets/images/hero_culture_placeholder.png" alt="Cultural Experience in China"
+                        class="hero-bg-image">
+                    <div class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
+                        <div
+                            class="inline-block bg-amber-600/10 text-amber-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-amber-200">
+                            Unforgettable Journey</div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                            Timeless <span class="text-amber-600">Culture</span>
+                        </h1>
+                        <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
+                            Explore the Great Wall, savor authentic cuisine, and immerse yourself in thousands
+                            of years of
+                            history.
+                        </p>
+                        <a href="#culture"
+                            class="mt-6 inline-block bg-white text-amber-600 px-8 py-3 rounded-full font-bold hover:bg-amber-50 transition shadow-lg">Explore
+                            Activities</a>
                     </div>
-                </section>
+                </div>
+            </div>
 
+            <!-- Center Badge (Desktop Only) -->
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl hidden md:block">
+                <div
+                    class="border-4 border-dashed border-gray-200 rounded-full p-2 w-24 h-24 flex flex-col justify-center items-center text-center">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Perfect</span>
+                    <span
+                        class="block text-xl font-black bg-gradient-to-r from-teal-600 to-amber-500 bg-clip-text text-transparent">BALANCE</span>
+                </div>
+            </div>
+        </section>
 
-
-                <!-- About Us Section (Revamped) -->
-                <section id="about" class="py-20 bg-white">
-                    <div class="container mx-auto px-6">
-                        <div class="text-center">
-                            <h2 class="section-title" data-key="aboutTitle">Why Choose China? Three Irresistible Reasons
-                            </h2>
-                            <p class="section-subtitle" data-key="aboutSubtitle">We reveal why a health screening in
-                                China is
-                                not just a smart choice, but the best investment in your health and time.</p>
-                        </div>
-
-                        <!-- Advantage 1: Cost -->
-                        <div class="mt-16 text-center mb-24">
-                            <div class="flex flex-col items-center">
-                                <div class="bg-blue-100 p-4 rounded-full mb-6">
-                                    <i data-lucide="dollar-sign" class="w-10 h-10 text-blue-600"></i>
-                                </div>
-                                <h3 class="text-3xl font-bold text-blue-900 mb-4" data-key="advantageCostTitle">1.
-                                    Unbeatable Value</h3>
-                                <p class="text-xl text-gray-600 max-w-3xl mb-12" data-key="advantageCostDesc">Same
-                                    quality, 70% less
-                                    cost. In the US, a comprehensive full-body checkup costs over <span
-                                        class="font-bold text-red-500">$5,000</span>. In China, our VIP package is only
-                                    <span class="font-bold text-green-600">$1,399</span>.</p>
-
-                                <!-- Price Comparison Visualization -->
-                                <div class="price-comparison-container max-w-xl mx-auto w-full mb-8">
-                                    <div
-                                        class="flex items-end justify-center space-x-12 h-64 border-b border-gray-200 pb-4 relative">
-                                        <!-- US Bar -->
-                                        <div class="flex flex-col items-center group w-32 relative">
-                                            <div
-                                                class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-xs py-1 px-2 rounded">
-                                                Avg. US Hospital Price</div>
-                                            <div class="text-2xl font-bold text-red-500 mb-2 dramatic-savings">$5,000+
-                                            </div>
-                                            <div class="w-24 bg-red-100 rounded-t-lg relative overflow-hidden price-bar-animation"
-                                                style="height: 200px; width: 80px;">
-                                                <div class="absolute bottom-0 left-0 w-full bg-red-400 transition-all duration-1000"
-                                                    style="height: 100%;"></div>
-                                            </div>
-                                            <div class="mt-4 font-bold text-gray-700 flex items-center"><img
-                                                    src="https://flagcdn.com/us.svg" width="20"
-                                                    class="mr-2 rounded-sm shadow-sm" alt="USA"> USA</div>
-                                        </div>
-
-                                        <!-- China Bar -->
-                                        <div class="flex flex-col items-center group w-32 relative">
-                                            <div
-                                                class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-xs py-1 px-2 rounded">
-                                                China Grade 3A Hospital</div>
-                                            <div class="text-2xl font-bold text-green-600 mb-2 dramatic-savings">$1,399
-                                            </div>
-                                            <div class="w-24 bg-green-100 rounded-t-lg relative overflow-hidden price-bar-animation"
-                                                style="height: 56px; width: 80px;">
-                                                <div class="absolute bottom-0 left-0 w-full bg-green-500 transition-all duration-1000"
-                                                    style="height: 100%;"></div>
-                                                <!-- Savings Badge -->
-                                                <div
-                                                    class="absolute -right-16 top-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full shadow-md savings-highlight transform rotate-12">
-                                                    Save 70%</div>
-                                            </div>
-                                            <div class="mt-4 font-bold text-gray-700 flex items-center"><img
-                                                    src="https://flagcdn.com/cn.svg" width="20"
-                                                    class="mr-2 rounded-sm shadow-sm" alt="China"> China</div>
-                                        </div>
-                                    </div>
-                                    <p class="text-sm text-gray-400 mt-4 italic text-center">*Price comparison for
-                                        comparable
-                                        comprehensive health screening packages.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Advantage 2: Efficiency (Chart) -->
-                        <div class="mt-24 grid md:grid-cols-2 gap-12 items-center mb-24">
-                            <div class="order-2 md:order-1 relative">
-                                <canvas id="efficiencyChart" class="w-full h-80"></canvas>
-                                <div
-                                    class="absolute top-4 right-4 bg-white/90 p-3 rounded-lg shadow-sm backdrop-blur-sm border border-gray-100 text-sm hidden md:block">
-                                    <div class="flex items-center mb-1"><span
-                                            class="w-3 h-3 rounded-full bg-amber-400 mr-2"></span>Appointment Wait</div>
-                                    <div class="flex items-center mb-1"><span
-                                            class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>Checkup Duration</div>
-                                    <div class="flex items-center"><span
-                                            class="w-3 h-3 rounded-full bg-red-400 mr-2"></span>Results
-                                        Wait</div>
-                                </div>
-                            </div>
-                            <div class="order-1 md:order-2">
-                                <div
-                                    class="bg-amber-100 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-                                    <i data-lucide="zap" class="w-7 h-7 text-amber-600"></i>
-                                </div>
-                                <h3 class="text-3xl font-bold text-amber-900 mb-4" data-key="advantageEfficiencyTitle">
-                                    2. Incredible
-                                    Efficiency</h3>
-                                <p class="text-lg text-gray-600 leading-relaxed" data-key="advantageEfficiencyDesc">
-                                    In the US, you wait <span class="font-bold text-gray-800">months</span> for an
-                                    appointment and weeks
-                                    for results.
-                                    In China, we arrange everything in <span
-                                        class="font-bold text-gray-800">days</span>.
-                                    You get your digital report on the same day. No waiting, no anxiety.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Advantage 3: Technology -->
-                        <div class="mt-24 grid md:grid-cols-2 gap-12 items-center">
-                            <div>
-                                <div
-                                    class="bg-green-100 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-                                    <i data-lucide="activity" class="w-7 h-7 text-green-600"></i>
-                                </div>
-                                <h3 class="text-3xl font-bold text-green-900 mb-4" data-key="whyGrade3Title">3.
-                                    World-Class Hospitals
-                                </h3>
-                                <p class="text-lg text-gray-600 mb-6" data-key="grade2Desc">We partner exclusively with
-                                    "Grade 3A"
-                                    hospitals—the gold standard of Chinese healthcare.</p>
-                                <ul class="space-y-4">
-                                    <li class="flex items-start">
-                                        <i data-lucide="check-circle"
-                                            class="w-6 h-6 text-green-500 mr-3 mt-0.5 shrink-0"></i>
-                                        <span class="text-gray-700 text-lg" data-key="grade3Benefit1">Same equipment as
-                                            Mayo Clinic
-                                            (Siemens, GE, Philips)</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i data-lucide="check-circle"
-                                            class="w-6 h-6 text-green-500 mr-3 mt-0.5 shrink-0"></i>
-                                        <span class="text-gray-700 text-lg" data-key="grade3Benefit2">Doctors with
-                                            international
-                                            experience</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i data-lucide="check-circle"
-                                            class="w-6 h-6 text-green-500 mr-3 mt-0.5 shrink-0"></i>
-                                        <span class="text-gray-700 text-lg" data-key="grade3Benefit4">English-speaking
-                                            VIP
-                                            departments</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="bg-gray-100 rounded-2xl p-6 relative">
-                                <!-- Simple Hospital Tier Visualization -->
-                                <div class="space-y-4">
-                                    <div
-                                        class="bg-white p-6 rounded-xl shadow-lg border-l-8 border-green-500 transform scale-105 transition-transform">
-                                        <h4 class="font-bold text-xl text-green-800 flex justify-between">
-                                            Grade 3A (Our Partner)
-                                            <div class="flex text-amber-400">
-                                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                            </div>
-                                        </h4>
-                                        <p class="text-gray-600 mt-2 text-sm">National top-tier centers. Comparable to
-                                            University
-                                            Hospitals in US/UK.</p>
-                                    </div>
-                                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 opacity-60">
-                                        <h4 class="font-bold text-gray-500">Grade 2 (Regional)</h4>
-                                    </div>
-                                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 opacity-40">
-                                        <h4 class="font-bold text-gray-500">Grade 1 (Local Community)</h4>
-                                    </div>
-                                </div>
-                                <p class="text-center text-xs text-gray-400 mt-4">We strictly avoid Grade 1 & 2
-                                    facilities.</p>
-                            </div>
-                        </div>
+        <!-- Culture Planner Widget Section -->
+        <section class="relative -mt-10 z-40 container mx-auto px-4 mb-20">
+            <div
+                class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto transform hover:-translate-y-1 transition duration-300 border border-gray-100">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2 flex items-center">
+                            <i data-lucide="map" class="w-6 h-6 mr-2 text-teal-600"></i>
+                            Plan Your Trip
+                        </h3>
+                        <p class="text-gray-600">Customize your medical and cultural itinerary in seconds. Get
+                            an instant quote
+                            estimate.</p>
                     </div>
-                </section>
+                    <a href="culture-planner.html" id="culture-planner-link"
+                        class="w-full md:w-auto bg-gradient-to-r from-teal-600 to-amber-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition flex items-center justify-center space-x-2 group">
+                        <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                        <span>Start Planning</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                <!-- Packages Teaser Section -->
-                <section id="packages-teaser" class="py-20 bg-gray-50">
-                    <div class="container mx-auto px-6">
-                        <div class="text-center mb-16">
-                            <h2 class="section-title">Our Medical Packages</h2>
-                            <p class="section-subtitle">Choose from our range of comprehensive health checkup packages
-                                designed for
-                                international visitors.</p>
+
+
+        <!-- About Us Section (Revamped) -->
+        <section id="about" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="aboutTitle">Why Choose China? Three Irresistible Reasons
+                    </h2>
+                    <p class="section-subtitle" data-key="aboutSubtitle">We reveal why a health screening in
+                        China is
+                        not just a smart choice, but the best investment in your health and time.</p>
+                </div>
+
+                <!-- Advantage 1: Cost -->
+                <div class="mt-16 text-center mb-24">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-blue-100 p-4 rounded-full mb-6">
+                            <i data-lucide="dollar-sign" class="w-10 h-10 text-blue-600"></i>
                         </div>
+                        <h3 class="text-3xl font-bold text-blue-900 mb-4" data-key="advantageCostTitle">1.
+                            Unbeatable Value</h3>
+                        <p class="text-xl text-gray-600 max-w-3xl mb-12" data-key="advantageCostDesc">Same
+                            quality, 70% less
+                            cost. In the US, a comprehensive full-body checkup costs over <span
+                                class="font-bold text-red-500">$5,000</span>. In China, our VIP package is only
+                            <span class="font-bold text-green-600">$1,399</span>.
+                        </p>
 
-                        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                            <!-- Basic Teaser -->
-                            <div class="card p-8 flex flex-col hover:-translate-y-2 transition duration-300">
-                                <h3 class="text-2xl font-bold text-teal-600 mb-4">Basic</h3>
-                                <p class="text-4xl font-bold text-gray-800 mb-2"><span
-                                        class="text-sm font-normal text-gray-500 mr-1">from</span>$299</p>
-                                <p class="text-gray-500 mb-6">Standard health check, perfect for annual physicals.</p>
-                                <ul class="text-sm space-y-2 mb-8 flex-grow">
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Doctor
-                                        Consultation</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Vital
-                                        Signs & ECG</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Basic
-                                        Lab Panel</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i>
-                                        Ultrasound Screening</li>
-                                </ul>
-                                <a href="/packages.html#basic-package"
-                                    class="text-teal-600 font-semibold hover:text-teal-700 flex items-center justify-center">View
-                                    Full
-                                    Details <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
-                            </div>
-
-                            <!-- Elite Teaser -->
+                        <!-- Price Comparison Visualization -->
+                        <div class="price-comparison-container max-w-xl mx-auto w-full mb-8">
                             <div
-                                class="card p-8 flex flex-col border-2 border-blue-600 relative transform md:-translate-y-4 hover:-translate-y-6 transition duration-300 shadow-xl">
-                                <div
-                                    class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                                    Most Popular</div>
-                                <h3 class="text-2xl font-bold text-blue-600 mb-4">Elite</h3>
-                                <p class="text-4xl font-bold text-gray-800 mb-2"><span
-                                        class="text-sm font-normal text-gray-500 mr-1">from</span>$599</p>
-                                <p class="text-gray-500 mb-6">Includes vital organ CTs and cancer marker screenings.</p>
-                                <ul class="text-sm space-y-2 mb-8 flex-grow">
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i>
-                                        <strong>Everything in Basic</strong>
-                                    </li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Chest
-                                        CT & Thyroid Ultrasound</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Tumor
-                                        Marker Screening (CEA, AFP, etc.)</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Bone
-                                        Density Scan</li>
-                                </ul>
-                                <a href="/packages.html#elite-package"
-                                    class="bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center">View
-                                    Full Details</a>
-                            </div>
+                                class="flex items-end justify-center space-x-12 h-64 border-b border-gray-200 pb-4 relative">
+                                <!-- US Bar -->
+                                <div class="flex flex-col items-center group w-32 relative">
+                                    <div
+                                        class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-xs py-1 px-2 rounded">
+                                        Avg. US Hospital Price</div>
+                                    <div class="text-2xl font-bold text-red-500 mb-2 dramatic-savings">$5,000+
+                                    </div>
+                                    <div class="w-24 bg-red-100 rounded-t-lg relative overflow-hidden price-bar-animation"
+                                        style="height: 200px; width: 80px;">
+                                        <div class="absolute bottom-0 left-0 w-full bg-red-400 transition-all duration-1000"
+                                            style="height: 100%;"></div>
+                                    </div>
+                                    <div class="mt-4 font-bold text-gray-700 flex items-center"><img
+                                            src="https://flagcdn.com/us.svg" width="20"
+                                            class="mr-2 rounded-sm shadow-sm" alt="USA"> USA</div>
+                                </div>
 
-                            <!-- VIP Teaser -->
-                            <div class="card p-8 flex flex-col hover:-translate-y-2 transition duration-300">
-                                <h3 class="text-2xl font-bold text-purple-600 mb-4">VIP</h3>
-                                <p class="text-4xl font-bold text-gray-800 mb-2"><span
-                                        class="text-sm font-normal text-gray-500 mr-1">from</span>$1,399</p>
-                                <p class="text-gray-500 mb-6">Deep cardiovascular assessment and genetic testing.</p>
-                                <ul class="text-sm space-y-2 mb-8 flex-grow">
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i>
-                                        <strong>Everything in Elite</strong>
-                                    </li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i> Head
-                                        MRI & Coronary CTA</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i>
-                                        Painless Gastroscopy & Colonoscopy</li>
-                                    <li class="flex items-center"><i data-lucide="check"
-                                            class="w-4 h-4 text-green-500 mr-2"></i>
-                                        Genetic Risk Screening</li>
-                                </ul>
-                                <a href="/packages.html#vip-package"
-                                    class="text-purple-600 font-semibold hover:text-purple-700 flex items-center justify-center">View
-                                    Full Details <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                                <!-- China Bar -->
+                                <div class="flex flex-col items-center group w-32 relative">
+                                    <div
+                                        class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-xs py-1 px-2 rounded">
+                                        China Grade 3A Hospital</div>
+                                    <div class="text-2xl font-bold text-green-600 mb-2 dramatic-savings">$1,399
+                                    </div>
+                                    <div class="w-24 bg-green-100 rounded-t-lg relative overflow-hidden price-bar-animation"
+                                        style="height: 56px; width: 80px;">
+                                        <div class="absolute bottom-0 left-0 w-full bg-green-500 transition-all duration-1000"
+                                            style="height: 100%;"></div>
+                                        <!-- Savings Badge -->
+                                        <div
+                                            class="absolute -right-16 top-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full shadow-md savings-highlight transform rotate-12">
+                                            Save 70%</div>
+                                    </div>
+                                    <div class="mt-4 font-bold text-gray-700 flex items-center"><img
+                                            src="https://flagcdn.com/cn.svg" width="20"
+                                            class="mr-2 rounded-sm shadow-sm" alt="China"> China</div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="text-center mt-12">
-                            <a href="/packages.html"
-                                class="inline-block border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-full font-bold hover:bg-teal-600 hover:text-white transition">Compare
-                                All Packages</a>
+                            <p class="text-sm text-gray-400 mt-4 italic text-center">*Price comparison for
+                                comparable
+                                comprehensive health screening packages.</p>
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- Stories Teaser Section -->
-                <section class="py-20 bg-white">
-                    <div class="container mx-auto px-6 text-center">
-                        <h2 class="section-title">Real Patient Stories</h2>
-                        <p class="section-subtitle mb-12">See why patients from over 30 countries trust us with their
-                            health.</p>
+                <!-- Advantage 2: Efficiency (Chart) -->
+                <div class="mt-24 grid md:grid-cols-2 gap-12 items-center mb-24">
+                    <div class="order-2 md:order-1 relative">
+                        <canvas id="efficiencyChart" class="w-full h-80"></canvas>
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 p-3 rounded-lg shadow-sm backdrop-blur-sm border border-gray-100 text-sm hidden md:block">
+                            <div class="flex items-center mb-1"><span
+                                    class="w-3 h-3 rounded-full bg-amber-400 mr-2"></span>Appointment Wait</div>
+                            <div class="flex items-center mb-1"><span
+                                    class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>Checkup Duration</div>
+                            <div class="flex items-center"><span
+                                    class="w-3 h-3 rounded-full bg-red-400 mr-2"></span>Results
+                                Wait</div>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <div class="bg-amber-100 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+                            <i data-lucide="zap" class="w-7 h-7 text-amber-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-amber-900 mb-4" data-key="advantageEfficiencyTitle">
+                            2. Incredible
+                            Efficiency</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed" data-key="advantageEfficiencyDesc">
+                            In the US, you wait <span class="font-bold text-gray-800">months</span> for an
+                            appointment and weeks
+                            for results.
+                            In China, we arrange everything in <span class="font-bold text-gray-800">days</span>.
+                            You get your digital report on the same day. No waiting, no anxiety.
+                        </p>
+                    </div>
+                </div>
 
-                        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
-                            <div class="p-6 bg-gray-50 rounded-xl">
-                                <div class="flex items-center justify-center mb-4">
+                <!-- Advantage 3: Technology -->
+                <div class="mt-24 grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="bg-green-100 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+                            <i data-lucide="activity" class="w-7 h-7 text-green-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-green-900 mb-4" data-key="whyGrade3Title">3.
+                            World-Class Hospitals
+                        </h3>
+                        <p class="text-lg text-gray-600 mb-6" data-key="grade2Desc">We partner exclusively with
+                            "Grade 3A"
+                            hospitals—the gold standard of Chinese healthcare.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 shrink-0"></i>
+                                <span class="text-gray-700 text-lg" data-key="grade3Benefit1">Same equipment as
+                                    Mayo Clinic
+                                    (Siemens, GE, Philips)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 shrink-0"></i>
+                                <span class="text-gray-700 text-lg" data-key="grade3Benefit2">Doctors with
+                                    international
+                                    experience</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 shrink-0"></i>
+                                <span class="text-gray-700 text-lg" data-key="grade3Benefit4">English-speaking
+                                    VIP
+                                    departments</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-100 rounded-2xl p-6 relative">
+                        <!-- Simple Hospital Tier Visualization -->
+                        <div class="space-y-4">
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-lg border-l-8 border-green-500 transform scale-105 transition-transform">
+                                <h4 class="font-bold text-xl text-green-800 flex justify-between">
+                                    Grade 3A (Our Partner)
                                     <div class="flex text-amber-400">
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
                                     </div>
-                                </div>
-                                <p class="italic text-gray-600 mb-4">"The efficiency was incredible. I got a full
-                                    cardiac workup and
-                                    visited the Great Wall..."</p>
-                                <p class="font-bold text-gray-900">- Michael, UK</p>
+                                </h4>
+                                <p class="text-gray-600 mt-2 text-sm">National top-tier centers. Comparable to
+                                    University
+                                    Hospitals in US/UK.</p>
                             </div>
-                            <div class="p-6 bg-gray-50 rounded-xl hidden md:block">
-                                <div class="flex items-center justify-center mb-4">
-                                    <div class="flex text-amber-400">
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                    </div>
-                                </div>
-                                <p class="italic text-gray-600 mb-4">"Medical technology is truly world-class. I felt
-                                    completely safe."
-                                </p>
-                                <p class="font-bold text-gray-900">- Sarah, USA</p>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 opacity-60">
+                                <h4 class="font-bold text-gray-500">Grade 2 (Regional)</h4>
                             </div>
-                            <div class="p-6 bg-gray-50 rounded-xl hidden md:block">
-                                <div class="flex items-center justify-center mb-4">
-                                    <div class="flex text-amber-400">
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                    </div>
-                                </div>
-                                <p class="italic text-gray-600 mb-4">"Combining health check with pandas was the best
-                                    decision!"</p>
-                                <p class="font-bold text-gray-900">- Elena, Australia</p>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 opacity-40">
+                                <h4 class="font-bold text-gray-500">Grade 1 (Local Community)</h4>
                             </div>
                         </div>
+                        <p class="text-center text-xs text-gray-400 mt-4">We strictly avoid Grade 1 & 2
+                            facilities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <a href="/stories.html"
-                            class="inline-flex items-center text-teal-600 font-bold hover:text-teal-700 text-lg">
-                            Watch Video Testimonials <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+        <!-- Packages Teaser Section -->
+        <section id="packages-teaser" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="section-title">Our Medical Packages</h2>
+                    <p class="section-subtitle">Choose from our range of comprehensive health checkup packages
+                        designed for
+                        international visitors.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Basic Teaser -->
+                    <div class="card p-8 flex flex-col hover:-translate-y-2 transition duration-300">
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">Basic</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2"><span
+                                class="text-sm font-normal text-gray-500 mr-1">from</span>$299</p>
+                        <p class="text-gray-500 mb-6">Standard health check, perfect for annual physicals.</p>
+                        <ul class="text-sm space-y-2 mb-8 flex-grow">
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Doctor
+                                Consultation</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Vital
+                                Signs & ECG</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Basic
+                                Lab Panel</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i>
+                                Ultrasound Screening</li>
+                        </ul>
+                        <a href="/packages.html#basic-package"
+                            class="text-teal-600 font-semibold hover:text-teal-700 flex items-center justify-center">View
+                            Full
+                            Details <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                    </div>
+
+                    <!-- Elite Teaser -->
+                    <div
+                        class="card p-8 flex flex-col border-2 border-blue-600 relative transform md:-translate-y-4 hover:-translate-y-6 transition duration-300 shadow-xl">
+                        <div
+                            class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Most Popular</div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Elite</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2"><span
+                                class="text-sm font-normal text-gray-500 mr-1">from</span>$599</p>
+                        <p class="text-gray-500 mb-6">Includes vital organ CTs and cancer marker screenings.</p>
+                        <ul class="text-sm space-y-2 mb-8 flex-grow">
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i>
+                                <strong>Everything in Basic</strong>
+                            </li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Chest
+                                CT & Thyroid Ultrasound</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Tumor
+                                Marker Screening (CEA, AFP, etc.)</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Bone
+                                Density Scan</li>
+                        </ul>
+                        <a href="/packages.html#elite-package"
+                            class="bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center">View
+                            Full Details</a>
+                    </div>
+
+                    <!-- VIP Teaser -->
+                    <div class="card p-8 flex flex-col hover:-translate-y-2 transition duration-300">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">VIP</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2"><span
+                                class="text-sm font-normal text-gray-500 mr-1">from</span>$1,399</p>
+                        <p class="text-gray-500 mb-6">Deep cardiovascular assessment and genetic testing.</p>
+                        <ul class="text-sm space-y-2 mb-8 flex-grow">
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i>
+                                <strong>Everything in Elite</strong>
+                            </li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i> Head
+                                MRI & Coronary CTA</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i>
+                                Painless Gastroscopy & Colonoscopy</li>
+                            <li class="flex items-center"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-500 mr-2"></i>
+                                Genetic Risk Screening</li>
+                        </ul>
+                        <a href="/packages.html#vip-package"
+                            class="text-purple-600 font-semibold hover:text-purple-700 flex items-center justify-center">View
+                            Full Details <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="/packages.html"
+                        class="inline-block border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-full font-bold hover:bg-teal-600 hover:text-white transition">Compare
+                        All Packages</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stories Teaser Section -->
+        <section class="py-20 bg-white">
+            Watch Video Testimonials <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+            </a>
+            </div>
+        </section>
+
+        <!-- Real Patient Stories Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title">Real Patient Stories</h2>
+                <p class="section-subtitle mb-12">See why patients from over 30 countries trust us with their
+                    health.</p>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+                    <!-- Sarah -->
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl shadow-lg flex flex-col items-center text-center hover:-translate-y-2 transition duration-300">
+                        <img src="assets/images/patient_sarah_placeholder.png" alt="Sarah"
+                            class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-teal-50 shadow-md">
+                        <div class="flex text-amber-400 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 italic mb-6">"I was nervous at first, but the team made everything so
+                            easy. The medical technology is truly world-class."</p>
+                        <h4 class="font-bold text-gray-900">Sarah, 45</h4>
+                        <p class="text-sm text-teal-600 font-medium">USA</p>
+                    </div>
+
+                    <!-- Michael -->
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl shadow-lg flex flex-col items-center text-center hover:-translate-y-2 transition duration-300">
+                        <img src="assets/images/patient_michael_placeholder.png" alt="Michael"
+                            class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-teal-50 shadow-md">
+                        <div class="flex text-amber-400 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 italic mb-6">"The efficiency was incredible. I got a full cardiac workup
+                            and visited the Great Wall in the same week."</p>
+                        <h4 class="font-bold text-gray-900">Michael, 55</h4>
+                        <p class="text-sm text-teal-600 font-medium">UK</p>
+                    </div>
+
+                    <!-- Elena -->
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl shadow-lg flex flex-col items-center text-center hover:-translate-y-2 transition duration-300">
+                        <img src="assets/images/patient_elena_placeholder.png" alt="Elena"
+                            class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-teal-50 shadow-md">
+                        <div class="flex text-amber-400 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-600 italic mb-6">"Combining my health check with a tour of Chengdu's panda
+                            base was the best decision. Professional and fun!"</p>
+                        <h4 class="font-bold text-gray-900">Elena, 38</h4>
+                        <p class="text-sm text-teal-600 font-medium">Australia</p>
+                    </div>
+                </div>
+
+                <a href="/stories.html"
+                    class="inline-flex items-center text-teal-600 font-bold hover:text-teal-700 text-lg">
+                    Watch Video Testimonials <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Travel Services Section (Kept for homepage presence) -->
+        <section id="travel" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="travelTitle">Hassle-Free Travel & Unforgettable Journeys
+                    </h2>
+                    <p class="section-subtitle" data-key="travelSubtitle">From visas to itineraries, we plan
+                        everything so you
+                        can focus on your health and exploration.</p>
+                </div>
+                <!-- Visa Section -->
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-center text-gray-700" data-key="visaTitle">Easy Entry:
+                        Understanding the
+                        Latest Visa Policies</h3>
+                    <div class="grid md:grid-cols-3 gap-8 mt-8 max-w-7xl mx-auto">
+                        <div class="advantage-card text-center">
+                            <i data-lucide="plane" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="visaType1Title">15/30-Day Visa-Free
+                                Entry</h4>
+                            <p class="text-gray-600 mt-2" data-key="visaType1Desc">Ideal for short-term
+                                procedures like health
+                                check-ups. Available to citizens of France, Germany, Spain, Australia, and more.
+                            </p>
+                        </div>
+                        <div class="advantage-card text-center">
+                            <i data-lucide="map-pinned" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="visaType2Title">144-Hour Transit
+                                Visa-Free</h4>
+                            <p class="text-gray-600 mt-2" data-key="visaType2Desc">Perfect for a 6-day health
+                                trip. Available to
+                                citizens from 54 countries including US, UK, and Canada when transiting.</p>
+                        </div>
+                        <div class="advantage-card text-center">
+                            <i data-lucide="file-text" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h4 class="text-xl font-semibold" data-key="visaType3Title">Medical Visa Support
+                            </h4>
+                            <p class="text-gray-600 mt-2" data-key="visaType3Desc">For longer treatments, we
+                                provide the
+                                official hospital invitation letter to facilitate your visa application.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cultural Experience Section (Kept as teaser/tabs) -->
+        <section id="culture" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="section-title" data-key="cultureTitle">Deep Cultural Experience</h2>
+                    <p class="section-subtitle" data-key="cultureSubtitle">Immerse yourself in China's rich
+                        cultural heritage
+                        while receiving world-class medical care.</p>
+                </div>
+
+                <!-- Cultural Experience Tabs -->
+                <div class="mt-16 max-w-6xl mx-auto">
+                    <div class="flex border-b">
+                        <button
+                            class="culture-tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition active"
+                            data-culture-tab="beijing" data-key="cultureTabBeijing">🏛️ Beijing</button>
+                        <button
+                            class="culture-tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition"
+                            data-culture-tab="chengdu" data-key="cultureTabChengdu">🐼 Chengdu</button>
+                    </div>
+
+                    <!-- Beijing Cultural Experience Tab -->
+                    <div class="culture-tab-content py-8" id="beijing-culture-content">
+                        <div class="text-center mb-12">
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="beijingCultureTitle">
+                                Imperial Heritage
+                            </h3>
+                            <p class="text-lg text-gray-600 max-w-4xl mx-auto" data-key="beijingCultureSubtitle">
+                                Discover the
+                                heart of Chinese civilization with exclusive tours to the Forbidden City and
+                                Great Wall.</p>
+                        </div>
+                        <!-- Simple Grid for Beijing -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                            <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
+                                <img src="https://img0.baidu.com/it/u=3913327541,1167032953&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=784"
+                                    alt="Forbidden City" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h4 class="font-bold text-gray-800">Forbidden City</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Home to 24 emperors for nearly 500
+                                        years.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
+                                <img src="https://img1.baidu.com/it/u=1529725711,3405021509&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1422"
+                                    alt="Summer Palace" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h4 class="font-bold text-gray-800">Summer Palace</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Masterpiece of Chinese landscape
+                                        garden design.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
+                                <img src="https://img2.baidu.com/it/u=2236894060,335934674&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=800"
+                                    alt="Temple of Heaven" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h4 class="font-bold text-gray-800">Temple of Heaven</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Imperial sacrificial altar in a vast
+                                        park.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chengdu Cultural Experience Tab -->
+                    <div class="culture-tab-content py-8 hidden" id="chengdu-culture-content">
+                        <div class="text-center mb-12">
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="chengduCultureTitle">
+                                Pandas & Flavor
+                            </h3>
+                            <p class="text-lg text-gray-600 max-w-4xl mx-auto" data-key="chengduCultureSubtitle">Relax
+                                in the
+                                land of abundance with adorable giant pandas and world-famous Sichuan cuisine.
+                            </p>
+                        </div>
+                        <!-- Simple Grid for Chengdu -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                            <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
+                                <img src="https://img2.baidu.com/it/u=2735639649,3849503463&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
+                                    alt="Pandas" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h4 class="font-bold text-gray-800">Giant Panda Base</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Get up close with China's national
+                                        treasure.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
+                                <img src="https://img1.baidu.com/it/u=2548842918,1716912384&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500"
+                                    alt="Kuanzhai Alley" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h4 class="font-bold text-gray-800">Kuanzhai Alley</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Ancient Qing dynasty streets with tea
+                                        houses.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
+                                <img src="https://img2.baidu.com/it/u=130758102,2497896321&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=750"
+                                    alt="Mahjong" class="w-full h-48 object-cover">
+                                <div class="p-6">
+                                    <h4 class="font-bold text-gray-800">Local Life</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Experience the relaxed Sichuan
+                                        lifestyle.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="culture-planner.html"
+                            class="inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition shadow-lg border border-green-200">
+                            <i data-lucide="calculator" class="w-6 h-6 mr-3"></i>
+                            <span>Plan Your Cultural Itinerary</span>
                         </a>
                     </div>
-                </section>
 
-                <!-- Travel Services Section (Kept for homepage presence) -->
-                <section id="travel" class="py-20 bg-gray-50">
-                    <div class="container mx-auto px-6">
-                        <div class="text-center">
-                            <h2 class="section-title" data-key="travelTitle">Hassle-Free Travel & Unforgettable Journeys
-                            </h2>
-                            <p class="section-subtitle" data-key="travelSubtitle">From visas to itineraries, we plan
-                                everything so you
-                                can focus on your health and exploration.</p>
-                        </div>
-                        <!-- Visa Section -->
-                        <div class="mt-16">
-                            <h3 class="text-2xl font-bold text-center text-gray-700" data-key="visaTitle">Easy Entry:
-                                Understanding the
-                                Latest Visa Policies</h3>
-                            <div class="grid md:grid-cols-3 gap-8 mt-8 max-w-7xl mx-auto">
-                                <div class="advantage-card text-center">
-                                    <i data-lucide="plane" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
-                                    <h4 class="text-xl font-semibold" data-key="visaType1Title">15/30-Day Visa-Free
-                                        Entry</h4>
-                                    <p class="text-gray-600 mt-2" data-key="visaType1Desc">Ideal for short-term
-                                        procedures like health
-                                        check-ups. Available to citizens of France, Germany, Spain, Australia, and more.
-                                    </p>
-                                </div>
-                                <div class="advantage-card text-center">
-                                    <i data-lucide="map-pinned" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
-                                    <h4 class="text-xl font-semibold" data-key="visaType2Title">144-Hour Transit
-                                        Visa-Free</h4>
-                                    <p class="text-gray-600 mt-2" data-key="visaType2Desc">Perfect for a 6-day health
-                                        trip. Available to
-                                        citizens from 54 countries including US, UK, and Canada when transiting.</p>
-                                </div>
-                                <div class="advantage-card text-center">
-                                    <i data-lucide="file-text" class="w-12 h-12 text-blue-600 mx-auto mb-3"></i>
-                                    <h4 class="text-xl font-semibold" data-key="visaType3Title">Medical Visa Support
-                                    </h4>
-                                    <p class="text-gray-600 mt-2" data-key="visaType3Desc">For longer treatments, we
-                                        provide the
-                                        official hospital invitation letter to facilitate your visa application.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Cultural Experience Section (Kept as teaser/tabs) -->
-                <section id="culture" class="py-20 bg-white">
-                    <div class="container mx-auto px-6">
-                        <div class="text-center">
-                            <h2 class="section-title" data-key="cultureTitle">Deep Cultural Experience</h2>
-                            <p class="section-subtitle" data-key="cultureSubtitle">Immerse yourself in China's rich
-                                cultural heritage
-                                while receiving world-class medical care.</p>
-                        </div>
-
-                        <!-- Cultural Experience Tabs -->
-                        <div class="mt-16 max-w-6xl mx-auto">
-                            <div class="flex border-b">
-                                <button
-                                    class="culture-tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition active"
-                                    data-culture-tab="beijing" data-key="cultureTabBeijing">🏛️ Beijing</button>
-                                <button
-                                    class="culture-tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-500 border-b-2 border-transparent transition"
-                                    data-culture-tab="chengdu" data-key="cultureTabChengdu">🐼 Chengdu</button>
-                            </div>
-
-                            <!-- Beijing Cultural Experience Tab -->
-                            <div class="culture-tab-content py-8" id="beijing-culture-content">
-                                <div class="text-center mb-12">
-                                    <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="beijingCultureTitle">
-                                        Imperial Heritage
-                                    </h3>
-                                    <p class="text-lg text-gray-600 max-w-4xl mx-auto"
-                                        data-key="beijingCultureSubtitle">Discover the
-                                        heart of Chinese civilization with exclusive tours to the Forbidden City and
-                                        Great Wall.</p>
-                                </div>
-                                <!-- Simple Grid for Beijing -->
-                                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                                    <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
-                                        <img src="https://img0.baidu.com/it/u=3913327541,1167032953&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=784"
-                                            alt="Forbidden City" class="w-full h-48 object-cover">
-                                        <div class="p-6">
-                                            <h4 class="font-bold text-gray-800">Forbidden City</h4>
-                                            <p class="text-sm text-gray-600 mt-2">Home to 24 emperors for nearly 500
-                                                years.</p>
-                                        </div>
-                                    </div>
-                                    <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
-                                        <img src="https://img1.baidu.com/it/u=1529725711,3405021509&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1422"
-                                            alt="Summer Palace" class="w-full h-48 object-cover">
-                                        <div class="p-6">
-                                            <h4 class="font-bold text-gray-800">Summer Palace</h4>
-                                            <p class="text-sm text-gray-600 mt-2">Masterpiece of Chinese landscape
-                                                garden design.</p>
-                                        </div>
-                                    </div>
-                                    <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
-                                        <img src="https://img2.baidu.com/it/u=2236894060,335934674&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=800"
-                                            alt="Temple of Heaven" class="w-full h-48 object-cover">
-                                        <div class="p-6">
-                                            <h4 class="font-bold text-gray-800">Temple of Heaven</h4>
-                                            <p class="text-sm text-gray-600 mt-2">Imperial sacrificial altar in a vast
-                                                park.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Chengdu Cultural Experience Tab -->
-                            <div class="culture-tab-content py-8 hidden" id="chengdu-culture-content">
-                                <div class="text-center mb-12">
-                                    <h3 class="text-3xl font-bold text-gray-800 mb-4" data-key="chengduCultureTitle">
-                                        Pandas & Flavor
-                                    </h3>
-                                    <p class="text-lg text-gray-600 max-w-4xl mx-auto"
-                                        data-key="chengduCultureSubtitle">Relax in the
-                                        land of abundance with adorable giant pandas and world-famous Sichuan cuisine.
-                                    </p>
-                                </div>
-                                <!-- Simple Grid for Chengdu -->
-                                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                                    <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
-                                        <img src="https://img2.baidu.com/it/u=2735639649,3849503463&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
-                                            alt="Pandas" class="w-full h-48 object-cover">
-                                        <div class="p-6">
-                                            <h4 class="font-bold text-gray-800">Giant Panda Base</h4>
-                                            <p class="text-sm text-gray-600 mt-2">Get up close with China's national
-                                                treasure.</p>
-                                        </div>
-                                    </div>
-                                    <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
-                                        <img src="https://img1.baidu.com/it/u=2548842918,1716912384&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500"
-                                            alt="Kuanzhai Alley" class="w-full h-48 object-cover">
-                                        <div class="p-6">
-                                            <h4 class="font-bold text-gray-800">Kuanzhai Alley</h4>
-                                            <p class="text-sm text-gray-600 mt-2">Ancient Qing dynasty streets with tea
-                                                houses.</p>
-                                        </div>
-                                    </div>
-                                    <div class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition">
-                                        <img src="https://img2.baidu.com/it/u=130758102,2497896321&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=750"
-                                            alt="Mahjong" class="w-full h-48 object-cover">
-                                        <div class="p-6">
-                                            <h4 class="font-bold text-gray-800">Local Life</h4>
-                                            <p class="text-sm text-gray-600 mt-2">Experience the relaxed Sichuan
-                                                lifestyle.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-center mt-8">
-                                <a href="culture-planner.html"
-                                    class="inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition shadow-lg border border-green-200">
-                                    <i data-lucide="calculator" class="w-6 h-6 mr-3"></i>
-                                    <span>Plan Your Cultural Itinerary</span>
-                                </a>
-                            </div>
-
-                        </div>
-
-                        <!-- Labubu Store Locations Map (Kept) -->
-                        <div class="mt-20">
-                            <div class="text-center mb-8">
-                                <h3 class="text-3xl font-bold mb-4" data-key="labubuLocationsTitle">🎀 Labubu Store
-                                    Locations</h3>
-                                <p class="text-gray-600" data-key="labubuLocationsDesc">Find the nearest Labubu stores
-                                    and collect your
-                                    favorite blind boxes</p>
-                            </div>
-                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                                <div class="labubu-map-container">
-                                    <iframe id="labubu-map"
-                                        src="https://www.google.com/maps/embed/v1/search?key=AIzaSyC1QzUEqeQLmu9srYB6H4Ip3ldcCNZsizY&q=Labubu+store+北京&center=39.9042,116.4074&zoom=12"
-                                        width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade">
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Contact Section (Kept) -->
-                <section id="contact" class="py-20 bg-blue-50">
-                    <div class="container mx-auto px-6">
-                        <div class="lg:flex justify-between items-center">
-                            <div class="lg:w-1/2 mb-10 lg:mb-0">
-                                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800" data-key="contactTitle">
-                                    Ready to Start Your Healthy Journey?
-                                </h2>
-                                <p class="mt-4 text-lg text-gray-600" data-key="contactSubtitle">
-                                    Fill out the form or contact us via WhatsApp/Email. Our health consultant will reply
-                                    within 24 hours
-                                    with a free personalized quote.</p>
-                                <div class="mt-8 space-y-4">
-                                    <p class="flex items-center text-lg">
-                                        <i data-lucide="mail" class="w-6 h-6 text-blue-600 mr-3"></i>
-                                        info@chinamedicaltour.org
-                                    </p>
-                                    <a href="https://wa.me/8619910385444" target="_blank"
-                                        class="flex items-center text-lg text-gray-800 hover:text-green-600 transition-colors group">
-                                        <div
-                                            class="w-10 h-10 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center mr-3 transition-colors">
-                                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
-                                            </svg>
-                                        </div>
-                                        <span class="font-medium group-hover:underline" data-key="whatsappContact">Chat
-                                            on
-                                            WhatsApp</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="lg:w-1/2">
-                                <div class="bg-white p-8 rounded-xl shadow-lg">
-                                    <form id="inquiry-form">
-                                        <div class="mb-4">
-                                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
-                                                data-key="formName">Your Name</label>
-                                            <input type="text" id="name" name="name" required
-                                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="John Doe" data-key-placeholder="formNamePlaceholder">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
-                                                data-key="formEmail">Email Address</label>
-                                            <input type="email" id="email" name="email" required
-                                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="you@example.com"
-                                                data-key-placeholder="formEmailPlaceholder">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="package" class="block text-sm font-medium text-gray-700 mb-1"
-                                                data-key="formPackage">Service of Interest</label>
-                                            <select id="package" name="package" required
-                                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                                                <option value="" data-key="formPackageOption0">Select a service...
-                                                </option>
-                                                <option value="elite" data-key="formPackageOption1">Elite Package ($599)
-                                                </option>
-                                                <option value="platinum" data-key="formPackageOption2">Platinum Package
-                                                </option>
-                                                <option value="vip" data-key="formPackageOption3">VIP Package ($1399)
-                                                </option>
-                                                <option value="ophthalmology" data-key="formPackageOption5">
-                                                    Ophthalmology</option>
-                                                <option value="dentistry" data-key="formPackageOption6">Dentistry
-                                                </option>
-                                                <option value="tcm" data-key="formPackageOption8">TCM Therapy</option>
-                                                <option value="custom-medical" data-key="formPackageOption9">Custom
-                                                    Medical Program
-                                                </option>
-                                                <option value="stem-cell" data-key="formPackageOption7">Stem Cell
-                                                    Therapy</option>
-                                                <option value="customization" data-key="formPackageOption4">Need
-                                                    Customization</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-6">
-                                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1"
-                                                data-key="formMessage">Message (Optional)</label>
-                                            <textarea id="message" name="message" rows="4"
-                                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="E.g., I'd like to know more about cardiac screening..."
-                                                data-key-placeholder="formMessagePlaceholder"></textarea>
-                                        </div>
-
-                                        <!-- Submit Button -->
-                                        <button type="submit"
-                                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-                                            data-key="formSubmit">Get Free Quote</button>
-
-                                        <div class="text-center text-sm text-gray-600 mt-3" data-key="formNote">
-                                            Secure & Confidential. No obligation.
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-
-            <!-- Footer -->
-            <footer class="bg-gray-800 text-white pt-10 pb-6">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="mb-8">
-                        <img src="/assets/images/logo.png" alt="China Medical Tour Logo"
-                            class="h-16 w-16 mx-auto mb-4 opacity-80">
-                    </div>
-                    <div class="mb-6">
-                        <h4 class="font-semibold mb-3" data-key="footerFollow">Follow Us</h4>
-                        <div class="flex justify-center space-x-6">
-                            <a href="https://x.com/Vita_Scout" target="_blank" rel="noopener"
-                                class="text-gray-400 hover:text-white transition" aria-label="Follow Vita_Scout on X">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
-                                    </path>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="TikTok">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14.02 1.54-.01 3.08-.01 4.63-.03 1.43-.53 2.82-1.34 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-2.14z">
-                                    </path>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Xiaohongshu">
-                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 1024 1024">
-                                    <path
-                                        d="M925.3 336.4c-5-19.4-21.1-32.9-40.8-32.9H698.9V215c0-43.2-35-78.2-78.2-78.2H403.3c-43.2 0-78.2 35-78.2 78.2v88.5H139.5c-19.7 0-35.8 13.5-40.8 32.9L32 559.3c-4.3 16.7 3.9 33.9 18.6 42l319.5 174.4c18.3 10 40.6 6.3 54.6-8.5l2.6-2.9 3.2 3.1c14.6 14.2 37.3 17.5 55.1 7.6l319.5-174.4c14.8-8.1 22.9-25.3 18.6-42l-67.1-222.9z m-465.1-51.7h191.6v-69.7c0-10.1 8.2-18.3 18.3-18.3h0.1c10.1 0 18.3 8.2 18.3 18.3v69.7h8.2V215c0-26.6-21.6-48.2-48.2-48.2H403.3c-26.6 0-48.2 21.6-48.2 48.2v69.7h8.1z m-47.5 240.2L159.9 333.7h153.2l123.8 214.5-120.3-65.7z m186.2-111.4l-68.9-119.3h137.7l-68.8 119.3z m162.2 177.1l-117.2-64 121.7-210.8h153.2l-157.7 274.8z">
-                                    </path>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="YouTube">
-                                <svg class="w-7 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.194 12 10 14.732V9.268L15.194 12Z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <p class="mt-8" data-key="footerCopyright">&copy; 2025 China Medical Tour. 版权所有。</p>
-                    <p class="text-sm text-gray-400 mt-2" data-key="footerDisclaimer">免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。</p>
                 </div>
-            </footer>
 
-            <script src="/assets/js/translations.js"></script>
-            <script src="/assets/js/main.js"></script>
-            <!-- Modals for Package Details -->
-            <!-- Elite Package Modal -->
-            <div id="elite-modal" class="modal-overlay">
-                <div class="modal-content">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="eliteModalTitle">精英体检套餐 - 详细项目</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalGeneral">一般检查</h4>
-                            <ul data-key="eliteModalGeneralItems">
-                                <li>身高、体重、血压、体重指数(BMI)</li>
-                                <li>内科、外科、眼科、耳鼻喉科检查</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalLab">实验室检查</h4>
-                            <ul data-key="eliteModalLabItems">
-                                <li>血常规、尿常规</li>
-                                <li>肝功能 (ALT, AST)</li>
-                                <li>肾功能 (BUN, Cr)</li>
-                                <li>血脂四项 (TC, TG, HDL, LDL)</li>
-                                <li>空腹血糖 (GLU)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalInstrument">仪器检查
-                            </h4>
-                            <ul data-key="eliteModalInstrumentItems">
-                                <li>静态心电图 (ECG)</li>
-                                <li>腹部超声 (肝、胆、胰、脾、双肾)</li>
-                                <li>胸部正位片</li>
-                            </ul>
+                <!-- Labubu Store Locations Map (Kept) -->
+                <div class="mt-20">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold mb-4" data-key="labubuLocationsTitle">🎀 Labubu Store
+                            Locations</h3>
+                        <p class="text-gray-600" data-key="labubuLocationsDesc">Find the nearest Labubu stores
+                            and collect your
+                            favorite blind boxes</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="labubu-map-container">
+                            <iframe id="labubu-map"
+                                src="https://www.google.com/maps/embed/v1/search?key=AIzaSyC1QzUEqeQLmu9srYB6H4Ip3ldcCNZsizY&q=Labubu+store+Beijing&center=39.9042,116.4074&zoom=12"
+                                width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
                         </div>
                     </div>
-                    <i data-lucide="x"
-                        class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
                 </div>
             </div>
-            <!-- Platinum Package Modal -->
-            <div id="platinum-modal" class="modal-overlay">
-                <div class="modal-content">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="platinumModalTitle">铂金深度套餐 - 详细项目</h3>
-                    <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有精英套餐项目，并额外增加：</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepLab">深度实验室检查
-                            </h4>
-                            <ul data-key="platinumModalDeepLabItems">
-                                <li>全套肝功能</li>
-                                <li>全套肾功能</li>
-                                <li>甲状腺功能三项 (T3, T4, TSH)</li>
-                                <li>风湿三项 (RF, ASO, CRP)</li>
-                                <li>同型半胱氨酸 (Hcy)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalTumor">肿瘤标志物筛查
-                            </h4>
-                            <ul data-key="platinumModalTumorItems">
-                                <li>癌胚抗原 (CEA) - (广谱)</li>
-                                <li>甲胎蛋白 (AFP) - (肝癌)</li>
-                                <li>癌抗原 19-9 (CA19-9) - (消化道)</li>
-                                <li>癌抗原 125 (CA125) - (女性) / 前列腺特异性抗原 (PSA) - (男性)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepImaging">
-                                深度影像学检查</h4>
-                            <ul data-key="platinumModalDeepImagingItems">
-                                <li>颈动脉彩超</li>
-                                <li>甲状腺彩超</li>
-                                <li>泌尿系统超声 (双肾、输尿管、膀胱)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalSpecial">专项检查</h4>
-                            <ul data-key="platinumModalSpecialItems">
-                                <li>碳13或碳14呼气试验 (检测幽门螺旋杆菌)</li>
-                                <li>骨密度检测</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <i data-lucide="x"
-                        class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-                </div>
-            </div>
-            <!-- VIP Package Modal -->
-            <div id="vip-modal" class="modal-overlay">
-                <div class="modal-content">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="vipModalTitle">VIP全面套餐 - 详细项目</h3>
-                    <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有铂金套餐项目，并额外增加：</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalAdvancedImaging">
-                                高端影像学筛查
-                            </h4>
-                            <ul data-key="vipModalAdvancedImagingItems">
-                                <li>头部核磁共振 (MRI) (排除脑血管疾病及肿瘤)</li>
-                                <li>肺部低剂量螺旋CT (筛查早期肺癌)</li>
-                                <li>冠状动脉钙化积分 (评估冠心病风险)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDigestive">消化道内镜检查
-                            </h4>
-                            <ul data-key="vipModalDigestiveItems">
-                                <li>无痛胃镜</li>
-                                <li>无痛肠镜</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalCardio">心血管评估</h4>
-                            <ul data-key="vipModalCardioItems">
-                                <li>心脏彩超</li>
-                                <li>24小时动态心电图 (如需要)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalFullLab">更全面的实验室检查
-                            </h4>
-                            <ul data-key="vipModalFullLabItems">
-                                <li>全套肿瘤标志物组合</li>
-                                <li>内分泌激素水平检测</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <i data-lucide="x"
-                        class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-                </div>
-            </div>
-        </body>
+        </section>
 
-        </html>
+        <!-- Contact Section (Kept) -->
+        <section id="contact" class="py-20 bg-blue-50">
+            <div class="container mx-auto px-6">
+                <div class="lg:flex justify-between items-center">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800" data-key="contactTitle">
+                            Ready to Start Your Healthy Journey?
+                        </h2>
+                        <p class="mt-4 text-lg text-gray-600" data-key="contactSubtitle">
+                            Fill out the form or contact us via WhatsApp/Email. Our health consultant will reply
+                            within 24 hours
+                            with a free personalized quote.</p>
+                        <div class="mt-8 space-y-4">
+                            <p class="flex items-center text-lg">
+                                <i data-lucide="mail" class="w-6 h-6 text-blue-600 mr-3"></i>
+                                info@chinamedicaltour.org
+                            </p>
+                            <a href="https://wa.me/8619910385444" target="_blank"
+                                class="flex items-center text-lg text-gray-800 hover:text-green-600 transition-colors group">
+                                <div
+                                    class="w-10 h-10 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center mr-3 transition-colors">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium group-hover:underline" data-key="whatsappContact">Chat
+                                    on
+                                    WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div class="bg-white p-8 rounded-xl shadow-lg">
+                            <form id="inquiry-form">
+                                <div class="mb-4">
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+                                        data-key="formName">Your Name</label>
+                                    <input type="text" id="name" name="name" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="John Doe" data-key-placeholder="formNamePlaceholder">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
+                                        data-key="formEmail">Email Address</label>
+                                    <input type="email" id="email" name="email" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="you@example.com" data-key-placeholder="formEmailPlaceholder">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="package" class="block text-sm font-medium text-gray-700 mb-1"
+                                        data-key="formPackage">Service of Interest</label>
+                                    <select id="package" name="package" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="" data-key="formPackageOption0">Select a service...
+                                        </option>
+                                        <option value="elite" data-key="formPackageOption1">Elite Package ($599)
+                                        </option>
+                                        <option value="platinum" data-key="formPackageOption2">Platinum Package
+                                        </option>
+                                        <option value="vip" data-key="formPackageOption3">VIP Package ($1399)
+                                        </option>
+                                        <option value="ophthalmology" data-key="formPackageOption5">
+                                            Ophthalmology</option>
+                                        <option value="dentistry" data-key="formPackageOption6">Dentistry
+                                        </option>
+                                        <option value="tcm" data-key="formPackageOption8">TCM Therapy</option>
+                                        <option value="custom-medical" data-key="formPackageOption9">Custom
+                                            Medical Program
+                                        </option>
+                                        <option value="stem-cell" data-key="formPackageOption7">Stem Cell
+                                            Therapy</option>
+                                        <option value="customization" data-key="formPackageOption4">Need
+                                            Customization</option>
+                                    </select>
+                                </div>
+                                <div class="mb-6">
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1"
+                                        data-key="formMessage">Message (Optional)</label>
+                                    <textarea id="message" name="message" rows="4"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="E.g., I'd like to know more about cardiac screening..."
+                                        data-key-placeholder="formMessagePlaceholder"></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit"
+                                    class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                                    data-key="formSubmit">Get Free Quote</button>
+
+                                <div class="text-center text-sm text-gray-600 mt-3" data-key="formNote">
+                                    Secure & Confidential. No obligation.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -1012,7 +835,7 @@
                     class="h-16 w-16 mx-auto mb-4 opacity-80">
             </div>
             <div class="mb-6">
-                <h4 class="font-semibold mb-3" data-key="footerFollow">关注我们</h4>
+                <h4 class="font-semibold mb-3" data-key="footerFollow">Follow Us</h4>
                 <div class="flex justify-center space-x-6">
                     <a href="https://x.com/Vita_Scout" target="_blank" rel="noopener"
                         class="text-gray-400 hover:text-white transition" aria-label="Follow Vita_Scout on X">
@@ -1045,135 +868,17 @@
                     </a>
                 </div>
             </div>
-            <p class="mt-8" data-key="footerCopyright">&copy; 2025 China Medical Tour. 版权所有。</p>
-            <p class="text-sm text-gray-400 mt-2" data-key="footerDisclaimer">免责声明：本网站提供的信息仅供参考，不能替代专业的医疗建议。</p>
+            <p class="mt-8" data-key="footerCopyright">&copy; 2025 China Medical Tour. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400 mt-2" data-key="footerDisclaimer">Disclaimer: The information on this
+                website is for reference only and cannot replace professional medical advice.</p>
         </div>
     </footer>
 
     <script src="/assets/js/translations.js"></script>
     <script src="/assets/js/main.js"></script>
-    <!-- Modals for Package Details -->
-    <!-- Elite Package Modal -->
-    <div id="elite-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="eliteModalTitle">精英体检套餐 - 详细项目</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalGeneral">一般检查</h4>
-                    <ul data-key="eliteModalGeneralItems">
-                        <li>身高、体重、血压、体重指数(BMI)</li>
-                        <li>内科、外科、眼科、耳鼻喉科检查</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalLab">实验室检查</h4>
-                    <ul data-key="eliteModalLabItems">
-                        <li>血常规、尿常规</li>
-                        <li>肝功能 (ALT, AST)</li>
-                        <li>肾功能 (BUN, Cr)</li>
-                        <li>血脂四项 (TC, TG, HDL, LDL)</li>
-                        <li>空腹血糖 (GLU)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalInstrument">仪器检查</h4>
-                    <ul data-key="eliteModalInstrumentItems">
-                        <li>静态心电图 (ECG)</li>
-                        <li>腹部超声 (肝、胆、胰、脾、双肾)</li>
-                        <li>胸部正位片</li>
-                    </ul>
-                </div>
-            </div>
-            <i data-lucide="x"
-                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-        </div>
-    </div>
-    <!-- Platinum Package Modal -->
-    <div id="platinum-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="platinumModalTitle">铂金深度套餐 - 详细项目</h3>
-            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有精英套餐项目，并额外增加：</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepLab">深度实验室检查</h4>
-                    <ul data-key="platinumModalDeepLabItems">
-                        <li>全套肝功能</li>
-                        <li>全套肾功能</li>
-                        <li>甲状腺功能三项 (T3, T4, TSH)</li>
-                        <li>风湿三项 (RF, ASO, CRP)</li>
-                        <li>同型半胱氨酸 (Hcy)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalTumor">肿瘤标志物筛查</h4>
-                    <ul data-key="platinumModalTumorItems">
-                        <li>癌胚抗原 (CEA) - (广谱)</li>
-                        <li>甲胎蛋白 (AFP) - (肝癌)</li>
-                        <li>癌抗原 19-9 (CA19-9) - (消化道)</li>
-                        <li>癌抗原 125 (CA125) - (女性) / 前列腺特异性抗原 (PSA) - (男性)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepImaging">深度影像学检查</h4>
-                    <ul data-key="platinumModalDeepImagingItems">
-                        <li>颈动脉彩超</li>
-                        <li>甲状腺彩超</li>
-                        <li>泌尿系统超声 (双肾、输尿管、膀胱)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalSpecial">专项检查</h4>
-                    <ul data-key="platinumModalSpecialItems">
-                        <li>碳13或碳14呼气试验 (检测幽门螺旋杆菌)</li>
-                        <li>骨密度检测</li>
-                    </ul>
-                </div>
-            </div>
-            <i data-lucide="x"
-                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-        </div>
-    </div>
-    <!-- VIP Package Modal -->
-    <div id="vip-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="vipModalTitle">VIP全面套餐 - 详细项目</h3>
-            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">包含所有铂金套餐项目，并额外增加：</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalAdvancedImaging">高端影像学筛查
-                    </h4>
-                    <ul data-key="vipModalAdvancedImagingItems">
-                        <li>头部核磁共振 (MRI) (排除脑血管疾病及肿瘤)</li>
-                        <li>肺部低剂量螺旋CT (筛查早期肺癌)</li>
-                        <li>冠状动脉钙化积分 (评估冠心病风险)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDigestive">消化道内镜检查</h4>
-                    <ul data-key="vipModalDigestiveItems">
-                        <li>无痛胃镜</li>
-                        <li>无痛肠镜</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalCardio">心血管评估</h4>
-                    <ul data-key="vipModalCardioItems">
-                        <li>心脏彩超</li>
-                        <li>24小时动态心电图 (如需要)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalFullLab">更全面的实验室检查</h4>
-                    <ul data-key="vipModalFullLabItems">
-                        <li>全套肿瘤标志物组合</li>
-                        <li>内分泌激素水平检测</li>
-                    </ul>
-                </div>
-            </div>
-            <i data-lucide="x"
-                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-        </div>
-    </div>
+    <!-- Modals (Rendered by JS) -->
+    <div id="modals-container"></div>
+    <script src="/assets/js/packages.js"></script>
 </body>
 
 </html>
