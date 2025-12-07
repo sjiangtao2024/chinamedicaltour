@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -103,11 +103,11 @@
             <div class="flex justify-center space-x-4">
                 <button class="city-tab active px-8 py-4 rounded-lg border-2 font-semibold text-lg transition"
                     data-city="beijing">
-                    🏛️ <span data-key="beijing">Beijing</span>
+                    馃彌锔?<span data-key="beijing">Beijing</span>
                 </button>
                 <button class="city-tab px-8 py-4 rounded-lg border-2 font-semibold text-lg transition"
                     data-city="chengdu">
-                    🐼 <span data-key="chengdu">Chengdu</span>
+                    馃惣 <span data-key="chengdu">Chengdu</span>
                 </button>
             </div>
         </div>
@@ -176,50 +176,13 @@
                             <span data-key="duration">Duration</span>: 1 <span data-key="day">day</span>
                         </div>
                     </div>
-                    <button
-                        class="medical-select-btn w-full py-2 px-4 border-2 border-purple-600 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white transition mt-auto">
-                        <span data-key="selectPackage">Select Package</span>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <p class="text-lg mb-2">
-                                    <span data-key="estimateTime">预计时间：</span>
-                                    <span id="total-time">未选择景点</span>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="text-lg mb-2">
-                                    <span data-key="estimateCost">预计费用：</span>
-                                    <span id="total-cost">无费用</span>
-                                </p>
-                            </div>
+
+                    <!-- Attractions Grid -->
+                    <div id="attractions-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div id="selected-list" class="space-y-3">
+                            <!-- Selected attractions will be listed here -->
                         </div>
-                        <p class="text-xs text-gray-500 mt-2" data-key="timeNote">* 预计时间已包含用餐和交通时间，实际时间可能有偏差</p>
-                        <button id="generate-itinerary"
-                            class="mt-4 bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition shadow-md"
-                            data-key="generateItinerary">
-                            Generate Detailed Itinerary
-                        </button>
-                </div>
-
-                <!-- Attractions Grid -->
-                <div id="attractions-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Attraction cards will be dynamically generated here -->
-                </div>
-
-                <!-- Price Disclaimer -->
-                <div class="text-center mt-8">
-                    <p class="text-xs text-gray-500 max-w-4xl mx-auto" data-key="priceDisclaimer">
-                        本工具只是根据现有的数据提供建议，实际的时间和费用可能会因为季节，交通，管制以及其他一切不可控和人为因素造成变化。请以当天的实际情况为准！我们并不承担以此工具所建议的时间和费用所带来的一切后果。
-                    </p>
-                </div>
-
-                <!-- Selected Attractions Summary -->
-                <div id="selected-summary" class="mt-8 bg-white rounded-xl p-6 shadow-lg hidden">
-                    <h3 class="text-xl font-bold mb-4" data-key="selectedAttractions">Selected Attractions</h3>
-                    <div id="selected-list" class="space-y-3">
-                        <!-- Selected attractions will be listed here -->
                     </div>
-                </div>
     </main>
 
     <!-- Footer -->
