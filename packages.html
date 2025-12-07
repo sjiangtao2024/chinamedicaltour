@@ -1,8 +1,64 @@
----
-layout: default
-title: Medical Packages
----
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
+    <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
+    <meta name="description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chinamedicaltour.org/">
+    <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta property="og:description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+    <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chinamedicaltour.org/">
+    <meta property="twitter:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta property="twitter:description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+    <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "China Medical Tour",
+      "image": "https://chinamedicaltour.org/assets/images/logo.png",
+      "description": "Premium medical tourism services in China offering comprehensive health checkups and cultural experiences.",
+      "url": "https://chinamedicaltour.org/",
+      "priceRange": "$$$"
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons & Chart.js -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+
+<body class="text-gray-700">
+    {% include header.html %}
+
+    <!-- Main Content -->
+    <main>
+        
 <!-- Services Section (Medical Packages) -->
 <section id="services" class="py-20">
     <div class="container mx-auto px-6">
@@ -86,7 +142,7 @@ title: Medical Packages
                     <button data-modal-target="basic-modal"
                         class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
                         data-key="viewDetails">View Details</button>
-                    <a href="{{ '/#contact' | relative_url }}"
+                    <a href="/#contact"
                         class="mt-2 bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition w-full block text-center"
                         data-key="selectPackage" data-package="basic">Select Package</a>
                 </div>
@@ -178,7 +234,7 @@ title: Medical Packages
                     <button data-modal-target="elite-modal"
                         class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
                         data-key="viewDetails">View Details</button>
-                    <a href="{{ '/#contact' | relative_url }}"
+                    <a href="/#contact"
                         class="mt-2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition w-full block text-center"
                         data-key="selectPackage" data-package="elite">Select Package</a>
                 </div>
@@ -257,7 +313,7 @@ title: Medical Packages
                     <button data-modal-target="vip-modal"
                         class="mt-4 bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition w-full block"
                         data-key="viewDetails">View Details</button>
-                    <a href="{{ '/#contact' | relative_url }}"
+                    <a href="/#contact"
                         class="mt-2 bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition w-full block text-center"
                         data-key="selectPackage" data-package="vip">Select Package</a>
                 </div>
@@ -317,3 +373,10 @@ title: Medical Packages
         </div>
     </div>
 </section>
+    </main>
+
+    {% include footer.html %}
+    {% include modals.html %}
+</body>
+
+</html>

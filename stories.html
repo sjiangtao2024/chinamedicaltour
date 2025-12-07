@@ -1,8 +1,64 @@
----
-layout: default
-title: Patient Stories
----
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
+    <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
+    <meta name="description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chinamedicaltour.org/">
+    <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta property="og:description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+    <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chinamedicaltour.org/">
+    <meta property="twitter:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta property="twitter:description" content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30%">
+    <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "China Medical Tour",
+      "image": "https://chinamedicaltour.org/assets/images/logo.png",
+      "description": "Premium medical tourism services in China offering comprehensive health checkups and cultural experiences.",
+      "url": "https://chinamedicaltour.org/",
+      "priceRange": "$$$"
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons & Chart.js -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+
+<body class="text-gray-700">
+    {% include header.html %}
+
+    <!-- Main Content -->
+    <main>
+        
 <!-- Customer Stories Section (Video Carousel) -->
 <section id="stories" class="py-20 bg-gray-50">
     <div class="container mx-auto px-6">
@@ -123,7 +179,7 @@ title: Patient Stories
             <!-- Sarah -->
             <div
                 class="bg-gray-50 p-8 rounded-2xl shadow-lg flex flex-col items-center text-center hover:-translate-y-2 transition duration-300">
-                <img src="{{ 'assets/images/patient_sarah_placeholder.png' | relative_url }}" alt="Sarah"
+                <img src="assets/images/patient_sarah_placeholder.png" alt="Sarah"
                     class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-teal-50 shadow-md">
                 <div class="flex text-amber-400 mb-4">
                     <i data-lucide="star" class="w-4 h-4 fill-current"></i>
@@ -141,7 +197,7 @@ title: Patient Stories
             <!-- Michael -->
             <div
                 class="bg-gray-50 p-8 rounded-2xl shadow-lg flex flex-col items-center text-center hover:-translate-y-2 transition duration-300">
-                <img src="{{ 'assets/images/patient_michael_placeholder.png' | relative_url }}" alt="Michael"
+                <img src="assets/images/patient_michael_placeholder.png" alt="Michael"
                     class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-teal-50 shadow-md">
                 <div class="flex text-amber-400 mb-4">
                     <i data-lucide="star" class="w-4 h-4 fill-current"></i>
@@ -159,7 +215,7 @@ title: Patient Stories
             <!-- Elena -->
             <div
                 class="bg-gray-50 p-8 rounded-2xl shadow-lg flex flex-col items-center text-center hover:-translate-y-2 transition duration-300">
-                <img src="{{ 'assets/images/patient_elena_placeholder.png' | relative_url }}" alt="Elena"
+                <img src="assets/images/patient_elena_placeholder.png" alt="Elena"
                     class="w-24 h-24 rounded-full object-cover mb-6 border-4 border-teal-50 shadow-md">
                 <div class="flex text-amber-400 mb-4">
                     <i data-lucide="star" class="w-4 h-4 fill-current"></i>
@@ -176,3 +232,10 @@ title: Patient Stories
         </div>
     </div>
 </section>
+    </main>
+
+    {% include footer.html %}
+    {% include modals.html %}
+</body>
+
+</html>
