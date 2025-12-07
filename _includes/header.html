@@ -1,0 +1,41 @@
+<!-- Header & Navigation -->
+<header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="{{ '/' | relative_url }}" class="flex items-center space-x-3">
+            <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="China Medical Tour Logo" class="h-10 w-10">
+            <span
+                class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
+                Medical Tour</span>
+        </a>
+        <div class="hidden md:flex space-x-6 items-center">
+            <a href="{{ '/#about' | relative_url }}" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                data-key="navAbout" data-section="about">About Us</a>
+            <a href="{{ '/#services' | relative_url }}" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                data-key="navServices" data-section="services">Services</a>
+            <a href="{{ '/#travel' | relative_url }}" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                data-key="navTravel" data-section="travel">Travel Services</a>
+            <a href="{{ '/#culture' | relative_url }}" class="nav-link text-gray-600 hover:text-emerald-600 transition"
+                data-key="navCulture" data-section="culture">Cultural Experience</a>
+            <a href="{{ '/#contact' | relative_url }}"
+                class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold"
+                data-key="getQuote">Get a Quote</a>
+
+        </div>
+        <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+        <a href="{{ '/#about' | relative_url }}" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
+            data-key="navAbout" data-section="about">About Us</a>
+        <a href="{{ '/#services' | relative_url }}" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
+            data-key="navServices" data-section="services">Services</a>
+        <a href="{{ '/#travel' | relative_url }}" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
+            data-key="navTravel" data-section="travel">Travel Services</a>
+        <a href="{{ '/#culture' | relative_url }}" class="nav-link block py-2 text-gray-600 hover:text-emerald-600"
+            data-key="navCulture" data-section="culture">Cultural Experience</a>
+        <a href="{{ '/#contact' | relative_url }}"
+            class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 w-full text-center"
+            data-key="getQuote">Get a Quote</a>
+
+    </div>
+</header>

@@ -1,0 +1,7 @@
+title: "China Medical Tour"
+description: "World-class medical care combined with deep cultural experiences in China."
+baseurl: "" # Keep empty for custom domain or user/repo project page
+url: "https://chinamedicaltour.org"
+theme: jekyll-theme-cayman # Optional, but good to have a default fallback, though we are using custom HTML
+plugins:
+  - jekyll-seo-tag

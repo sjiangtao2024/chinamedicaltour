@@ -1,0 +1,12 @@
+# Ignore specific files and directories in current directory (chinamedicaltour)
+
+# Ignore directories
+.claude/
+backup/
+scripts/
+
+
+# Ignore specific files
+International Medical Tourism Application Form.docx
+MedTour产品list V2带英文.xlsx
+assets/images/concept_design.png

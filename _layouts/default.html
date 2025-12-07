@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: " en" }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jekyll SEO Tag will handle title and description if configured, but let's keep it safe -->
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chinamedicaltour.org/">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:image" content="{{ '/assets/images/hero-social-preview.jpg' | relative_url }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chinamedicaltour.org/">
+    <meta property="twitter:title" content="{{ page.title }}">
+    <meta property="twitter:description" content="{{ page.description }}">
+    <meta property="twitter:image" content="{{ '/assets/images/hero-social-preview.jpg' | relative_url }}">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "China Medical Tour",
+      "image": "https://chinamedicaltour.org/assets/images/logo.png",
+      "description": "Premium medical tourism services in China offering comprehensive health checkups and cultural experiences.",
+      "url": "https://chinamedicaltour.org/",
+      "priceRange": "$$$"
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons & Chart.js -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+</head>
+
+<body class="text-gray-700">
+    {% include header.html %}
+
+    <!-- Main Content -->
+    <main>
+        {{ content }}
+    </main>
+
+    {% include footer.html %}
+    {% include modals.html %}
+</body>
+
+</html>

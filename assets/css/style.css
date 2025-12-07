@@ -1,0 +1,622 @@
+/* CSS Variables */
+:root {
+    --primary-color: #0D9488;
+    /* Medical Teal */
+    --secondary-color: #F59E0B;
+    /* Heritage Gold */
+    --primary-hover: #0F766E;
+    --text-dark: #1F2937;
+    --text-light: #6B7280;
+    --background-gray: #F9FAFB;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--background-gray);
+    background-image: url('../images/bg_texture.png');
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+/* Sticky Header */
+header.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Split Screen Hero */
+.hero-split-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 85vh;
+    height: auto;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .hero-split-container {
+        grid-template-columns: 1fr 1fr;
+        height: 85vh;
+    }
+}
+
+.hero-side {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    /* Mobile height */
+    overflow: hidden;
+    background-color: #f3f4f6;
+    /* Placeholder color before images load */
+}
+
+@media (min-width: 768px) {
+    .hero-side {
+        height: 100%;
+    }
+}
+
+.hero-side img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease;
+}
+
+.hero-side:hover img {
+    transform: scale(1.05);
+}
+
+.hero-overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    color: white;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    /* Let clicks pass through to potential buttons underneath */
+}
+
+/* Custom Utilities */
+.text-teal {
+    color: var(--primary-color);
+}
+
+.text-gold {
+    color: var(--secondary-color);
+}
+
+.bg-teal {
+    background-color: var(--primary-color);
+}
+
+.bg-gold {
+    background-color: var(--secondary-color);
+}
+
+/* Culture Planner Widget */
+.culture-widget {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.culture-widget:hover {
+    transform: translateY(-5px);
+}
+
+/* Hero carousel styles */
+.hero-carousel-container {
+    position: relative;
+    min-height: 250px;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+
+.hero-carousel-track {
+    display: flex;
+    transition: transform 0.8s ease-in-out;
+    height: 100%;
+}
+
+.hero-carousel-slide {
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    padding: 20px;
+}
+
+.hero-carousel-slide img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.hero-carousel-caption {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    z-index: 10;
+}
+
+.hero-carousel-indicators {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 20;
+}
+
+.hero-carousel-indicator {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hero-carousel-indicator.active {
+    background: #059669;
+    border-color: #059669;
+    transform: scale(1.2);
+}
+
+/* Enhanced hero section styling */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-carousel-indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+/* Critical styles for text elements */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    scroll-behavior: smooth;
+}
+
+/* Animation keyframes */
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+/* Add responsive media container style */
+.responsive-media {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    height: 0;
+}
+
+.responsive-media iframe,
+.responsive-media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section-title {
+    line-height: 1.2;
+    color: #1f2937;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: #4b5563;
+    margin-top: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.2s, opacity 0.2s linear;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s linear;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.tab-button.active {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.culture-tab-button.active {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+}
+
+.carousel-slide img,
+.carousel-slide iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+.carousel-nav:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-prev {
+    left: 1rem;
+}
+
+.carousel-next {
+    right: 1rem;
+}
+
+.carousel-indicators {
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.image-carousel-indicators {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.video-carousel-indicators {
+    position: relative;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.carousel-indicator {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: rgba(156, 163, 175, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.carousel-indicator.active {
+    background: #3b82f6;
+}
+
+.nav-link.active {
+    color: #3b82f6 !important;
+    font-weight: 600;
+}
+
+.advantage-card {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 2rem;
+    border-radius: 0.75rem;
+}
+
+/* Enhanced Price Comparison Styles */
+.price-comparison-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.price-bar-animation {
+    animation: slideUp 1.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+
+    to {
+        height: 100%;
+        opacity: 1;
+    }
+}
+
+.savings-highlight {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.price-table-row:hover {
+    background-color: #f8fafc;
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.dramatic-savings {
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.value-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.value-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+
+    100% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+}
+
+/* Number counting animation */
+.count-up {
+    display: inline-block;
+}
+
+/* Enhanced visual effects */
+.price-impact {
+    position: relative;
+    background: linear-gradient(135deg, #fef3f2, #fed7d7);
+    border: 2px solid #f4a5a5;
+}
+
+.value-impact {
+    position: relative;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border: 2px solid #86efac;
+}
+
+.comparison-arrow {
+    font-size: 2rem;
+    color: #3b82f6;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Google Maps styles */
+.map-container {
+    height: 400px;
+    width: 100%;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.labubu-map-container {
+    height: 500px;
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+}
+
+/* Responsive adjustments for hero carousel */
+@media (max-width: 768px) {
+    .hero-carousel-slide {
+        padding: 15px;
+    }
+
+    .hero-carousel-indicators {
+        bottom: 1rem;
+        gap: 0.5rem;
+    }
+
+    .hero-carousel-indicator {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+}
