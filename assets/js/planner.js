@@ -2,7 +2,7 @@
 
 // 从URL参数获取城市设置，默认为北京
 const urlParams = new URLSearchParams(window.location.search);
-const currentLanguage = 'en';
+const currentLanguage = urlParams.get('lang') || 'en';
 let currentCity = urlParams.get('city') || 'beijing';
 let selectedAttractions = [];
 let selectedMedicalPackage = null;
@@ -36,7 +36,7 @@ function init() {
         }
     });
 
-    // updateLanguage() removed
+    updateLanguage();
     updateMedicalPackagePrices();
     renderAttractions();
     updateAttractionCards(); // 确保卡片状态正确
@@ -102,7 +102,7 @@ function setupEventListeners() {
         const medicalButton = e.target.closest('.medical-select-btn');
         const medicalCard = e.target.closest('.medical-package-card');
 
-        if (medicalButton && medicalCard) {
+        if (medicalCard) {
             e.preventDefault();
             e.stopPropagation();
             const packageId = medicalCard.dataset.package;

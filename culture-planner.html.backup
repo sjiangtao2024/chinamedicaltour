@@ -98,15 +98,16 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-8">
+        <!-- City Selection -->
         <div class="mb-8">
             <div class="flex justify-center space-x-4">
                 <button class="city-tab active px-8 py-4 rounded-lg border-2 font-semibold text-lg transition"
                     data-city="beijing">
-                    🇨🇳 <span data-key="beijing">Beijing</span>
+                    馃彌锔?<span data-key="beijing">Beijing</span>
                 </button>
                 <button class="city-tab px-8 py-4 rounded-lg border-2 font-semibold text-lg transition"
                     data-city="chengdu">
-                    🐼 <span data-key="chengdu">Chengdu</span>
+                    馃惣 <span data-key="chengdu">Chengdu</span>
                 </button>
             </div>
         </div>
@@ -181,34 +182,32 @@
                     </button>
                 </div>
             </div>
-
             <div class="text-center mt-4">
                 <p class="text-sm text-gray-600">
                     <i data-lucide="car" class="w-4 h-4 inline mr-1"></i>
-                    <span data-key="transportationIncluded">包含宾馆到医院往返车费</span>
+                    <span data-key="transportationIncluded">鍖呭惈瀹鹃鍒板尰闄㈠線杩旇溅璐?/span>
                 </p>
             </div>
         </div>
 
         <!-- Planning Summary -->
         <div class="summary-card rounded-2xl p-6 mb-8 text-center">
-            <h2 class="text-2xl font-bold mb-4" data-key="planningTitle">Planning Summary: No items selected</h2>
+            <h2 class="text-2xl font-bold mb-4" data-key="planningTitle">瑙勫垝鎽樿锛氭湭閫夋嫨鏅偣</h2>
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <p class="text-lg mb-2">
-                        <span data-key="estimateTime">Estimate Time:</span>
-                        <span id="total-time">No items selected</span>
+                        <span data-key="estimateTime">棰勮鏃堕棿锛?/span>
+                        <span id="total-time">鏈€夋嫨鏅偣</span>
                     </p>
                 </div>
                 <div>
                     <p class="text-lg mb-2">
-                        <span data-key="estimateCost">Estimate cost:</span>
-                        <span id="total-cost">No cost</span>
+                        <span data-key="estimateCost">棰勮璐圭敤锛?/span>
+                        <span id="total-cost">鏃犺垂鐢?/span>
                     </p>
                 </div>
             </div>
-            <p class="text-xs text-gray-500 mt-2" data-key="timeNote">* Time estimates include meals and transportation.
-                Actual time may vary.</p>
+            <p class="text-xs text-gray-500 mt-2" data-key="timeNote">* 棰勮鏃堕棿宸插寘鍚敤椁愬拰浜ら€氭椂闂达紝瀹為檯鏃堕棿鍙兘鏈夊亸宸?/p>
             <button id="generate-itinerary"
                 class="mt-4 bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition shadow-md"
                 data-key="generateItinerary">
@@ -224,8 +223,7 @@
         <!-- Price Disclaimer -->
         <div class="text-center mt-8">
             <p class="text-xs text-gray-500 max-w-4xl mx-auto" data-key="priceDisclaimer">
-                This tool provides suggestions based on existing data. Actual time and costs may vary...
-            </p>
+                鏈伐鍏峰彧鏄牴鎹幇鏈夌殑鏁版嵁鎻愪緵寤鸿锛屽疄闄呯殑鏃堕棿鍜岃垂鐢ㄥ彲鑳戒細鍥犱负瀛ｈ妭锛屼氦閫氾紝绠″埗浠ュ強鍏朵粬涓€鍒囦笉鍙帶鍜屼汉涓哄洜绱犻€犳垚鍙樺寲銆傝浠ュ綋澶╃殑瀹為檯鎯呭喌涓哄噯锛佹垜浠苟涓嶆壙鎷呬互姝ゅ伐鍏锋墍寤鸿鐨勬椂闂村拰璐圭敤鎵€甯︽潵鐨勪竴鍒囧悗鏋溿€?            </p>
         </div>
 
         <!-- Selected Attractions Summary -->

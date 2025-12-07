@@ -334,7 +334,7 @@ const attractionsData = {
             duration: 2,
             priceUSD: 11,
             priceRMB: 80,
-            image: 'https://www.fjsen.com/images/2023-07/16/30e59e04-465a-44fb-8b9a-73e8c5c6ca70.jpg'
+            image: 'https://images.unsplash.com/photo-1544606405-08d4b220c4e7?q=80&w=2670&auto=format&fit=crop'
         },
         {
             id: 'face-changing',

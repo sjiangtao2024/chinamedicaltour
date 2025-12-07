@@ -1,6 +1,0 @@
-title: "China Medical Tour"
-description: "World-class medical care combined with deep cultural experiences in China."
-baseurl: "/chinamedicaltour" # Project page on GitHub Pages
-url: "https://chinamedicaltour.org"
-plugins:
-  - jekyll-seo-tag
