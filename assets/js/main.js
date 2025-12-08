@@ -1,16 +1,15 @@
 // Relies on translations object from translations.js
 
 let chartInstances = {};
-let currentLang = 'en'; // Default to English
 
-function renderCharts(lang) {
+function renderCharts() {
     // Check if Chart.js is available
     if (typeof Chart === 'undefined') {
         console.warn('Chart.js is not loaded yet. Charts will not be rendered.');
         return;
     }
 
-    const chartData = translations[lang];
+    const chartData = translations['en'];
 
     // Destroy existing charts if they exist
     if (chartInstances.efficiencyChart) chartInstances.efficiencyChart.destroy();
@@ -57,7 +56,7 @@ function renderCharts(lang) {
                     tooltip: { mode: 'index', intersect: false }
                 },
                 scales: {
-                    x: { stacked: true, title: { display: true, text: chartData.efficiencyChart.xAxisTitle || (lang === 'zh' ? '天数' : 'Days') } },
+                    x: { stacked: true, title: { display: true, text: chartData.efficiencyChart.xAxisTitle || 'Days' } },
                     y: { stacked: true }
                 }
             }
@@ -71,41 +70,7 @@ function renderCharts(lang) {
 }
 
 
-function updateContent(lang) {
-    // Handle standard text content
-    document.querySelectorAll('[data-key]').forEach(element => {
-        const key = element.getAttribute('data-key');
-        if (translations[lang] && translations[lang][key]) {
-            const htmlKeys = [
-                'beijingSightsText', 'beijingFoodText',
-                'chengduSightsText', 'chengduFoodText',
-                'eliteModalGeneralItems', 'eliteModalLabItems', 'eliteModalInstrumentItems',
-                'platinumModalDeepLabItems', 'platinumModalTumorItems', 'platinumModalDeepImagingItems', 'platinumModalSpecialItems',
-                'vipModalAdvancedImagingItems', 'vipModalDigestiveItems', 'vipModalCardioItems', 'vipModalFullLabItems',
-                'traditionalArtsList', 'hutongList', 'beijingCuisineList',
-                'qingchengFeatures', 'kuanzhaiFeatures'
-            ];
 
-            if (htmlKeys.includes(key)) {
-                element.innerHTML = translations[lang][key];
-            }
-            else {
-                element.textContent = translations[lang][key];
-            }
-        }
-    });
-
-    // Handle placeholder text for inputs/textareas
-    document.querySelectorAll('[data-key-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-key-placeholder');
-        if (translations[lang] && translations[lang][key]) {
-            element.placeholder = translations[lang][key];
-        }
-    });
-
-    document.documentElement.lang = lang;
-    renderCharts(lang);
-}
 
 // Function to check if Chart.js is loaded with timeout
 function waitForChart(timeout = 10000) {
@@ -216,7 +181,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     lucide.createIcons();
-    updateContent(currentLang);
+    lucide.createIcons();
+    renderCharts();
 
     // Initialize price comparison animations
     initializePriceComparison();
@@ -522,11 +488,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Show success modal
             const successModal = document.getElementById('success-modal');
             if (successModal) {
-                // Determine message based on current language
-                const title = currentLang === 'en' ? 'Inquiry Sent Successfully!' : '咨询已发送！';
-                const msg = currentLang === 'en'
-                    ? 'Thank you for your interest. Our health consultant will contact you within 24 hours.'
-                    : '感谢您的兴趣。我们的健康顾问将在24小时内联系您。';
+                const title = 'Inquiry Sent Successfully!';
+                const msg = 'Thank you for your interest. Our health consultant will contact you within 24 hours.';
 
                 successModal.querySelector('h3').textContent = title;
                 successModal.querySelector('p').textContent = msg;
@@ -563,7 +526,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (plannerLink) {
         plannerLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = `culture-planner.html?lang=${currentLang}`;
+            window.location.href = `culture-planner.html`;
         });
     }
 
@@ -581,7 +544,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!btn) return;
 
         const originalText = btn.innerHTML;
-        const successText = currentLang === 'en' ? 'Copied!' : '已复制!';
+        const successText = 'Copied!';
 
         btn.innerHTML = `<span class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-1"></i> ${successText}</span>`;
         lucide.createIcons();
