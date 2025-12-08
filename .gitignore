@@ -5,6 +5,8 @@
 backup/
 scripts/
 docs/
+!docs/walkthrough.md
+!docs/image_prompts.md
 
 # Ignore specific files
 International Medical Tourism Application Form.docx
