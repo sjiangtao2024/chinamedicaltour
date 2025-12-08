@@ -140,7 +140,7 @@ const attractionsData = {
             duration: 2,
             priceUSD: 5,
             priceRMB: 35,
-            image: 'https://images.unsplash.com/photo-1584872589930-e99fe5bf4408?q=80&w=2677&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            image: 'assets/images/temple_of_heaven.png'
         },
         {
             id: 'great-wall',
@@ -226,7 +226,7 @@ const attractionsData = {
             duration: 3,
             priceUSD: 8,
             priceRMB: 58,
-            image: 'https://images.unsplash.com/photo-1528359645462-5ff224bf906e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            image: 'assets/images/panda_base.png'
         },
         {
             id: 'qingcheng-mountain',
@@ -274,7 +274,7 @@ const attractionsData = {
             duration: 2,
             priceUSD: 0,
             priceRMB: 0,
-            image: 'https://q2.itc.cn/q_70/images03/20240729/c9d5649d0f89478093597d2c630f4fbc.jpeg'
+            image: 'assets/images/kuanzhai_alley.png'
         },
         {
             id: 'mahjong-culture',
@@ -334,7 +334,7 @@ const attractionsData = {
             duration: 2,
             priceUSD: 11,
             priceRMB: 80,
-            image: 'https://images.unsplash.com/photo-1544606405-08d4b220c4e7?q=80&w=2670&auto=format&fit=crop'
+            image: 'assets/images/tea_house.png'
         },
         {
             id: 'face-changing',
