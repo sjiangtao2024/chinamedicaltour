@@ -1,3 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /backup/
+Disallow: /docs/
+Disallow: /scripts/
+Disallow: /specs/
+Disallow: /workers/
+Disallow: /*.backup
+Disallow: /index.html-NoNewline
 Sitemap: https://chinamedicaltour.org/sitemap.xml

@@ -9,6 +9,7 @@
     <title>China Medical Tour | Save 70% on High-End Medical Checkups & Travel</title>
     <meta name="description"
         content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30% of Western costs. JCI-accredited hospitals, expert specialists, seamless travel planning.">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
     <meta name="keywords" content="medical tourism china, health checkup china, affordable healthcare, JCI hospital Beijing, medical travel package, china cultural tour, international patient services, medical visa china, executive health screening, preventive medicine china">
     <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon">
     <link rel="icon" href="/assets/images/favicon-32.png" sizes="32x32" type="image/png">
@@ -21,15 +22,19 @@
     <meta property="og:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
     <meta property="og:description"
         content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30% of Western costs. JCI-accredited hospitals, expert specialists, seamless travel planning.">
-    <meta property="og:image" content="/assets/images/hero-social-preview.jpg">
+    <meta property="og:site_name" content="China Medical Tour">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://chinamedicaltour.org/assets/images/hero-social-preview.jpg">
+    <meta property="og:image:alt" content="China Medical Tour — Medical checkups and travel in China">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://chinamedicaltour.org/">
-    <meta property="twitter:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
-    <meta property="twitter:description"
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://chinamedicaltour.org/">
+    <meta name="twitter:title" content="China Medical Tour | Save 70% on High-End Medical Checkups & Travel">
+    <meta name="twitter:description"
         content="Combine comprehensive health screening with an unforgettable cultural tour. World-class medical care at 30% of Western costs. JCI-accredited hospitals, expert specialists, seamless travel planning.">
-    <meta property="twitter:image" content="/assets/images/hero-social-preview.jpg">
+    <meta name="twitter:image" content="https://chinamedicaltour.org/assets/images/hero-social-preview.jpg">
+    <meta name="twitter:image:alt" content="China Medical Tour — Medical checkups and travel in China">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -41,6 +46,15 @@
       "description": "Premium medical tourism services in China offering comprehensive health checkups and cultural experiences.",
       "url": "https://chinamedicaltour.org/",
       "priceRange": "$$$"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "China Medical Tour",
+      "url": "https://chinamedicaltour.org/"
     }
     </script>
 
@@ -58,6 +72,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chat-widget.css">
 
 </head>
 
@@ -65,7 +80,7 @@
     <!-- Header & Navigation -->
     <header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3">
+            <a href="/" class="flex items-center space-x-3">
                 <img src="assets/images/logo.png" alt="China Medical Tour Logo" class="h-10 w-10">
                 <span
                     class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
@@ -137,12 +152,12 @@
                     <img src="assets/images/hero_culture_placeholder.png" alt="Cultural Experience in China"
                         class="hero-bg-image">
                     <div class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
-                        <div
-                            class="inline-block bg-amber-600/10 text-amber-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-amber-200">
-                            Unforgettable Journey</div>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                            Timeless <span class="text-amber-600">Culture</span>
-                        </h1>
+	                        <div
+	                            class="inline-block bg-amber-600/10 text-amber-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-amber-200">
+	                            Unforgettable Journey</div>
+	                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+	                            Timeless <span class="text-amber-600">Culture</span>
+	                        </h2>
                         <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
                             Explore the Great Wall, savor authentic cuisine, and immerse yourself in thousands
                             of years of
@@ -776,6 +791,7 @@
     <!-- Modals (Rendered by JS) -->
     <div id="modals-container"></div>
     <script src="assets/js/packages.js"></script>
+    <script src="assets/js/chat-widget.js" data-api-url="https://api.chinamedicaltour.org/api/chat" data-retry="3"></script>
 </body>
 
 </html>
