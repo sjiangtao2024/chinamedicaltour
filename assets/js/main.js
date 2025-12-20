@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Wait for Chart.js to be fully loaded
     try {
         await waitForChart();
-        console.log('Chart.js loaded successfully');
+        // Chart.js loaded successfully
     } catch (error) {
         console.warn('Chart.js failed to load:', error.message);
         // Hide chart containers if Chart.js fails to load

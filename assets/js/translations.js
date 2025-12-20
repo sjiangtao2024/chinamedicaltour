@@ -420,5 +420,11 @@ const translations = {
         platinumModalTumorItems: "<li>CEA (broad spectrum)</li><li>AFP (liver cancer)</li><li>CA19-9 (digestive tract)</li><li>CA125 (female) / PSA (male)</li>",
         platinumModalDeepImagingItems: "<li>Carotid ultrasound</li><li>Thyroid ultrasound</li><li>Urinary system ultrasound</li>",
         platinumModalSpecialItems: "<li>C13/C14 breath test (H. pylori)</li><li>Bone density test</li>",
+
+        // VIP Modal Details (Added for refactor)
+        vipModalImagingItems: "<li>Brain MRI (Cerebrovascular & Tumor)</li><li>Low-Dose Chest CT (Early Lung Cancer)</li><li>Coronary Artery Calcium Score</li>",
+        vipModalEndoscopyItems: "<li>Painless Gastroscopy</li><li>Painless Colonoscopy</li>",
+        vipModalCardioItems: "<li>Echocardiography (Heart Ultrasound)</li><li>24h Holter Monitor (if indicated)</li>",
+        vipModalLabItems: "<li>Full Tumor Marker Panel</li><li>Endocrine Hormone Panel</li>",
     }
 };

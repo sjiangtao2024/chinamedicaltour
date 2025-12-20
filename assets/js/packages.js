@@ -1,125 +1,92 @@
 /**
  * China Medical Tour - Packages Data & Rendering
  * Handles the generation of modal content for Elite, Platinum, and VIP packages.
+ * Refactored to use translations.js for content.
  */
 
-const packagesData = {
-    elite: {
-        id: 'elite-modal',
-        title: 'Elite Medical Checkup Package',
-        subtitle: null,
-        sections: [
-            {
-                title: 'General Checkup',
-                items: [
-                    'Height, Weight, Blood Pressure, BMI',
-                    'Internal Medicine, Surgery, Ophthalmology, ENT'
-                ]
-            },
-            {
-                title: 'Laboratory Tests',
-                items: [
-                    'Complete Blood Count (CBC), Urinalysis',
-                    'Liver Function (ALT, AST)',
-                    'Kidney Function (BUN, Cr)',
-                    'Lipid Panel (TC, TG, HDL, LDL)',
-                    'Fasting Blood Glucose (GLU)'
-                ]
-            },
-            {
-                title: 'Instrumental Exams',
-                items: [
-                    'Resting ECG',
-                    'Abdominal Ultrasound (Liver, Gallbladder, Pancreas, Spleen, Kidney)',
-                    'Chest X-Ray (AP View)'
-                ]
-            }
-        ]
-    },
-    platinum: {
-        id: 'platinum-modal',
-        title: 'Platinum Deep Checkup Package',
-        subtitle: 'Includes all Elite items, plus:',
-        sections: [
-            {
-                title: 'Advanced Lab Tests',
-                items: [
-                    'Full Liver Function Panel',
-                    'Full Kidney Function Panel',
-                    'Thyroid Function (T3, T4, TSH)',
-                    'Rheumatism Panel (RF, ASO, CRP)',
-                    'Homocysteine (Hcy)'
-                ]
-            },
-            {
-                title: 'Tumor Marker Screening',
-                items: [
-                    'CEA (Broad spectrum)',
-                    'AFP (Liver)',
-                    'CA19-9 (Digestive)',
-                    'CA125 (Female) / PSA (Male)'
-                ]
-            },
-            {
-                title: 'Advanced Imaging',
-                items: [
-                    'Carotid Artery Ultrasound',
-                    'Thyroid Ultrasound',
-                    'Urinary System Ultrasound'
-                ]
-            },
-            {
-                title: 'Specialized Tests',
-                items: [
-                    'C13/C14 Urea Breath Test (H. Pylori)',
-                    'Bone Density Scan'
-                ]
-            }
-        ]
-    },
-    vip: {
-        id: 'vip-modal',
-        title: 'VIP Comprehensive Package',
-        subtitle: 'Includes all Platinum items, plus:',
-        sections: [
-            {
-                title: 'Premium Imaging',
-                items: [
-                    'Brain MRI (Cerebrovascular & Tumor)',
-                    'Low-Dose Chest CT (Early Lung Cancer)',
-                    'Coronary Artery Calcium Score'
-                ]
-            },
-            {
-                title: 'Endoscopy',
-                items: [
-                    'Painless Gastroscopy',
-                    'Painless Colonoscopy'
-                ]
-            },
-            {
-                title: 'Cardiovascular Assessment',
-                items: [
-                    'Echocardiography (Heart Ultrasound)',
-                    '24h Holter Monitor (if indicated)'
-                ]
-            },
-            {
-                title: 'Comprehensive Lab Panel',
-                items: [
-                    'Full Tumor Marker Panel',
-                    'Endocrine Hormone Panel'
-                ]
-            }
-        ]
+// Function to get packages data dynamically to ensure translations are loaded
+function getPackagesData() {
+    // Check if translations exist
+    if (typeof translations === 'undefined' || !translations.en) {
+        console.error('Translations not loaded');
+        return {};
     }
-};
+
+    const t = translations.en;
+
+    return {
+        elite: {
+            id: 'elite-modal',
+            title: t.eliteModalTitle,
+            subtitle: null,
+            sections: [
+                {
+                    title: t.modalGeneral,
+                    contentHTML: t.eliteModalGeneralItems
+                },
+                {
+                    title: t.modalLab,
+                    contentHTML: t.eliteModalLabItems
+                },
+                {
+                    title: t.modalInstrument,
+                    contentHTML: t.eliteModalInstrumentItems
+                }
+            ]
+        },
+        platinum: {
+            id: 'platinum-modal',
+            title: t.platinumModalTitle,
+            subtitle: t.modalSubtitle,
+            sections: [
+                {
+                    title: t.modalDeepLab,
+                    contentHTML: t.platinumModalDeepLabItems
+                },
+                {
+                    title: t.modalTumor,
+                    contentHTML: t.platinumModalTumorItems
+                },
+                {
+                    title: t.modalDeepImaging,
+                    contentHTML: t.platinumModalDeepImagingItems
+                },
+                {
+                    title: t.modalSpecial,
+                    contentHTML: t.platinumModalSpecialItems
+                }
+            ]
+        },
+        vip: {
+            id: 'vip-modal',
+            title: t.vipModalTitle,
+            subtitle: t.modalSubtitle,
+            sections: [
+                {
+                    title: t.modalAdvancedImaging || 'Premium Imaging', // Fallback if key missing
+                    contentHTML: t.vipModalImagingItems
+                },
+                {
+                    title: t.modalDigestive || 'Endoscopy',
+                    contentHTML: t.vipModalEndoscopyItems
+                },
+                {
+                    title: t.modalCardio || 'Cardiovascular Assessment',
+                    contentHTML: t.vipModalCardioItems
+                },
+                {
+                    title: t.modalFullLab || 'Comprehensive Lab Panel',
+                    contentHTML: t.vipModalLabItems
+                }
+            ]
+        }
+    };
+}
 
 /**
  * Generates the HTML for a single package modal
  */
-function createModalHTML(packageKey) {
-    const pkg = packagesData[packageKey];
+function createModalHTML(packageKey, pkg) {
     if (!pkg) return '';
 
     const subtitleHTML = pkg.subtitle
@@ -130,7 +97,7 @@ function createModalHTML(packageKey) {
         <div>
             <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1">${section.title}</h4>
             <ul class="list-disc list-inside mt-2 space-y-1 text-sm">
-                ${section.items.map(item => `<li>${item}</li>`).join('')}
+                ${section.contentHTML}
             </ul>
         </div>
     `).join('');
@@ -159,8 +126,9 @@ function renderPackages() {
         return;
     }
 
+    const packagesData = getPackagesData();
     const html = Object.keys(packagesData)
-        .map(key => createModalHTML(key))
+        .map(key => createModalHTML(key, packagesData[key]))
         .join('');
 
     container.innerHTML = html;
@@ -178,13 +146,6 @@ function renderPackages() {
  * Re-binds event listeners for the newly created modals
  */
 function initializeModals() {
-    // Open buttons are already in the main HTML, but we need to ensure they work with these new modals.
-    // main.js usually handles this, but since we just injected new DOM elements,
-    // we might need to re-bind the 'modal-close' and 'overlay' click events.
-
-    // Note: main.js binds to document.querySelectorAll('.modal-close, .modal-overlay') on DOMContentLoaded.
-    // Since this runs after, we need to bind events to these new elements.
-
     const modals = document.querySelectorAll('.modal-overlay');
     const closeButtons = document.querySelectorAll('.modal-close');
 
