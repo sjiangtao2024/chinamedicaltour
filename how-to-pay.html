@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Methods - Alipay & WeChat Pay | China Medical Tour</title>
+    <meta name="description"
+        content="Learn how to pay for your medical tour package using Alipay or WeChat Pay. Step-by-step guide for international customers. No Chinese bank account needed.">
+    <meta name="robots" content="index,follow">
+    <meta name="keywords"
+        content="alipay international, wechat pay foreign users, china medical payment, medical tour payment, pay without chinese bank account">
+    <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon">
+    <link rel="canonical" href="https://chinamedicaltour.org/how-to-pay.html">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body class="text-gray-700">
+    <!-- Header & Navigation -->
+    <header class="bg-white/95 backdrop-blur-md sticky-header top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="/assets/images/logo.png" alt="China Medical Tour Logo" class="h-10 w-10">
+                <span
+                    class="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">China
+                    Medical Tour</span>
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="/#about" class="text-gray-600 hover:text-emerald-600 transition">About Us</a>
+                <a href="/packages.html" class="text-gray-600 hover:text-emerald-600 transition">Packages</a>
+                <a href="/#contact"
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full hover:from-emerald-700 hover:to-teal-700 transition font-semibold">Get
+                    a Quote</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden"><i data-lucide="menu"></i></button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="/#about" class="block py-2 text-gray-600 hover:text-emerald-600">About Us</a>
+            <a href="/packages.html" class="block py-2 text-gray-600 hover:text-emerald-600">Packages</a>
+            <a href="/#contact"
+                class="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2 rounded-full w-full text-center">Get
+                a Quote</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <!-- Hero Section -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-16">
+                <div class="lg:w-1/2 text-left">
+                    <div class="inline-block bg-emerald-100 text-emerald-800 font-semibold px-4 py-1 rounded-full text-sm mb-4">
+                        Seamless Travel Experience
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+                        Easy Payment with <span class="text-emerald-600">Alipay & WeChat</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                        Pay for your medical tour packages conveniently using international credit cards. No Chinese bank account required—set up your secure mobile wallet in just 5 minutes.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center text-sm font-medium text-gray-700 bg-white px-3 py-2 rounded-lg border border-gray-100 shadow-sm">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600 mr-2"></i> Secured Payments
+                        </div>
+                        <div class="flex items-center text-sm font-medium text-gray-700 bg-white px-3 py-2 rounded-lg border border-gray-100 shadow-sm">
+                            <i data-lucide="credit-card" class="w-4 h-4 text-emerald-600 mr-2"></i> International Cards
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl opacity-10 blur-2xl"></div>
+                        <img src="assets/images/payment_lifestyle.png" alt="Mobile Payment Experience in China" 
+                             class="relative rounded-2xl shadow-2xl w-full h-auto object-cover transform hover:scale-[1.02] transition duration-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Use Alipay/WeChat Pay Section -->
+            <section class="mb-16">
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                        Why Choose Alipay or WeChat Pay?
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0">
+                                <i data-lucide="credit-card" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">No Chinese Bank Account Needed</h3>
+                                <p class="text-gray-600 text-sm">Use your Visa, Mastercard, AmEx, or JCB directly</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0">
+                                <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">Quick & Easy Setup</h3>
+                                <p class="text-gray-600 text-sm">Register in 5-10 minutes with your passport</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0">
+                                <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">Secure & Trusted</h3>
+                                <p class="text-gray-600 text-sm">Used by over 1 billion people worldwide</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0">
+                                <i data-lucide="dollar-sign" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">High Transaction Limits</h3>
+                                <p class="text-gray-600 text-sm">Up to $5,000 per transaction, $50,000 annually</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0">
+                                <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">Multi-Language Support</h3>
+                                <p class="text-gray-600 text-sm">Available in English and 15 other languages</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0">
+                                <i data-lucide="percent" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">Low/No Fees</h3>
+                                <p class="text-gray-600 text-sm">WeChat Pay: Free for transactions ≤ ¥200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparison Table -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                    Alipay vs WeChat Pay - Quick Comparison
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse bg-white rounded-lg shadow-lg overflow-hidden">
+                        <thead class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
+                            <tr>
+                                <th class="p-4 text-left">Feature</th>
+                                <th class="p-4 text-left">Alipay</th>
+                                <th class="p-4 text-left">WeChat Pay</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-4 font-semibold">Single Transaction Limit</td>
+                                <td class="p-4">$5,000 (verified)</td>
+                                <td class="p-4">$5,000 (verified)</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-4 font-semibold">Annual Limit</td>
+                                <td class="p-4">$50,000</td>
+                                <td class="p-4">$50,000</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold">Supported Cards</td>
+                                <td class="p-4">Visa, MC, Diners, Discover, JCB</td>
+                                <td class="p-4">Visa, MC, AmEx, JCB, Diners, Discover</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-4 font-semibold">Transaction Fees</td>
+                                <td class="p-4">Set by your bank</td>
+                                <td class="p-4">Free ≤ ¥200, 3% above ¥200</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold">Registration Time</td>
+                                <td class="p-4">5-10 minutes</td>
+                                <td class="p-4">5-10 minutes</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-4 font-semibold">Verification Speed</td>
+                                <td class="p-4">Instant - few minutes</td>
+                                <td class="p-4">"Second-level" fast</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-center text-gray-600 mt-4 text-sm">
+                    ✨ Both platforms are fully compliant and support medical tourism payments
+                </p>
+            </section>
+
+            <!-- Security & Data Privacy (New Section) -->
+            <section class="mb-16">
+                <div class="bg-slate-900 text-white rounded-2xl p-8 md:p-12 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                    <div class="relative z-10">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="md:w-1/4 flex justify-center">
+                                <i data-lucide="shield-check" class="w-24 h-24 text-emerald-400"></i>
+                            </div>
+                            <div class="md:w-3/4">
+                                <h2 class="text-2xl md:text-3xl font-bold mb-4">World-Class Security & Privacy</h2>
+                                <p class="text-gray-300 mb-4 leading-relaxed">
+                                    We understand that privacy is paramount. Both Alipay and WeChat Pay are global payment leaders, processing over $10 trillion annually with bank-level encryption. 
+                                </p>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+                                    <li class="flex items-center"><i data-lucide="lock" class="w-4 h-4 mr-2 text-emerald-400"></i> Full End-to-End Encryption</li>
+                                    <li class="flex items-center"><i data-lucide="eye-off" class="w-4 h-4 mr-2 text-emerald-400"></i> Merchants Never See Card Details</li>
+                                    <li class="flex items-center"><i data-lucide="user-check" class="w-4 h-4 mr-2 text-emerald-400"></i> GDPR & Local Privacy Compliance</li>
+                                    <li class="flex items-center"><i data-lucide="refresh-cw" class="w-4 h-4 mr-2 text-emerald-400"></i> Real-time Fraud Monitoring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Register - Alipay -->
+            <section class="mb-16">
+                <div class="bg-blue-50 rounded-2xl p-8 md:p-12">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="bg-blue-600 rounded-full p-3 mr-4">
+                            <i data-lucide="smartphone" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">How to Set Up Alipay</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Download the Alipay App</h3>
+                                <p class="text-gray-600 mb-2">Available on Apple App Store and Google Play Store. We
+                                    recommend downloading before arriving in China.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://apps.apple.com/app/alipay/id333206289" target="_blank"
+                                        class="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                                        → App Store
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone"
+                                        target="_blank" class="text-blue-600 hover:text-blue-700 text-sm font-semibold">
+                                        → Google Play
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Register with Your Phone Number</h3>
+                                <p class="text-gray-600">Use your international phone number. Enter the SMS verification
+                                    code, then create a login password and payment password.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Complete Identity Verification</h3>
+                                <p class="text-gray-600 mb-2">Navigate to "Me" → "Identity Verification". Upload your
+                                    passport and complete facial recognition. This unlocks higher limits ($5,000 per
+                                    transaction).</p>
+                                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 text-sm text-blue-900">
+                                    <p class="font-bold mb-1"><i data-lucide="info" class="w-4 h-4 inline mr-1"></i> Pro Tip: Name Format</p>
+                                    Enter your name <strong>EXACTLY</strong> as it appears on the bottom lines (machine-readable zone) of your passport. Usually: <code>SURNAME GIVENNAME</code>.
+                                </div>
+                                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mt-2 text-sm text-yellow-800">
+                                    <strong>Important:</strong> Verification is required for transactions over $500
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Add Your International Card</h3>
+                                <p class="text-gray-600">Link your Visa, Mastercard, Diners Club, Discover, or JCB card.
+                                    No Chinese bank account needed!</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                ✓
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-green-700 mb-2">Ready to Pay!</h3>
+                                <p class="text-gray-600">You can now pay for your medical tour package and use Alipay
+                                    anywhere in China.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Register - WeChat Pay -->
+            <section class="mb-16">
+                <div class="bg-green-50 rounded-2xl p-8 md:p-12">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="bg-green-600 rounded-full p-3 mr-4">
+                            <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">How to Set Up WeChat Pay</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Download WeChat</h3>
+                                <p class="text-gray-600 mb-2">Download the WeChat app from your app store. Set up before
+                                    your trip to China for convenience.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://apps.apple.com/app/wechat/id414478124" target="_blank"
+                                        class="text-green-600 hover:text-green-700 text-sm font-semibold">
+                                        → App Store
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.tencent.mm"
+                                        target="_blank"
+                                        class="text-green-600 hover:text-green-700 text-sm font-semibold">
+                                        → Google Play
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Create WeChat Account</h3>
+                                <p class="text-gray-600">Register using your international phone number and verify with
+                                    SMS code.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Navigate to WeChat Pay</h3>
+                                <p class="text-gray-600">Go to "Me" → "Services" → "Wallet" → "Bank Cards" → "Add New
+                                    Bank Card"</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Add International Card & Verify</h3>
+                                <p class="text-gray-600 mb-2">Enter your card details (Visa, MC, AmEx, JCB, etc.),
+                                    billing address, and personal information. Upload your passport for identity
+                                    verification.</p>
+                                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 text-sm text-blue-900">
+                                    <p class="font-bold mb-1"><i data-lucide="info" class="w-4 h-4 inline mr-1"></i> Pro Tip: Name Format</p>
+                                    Use the <code>SURNAME GIVENNAME</code> format (all caps) to match your passport's electronic data for instant approval.
+                                </div>
+                                <div class="bg-blue-50 border-l-4 border-blue-400 p-3 mt-2 text-sm text-blue-800">
+                                    <strong>Fast verification:</strong> Passport verification typically completes in "seconds".
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800 mb-2">Set Payment PIN</h3>
+                                <p class="text-gray-600">Create a 6-digit payment PIN for secure transactions.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                                ✓
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-green-700 mb-2">All Set!</h3>
+                                <p class="text-gray-600">Start paying for your medical packages and enjoy cashless
+                                    convenience throughout China.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                    Frequently Asked Questions
+                </h2>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            Do I need a Chinese bank account?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            <strong>No!</strong> You can use your international credit or debit card (Visa, Mastercard,
+                            AmEx, JCB, etc.) directly with both Alipay and WeChat Pay.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            What is the maximum I can pay at once?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            After completing identity verification with your passport, you can pay up to <strong>$5,000
+                                per transaction</strong> and <strong>$50,000 annually</strong> with both platforms.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            Are there any transaction fees?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            <strong>Alipay:</strong> Transaction fees are determined by your card issuing bank.<br>
+                            <strong>WeChat Pay:</strong> Transactions ≤ ¥200 (~$28) are free. Transactions above ¥200
+                            incur a 3% fee (refunded proportionally if you get a refund).
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            How long does registration take?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            Registration typically takes <strong>5-10 minutes</strong>. Identity verification with your
+                            passport is fast—often completed instantly or within minutes.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            How do I pay for my medical package?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            After selecting your package, we'll send you a payment QR code via email or WhatsApp. Simply
+                            scan it with your Alipay or WeChat Pay app to complete payment securely.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            Is it safe and secure?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            Absolutely! Both Alipay and WeChat Pay use bank-level encryption and are trusted by over 1
+                            billion users worldwide. All transactions are protected and monitored for fraud.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-gray-800 mb-2 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600 mr-2 flex-shrink-0 mt-0.5"></i>
+                            Can I get a refund if needed?
+                        </h3>
+                        <p class="text-gray-600 ml-7">
+                            Yes. Refunds will be returned to your payment account. With WeChat Pay, transaction fees are
+                            also refunded proportionally. Please review our refund policy for full details.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support Section -->
+            <section class="mb-12">
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 md:p-12 text-center">
+                    <i data-lucide="headphones" class="w-16 h-16 text-purple-600 mx-auto mb-4"></i>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        Need Help Setting Up Payment?
+                    </h2>
+                    <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                        Our team is here to assist you! We can provide one-on-one guidance through the registration
+                        process via video call or answer any questions you have.
+                    </p>
+                    <a href="/#contact"
+                        class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-semibold hover:from-purple-700 hover:to-pink-700 transition">
+                        Contact Support
+                    </a>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section>
+                <div
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 md:p-12 text-center text-white">
+                    <h2 class="text-3xl font-bold mb-4">
+                        Ready to Book Your Medical Tour?
+                    </h2>
+                    <p class="text-lg mb-6 opacity-90">
+                        Browse our packages and experience world-class healthcare in China with hassle-free payment
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/packages.html"
+                            class="bg-white text-emerald-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
+                            View Packages
+                        </a>
+                        <a href="/#contact"
+                            class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
+                            Get a Custom Quote
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <img src="/assets/images/logo.png" alt="China Medical Tour Logo"
+                    class="h-16 w-16 mx-auto mb-4 opacity-80">
+            </div>
+            <div class="mb-6">
+                <h4 class="font-semibold mb-3">Follow Us</h4>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://x.com/Vita_Scout" target="_blank" rel="noopener"
+                        class="text-gray-400 hover:text-white transition" aria-label="Follow on X">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <p class="mt-8">&copy; 2025 China Medical Tour. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">Disclaimer: Information is for reference only and does not
+                substitute professional medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/main.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+
+</html>

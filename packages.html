@@ -139,6 +139,44 @@
                         specialized
                         treatments, we provide a full range of world-class medical services.</p>
                 </div>
+
+                <!-- Payment Methods Notice -->
+                <div
+                    class="mt-8 mb-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 max-w-4xl mx-auto border border-blue-200">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-gradient-to-r from-blue-600 to-green-600 rounded-full p-3">
+                                <i data-lucide="credit-card" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="font-bold text-gray-800 text-lg">Secure Your Booking Instantly</h3>
+                                <p class="text-gray-600 text-sm">Use your Visa/Mastercard via Alipay & WeChat Pay • Setup in 5 mins</p>
+                            </div>
+                        </div>
+                        <a href="/how-to-pay.html"
+                            class="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-green-700 transition shadow-md hover:shadow-lg whitespace-nowrap">
+                            Payment Guide →
+                        </a>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Safe & Encrypted</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="globe" class="w-4 h-4 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">No Chinese Card Req.</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="zap" class="w-4 h-4 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Instant Setup</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="heart-handshake" class="w-4 h-4 text-green-600"></i>
+                            <span class="text-gray-700 font-medium">Expert Support</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="mt-12">
                     <h3 class="text-2xl font-bold text-center text-gray-700" data-key="screeningTitle">Health
                         Checkup Packages
@@ -559,143 +597,9 @@
 
     <script src="/assets/js/translations.js"></script>
     <script src="/assets/js/main.js"></script>
-    <!-- Modals for Package Details -->
-    <!-- Elite Package Modal -->
-    <div id="elite-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="eliteModalTitle">Elite Health Package - Detailed
-                Items</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalGeneral">General
-                        Examination</h4>
-                    <ul data-key="eliteModalGeneralItems">
-                        <li>Height, weight, blood pressure, BMI</li>
-                        <li>Internal medicine, surgery, ophthalmology, ENT examination</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalLab">Laboratory Tests</h4>
-                    <ul data-key="eliteModalLabItems">
-                        <li>Complete blood count, urinalysis</li>
-                        <li>Liver function (ALT, AST)</li>
-                        <li>Kidney function (BUN, Cr)</li>
-                        <li>Lipid profile (TC, TG, HDL, LDL)</li>
-                        <li>Fasting glucose (GLU)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalInstrument">Instrumental
-                        Examination</h4>
-                    <ul data-key="eliteModalInstrumentItems">
-                        <li>Static ECG</li>
-                        <li>Abdominal ultrasound (liver, gallbladder, pancreas, spleen, kidneys)</li>
-                        <li>Chest X-ray</li>
-                    </ul>
-                </div>
-            </div>
-            <i data-lucide="x"
-                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-        </div>
-    </div>
-    <!-- Platinum Package Modal -->
-    <div id="platinum-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="platinumModalTitle">Platinum Package - Detailed
-                Items</h3>
-            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">Includes all previous package items,
-                plus:</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepLab">Advanced
-                        Laboratory Tests</h4>
-                    <ul data-key="platinumModalDeepLabItems">
-                        <li>Complete liver function panel</li>
-                        <li>Complete kidney function panel</li>
-                        <li>Thyroid function (T3, T4, TSH)</li>
-                        <li>Rheumatoid factors (RF, ASO, CRP)</li>
-                        <li>Homocysteine (Hcy)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalTumor">Tumor Marker
-                        Screening</h4>
-                    <ul data-key="platinumModalTumorItems">
-                        <li>CEA (broad spectrum)</li>
-                        <li>AFP (liver cancer)</li>
-                        <li>CA19-9 (digestive tract)</li>
-                        <li>CA125 (female) / PSA (male)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDeepImaging">Advanced
-                        Imaging</h4>
-                    <ul data-key="platinumModalDeepImagingItems">
-                        <li>Carotid ultrasound</li>
-                        <li>Thyroid ultrasound</li>
-                        <li>Urinary system ultrasound</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalSpecial">Special Tests
-                    </h4>
-                    <ul data-key="platinumModalSpecialItems">
-                        <li>C13/C14 breath test (H. pylori)</li>
-                        <li>Bone density test</li>
-                    </ul>
-                </div>
-            </div>
-            <i data-lucide="x"
-                class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-        </div>
-    </div>
-    <!-- VIP Package Modal -->
-    <div id="vip-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800" data-key="vipModalTitle">VIP Package - Detailed Items</h3>
-            <p class="font-semibold text-blue-600 mb-4" data-key="modalSubtitle">Includes all Platinum package items,
-                plus:</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-600">
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalAdvancedImaging">High-end
-                        Imaging Screening</h4>
-                    <ul data-key="vipModalAdvancedImagingItems">
-                        <li>Head MRI (exclude cerebrovascular disease & tumor)</li>
-                        <li>Low-dose spiral CT (early lung cancer screening)</li>
-                        <li>Coronary artery calcium score (CHD risk)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalDigestive">Digestive
-                        Endoscopy</h4>
-                    <ul data-key="vipModalDigestiveItems">
-                        <li>Painless gastroscopy</li>
-                        <li>Painless colonoscopy</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalCardio">Cardiovascular
-                        Assessment</h4>
-                    <ul data-key="vipModalCardioItems">
-                        <li>Echocardiography</li>
-                        <li>24-hour Holter monitor (if needed)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-700 mt-2 border-b pb-1" data-key="modalFullLab">Comprehensive
-                        Laboratory Tests</h4>
-                    <ul data-key="vipModalFullLabItems">
-                        <li>Comprehensive tumor marker panel</li>
-                        <li>Endocrine hormone levels</li>
-                    </ul>
-                </div>
-                </ul>
-            </div>
-        </div>
-        <i data-lucide="x"
-            class="modal-close text-gray-500 hover:text-gray-800 absolute top-4 right-4 cursor-pointer"></i>
-    </div>
-    </div>
+    <!-- Modals (Rendered dynamically by packages.js) -->
+    <div id="modals-container"></div>
+    <script src="/assets/js/packages.js"></script>
 </body>
 
 </html>
