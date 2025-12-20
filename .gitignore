@@ -9,8 +9,19 @@ docs/
 !docs/image_prompts.md
 !docs/smart-cs-plan.md
 !docs/deployment-guide.md
-
+!docs/支付宝微信外国人注册指南.md
+!docs/支付宝微信支付商户集成最佳实践.md
+!docs/支付集成实施计划.md
+!docs/支付限额解决方案.md
 # Ignore specific files
 International Medical Tourism Application Form.docx
 MedTour产品list V2带英文.xlsx
 assets/images/concept_design.png
+# Workers: deps & local secrets
+workers/**/node_modules/
+workers/**/.dev.vars
+workers/**/.wrangler/
+workers/**/.npm/
+# Codex tooling artifacts (sensitive/noisy)
+workers/**/.codex/
+workers/**/.specify/
