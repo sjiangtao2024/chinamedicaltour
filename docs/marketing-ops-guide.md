@@ -91,3 +91,6 @@ Once you have applied for your **Merchant (Business) QR Codes** from Alipay and 
 3.  **Update Code:** Edit `public/executive-pass.html`:
     - Find: `src="assets/images/qr_alipay_placeholder.png"` -> Change to `src="assets/images/qr_alipay.png"`
     - Find: `src="assets/images/qr_wechat_placeholder.png"` -> Change to `src="assets/images/qr_wechat.png"`
+
+
+npx wrangler deploy --env production
