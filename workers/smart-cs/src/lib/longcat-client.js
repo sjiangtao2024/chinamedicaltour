@@ -87,6 +87,7 @@ export async function fetchLongcatSse({ env, requestId, key, timeoutMs, clientSi
         model: env.MODEL_NAME,
         messages: payload.messages,
         stream: true,
+        max_tokens: payload.max_tokens,
         temperature: payload.temperature ?? 0.5,
       }),
       signal: combinedSignal,

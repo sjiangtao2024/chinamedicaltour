@@ -4,8 +4,11 @@ import { createRequestId, logJson } from "./lib/logger.js";
 import { normalizeAndTruncateMessages } from "./lib/truncate.js";
 import { createKeyManager } from "./lib/key-manager.js";
 import { fetchLongcatSse } from "./lib/longcat-client.js";
-import { sseHeaders } from "./lib/sse.js";
+import { sseHeaders, serializeSseData } from "./lib/sse.js";
 import { getSystemPrompt } from "./lib/knowledge-base.js";
+import { resolveMaxTokens } from "./lib/token-budget.js";
+import { parseRealtimeIntent } from "./lib/intent.js";
+import { getRealtimeReply } from "./lib/realtime.js";
 
 export default {
   async fetch(request, env, ctx) {
@@ -61,6 +64,7 @@ export default {
     }
 
     const temperature = typeof body?.temperature === "number" ? body.temperature : undefined;
+    const maxTokens = resolveMaxTokens(env);
 
     const rawMessages = Array.isArray(body?.messages) ? body.messages : null;
     if (!rawMessages) {
@@ -70,6 +74,51 @@ export default {
         request_id: requestId,
         corsHeaders,
       });
+    }
+
+    const lastUser = [...rawMessages]
+      .reverse()
+      .find((m) => m && m.role === "user" && typeof m.content === "string");
+    const realtimeIntent = parseRealtimeIntent(lastUser?.content || "");
+    if (realtimeIntent) {
+      const realtime = await getRealtimeReply(realtimeIntent);
+      if (realtime) {
+        const replyText = realtime.text;
+        const encoder = new TextEncoder();
+        const stream = new ReadableStream({
+          start(controller) {
+            controller.enqueue(
+              encoder.encode(serializeSseData({ choices: [{ delta: { content: replyText } }] })),
+            );
+            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+            controller.close();
+          },
+        });
+
+        const isError = realtime.meta?.error === true;
+        logJson(isError ? "warn" : "info", {
+          request_id: requestId,
+          origin: origin || null,
+          path,
+          status: 200,
+          latency_ms: Date.now() - startMs,
+          key_slot: null,
+          attempt: 0,
+          upstream_status: realtime.meta?.status || null,
+          error_code: isError ? "realtime_fallback" : "realtime_reply",
+          realtime_source: realtime.meta?.source || null,
+          realtime_cached: realtime.meta?.cached ?? null,
+          realtime_error: realtime.meta?.message || null,
+        });
+
+        return new Response(stream, {
+          status: 200,
+          headers: {
+            ...sseHeaders(),
+            ...(corsHeaders || {}),
+          },
+        });
+      }
     }
 
     // Insert System Prompt at the beginning
@@ -126,6 +175,7 @@ export default {
             messages,
             stream: true,
             temperature,
+            max_tokens: maxTokens,
           },
         });
 

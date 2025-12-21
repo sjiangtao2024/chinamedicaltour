@@ -1,0 +1,13 @@
+import assert from "node:assert/strict";
+import { getSystemPrompt } from "../src/lib/knowledge-base.js";
+
+const prompt = getSystemPrompt();
+
+assert.match(prompt, /Refuse to answer/i);
+assert.match(prompt, /medical diagnosis/i);
+assert.match(prompt, /politics/i);
+assert.match(prompt, /religion/i);
+assert.match(prompt, /coding|programming/i);
+assert.match(prompt, /redirect/i);
+assert.match(prompt, /exchange rate/i);
+assert.match(prompt, /real-time|实时/i);

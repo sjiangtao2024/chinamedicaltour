@@ -126,11 +126,13 @@
   }
 
   function getQuickReplies(context) {
-    if (context.type === "payment") return ["How to setup Alipay?", "Transaction fees?", "Can I use Visa card?"];
-    if (context.type === "packages") return ["Compare Elite vs VIP", "Is MRI included?", "What is Grade 3A?"];
-    if (context.type === "visa") return ["144h Transit Rule", "Visa Free Countries", "Invitation Letter"];
-    if (context.type === "culture") return ["Beijing tour plan", "Panda base info", "Food recommendations"];
-    return ["View Medical Packages", "Visa Free Policy", "Is China safe?"];
+    if (context.type === "payment") return ["Set up Alipay now—can you guide me?", "Help me verify WeChat Pay", "Any fees I should plan for?"];
+    if (context.type === "packages") return ["Help me pick the right package", "Is MRI/CT included in my options?", "Can we book a checkup date?"];
+    if (context.type === "executive-pass") return ["Lock the $100 retainer—what's next?", "What's included in the 2026 pass?", "Is the retainer refundable?"];
+    if (context.type === "visa") return ["Do I qualify for the 144-hour transit?", "Which countries are visa-free?", "Can you help with an invitation letter?"];
+    if (context.type === "culture") return ["Plan a 3-day Beijing itinerary with me", "Chengdu panda base tips for visitors", "Recommend local foods to try"];
+    if (context.type === "trust") return ["Is China safe for visitors?", "How do you ensure hospital quality?", "Why is it cheaper than US/EU?"];
+    return ["Help me choose a package", "Check today's weather in Beijing", "USD to CNY exchange rate"];
   }
 
   function renderSuggestions(ui, context) {

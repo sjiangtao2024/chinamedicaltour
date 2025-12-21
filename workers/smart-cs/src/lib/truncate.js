@@ -35,8 +35,19 @@ function baseSystemPrompt(language) {
   ].join("\n");
 }
 
+const DEFAULT_MAX_CHARS = 6000;
+const CONTEXT_BUFFER_CHARS = 512;
+
 function totalChars(messages) {
   return messages.reduce((sum, m) => sum + (m?.content?.length || 0), 0);
+}
+
+function getMaxChars(messages) {
+  const system = messages.find((m) => m.role === "system");
+  const systemLen = system?.content?.length || 0;
+  const lastUser = [...messages].reverse().find((m) => m.role === "user");
+  const lastUserLen = lastUser?.content?.length || 0;
+  return Math.max(DEFAULT_MAX_CHARS, systemLen + lastUserLen + CONTEXT_BUFFER_CHARS);
 }
 
 function truncateToMaxChars(messages, maxChars) {
@@ -74,7 +85,7 @@ export function normalizeAndTruncateMessages(rawMessages, { requestId }) {
     merged = [{ role: "system", content: baseSystemPrompt(language) }, ...filtered];
   }
 
-  if (totalChars(merged) <= 6000) return merged;
-  return truncateToMaxChars(merged, 6000);
+  const maxChars = getMaxChars(merged);
+  if (totalChars(merged) <= maxChars) return merged;
+  return truncateToMaxChars(merged, maxChars);
 }
-
