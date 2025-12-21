@@ -185,6 +185,37 @@
   margin-top: 0;
 }
 
+/* Quick Replies Styles */
+.cmt-chat__suggestions {
+  padding: 8px 12px;
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for cleaner look */
+}
+.cmt-chat__suggestions::-webkit-scrollbar {
+  display: none;
+}
+.cmt-chat__suggestion-btn {
+  white-space: nowrap;
+  background: #f0fdfa; /* Teal-50 */
+  color: #0f766e; /* Teal-700 */
+  border: 1px solid #ccfbf1; /* Teal-100 */
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cmt-chat__suggestion-btn:hover {
+  background: #0f766e;
+  color: #fff;
+  border-color: #0f766e;
+}
+
 .cmt-chat__status {
   padding: 8px 12px;
   font-size: 12px;

@@ -87,6 +87,10 @@
     header.appendChild(closeBtn);
 
     var messages = el("div", { class: "cmt-chat__messages", role: "log", "aria-label": "Messages" });
+    
+    // Quick Replies Container
+    var suggestions = el("div", { class: "cmt-chat__suggestions" });
+
     var status = el("div", { class: "cmt-chat__status", text: "Idle" });
     var error = el("div", { class: "cmt-chat__error" }, [
       el("div", { "data-role": "error-text", text: "" }),
@@ -108,6 +112,7 @@
 
     panel.appendChild(header);
     panel.appendChild(messages);
+    panel.appendChild(suggestions); // Add suggestions between messages and status
     panel.appendChild(status);
     panel.appendChild(error);
     panel.appendChild(composer);
@@ -117,7 +122,29 @@
 
     document.body.appendChild(root);
 
-    return { root: root, toggle: toggle, panel: panel, closeBtn: closeBtn, messages: messages, status: status, error: error, input: input, send: send };
+    return { root: root, toggle: toggle, panel: panel, closeBtn: closeBtn, messages: messages, suggestions: suggestions, status: status, error: error, input: input, send: send };
+  }
+
+  function getQuickReplies(context) {
+    if (context.type === "payment") return ["How to setup Alipay?", "Transaction fees?", "Can I use Visa card?"];
+    if (context.type === "packages") return ["Compare Elite vs VIP", "Is MRI included?", "What is Grade 3A?"];
+    if (context.type === "visa") return ["144h Transit Rule", "Visa Free Countries", "Invitation Letter"];
+    if (context.type === "culture") return ["Beijing tour plan", "Panda base info", "Food recommendations"];
+    return ["View Medical Packages", "Visa Free Policy", "Is China safe?"];
+  }
+
+  function renderSuggestions(ui, context) {
+    ui.suggestions.innerHTML = ""; // Clear existing
+    var replies = getQuickReplies(context);
+    replies.forEach(function(text) {
+      var btn = el("button", { class: "cmt-chat__suggestion-btn", text: text });
+      btn.onclick = function() {
+        ui.input.value = text;
+        onSend();
+        ui.suggestions.innerHTML = ""; // Clear suggestions after click
+      };
+      ui.suggestions.appendChild(btn);
+    });
   }
 
   function renderMessage(messagesEl, role, text) {
@@ -336,6 +363,7 @@
     if (state.chatMessages.length === 0 && !ui.messages.querySelector(".cmt-chat__msg--assistant")) {
       var context = getPageContext();
       renderMessage(ui.messages, "assistant", getWelcomeMessage(context));
+      renderSuggestions(ui, context); // Render quick replies
     }
   }
 
