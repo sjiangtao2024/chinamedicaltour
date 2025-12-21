@@ -102,6 +102,17 @@
 .cmt-chat__msg {
   display: flex;
   margin: 10px 0;
+  align-items: flex-end; /* Align bubble and avatar to bottom */
+}
+
+.cmt-chat__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #fff;
 }
 
 .cmt-chat__msg--user {

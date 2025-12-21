@@ -60,10 +60,10 @@
   function createUI() {
     var root = el("div", { class: "cmt-chat" });
 
-    // Use the new 3D AI icon instead of a generic SVG
+    // Use the new Sunny avatar
     var chatIcon = el("img", {
-      src: "assets/images/ai_chat_icon.png",
-      alt: "AI Assistant",
+      src: "assets/images/ai_avatar_sunny.png",
+      alt: "Sunny - AI Assistant",
       class: "cmt-chat__toggle-img"
     });
 
@@ -71,13 +71,13 @@
       class: "cmt-chat__toggle",
       type: "button",
       "aria-label": "Open chat",
-      title: "Chat with us",
+      title: "Chat with Sunny",
     }, [ chatIcon ]);
 
     var panel = el("div", { class: "cmt-chat__panel", "aria-hidden": "true", role: "dialog", "aria-label": "Chat Assistant" });
 
     var header = el("div", { class: "cmt-chat__header" });
-    header.appendChild(el("div", { class: "cmt-chat__title", text: "Medical Assistant" }));
+    header.appendChild(el("div", { class: "cmt-chat__title", text: "Sunny - Your Guide 🌸" }));
     var closeBtn = el("button", {
       class: "cmt-chat__close",
       type: "button",
@@ -122,6 +122,17 @@
 
   function renderMessage(messagesEl, role, text) {
     var wrap = el("div", { class: "cmt-chat__msg cmt-chat__msg--" + role });
+    
+    // Add Avatar for Assistant
+    if (role === "assistant") {
+      var avatar = el("img", {
+        src: "assets/images/ai_avatar_sunny.png",
+        class: "cmt-chat__avatar",
+        alt: "Sunny"
+      });
+      wrap.appendChild(avatar);
+    }
+
     var bubble = el("div", { class: "cmt-chat__bubble" });
     if (role === "assistant" && window.marked) {
       bubble.innerHTML = window.marked.parse(text || "");
@@ -304,7 +315,7 @@
       renderMessage(
         ui.messages,
         "assistant",
-        "Hello! I'm your Medical Tour Assistant.\nDisclaimer: I provide information on visas, packages, and logistics. This is NOT medical advice. Please consult a doctor.\n\nHow can I help you today?",
+        "**Hello! I'm Sunny (小晴), your personal China Medical Tour guide.** 🌸\n\nI can help you with:\n- 🏥 Choosing the right medical package\n- ✈️ Visa-free travel policies\n- 💳 Setting up Alipay/WeChat Pay\n\n*(Note: I provide logistics support, not medical diagnosis.)*\n\nHow can I help you today?",
       );
     }
   }
