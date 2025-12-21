@@ -198,9 +198,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
 
     document.querySelectorAll('[data-modal-target]').forEach(button => {
         button.addEventListener('click', () => {
