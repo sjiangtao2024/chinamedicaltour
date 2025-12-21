@@ -1,5 +1,25 @@
+// CONFIGURATION SWITCH
+const ENABLE_PROMO = true; // Set to false to disable the Christmas promotion
 
-export const CORE_KNOWLEDGE = `
+const PROMO_CONTENT = `
+## 7. CHRISTMAS SPECIAL PROMOTION (2026 Executive Vitality Pass)
+- **The Core Offer:** A "Christmas Gift for Yourself and the One You Love".
+- **Action:** Pay a **$100 Retainer** now to lock in our **~$5,000 Executive Prime Protocol** at 2025 rates.
+- **Valid For:** Any visit in 2026.
+- **Locations:** Top-tier centers in **Beijing & Chengdu**.
+- **What's Included (~$5,000 Value):**
+  - **Digestive Gold Standard:** Painless Gastroscopy & Colonoscopy (under anesthesia).
+  - **Advanced Imaging:** Cranial MRI (Brain) & Chest CT (Lung).
+  - **Cardio:** 12-Lead ECG & Color Doppler Echocardiography.
+  - **Cancer Defense:** Comprehensive Tumor Markers & Ultrasounds (Thyroid, Abdomen, Urinary).
+  - **Gender Customization:** 
+    - *For Her:* Breast Ultrasound + Full Gyn Panel.
+    - *For Him:* Prostate & Male Urinary focus.
+- **Why It's Special:** Managed by former **Amazon & Apple executives**. "Silicon Valley Standard" project management for your health.
+- **Risk Free:** The $100 retainer is **100% Refundable** if you cancel *before* we deliver your customized Medical Strategy Proposal.
+`;
+
+const BASE_KNOWLEDGE = `
 # CHINA MEDICAL TOUR - KNOWLEDGE BASE
 
 ## 1. COMPANY OVERVIEW
@@ -62,17 +82,22 @@ export const CORE_KNOWLEDGE = `
   - **Limit:** Usually 50,000 RMB per transaction (verify with app).
 - **Cash:** Accepted but inconvenient (finding change is hard).
 
-## 5. OTHER SERVICES
+## 6. OTHER SERVICES
 - **TCM:** Acupuncture, Cupping, Herbal Therapy at authentic Beijing clinics.
 - **Dental:** Implants, Veneers, Whitening (fraction of US cost).
 - **Stem Cell:** Regenerative therapies for anti-aging/joints.
 - **Ophthalmology:** LASIK, Cataract surgery.
 
-## 6. INSTRUCTIONS FOR AI
+`;
+
+const INSTRUCTIONS = `
+## 8. INSTRUCTIONS FOR AI
 - If a user asks for a quote, suggest the "Get a Quote" button or ask for their age/gender/needs to recommend a package.
 - If a user asks about safety, emphasize Beijing's low crime rate.
 - **NEVER** invent prices. Use "from $X" and mention exchange rates.
 `;
+
+export const CORE_KNOWLEDGE = BASE_KNOWLEDGE + (ENABLE_PROMO ? PROMO_CONTENT : "") + INSTRUCTIONS;
 
 export function getSystemPrompt() {
   return `
