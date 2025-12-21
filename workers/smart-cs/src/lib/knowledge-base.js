@@ -7,7 +7,7 @@ const PROMO_CONTENT = `
 - **Action:** Pay a **$100 Retainer** now to lock in our **~$5,500 Executive Prime Protocol** at 2025 rates.
 - **Payment Method:** Secure payment via **Alipay or WeChat Pay** (Merchant QR Code).
   - Supports International Visa, Mastercard, JCB.
-  - *Note:* Transactions over 200 CNY may incur a 3% platform fee charged by Alipay/WeChat.
+  - *Note:* Transactions over 200 CNY may incur a **3% platform fee (~$3 USD)** charged by Alipay/WeChat.
 - **Valid For:** Any visit in 2026.
 - **Locations:** Top-tier centers in **Beijing & Chengdu**.
 - **What's Included (~$5,500 Value):**
