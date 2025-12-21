@@ -173,293 +173,152 @@
 
     <!-- Main Content -->
     <main>
+        <section class="py-24 bg-slate-900 text-white relative min-h-screen flex items-center" style="background-image: url('assets/images/executive_suite_bg.png'); background-size: cover; background-position: center;">
+            <!-- Dark Overlay for Readability -->
+            <div class="absolute inset-0 bg-slate-900/85 z-0"></div>
+            
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl z-0"></div>
 
-        <!-- [STANDARD HERO] Default (hidden if hide-standard-hero class is on HTML) -->
-        <section id="hero-standard" class="relative">
-            <div class="hero-split-container">
-                <!-- Left Side: Medical Trust -->
-                <div class="hero-side bg-teal-50 group">
-                    <img src="assets/images/hero_medical_placeholder.png" alt="Professional Medical Checkup in China"
-                        class="hero-bg-image">
-                    <div class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
-                        <div
-                            class="inline-block bg-teal-600/10 text-teal-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-teal-200">
-                            Trusted Healthcare</div>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                            World-Class <span class="text-teal-600">Medical Care</span>
-                        </h1>
-                        <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
-                            Save 70% on premium health checkups. JCI-accredited hospitals, expert specialists,
-                            and
-                            state-of-the-art technology.
-                        </p>
-                        
-                        <!-- Trust Badges -->
-                        <div class="flex flex-wrap gap-3 mb-8 justify-center md:justify-start">
-                            <div class="flex items-center text-sm font-semibold text-gray-800 bg-white/80 px-3 py-1.5 rounded-full border border-teal-100 shadow-sm backdrop-blur-sm">
-                                <i data-lucide="languages" class="w-4 h-4 text-teal-600 mr-2"></i> English Service
-                            </div>
-                            <div class="flex items-center text-sm font-semibold text-gray-800 bg-white/80 px-3 py-1.5 rounded-full border border-teal-100 shadow-sm backdrop-blur-sm">
-                                <i data-lucide="file-check" class="w-4 h-4 text-teal-600 mr-2"></i> Visa Support
-                            </div>
-                            <div class="flex items-center text-sm font-semibold text-gray-800 bg-white/80 px-3 py-1.5 rounded-full border border-teal-100 shadow-sm backdrop-blur-sm">
-                                <i data-lucide="shield-check" class="w-4 h-4 text-teal-600 mr-2"></i> JCI Accredited
-                            </div>
-                        </div>
-
-                        <a href="#packages-teaser"
-                            class="inline-block bg-teal-600 text-white px-8 py-3 rounded-full font-bold hover:bg-teal-700 transition shadow-lg transform hover:-translate-y-1">View
-                            Medical Packages</a>
-                    </div>
-                </div>
-
-                <!-- Right Side: Cultural Adventure -->
-                <div class="hero-side bg-amber-50 group">
-                    <img src="assets/images/hero_culture_placeholder.png" alt="Cultural Experience in China"
-                        class="hero-bg-image">
-                    <div class="hero-content relative z-10 text-center px-4 md:text-left md:px-12 lg:px-20 max-w-xl">
-                            <div
-                                class="inline-block bg-amber-600/10 text-amber-700 font-semibold px-4 py-1 rounded-full text-sm mb-4 backdrop-blur-sm border border-amber-200">
-                                Unforgettable Journey</div>
-                            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                                Timeless <span class="text-amber-600">Culture</span>
-                            </h2>
-                        <p class="text-lg text-gray-700 mb-8 leading-relaxed font-medium">
-                            Explore the Great Wall, savor authentic cuisine, and immerse yourself in thousands
-                            of years of
-                            history.
-                        </p>
-                        <a href="#culture"
-                            class="mt-6 inline-block bg-white text-amber-600 px-8 py-3 rounded-full font-bold hover:bg-amber-50 transition shadow-lg">Explore
-                            Activities</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Center Badge (Desktop Only) -->
-            <div
-                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 bg-white p-4 rounded-full shadow-2xl hidden md:block">
-                <div
-                    class="border-4 border-dashed border-gray-200 rounded-full p-2 w-24 h-24 flex flex-col justify-center items-center text-center">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Perfect</span>
-                    <span
-                        class="block text-xl font-black bg-gradient-to-r from-teal-600 to-amber-500 bg-clip-text text-transparent">BALANCE</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- [MODULE: Christmas Hero] -->
-        <section id="hero-promo" class="promo-module module-christmas-hero relative h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
-            <!-- Background Image with Overlay -->
-            <div class="absolute inset-0 z-0">
-                <img src="assets/images/christmas_hero.png" alt="Christmas Gift for Yourself and the One you Love" class="w-full h-full object-cover object-center">
-                <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
-            </div>
-
-            <!-- Content -->
-            <div class="relative z-10 container mx-auto px-6 text-center md:text-left">
-                <div class="max-w-3xl">
-                    <div class="inline-block bg-red-600 text-white font-bold px-4 py-1 rounded-full text-sm mb-6 shadow-lg animate-pulse">
-                        🎄 Christmas Special Offer
-                    </div>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4 font-serif italic text-amber-300 drop-shadow-md">
-                        Christmas Gift <br>
-                        <span class="text-white not-italic font-sans">for Yourself and the One you Love</span>
-                    </h1>
-                    <h2 class="text-xl md:text-2xl text-gray-100 mb-8 font-light leading-relaxed">
-                        Invest in Your 2026 Health Strategy. <strong class="text-amber-300">Lock It In Today.</strong><br>
-                        Secure priority access to China’s top medical centers with a <span class="underline decoration-amber-400 decoration-2 underline-offset-4">fully refundable</span> $100 Retainer.
-                    </h2>
-                    
-                    <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-                        <a href="executive-pass.html" class="bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-amber-600 hover:to-yellow-700 transition shadow-[0_0_20px_rgba(251,191,36,0.5)] transform hover:-translate-y-1 flex items-center justify-center">
-                            Lock My Rate - $100
-                            <i data-lucide="lock" class="ml-2 w-5 h-5"></i>
-                        </a>
-                        <a href="#about" class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition flex items-center justify-center">
-                            Learn More
-                        </a>
-                    </div>
-                    <p class="mt-4 text-sm text-gray-300 opacity-80">*Limited to 50 slots for 2026 priority access.</p>
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- Culture Planner Widget Section -->
-        <section class="relative -mt-10 z-40 container mx-auto px-4 mb-20">
-            <div
-                class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto transform hover:-translate-y-1 transition duration-300 border border-gray-100">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2 flex items-center">
-                            <i data-lucide="map" class="w-6 h-6 mr-2 text-teal-600"></i>
-                            Plan Your Trip
-                        </h3>
-                        <p class="text-gray-600">Customize your medical and cultural itinerary in seconds. Get
-                            an instant quote
-                            estimate.</p>
-                    </div>
-                    <a href="culture-planner.html" id="culture-planner-link"
-                        class="w-full md:w-auto bg-gradient-to-r from-teal-600 to-amber-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition flex items-center justify-center space-x-2 group">
-                        <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
-                        <span>Start Planning</span>
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 max-w-4xl mx-auto pt-20">
+                    <a href="/" class="inline-flex items-center text-gray-400 hover:text-white mb-8 transition">
+                        <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Home
                     </a>
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- About Us Section (Revamped) -->
-        <section id="about" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center">
-                    <h2 class="section-title" data-key="aboutTitle">Why Choose China? Three Irresistible Reasons
-                    </h2>
-                    <p class="section-subtitle" data-key="aboutSubtitle">We reveal why a health screening in
-                        China is
-                        not just a smart choice, but the best investment in your health and time.</p>
-                </div>
-
-
-                <!-- Three Advantage Cards -->
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
-                    <!-- Card 1: Cost -->
-                    <div class="card p-8 text-center hover:-translate-y-2 transition duration-300">
-                        <div
-                            class="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="dollar-sign" class="w-8 h-8 text-blue-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-blue-900 mb-4">Unbeatable Value</h3>
-                        <p class="text-gray-600 leading-relaxed">Save up to 70% on comprehensive health checkups without
-                            compromising quality. Same world-class equipment and expertise.</p>
-                    </div>
-
-                    <!-- Card 2: Efficiency -->
-                    <div class="card p-8 text-center hover:-translate-y-2 transition duration-300">
-                        <div
-                            class="bg-amber-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="zap" class="w-8 h-8 text-amber-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-amber-900 mb-4">Incredible Efficiency</h3>
-                        <p class="text-gray-600 leading-relaxed">Get your full checkup scheduled in days, completed in
-                            hours, with same-day digital results. No months-long waiting.</p>
-                    </div>
-
-                    <!-- Card 3: Quality -->
-                    <div class="card p-8 text-center hover:-translate-y-2 transition duration-300">
-                        <div
-                            class="bg-green-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="activity" class="w-8 h-8 text-green-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-green-900 mb-4">World-Class Hospitals</h3>
-                        <p class="text-gray-600 leading-relaxed">Exclusive partnerships with Grade 3A hospitals—China's
-                            top tier, equivalent to major US/UK university medical centers.</p>
-                    </div>
-                </div>
-
-                <!-- Learn More Button -->
-                <div class="text-center mb-16">
-                    <a href="why-choose-china.html"
-                        class="inline-block bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-emerald-700 hover:to-teal-700 transition shadow-lg transform hover:-translate-y-1">
-                        Learn More About Our Advantages
-                        <i data-lucide="arrow-right" class="inline-block w-5 h-5 ml-2"></i>
-                    </a>
-                </div>
-            </div>
-
-            </div>
-        </section>
-
-        <!-- Founder/Team Background Section (Added) -->
-        <section id="our-story" class="py-24 bg-slate-50 border-y border-gray-200">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col lg:flex-row items-center gap-16 max-w-6xl mx-auto">
+                    <br/>
+                    <span class="text-amber-400 font-bold tracking-widest uppercase text-sm">The 2026 Strategy</span>
+                    <h1 class="text-4xl md:text-6xl font-bold mt-3 mb-6 font-serif">The Executive Vitality Pass</h1>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Designed for the high-performance leader (Ages 35-45).<br>
+                        We don't just book appointments; we manage your health strategy with the rigor of a corporate audit.
+                    </p>
                     
-                    <!-- Left: Content -->
-                    <div class="lg:w-3/5 order-2 lg:order-1">
-                        <div class="inline-block bg-blue-100 text-blue-800 font-semibold px-4 py-1 rounded-full text-sm mb-6">
-                            Our DNA
-                        </div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                            From Silicon Valley Standards to <br/>
-                            <span class="text-teal-600">China's Top Hospitals</span>
-                        </h2>
-                        
-                        <blockquote class="text-xl font-medium text-gray-800 italic border-l-4 border-blue-600 pl-6 mb-8 py-2 bg-blue-50/50 rounded-r-lg">
-                            "We know what 'Good' looks like."
-                        </blockquote>
-        
-                        <div class="space-y-5 text-gray-600 text-lg leading-relaxed">
-                            <p>
-                                Before we started guiding executives through China's healthcare system, we were executives ourselves.
-                            </p>
-                            <p>
-                                Our founders managed projects and teams at <strong class="text-gray-900">Apple, Amazon, and Deutsche Telekom</strong>. We lived in the world of strict deadlines, zero-defect policies, and seamless user experiences.
-                            </p>
-                            <p>
-                                When we looked at the traditional medical tourism landscape, we saw a gap. The medical quality in China was world-class, but the service experience often got lost in translation. <span class="font-bold text-gray-800 bg-yellow-100 px-1">We built this company to fix that.</span>
-                            </p>
-                            <p>
-                                We applied the Amazon obsession with customer satisfaction and the Apple focus on intuitive, seamless experiences. We don't just translate your medical report; we translate your entire experience into something familiar, safe, and incredibly efficient.
-                            </p>
-                            <p class="font-bold text-gray-900 mt-6 border-t pt-4">
-                                You represent the best in your industry. You deserve a team that comes from the best in ours.
-                            </p>
-                        </div>
+                    <!-- Trust Anchor -->
+                    <div class="mt-8 inline-flex items-center bg-slate-800/50 rounded-full px-6 py-2 border border-slate-700">
+                        <span class="text-gray-400 mr-3 text-sm">Managed by former executives from:</span>
+                        <span class="font-bold text-white">Amazon</span>
+                        <span class="mx-2 text-gray-600">|</span>
+                        <span class="font-bold text-white">Apple</span>
                     </div>
-        
-                    <!-- Right: Founder Card & Tech Badges -->
-                    <div class="lg:w-2/5 w-full order-1 lg:order-2">
-                        <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 relative overflow-hidden transform hover:-translate-y-1 transition duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blue-50 rounded-full blur-3xl"></div>
-                            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-teal-50 rounded-full blur-3xl"></div>
-        
-                            <div class="relative z-10 text-center">
-                                <!-- Founder Image -->
-                                <div class="w-32 h-32 mx-auto mb-6 relative">
-                                    <img src="assets/images/founder_raw.png" alt="Jordan Zhuang" class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg ring-2 ring-gray-100">
-                                    <div class="absolute bottom-1 right-1 bg-blue-500 text-white p-1.5 rounded-full border-2 border-white shadow-sm" title="Verified Profile">
-                                        <i data-lucide="check" class="w-4 h-4"></i>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+                    
+                    <!-- Left: The Offer Details -->
+                    <div class="space-y-8">
+                        <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 hover:border-amber-500/30 transition duration-300">
+                            <h3 class="text-2xl font-bold text-amber-400 mb-4 flex items-center">
+                                <i data-lucide="shield-check" class="w-6 h-6 mr-3"></i>
+                                The Core Protocol (~$5,500 Value)
+                            </h3>
+                            <ul class="space-y-4 text-gray-300">
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <strong class="text-white">Digestive Gold Standard:</strong> Painless Gastroscopy & Colonoscopy (under anesthesia). The #1 defense against early GI cancer.
                                     </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <strong class="text-white">Advanced Imaging:</strong> Cranial MRI (Brain health) & Chest CT (Lung precision screening).
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <strong class="text-white">Cardiovascular Suite:</strong> 12-Lead ECG & Color Doppler Echocardiography.
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                                    <div>
+                                        <strong class="text-white">Full Defense Panel:</strong> Comprehensive Cancer Tumor Markers, Thyroid/Abdomen/Urinary Ultrasounds.
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 hover:border-amber-500/30 transition duration-300">
+                            <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                                <i data-lucide="users" class="w-6 h-6 mr-3 text-blue-400"></i>
+                                Gender Customization
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-bold text-pink-400 mb-2">For Her</h4>
+                                    <p class="text-sm text-gray-400">Includes Color Doppler Ultrasound for Breasts and full Gynecology panel (Uterus, Ovaries).</p>
                                 </div>
-                                
-                                <h3 class="text-2xl font-bold text-gray-900">Jordan Zhuang</h3>
-                                <p class="text-blue-600 font-medium mb-6 flex items-center justify-center">
-                                    Founder
+                                <div>
+                                    <h4 class="font-bold text-blue-400 mb-2">For Him</h4>
+                                    <p class="text-sm text-gray-400">Focused screening for Prostate health and male-specific urinary risks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: The Deal & Call to Action -->
+                    <div class="bg-gradient-to-b from-amber-600 to-yellow-600 rounded-2xl p-1 shadow-2xl transform hover:-translate-y-2 transition duration-500 sticky top-24">
+                        <div class="bg-slate-900 rounded-xl p-8 h-full flex flex-col relative overflow-hidden">
+                            <!-- Ribbon -->
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-8 py-1 transform rotate-45 translate-x-8 translate-y-4 shadow-md">
+                                CHRISTMAS OFFER
+                            </div>
+
+                            <h3 class="text-3xl font-bold text-white mb-2">Lock In 2025 Rates</h3>
+                            <p class="text-amber-400 text-lg font-medium mb-6">Price Match Guarantee for 2026 Visits</p>
+
+                            <div class="flex-grow space-y-6">
+                                <p class="text-gray-300">
+                                    Don't let another year pass without auditing your biological system. 
+                                    Pay the retainer today to secure your slot and assigned Case Manager.
                                 </p>
-        
-                                <!-- Tech Experience Badges -->
-                                <div class="mb-8 bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                    <p class="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold">Executive Experience At</p>
-                                    <div class="flex flex-wrap justify-center gap-2">
-                                        <span class="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-semibold text-gray-700 shadow-sm">Apple</span>
-                                        <span class="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-semibold text-gray-700 shadow-sm">Amazon</span>
-                                        <span class="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm font-semibold text-gray-700 shadow-sm">Deutsche Telekom</span>
+
+                                <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                                    <h4 class="font-bold text-white mb-2 text-sm uppercase tracking-wide">What the $100 Covers:</h4>
+                                    <ul class="text-sm text-gray-400 space-y-2">
+                                        <li class="flex items-center"><i data-lucide="lock" class="w-4 h-4 text-amber-500 mr-2"></i> <strong>Price Lock:</strong> Secure 2025 rates (~$5,500) for 2026.</li>
+                                        <li class="flex items-center"><i data-lucide="user-check" class="w-4 h-4 text-amber-500 mr-2"></i> <strong>Strategy Audit:</strong> Expert review of your history.</li>
+                                        <li class="flex items-center"><i data-lucide="calendar-check" class="w-4 h-4 text-amber-500 mr-2"></i> <strong>Priority:</strong> Guaranteed slot with 14 days' notice.</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Risk Reversal -->
+                                <div class="flex items-start bg-green-900/20 p-4 rounded-lg border border-green-800/50">
+                                    <i data-lucide="refresh-cw" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+                                    <div>
+                                        <p class="text-green-400 font-bold text-sm">100% Refundable Retainer</p>
+                                        <p class="text-xs text-green-300/70 mt-1">
+                                            Change your mind? Get a full refund anytime before we deliver your customized Medical Strategy Proposal. No questions asked.
+                                        </p>
                                     </div>
                                 </div>
-        
-                                <!-- LinkedIn Button -->
-                                <a href="https://www.linkedin.com/in/jordan-zhuang-93427158/" target="_blank" rel="noopener" 
-                                   class="flex items-center justify-center w-full bg-[#0077b5] hover:bg-[#006396] text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg group">
-                                    <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24">
-                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                    </svg>
-                                    Connect on LinkedIn
-                                    <i data-lucide="external-link" class="w-4 h-4 ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+
+                            <div class="mt-8 pt-6 border-t border-slate-700">
+                                <div class="flex items-end justify-between mb-4">
+                                    <div>
+                                        <p class="text-gray-400 text-sm">Retainer Fee</p>
+                                        <p class="text-3xl font-bold text-white">$100 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-gray-400 text-xs line-through">Standard Consult: $300</p>
+                                        <p class="text-green-400 text-xs font-bold">Save $200 Today</p>
+                                    </div>
+                                </div>
+                                <a href="https://buy.stripe.com/test_mode_link_placeholder" class="block w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-4 rounded-xl text-center text-lg transition shadow-lg hover:shadow-amber-500/20">
+                                    Secure My Pass Now
                                 </a>
-                                <p class="text-xs text-gray-400 mt-4">Verify our professional background directly</p>
+                                <p class="text-center text-xs text-gray-500 mt-3">Secured by Stripe & PayPal</p>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </section>
+    </main>
 
         <!-- Packages Teaser Section -->
         <section id="packages-teaser" class="py-20 bg-gray-50">

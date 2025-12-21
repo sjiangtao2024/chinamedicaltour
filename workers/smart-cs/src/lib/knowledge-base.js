@@ -4,10 +4,10 @@ const ENABLE_PROMO = true; // Set to false to disable the Christmas promotion
 const PROMO_CONTENT = `
 ## 7. CHRISTMAS SPECIAL PROMOTION (2026 Executive Vitality Pass)
 - **The Core Offer:** A "Christmas Gift for Yourself and the One You Love".
-- **Action:** Pay a **$100 Retainer** now to lock in our **~$5,000 Executive Prime Protocol** at 2025 rates.
+- **Action:** Pay a **$100 Retainer** now to lock in our **~$5,500 Executive Prime Protocol** at 2025 rates.
 - **Valid For:** Any visit in 2026.
 - **Locations:** Top-tier centers in **Beijing & Chengdu**.
-- **What's Included (~$5,000 Value):**
+- **What's Included (~$5,500 Value):**
   - **Digestive Gold Standard:** Painless Gastroscopy & Colonoscopy (under anesthesia).
   - **Advanced Imaging:** Cranial MRI (Brain) & Chest CT (Lung).
   - **Cardio:** 12-Lead ECG & Color Doppler Echocardiography.
