@@ -5,6 +5,9 @@ const PROMO_CONTENT = `
 ## 7. CHRISTMAS SPECIAL PROMOTION (2026 Executive Vitality Pass)
 - **The Core Offer:** A "Christmas Gift for Yourself and the One You Love".
 - **Action:** Pay a **$100 Retainer** now to lock in our **~$5,500 Executive Prime Protocol** at 2025 rates.
+- **Payment Method:** Secure payment via **Alipay or WeChat Pay** (Merchant QR Code).
+  - Supports International Visa, Mastercard, JCB.
+  - *Note:* Transactions over 200 CNY may incur a 3% platform fee charged by Alipay/WeChat.
 - **Valid For:** Any visit in 2026.
 - **Locations:** Top-tier centers in **Beijing & Chengdu**.
 - **What's Included (~$5,500 Value):**
@@ -17,6 +20,7 @@ const PROMO_CONTENT = `
     - *For Him:* Prostate & Male Urinary focus.
 - **Why It's Special:** Managed by former **Amazon & Apple executives**. "Silicon Valley Standard" project management for your health.
 - **Risk Free:** The $100 retainer is **100% Refundable** if you cancel *before* we deliver your customized Medical Strategy Proposal.
+- **Full Details:** Visit [chinamedicaltour.org/executive-pass](https://chinamedicaltour.org/executive-pass) for the complete breakdown.
 `;
 
 const BASE_KNOWLEDGE = `
