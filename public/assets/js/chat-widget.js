@@ -60,17 +60,12 @@
   function createUI() {
     var root = el("div", { class: "cmt-chat" });
 
-    // Use an SVG icon for the chat toggle instead of "CS" text
-    var chatIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    chatIcon.setAttribute("width", "24");
-    chatIcon.setAttribute("height", "24");
-    chatIcon.setAttribute("viewBox", "0 0 24 24");
-    chatIcon.setAttribute("fill", "none");
-    chatIcon.setAttribute("stroke", "currentColor");
-    chatIcon.setAttribute("stroke-width", "2");
-    chatIcon.setAttribute("stroke-linecap", "round");
-    chatIcon.setAttribute("stroke-linejoin", "round");
-    chatIcon.innerHTML = '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>';
+    // Use the new 3D AI icon instead of a generic SVG
+    var chatIcon = el("img", {
+      src: "assets/images/ai_chat_icon.png",
+      alt: "AI Assistant",
+      class: "cmt-chat__toggle-img"
+    });
 
     var toggle = el("button", {
       class: "cmt-chat__toggle",
