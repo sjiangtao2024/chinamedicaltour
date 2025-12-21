@@ -192,7 +192,10 @@
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   gap: 8px;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 88px;
   scrollbar-width: none; /* Hide scrollbar for cleaner look */
 }
 .cmt-chat__suggestions::-webkit-scrollbar {
