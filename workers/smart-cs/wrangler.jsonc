@@ -1,0 +1,45 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "smart-cs",
+  "main": "src/index.js",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true
+  },
+  // 默认环境 (Local/Dev)
+  "vars": {
+    "ALLOWED_ORIGINS": "http://127.0.0.1:5500,http://localhost:8000",
+    "LONGCAT_API_ENDPOINT": "https://api.longcat.example/v1/chat/completions",
+    "MODEL_NAME": "longcat-flash-v2",
+    "TIMEOUT_MS": 15000
+  },
+  // Staging 环境 (部署到 *.workers.dev)
+  "env": {
+    "staging": {
+      "name": "smart-cs-staging",
+      "vars": {
+        "ALLOWED_ORIGINS": "https://staging.chinamedicaltour.org",
+        "TIMEOUT_MS": 30000
+      }
+      // Secrets: LONGCAT_API_KEYS (由命令行注入)
+    },
+    // Production 环境 (绑定自定义域)
+    "production": {
+      "name": "smart-cs-prod",
+      "routes": [
+        // 将 Worker 映射到 api 子域的 /api/chat 路径
+        {
+          "pattern": "api.chinamedicaltour.org/api/chat*",
+          "zone_name": "chinamedicaltour.org"
+        }
+      ],
+      "vars": {
+        "ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://sjiangtao2024.github.io",
+        "TIMEOUT_MS": 10000
+      }
+    }
+  }
+}
