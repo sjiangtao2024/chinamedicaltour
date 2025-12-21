@@ -287,17 +287,6 @@ body {
     margin-right: auto;
 }
 
-/* Footer Logo Enhancement */
-.footer-logo {
-    filter: brightness(0) invert(1);
-    transition: all 0.3s ease;
-}
-
-.footer-logo:hover {
-    opacity: 1 !important;
-    transform: scale(1.05);
-}
-
 .card {
     background-color: white;
     border-radius: 0.75rem;
