@@ -184,7 +184,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     lucide.createIcons();
-    renderCharts();
+    
+    // Only render charts if the chart container exists
+    if (document.getElementById('efficiencyChart')) {
+        renderCharts();
+    }
 
     // Initialize price comparison animations
     initializePriceComparison();
