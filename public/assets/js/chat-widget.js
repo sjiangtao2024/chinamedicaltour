@@ -303,6 +303,25 @@
 
   var ui = createUI();
 
+  function getPageContext() {
+    var path = window.location.pathname;
+    if (path.includes("how-to-pay")) return { type: "payment", title: "Payment Guide", topic: "Alipay, WeChat Pay, and payment setup" };
+    if (path.includes("packages")) return { type: "packages", title: "Medical Packages", topic: "medical checkup packages (Basic, Elite, VIP) and pricing" };
+    if (path.includes("visa")) return { type: "visa", title: "Visa Policy", topic: "144-hour transit visa and entry requirements" };
+    if (path.includes("culture") || path.includes("stories")) return { type: "culture", title: "Culture & Stories", topic: "travel itineraries, patient stories, and sightseeing in Beijing/Chengdu" };
+    if (path.includes("why-choose")) return { type: "trust", title: "Why Choose Us", topic: "hospital quality, safety, and cost advantages" };
+    return { type: "home", title: "Home", topic: "general medical tourism inquiries" };
+  }
+
+  function getWelcomeMessage(context) {
+    var base = "**Hello! I'm Sunny (小晴), your personal China Medical Tour guide.** 🌸\n\n";
+    if (context.type === "payment") return base + "I noticed you're looking at payment options. Need help setting up **Alipay** or **WeChat Pay**? I can guide you through the verification process step-by-step! 💳";
+    if (context.type === "packages") return base + "Looking for the right health checkup? I can help you compare our **Elite** and **VIP** packages to find the best fit for your needs. 🏥";
+    if (context.type === "visa") return base + "Planning your trip? Ask me about the **144-hour visa-free transit** policy to see if you qualify for a hassle-free entry! ✈️";
+    if (context.type === "culture") return base + "Interested in combining health with travel? I can recommend the best **cultural tours** in Beijing and Chengdu! 🐼";
+    return base + "I can help you with:\n- 🏥 Choosing the right medical package\n- ✈️ Visa-free travel policies\n- 💳 Setting up Alipay/WeChat Pay\n\n*(Note: I provide logistics support, not medical diagnosis.)*\n\nHow can I help you today?";
+  }
+
   function openChat() {
     state.isOpen = true;
     ui.panel.setAttribute("aria-hidden", "false");
@@ -310,13 +329,13 @@
     ui.toggle.setAttribute("aria-label", "Close chat");
     ui.toggle.title = "Close";
     setStatus(ui.status, "Idle");
-    if (!ui.messages.getAttribute("data-welcome")) {
-      ui.messages.setAttribute("data-welcome", "1");
-      renderMessage(
-        ui.messages,
-        "assistant",
-        "**Hello! I'm Sunny (小晴), your personal China Medical Tour guide.** 🌸\n\nI can help you with:\n- 🏥 Choosing the right medical package\n- ✈️ Visa-free travel policies\n- 💳 Setting up Alipay/WeChat Pay\n\n*(Note: I provide logistics support, not medical diagnosis.)*\n\nHow can I help you today?",
-      );
+    
+    // Check if welcome message needs to be (re)rendered based on context or first load
+    // We only render if it's the first time OR if we want to reset for page context (optional, but standard is sticky history)
+    // Here we stick to sticky history within session, but if empty, we use context welcome.
+    if (state.chatMessages.length === 0 && !ui.messages.querySelector(".cmt-chat__msg--assistant")) {
+      var context = getPageContext();
+      renderMessage(ui.messages, "assistant", getWelcomeMessage(context));
     }
   }
 
@@ -350,8 +369,19 @@
     var assistantBubble = renderMessage(ui.messages, "assistant", "");
 
     var snapshot = state.chatMessages.slice();
+    var context = getPageContext();
+    
+    // Inject context as a system message at the beginning of the array for this turn
+    // This ensures the AI knows where the user is.
+    var contextMessage = { 
+        role: "system", 
+        content: `[System Context] User is currently viewing the '${context.title}' page. Prioritize providing information relevant to ${context.topic}.` 
+    };
+
+    var messagesToSend = [contextMessage].concat(snapshot).concat([{ role: "user", content: text }]);
+
     var payload = {
-      messages: snapshot.concat([{ role: "user", content: text }]),
+      messages: messagesToSend,
       stream: true,
       temperature: 0.5,
     };
