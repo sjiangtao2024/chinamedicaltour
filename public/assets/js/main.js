@@ -167,20 +167,22 @@ function initializePriceComparison() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Wait for Chart.js to be fully loaded
-    try {
-        await waitForChart();
-        // Chart.js loaded successfully
-    } catch (error) {
-        console.warn('Chart.js failed to load:', error.message);
-        // Hide chart containers if Chart.js fails to load
-        const efficiencyChart = document.getElementById('efficiencyChart');
-        if (efficiencyChart && efficiencyChart.parentElement) {
-            efficiencyChart.parentElement.style.display = 'none';
+    // Only wait for Chart.js if the chart element exists
+    if (document.getElementById('efficiencyChart')) {
+        // Wait for Chart.js to be fully loaded
+        try {
+            await waitForChart();
+            // Chart.js loaded successfully
+        } catch (error) {
+            console.warn('Chart.js failed to load:', error.message);
+            // Hide chart containers if Chart.js fails to load
+            const efficiencyChart = document.getElementById('efficiencyChart');
+            if (efficiencyChart && efficiencyChart.parentElement) {
+                efficiencyChart.parentElement.style.display = 'none';
+            }
         }
     }
 
-    lucide.createIcons();
     lucide.createIcons();
     renderCharts();
 

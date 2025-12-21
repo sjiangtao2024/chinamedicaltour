@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/assets/vendor/lucide.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -114,10 +114,11 @@
                                 <li class="flex items-center"><i data-lucide="shopping-bag" class="w-4 h-4 text-emerald-500 mr-2"></i> Shop at Convenience Stores</li>
                             </ul>
                         </div>
-                        <div class="md:w-1/3 flex justify-center">
-                            <!-- Placeholder for an illustrative icon or image -->
-                            <div class="bg-emerald-50 rounded-full p-8">
-                                <i data-lucide="scan-line" class="w-32 h-32 text-emerald-600"></i>
+                        <div class="md:w-1/3">
+                            <div class="relative group">
+                                <div class="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-20 blur group-hover:opacity-30 transition duration-300"></div>
+                                <img src="assets/images/payment_street_vendor.png" alt="Paying with QR code at a street stall" 
+                                     class="relative rounded-2xl shadow-xl w-full h-auto object-cover transform transition duration-500 hover:scale-[1.03]">
                             </div>
                         </div>
                     </div>
