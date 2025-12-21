@@ -54,6 +54,7 @@ export const CORE_KNOWLEDGE = `
 
 ## 4. PAYMENT METHODS FOR FOREIGNERS
 - **Alipay & WeChat Pay:** The primary way to pay in China.
+- **Why it's Essential:** China is a cashless society. You NEED these apps for daily life: taxis (DiDi), subway, street food, convenience stores, and coffee shops. Cash is often inconvenient (no change).
 - **Setup:** Download app -> Sign up with foreign phone number -> Link Visa/Mastercard/Amex.
 - **Fees:**
   - Transactions under 200 RMB: FREE.
