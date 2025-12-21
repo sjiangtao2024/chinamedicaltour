@@ -65,7 +65,7 @@ const BASE_KNOWLEDGE = `
 
 ### A. Unilateral Visa-Free Entry (15 or 30 Days)
 - **Citizens of:** France, Germany, Italy, Netherlands, Spain, Switzerland, Ireland, Hungary, Austria, Belgium, Luxembourg, Australia, New Zealand, Poland, Malaysia (30d), Singapore (30d), Thailand (Permanent), Japan/Korea (check latest).
-- **Action:** Just fly. No application needed.
+  - **Action:** Just fly. No application needed.
 
 ### B. 144-Hour Visa-Free Transit (The "Medical Layout")
 - **Concept:** Transit through China to a THIRD country. Stay up to 6 days.
@@ -86,9 +86,14 @@ const BASE_KNOWLEDGE = `
   - **Limit:** Usually 50,000 RMB per transaction (verify with app).
 - **Cash:** Accepted but inconvenient (finding change is hard).
 
+## 5. SAFETY & SECURITY (Is China Safe?)
+- **Verdict:** YES. China is statistically one of the safest countries in the world.
+- **Crime:** Violent crime against foreigners is extremely rare. Petty theft is also uncommon due to ubiquitous surveillance and cashless payments.
+- **Nighttime:** It is completely safe to walk alone at night in major cities like Beijing and Chengdu.
+- **Medical Safety:** Our partner hospitals (301, PUMCH) meet international JCI or 3A standards, comparable to Mayo Clinic.
+
 ## 6. OTHER SERVICES
-- **TCM:** Acupuncture, Cupping, Herbal Therapy at authentic Beijing clinics.
-- **Dental:** Implants, Veneers, Whitening (fraction of US cost).
+- **TCM:** Acupuncture, Cupping, Herbal Therapy at authentic Beijing clinics.- **Dental:** Implants, Veneers, Whitening (fraction of US cost).
 - **Stem Cell:** Regenerative therapies for anti-aging/joints.
 - **Ophthalmology:** LASIK, Cataract surgery.
 

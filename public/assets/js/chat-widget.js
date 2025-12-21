@@ -414,6 +414,8 @@
       temperature: 0.5,
     };
 
+    console.log('[SmartCS] Sending payload:', payload);
+
     state.lastPayload = payload;
     streamChat(ui, payload, assistantBubble, {}).then(function (assistantText) {
       if (assistantText) {
