@@ -74,7 +74,7 @@ export default {
 
     // Insert System Prompt at the beginning
     const sysPrompt = getSystemPrompt();
-    console.log("DEBUG: System Prompt Preview:", sysPrompt.substring(0, 100));
+
     const systemMessage = { role: "system", content: sysPrompt };
     const messagesWithSystem = [systemMessage, ...rawMessages];
 
