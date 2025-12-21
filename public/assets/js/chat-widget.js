@@ -400,13 +400,12 @@
     var snapshot = state.chatMessages.slice();
     var context = getPageContext();
     
-    // Inject context as a factual system message
-    var contextMessage = { 
-        role: "system", 
-        content: `User is currently viewing the '${context.title}' page about ${context.topic}.` 
-    };
+    // Merge context directly into the user message to ensure it's seen
+    // This avoids issues with multiple system messages confusing the model
+    var contextHeader = `[Context: User is viewing '${context.title}' page about ${context.topic}]\n\n`;
+    var fullContent = contextHeader + text;
 
-    var messagesToSend = [contextMessage].concat(snapshot).concat([{ role: "user", content: text }]);
+    var messagesToSend = snapshot.concat([{ role: "user", content: fullContent }]);
 
     var payload = {
       messages: messagesToSend,
