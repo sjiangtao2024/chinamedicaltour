@@ -60,17 +60,29 @@
   function createUI() {
     var root = el("div", { class: "cmt-chat" });
 
+    // Use an SVG icon for the chat toggle instead of "CS" text
+    var chatIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    chatIcon.setAttribute("width", "24");
+    chatIcon.setAttribute("height", "24");
+    chatIcon.setAttribute("viewBox", "0 0 24 24");
+    chatIcon.setAttribute("fill", "none");
+    chatIcon.setAttribute("stroke", "currentColor");
+    chatIcon.setAttribute("stroke-width", "2");
+    chatIcon.setAttribute("stroke-linecap", "round");
+    chatIcon.setAttribute("stroke-linejoin", "round");
+    chatIcon.innerHTML = '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>';
+
     var toggle = el("button", {
       class: "cmt-chat__toggle",
       type: "button",
       "aria-label": "Open chat",
-      title: "Chat",
-    }, [ "CS" ]);
+      title: "Chat with us",
+    }, [ chatIcon ]);
 
-    var panel = el("div", { class: "cmt-chat__panel", "aria-hidden": "true", role: "dialog", "aria-label": "Chat" });
+    var panel = el("div", { class: "cmt-chat__panel", "aria-hidden": "true", role: "dialog", "aria-label": "Chat Assistant" });
 
     var header = el("div", { class: "cmt-chat__header" });
-    header.appendChild(el("div", { class: "cmt-chat__title", text: "Smart CS" }));
+    header.appendChild(el("div", { class: "cmt-chat__title", text: "Medical Assistant" }));
     var closeBtn = el("button", {
       class: "cmt-chat__close",
       type: "button",
@@ -84,7 +96,7 @@
     var error = el("div", { class: "cmt-chat__error" }, [
       el("div", { "data-role": "error-text", text: "" }),
       el("button", { class: "cmt-chat__error-btn", type: "button", "data-role": "retry", "aria-label": "Retry" }, [
-        "重试",
+        "Retry",
       ]),
     ]);
 
@@ -92,10 +104,10 @@
     var input = el("textarea", {
       class: "cmt-chat__input",
       rows: "2",
-      placeholder: "请输入问题（签证、套餐、预约、流程等）…",
+      placeholder: "Ask about visas, checkups, payment...",
       "aria-label": "Message input",
     });
-    var send = el("button", { class: "cmt-chat__send", type: "button", "aria-label": "Send" }, [ "发送" ]);
+    var send = el("button", { class: "cmt-chat__send", type: "button", "aria-label": "Send" }, [ "Send" ]);
     composer.appendChild(input);
     composer.appendChild(send);
 
@@ -183,7 +195,7 @@
       ui.send.disabled = false;
       state.phase = "error";
       setStatus(ui.status, "Error");
-      setError(ui.error, "连接失败，请稍后再试。", function () {
+      setError(ui.error, "Connection failed, please try again.", function () {
         streamChat(ui, payload, assistantBubble, opts);
       });
       return;
@@ -193,7 +205,7 @@
       ui.send.disabled = false;
       state.phase = "error";
       setStatus(ui.status, "Error");
-      var msg = "AI 服务暂不可用，请稍后重试。";
+      var msg = "Service unavailable, please try again.";
       try {
         var errJson = await response.json();
         msg = errJson && errJson.message ? errJson.message : msg;
@@ -264,7 +276,7 @@
 
       state.phase = "error";
       setStatus(ui.status, "Error");
-      setError(ui.error, "连接超时，请检查网络。", function () {
+      setError(ui.error, "Connection timeout, check network.", function () {
         assistantBubble.textContent = "";
         streamChat(ui, payload, assistantBubble, opts);
       });
@@ -288,7 +300,7 @@
       renderMessage(
         ui.messages,
         "assistant",
-        "欢迎使用 Smart CS。\n免责声明：我只能提供信息与流程建议，不构成医疗诊断或治疗建议；请咨询专业医生与官方机构。\n可咨询范围：签证、套餐、流程、预约、医院资质等。",
+        "Hello! I'm your Medical Tour Assistant.\nDisclaimer: I provide information on visas, packages, and logistics. This is NOT medical advice. Please consult a doctor.\n\nHow can I help you today?",
       );
     }
   }

@@ -13,7 +13,7 @@
   "vars": {
     "ALLOWED_ORIGINS": "http://127.0.0.1:5500,http://localhost:8000",
     "LONGCAT_API_ENDPOINT": "https://api.longcat.example/v1/chat/completions",
-    "MODEL_NAME": "longcat-flash-v2",
+    "MODEL_NAME": "LongCat-Flash-Chat",
     "TIMEOUT_MS": 15000
   },
   // Staging 环境 (部署到 *.workers.dev)

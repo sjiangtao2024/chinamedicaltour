@@ -60,6 +60,10 @@ export default {
     }
 
     const temperature = typeof body?.temperature === "number" ? body.temperature : undefined;
+import { getSystemPrompt } from "./lib/knowledge-base.js";
+
+// ... imports
+
     const rawMessages = Array.isArray(body?.messages) ? body.messages : null;
     if (!rawMessages) {
       return errorResponse({
@@ -70,7 +74,11 @@ export default {
       });
     }
 
-    const messages = normalizeAndTruncateMessages(rawMessages, { requestId });
+    // Insert System Prompt at the beginning
+    const systemMessage = { role: "system", content: getSystemPrompt() };
+    const messagesWithSystem = [systemMessage, ...rawMessages];
+
+    const messages = normalizeAndTruncateMessages(messagesWithSystem, { requestId });
 
     const keyManager = createKeyManager({ env, cooldownMs: 60_000 });
     const timeoutMs =
