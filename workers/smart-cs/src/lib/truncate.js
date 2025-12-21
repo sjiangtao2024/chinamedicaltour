@@ -63,18 +63,15 @@ function truncateToMaxChars(messages, maxChars) {
 export function normalizeAndTruncateMessages(rawMessages, { requestId }) {
   const filtered = rawMessages.filter(isValidMessage);
   
-  // Find the first system message if it exists
-  const existingSystemMsg = filtered.find(m => m.role === "system");
-  const userAndAssistant = filtered.filter(m => m.role !== "system");
+  // Check if there is at least one system message
+  const hasSystem = filtered.some(m => m.role === "system");
+  
+  let merged = filtered;
 
-  let merged;
-  if (existingSystemMsg) {
-    // Keep the provided system message (this allows our strict prompt in index.js to work)
-    merged = [existingSystemMsg, ...userAndAssistant];
-  } else {
+  if (!hasSystem) {
     // Fallback to a base prompt if none provided
     const language = detectUserLanguage(filtered);
-    merged = [{ role: "system", content: baseSystemPrompt(language) }, ...userAndAssistant];
+    merged = [{ role: "system", content: baseSystemPrompt(language) }, ...filtered];
   }
 
   if (totalChars(merged) <= 6000) return merged;
