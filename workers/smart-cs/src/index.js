@@ -5,6 +5,7 @@ import { normalizeAndTruncateMessages } from "./lib/truncate.js";
 import { createKeyManager } from "./lib/key-manager.js";
 import { fetchLongcatSse } from "./lib/longcat-client.js";
 import { sseHeaders } from "./lib/sse.js";
+import { getSystemPrompt } from "./lib/knowledge-base.js";
 
 export default {
   async fetch(request, env, ctx) {
@@ -60,9 +61,6 @@ export default {
     }
 
     const temperature = typeof body?.temperature === "number" ? body.temperature : undefined;
-import { getSystemPrompt } from "./lib/knowledge-base.js";
-
-// ... imports
 
     const rawMessages = Array.isArray(body?.messages) ? body.messages : null;
     if (!rawMessages) {

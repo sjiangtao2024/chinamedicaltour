@@ -127,7 +127,12 @@
 
   function renderMessage(messagesEl, role, text) {
     var wrap = el("div", { class: "cmt-chat__msg cmt-chat__msg--" + role });
-    var bubble = el("div", { class: "cmt-chat__bubble", text: text || "" });
+    var bubble = el("div", { class: "cmt-chat__bubble" });
+    if (role === "assistant" && window.marked) {
+      bubble.innerHTML = window.marked.parse(text || "");
+    } else {
+      bubble.textContent = text || "";
+    }
     wrap.appendChild(bubble);
     messagesEl.appendChild(wrap);
     scrollToBottom(messagesEl);
@@ -251,7 +256,11 @@
               var content = delta && typeof delta.content === "string" ? delta.content : "";
               if (content) {
                 assistantText += content;
-                assistantBubble.textContent = assistantText;
+                if (window.marked) {
+                  assistantBubble.innerHTML = window.marked.parse(assistantText);
+                } else {
+                  assistantBubble.textContent = assistantText;
+                }
                 scrollToBottom(ui.messages);
               }
             } catch (e) {}

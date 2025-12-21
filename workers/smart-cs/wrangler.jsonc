@@ -16,13 +16,14 @@
     "MODEL_NAME": "LongCat-Flash-Chat",
     "TIMEOUT_MS": 15000
   },
-  },
   // Staging 环境 (部署到 *.workers.dev)
   "env": {
     "staging": {
       "name": "smart-cs-staging",
       "vars": {
         "ALLOWED_ORIGINS": "https://staging.chinamedicaltour.org",
+        "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
+        "MODEL_NAME": "LongCat-Flash-Chat",
         "TIMEOUT_MS": 30000
       }
       // Secrets: LONGCAT_API_KEYS (由命令行注入)
@@ -39,6 +40,8 @@
       ],
       "vars": {
         "ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://sjiangtao2024.github.io",
+        "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
+        "MODEL_NAME": "LongCat-Flash-Chat",
         "TIMEOUT_MS": 10000
       }
     }

@@ -94,8 +94,7 @@
   padding: 10px 12px;
   border-radius: 12px;
   font-size: 14px;
-  line-height: 1.35;
-  white-space: pre-wrap;
+  line-height: 1.5;
   word-break: break-word;
 }
 
@@ -103,6 +102,7 @@
   background: #0f766e;
   color: #fff;
   border-bottom-right-radius: 4px;
+  white-space: pre-wrap; /* User messages are plain text */
 }
 
 .cmt-chat__msg--assistant .cmt-chat__bubble {
@@ -110,6 +110,45 @@
   color: #0f172a;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-bottom-left-radius: 4px;
+}
+
+/* Markdown Styles for Assistant Bubbles */
+.cmt-chat__msg--assistant .cmt-chat__bubble p {
+  margin: 0 0 8px 0;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble p:last-child {
+  margin-bottom: 0;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble strong,
+.cmt-chat__msg--assistant .cmt-chat__bubble b {
+  font-weight: 600;
+  color: #0d9488; /* Teal accent for bold text */
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble ul,
+.cmt-chat__msg--assistant .cmt-chat__bubble ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble li {
+  margin-bottom: 4px;
+  list-style-type: disc;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble ol li {
+  list-style-type: decimal;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble h1, 
+.cmt-chat__msg--assistant .cmt-chat__bubble h2,
+.cmt-chat__msg--assistant .cmt-chat__bubble h3,
+.cmt-chat__msg--assistant .cmt-chat__bubble h4 {
+  font-weight: 700;
+  margin: 12px 0 6px 0;
+  font-size: 1.1em;
+  color: #111827;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble h1:first-child,
+.cmt-chat__msg--assistant .cmt-chat__bubble h2:first-child,
+.cmt-chat__msg--assistant .cmt-chat__bubble h3:first-child {
+  margin-top: 0;
 }
 
 .cmt-chat__status {
@@ -183,4 +222,3 @@
   opacity: 0.65;
   cursor: not-allowed;
 }
-
