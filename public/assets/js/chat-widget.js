@@ -334,6 +334,7 @@
     var path = window.location.pathname;
     if (path.includes("how-to-pay")) return { type: "payment", title: "Payment Guide", topic: "Alipay, WeChat Pay, and payment setup" };
     if (path.includes("packages")) return { type: "packages", title: "Medical Packages", topic: "medical checkup packages (Basic, Elite, VIP) and pricing" };
+    if (path.includes("executive-pass")) return { type: "packages", title: "Executive Vitality Pass", topic: "the 2026 Executive health strategy and $100 price lock" };
     if (path.includes("visa")) return { type: "visa", title: "Visa Policy", topic: "144-hour transit visa and entry requirements" };
     if (path.includes("culture") || path.includes("stories")) return { type: "culture", title: "Culture & Stories", topic: "travel itineraries, patient stories, and sightseeing in Beijing/Chengdu" };
     if (path.includes("why-choose")) return { type: "trust", title: "Why Choose Us", topic: "hospital quality, safety, and cost advantages" };
@@ -399,11 +400,10 @@
     var snapshot = state.chatMessages.slice();
     var context = getPageContext();
     
-    // Inject context as a system message at the beginning of the array for this turn
-    // This ensures the AI knows where the user is.
+    // Inject context as a factual system message
     var contextMessage = { 
         role: "system", 
-        content: `[System Context] User is currently viewing the '${context.title}' page. Prioritize providing information relevant to ${context.topic}.` 
+        content: `User is currently viewing the '${context.title}' page about ${context.topic}.` 
     };
 
     var messagesToSend = [contextMessage].concat(snapshot).concat([{ role: "user", content: text }]);
