@@ -314,20 +314,18 @@ body {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 100;
     padding: 1rem;
-    visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 0.2s, opacity 0.2s linear;
+    transition: opacity 0.2s linear;
 }
 
 .modal-overlay.active {
-    visibility: visible;
+    display: flex;
     opacity: 1;
-    transition: opacity 0.2s linear;
 }
 
 .modal-content {
