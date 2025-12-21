@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Executive Vitality Pass | China Medical Tour</title>
     <meta name="description" content="Invest in Your 2026 Health Strategy. Secure priority access to China’s top medical centers with a fully refundable $100 Retainer.">
+    <meta name="keywords" content="china medical tour christmas promotion, executive health checkup 2026, new year medical deal, china health travel discount, executive vitality pass, beijing medical tourism offer">
     <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon">
     <link rel="icon" href="/assets/images/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="/assets/images/favicon-180.png">
@@ -179,10 +180,10 @@
                                         <p class="text-green-400 text-xs font-bold">Save $200 Today</p>
                                     </div>
                                 </div>
-                                <a href="https://buy.stripe.com/test_mode_link_placeholder" class="block w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-4 rounded-xl text-center text-lg transition shadow-lg hover:shadow-amber-500/20">
+                                <button onclick="openPaymentModal()" class="block w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-4 rounded-xl text-center text-lg transition shadow-lg hover:shadow-amber-500/20">
                                     Secure My Pass Now
-                                </a>
-                                <p class="text-center text-xs text-gray-500 mt-3">Secured by Stripe & PayPal</p>
+                                </button>
+                                <p class="text-center text-xs text-gray-500 mt-3">Pay via Alipay / WeChat Pay (Intl. Cards Accepted)</p>
                             </div>
                         </div>
                     </div>
@@ -325,6 +326,77 @@
         }
     </script>
     <script src="assets/js/chat-widget.js" data-api-url="https://api.chinamedicaltour.org/api/chat" data-retry="3"></script>
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative">
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Scan to Secure Your Pass</h3>
+                <p class="text-gray-600 mt-2">Merchant Code: Supports Visa, MasterCard, JCB</p>
+                <div class="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3 inline-block">
+                    <p class="text-amber-800 font-bold text-lg">Total: $100 USD</p>
+                    <p class="text-amber-600 text-sm">approx. ¥730 CNY</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <!-- Alipay -->
+                <div class="text-center">
+                    <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100 mb-2">
+                        <img src="assets/images/qr_alipay_placeholder.png" alt="Alipay QR Code" class="w-full h-auto rounded-lg">
+                    </div>
+                    <p class="font-bold text-blue-600 flex items-center justify-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Alipay_logo.png" class="h-4 mr-2" alt="Alipay"> Alipay
+                    </p>
+                </div>
+                <!-- WeChat -->
+                <div class="text-center">
+                    <div class="bg-green-50 p-4 rounded-xl border-2 border-green-100 mb-2">
+                        <img src="assets/images/qr_wechat_placeholder.png" alt="WeChat Pay QR Code" class="w-full h-auto rounded-lg">
+                    </div>
+                    <p class="font-bold text-green-600 flex items-center justify-center">
+                        <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i> WeChat Pay
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-2">
+                <p class="flex items-start">
+                    <i data-lucide="info" class="w-4 h-4 mr-2 flex-shrink-0 text-blue-500"></i>
+                    <span><strong>Platform Fee:</strong> For payments over ¥200, Alipay/WeChat charges a 3% service fee to the payer. This is not charged by us.</span>
+                </p>
+                <p class="flex items-start">
+                    <i data-lucide="shield-check" class="w-4 h-4 mr-2 flex-shrink-0 text-green-500"></i>
+                    <span><strong>Refund Policy:</strong> Fully refundable. Refunds are processed via the original payment method (3-10 days).</span>
+                </p>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <button onclick="closePaymentModal()" class="text-gray-400 hover:text-gray-600 text-sm underline">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPaymentModal() {
+            document.getElementById('payment-modal').classList.remove('hidden');
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+        // Close on click outside
+        document.getElementById('payment-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+    </script>
 </body>
 
 </html>

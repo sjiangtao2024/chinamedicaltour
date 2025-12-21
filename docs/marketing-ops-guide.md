@@ -71,3 +71,23 @@ Remember to also update the AI's knowledge base to match the active website prom
 // CONFIGURATION SWITCH
 const ENABLE_PROMO = true; // Sync this with your website status
 ```
+
+## 💳 Payment System Setup (Alipay & WeChat)
+
+The "Executive Vitality Pass" landing page uses a **Merchant QR Code** modal for payments.
+
+### Current Status
+The page currently uses **placeholder images**:
+- `assets/images/qr_alipay_placeholder.png`
+- `assets/images/qr_wechat_placeholder.png`
+
+### 🚀 How to Go Live (Replace with Real Codes)
+Once you have applied for your **Merchant (Business) QR Codes** from Alipay and WeChat Pay:
+
+1.  **Prepare Images:** Save your real QR code images as:
+    - `qr_alipay.png`
+    - `qr_wechat.png`
+2.  **Upload:** Place them in the `public/assets/images/` directory.
+3.  **Update Code:** Edit `public/executive-pass.html`:
+    - Find: `src="assets/images/qr_alipay_placeholder.png"` -> Change to `src="assets/images/qr_alipay.png"`
+    - Find: `src="assets/images/qr_wechat_placeholder.png"` -> Change to `src="assets/images/qr_wechat.png"`

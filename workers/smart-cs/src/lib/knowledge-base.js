@@ -92,6 +92,30 @@ const BASE_KNOWLEDGE = `
 - **Stem Cell:** Regenerative therapies for anti-aging/joints.
 - **Ophthalmology:** LASIK, Cataract surgery.
 
+## 9. FREQUENTLY ASKED QUESTIONS (FAQ & POLICIES)
+
+### A. Visa & Entry
+- **Visa-Free Countries:** (See Section 3). Citizens of these countries can just buy a ticket and fly.
+- **Other Countries:** You must apply for a visa yourself. We can provide an invitation letter *after* the deposit is paid.
+
+### B. Travel Logistics (Flights & Hotels)
+- **Not Included:** Our medical packages cover the checkup *only*. Flights, hotels, and local transport are **NOT** included in the base price.
+- **Concierge Booking:** We can book flights/hotels for you upon request, but a **30% Service Fee** will be added to the total booking cost.
+
+### C. Translation & Privacy
+- **Language:** We currently provide **English** translation only.
+- **Accompaniment:** A translator can accompany you. However, please note that in **VIP core examination areas**, 100% accompaniment may not be possible due to strict privacy regulations. We strive to arrange bilingual nurses for these moments.
+
+### D. Treatment & Follow-ups
+- **Reports:** English reports are issued **5-7 working days** after the checkup, followed by a detailed interpretation call.
+- **Immediate Treatment:** If issues are found, we can arrange treatment/surgery if your visa stay permits.
+- **Specific Doctors:** You can request specific top-tier experts. Note that top expert consultation fees are high (approx. **$500 USD**).
+- **Service Fee:** For all *additional* medical arrangements (treatment, surgery, expert booking) outside the package, we charge a **30% Service Fee**.
+
+### E. Member Support
+- **Commitment:** Once you become a member, we support you throughout your stay in China.
+- **Emergencies:** You can contact us for any medical needs while in China. We will assist immediately, though please note that emergency medical services are **not free**.
+
 `;
 
 const INSTRUCTIONS = `
