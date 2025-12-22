@@ -10,7 +10,6 @@
     "enabled": true
   },
   "vars": {
-    "ADMIN_TOKEN": "replace-with-secret",
     "KNOWLEDGE_KEY": "knowledge/knowledge.md",
     "EMBEDDING_MODEL": "@cf/baai/bge-base-en-v1.5",
     "CHUNK_MAX_CHARS": 1200
