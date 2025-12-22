@@ -9,6 +9,7 @@ import { sseHeaders, serializeSseData } from "./lib/sse.js";
 import { getSystemPrompt } from "./lib/knowledge-base.js";
 import { fetchRagChunks, mergeRagIntoSystemPrompt } from "./lib/rag-runtime.js";
 import { shouldFallback } from "./lib/rag.js";
+import { englishFallbackText, guardEnglishStream } from "./lib/english-guard.js";
 import { resolveMaxTokens } from "./lib/token-budget.js";
 import { parseRealtimeIntent } from "./lib/intent.js";
 import { getRealtimeReply } from "./lib/realtime.js";
@@ -235,7 +236,15 @@ export default {
             ctx.waitUntil(stmt.run());
           }
 
-          return new Response(upstream.body, {
+          const enforceEnglish = env.ENFORCE_ENGLISH === true || env.ENFORCE_ENGLISH === "true";
+          const body = enforceEnglish
+            ? guardEnglishStream({
+                upstreamBody: upstream.body,
+                fallbackText: englishFallbackText(),
+              })
+            : upstream.body;
+
+          return new Response(body, {
             status: 200,
             headers: {
               ...sseHeaders(),
