@@ -11,6 +11,7 @@
   },
   "vars": {
     "KNOWLEDGE_KEY": "knowledge/knowledge.md",
+    "STATUS_KEY": "knowledge/status.json",
     "EMBEDDING_MODEL": "@cf/baai/bge-base-en-v1.5",
     "CHUNK_MAX_CHARS": 1200
   },

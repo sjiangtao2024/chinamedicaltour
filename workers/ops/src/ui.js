@@ -85,6 +85,16 @@ const UI_HTML = `<!doctype html>
         return res.ok;
       }
 
+      async function fetchStatus(token) {
+        const res = await fetch('/api/status', {
+          method: 'GET',
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.status || null;
+      }
+
       loginBtn.addEventListener('click', async () => {
         const token = tokenInput.value.trim();
         if (!token) return setStatus(loginStatus, 'Token required', false);
@@ -124,7 +134,23 @@ const UI_HTML = `<!doctype html>
             return;
           }
           const data = await res.json();
-          setStatus(saveStatus, 'Uploaded: ' + data.key, true);
+          setStatus(saveStatus, 'Uploaded: ' + data.key + ' (rebuilding...)', true);
+
+          const start = Date.now();
+          const interval = setInterval(async () => {
+            const status = await fetchStatus(token);
+            if (!status) return;
+            if (status.state === 'success') {
+              clearInterval(interval);
+              setStatus(saveStatus, 'Rebuild complete. Chunks: ' + (status.chunks || 0), true);
+            } else if (status.state === 'failed') {
+              clearInterval(interval);
+              setStatus(saveStatus, 'Rebuild failed: ' + (status.error || 'unknown'), false);
+            } else if (Date.now() - start > 120000) {
+              clearInterval(interval);
+              setStatus(saveStatus, 'Rebuild still running (check later).', true);
+            }
+          }, 2000);
         } catch (e) {
           setStatus(saveStatus, 'Upload error', false);
         }

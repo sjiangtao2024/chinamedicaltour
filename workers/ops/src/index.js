@@ -1,6 +1,6 @@
 import { isValidToken } from "./lib/auth.js";
 import { parseUpload } from "./lib/upload.js";
-import { writeKnowledge } from "./lib/r2.js";
+import { writeKnowledge, writeStatus, readStatus } from "./lib/r2.js";
 import { getUiHtml } from "./ui.js";
 import { rebuildIndex } from "./lib/rebuild.js";
 
@@ -70,19 +70,54 @@ export default {
         },
       });
 
+      const statusKey = env.STATUS_KEY || "knowledge/status.json";
+      await writeStatus({
+        bucket: env.R2_BUCKET,
+        key: statusKey,
+        status: {
+          state: "running",
+          updated_at: updatedAt,
+        },
+      });
+
       ctx.waitUntil(
-        rebuildIndex({
-          ai: env.AI,
-          index: env.VECTORIZE_INDEX,
-          text: payload.content_markdown,
-          model: env.EMBEDDING_MODEL || "@cf/baai/bge-base-en-v1.5",
-          maxChars: Number(env.CHUNK_MAX_CHARS) || 1200,
-          namespace: "knowledge",
-          metadata: {
-            updated_at: updatedAt,
-            source: "ops",
-          },
-        }),
+        (async () => {
+          try {
+            const result = await rebuildIndex({
+              ai: env.AI,
+              index: env.VECTORIZE_INDEX,
+              text: payload.content_markdown,
+              model: env.EMBEDDING_MODEL || "@cf/baai/bge-base-en-v1.5",
+              maxChars: Number(env.CHUNK_MAX_CHARS) || 1200,
+              namespace: "knowledge",
+              metadata: {
+                updated_at: updatedAt,
+                source: "ops",
+              },
+            });
+
+            await writeStatus({
+              bucket: env.R2_BUCKET,
+              key: statusKey,
+              status: {
+                state: "success",
+                updated_at: updatedAt,
+                chunks: result.chunks,
+                upserted: result.upserted,
+              },
+            });
+          } catch (err) {
+            await writeStatus({
+              bucket: env.R2_BUCKET,
+              key: statusKey,
+              status: {
+                state: "failed",
+                updated_at: updatedAt,
+                error: err?.message || "rebuild_failed",
+              },
+            });
+          }
+        })(),
       );
 
       return jsonResponse(200, {
@@ -90,6 +125,16 @@ export default {
         key: knowledgeKey,
         updated_at: updatedAt,
       });
+    }
+
+    if (url.pathname === "/api/status" && request.method === "GET") {
+      const token = getBearerToken(request);
+      if (!isValidToken(token, env.ADMIN_TOKEN)) {
+        return jsonResponse(401, { ok: false, error: "unauthorized" });
+      }
+      const statusKey = env.STATUS_KEY || "knowledge/status.json";
+      const status = await readStatus({ bucket: env.R2_BUCKET, key: statusKey });
+      return jsonResponse(200, { ok: true, status });
     }
 
     return new Response("Not Found", { status: 404 });
