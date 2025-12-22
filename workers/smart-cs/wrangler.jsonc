@@ -48,6 +48,25 @@
   "env": {
     "staging": {
       "name": "smart-cs-staging",
+      "vectorize": [
+        {
+          "binding": "VECTORIZE_INDEX",
+          "index_name": "cmt-rag-index"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "cmt-rag-knowledge"
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "cmt-smart-cs-logs",
+          "database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
+        }
+      ],
       "vars": {
         "ALLOWED_ORIGINS": "https://staging.chinamedicaltour.org",
         "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
@@ -68,6 +87,25 @@
         {
           "pattern": "api.chinamedicaltour.org/api/chat*",
           "zone_name": "chinamedicaltour.org"
+        }
+      ],
+      "vectorize": [
+        {
+          "binding": "VECTORIZE_INDEX",
+          "index_name": "cmt-rag-index"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "cmt-rag-knowledge"
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "cmt-smart-cs-logs",
+          "database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
         }
       ],
       "vars": {
