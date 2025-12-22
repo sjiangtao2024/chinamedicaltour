@@ -2,6 +2,7 @@ import { isValidToken } from "./lib/auth.js";
 import { parseUpload } from "./lib/upload.js";
 import { writeKnowledge } from "./lib/r2.js";
 import { getUiHtml } from "./ui.js";
+import { rebuildIndex } from "./lib/rebuild.js";
 
 function getBearerToken(request) {
   const header = request.headers.get("Authorization") || "";
@@ -56,9 +57,11 @@ export default {
       }
 
       const updatedAt = new Date().toISOString();
+      const knowledgeKey = env.KNOWLEDGE_KEY || "knowledge/knowledge.md";
+
       await writeKnowledge({
         bucket: env.R2_BUCKET,
-        key: env.KNOWLEDGE_KEY || "knowledge/knowledge.md",
+        key: knowledgeKey,
         content: payload.content_markdown,
         metadata: {
           updated_at: updatedAt,
@@ -67,9 +70,24 @@ export default {
         },
       });
 
+      ctx.waitUntil(
+        rebuildIndex({
+          ai: env.AI,
+          index: env.VECTORIZE_INDEX,
+          text: payload.content_markdown,
+          model: env.EMBEDDING_MODEL || "@cf/baai/bge-base-en-v1.5",
+          maxChars: Number(env.CHUNK_MAX_CHARS) || 1200,
+          namespace: "knowledge",
+          metadata: {
+            updated_at: updatedAt,
+            source: "ops",
+          },
+        }),
+      );
+
       return jsonResponse(200, {
         ok: true,
-        key: env.KNOWLEDGE_KEY || "knowledge/knowledge.md",
+        key: knowledgeKey,
         updated_at: updatedAt,
       });
     }

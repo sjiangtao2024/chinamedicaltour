@@ -11,7 +11,9 @@
   },
   "vars": {
     "ADMIN_TOKEN": "replace-with-secret",
-    "KNOWLEDGE_KEY": "knowledge/knowledge.md"
+    "KNOWLEDGE_KEY": "knowledge/knowledge.md",
+    "EMBEDDING_MODEL": "@cf/baai/bge-base-en-v1.5",
+    "CHUNK_MAX_CHARS": 1200
   },
   "r2_buckets": [
     {
@@ -19,6 +21,15 @@
       "bucket_name": "cmt-rag-knowledge"
     }
   ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE_INDEX",
+      "index_name": "cmt-rag-index"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
   "routes": [
     {
       "pattern": "ops.chinamedicaltour.org/*",
