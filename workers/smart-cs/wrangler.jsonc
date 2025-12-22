@@ -9,6 +9,11 @@
   "observability": {
     "enabled": true
   },
+  "triggers": {
+    "crons": [
+      "0 3 * * *"
+    ]
+  },
   "vectorize": [
     {
       "binding": "VECTORIZE_INDEX",
