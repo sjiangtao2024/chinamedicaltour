@@ -2,7 +2,7 @@ import { buildRagContext } from "./rag.js";
 
 export async function fetchRagChunks({ env, query, topK }) {
   if (!env.AI || !env.VECTORIZE_INDEX) return [];
-  const embedding = await env.AI.run("@cf/baai/bge-base-en-v1.5", { input: query });
+  const embedding = await env.AI.run("@cf/baai/bge-base-en-v1.5", { text: [query] });
   const vector = embedding?.data?.[0]?.embedding || embedding?.data?.[0];
   if (!vector) return [];
 
