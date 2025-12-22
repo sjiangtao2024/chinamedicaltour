@@ -9,6 +9,24 @@
   "observability": {
     "enabled": true
   },
+  "vectorize": [
+    {
+      "binding": "VECTORIZE_INDEX",
+      "index_name": "cmt-rag-index"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2_BUCKET",
+      "bucket_name": "cmt-rag-knowledge"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cmt-smart-cs-logs"
+    }
+  ],
   // 默认环境 (Local/Dev)
   "vars": {
     "ALLOWED_ORIGINS": "http://127.0.0.1:5500,http://localhost:8000",
