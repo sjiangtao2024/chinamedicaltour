@@ -12,6 +12,8 @@ const UI_HTML = `<!doctype html>
       .status { margin-top: 10px; }
       button { padding: 8px 14px; }
       input[type=password] { padding: 6px; width: 320px; }
+      .help { background: #f6f6f6; padding: 12px 16px; border-radius: 8px; }
+      code { background: #eee; padding: 2px 4px; border-radius: 4px; }
     </style>
   </head>
   <body>
@@ -29,13 +31,30 @@ const UI_HTML = `<!doctype html>
     </div>
 
     <div id="editor-panel" class="hidden">
+      <div class="row help">
+        <strong>How to use</strong>
+        <ol>
+          <li>Upload a Markdown file <code>.md</code> or paste content below.</li>
+          <li>Click <code>Save & Upload</code> to rebuild the knowledge index.</li>
+        </ol>
+        <div><strong>Example</strong></div>
+        <pre># Package Overview
+- Basic Package: from $299
+- Elite Package: from $599
+- VIP Package: from $1,399
+</pre>
+      </div>
       <div class="row">
         <label>Update Note (optional)</label>
         <input id="note" type="text" style="width: 100%;" />
       </div>
       <div class="row">
+        <label>Upload Markdown File</label>
+        <input id="mdfile" type="file" accept=".md,text/markdown,text/plain" />
+      </div>
+      <div class="row">
         <label>Knowledge (Markdown)</label>
-        <textarea id="content"></textarea>
+        <textarea id="content" placeholder="# Title\n\nWrite Markdown here or upload a .md file above."></textarea>
       </div>
       <button id="save">Save & Upload</button>
       <div id="save-status" class="status"></div>
@@ -51,6 +70,7 @@ const UI_HTML = `<!doctype html>
       const saveStatus = document.getElementById('save-status');
       const contentEl = document.getElementById('content');
       const noteEl = document.getElementById('note');
+      const fileInput = document.getElementById('mdfile');
 
       function setStatus(el, text, ok) {
         el.textContent = text;
@@ -107,6 +127,18 @@ const UI_HTML = `<!doctype html>
           setStatus(saveStatus, 'Uploaded: ' + data.key, true);
         } catch (e) {
           setStatus(saveStatus, 'Upload error', false);
+        }
+      });
+
+      fileInput.addEventListener('change', async () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          contentEl.value = text;
+          setStatus(saveStatus, 'File loaded', true);
+        } catch (e) {
+          setStatus(saveStatus, 'Failed to read file', false);
         }
       });
     </script>
