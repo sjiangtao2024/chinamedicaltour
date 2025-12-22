@@ -1,91 +1,88 @@
-# Smart CS RAG + Ops Upload Design
+# 智能客服 RAG + 运维上传设计
 
-## Context
-The current smart customer service Worker (`workers/smart-cs`) uses a large system prompt in `workers/smart-cs/src/lib/knowledge-base.js`. This is functional but hard for non-technical staff to update and increases token usage per request. The site is already live on `https://chinamedicaltour.org` and calls `https://api.chinamedicaltour.org/api/chat`.
+## 背景
+当前智能客服 Worker（`workers/smart-cs`）使用 `workers/smart-cs/src/lib/knowledge-base.js` 中的大段系统提示词。该方式可用，但非技术人员无法更新，并且每次请求的 token 体积偏大。站点已在 `https://chinamedicaltour.org` 上线，并调用 `https://api.chinamedicaltour.org/api/chat`。
 
-## Goals
-- Let non-technical staff update the knowledge base without code changes.
-- Keep the live chat flow unchanged for end users.
-- Reduce token overhead by using retrieval to inject only relevant knowledge.
-- Maintain operational safety with a simple admin token gate.
+## 目标
+- 让非技术人员无需改代码即可更新知识库。
+- 用户侧聊天流程不变。
+- 通过检索注入减少提示词体积。
+- 使用简单 admin token 完成权限控制。
 
-## Non-goals
-- Replace the longcat model in the short term.
-- Build a complex authentication system (SSO, roles, etc.).
-- Introduce multi-channel channels (WeChat, etc.).
+## 非目标
+- 短期替换 longcat 模型。
+- 构建复杂认证体系（SSO、角色等）。
+- 引入多渠道（微信等）。
 
-## Constraints
-- Use Cloudflare services (Workers, R2, Vectorize, Workers AI embeddings).
-- Use a single shared admin token for initial access.
-- Keep deployment small and clear: separate ops Worker and chat Worker.
+## 约束
+- 使用 Cloudflare 相关服务（Workers、R2、Vectorize、Workers AI Embeddings）。
+- 初期使用单一共享 admin token。
+- 聊天 Worker 与运维 Worker 分离部署。
 
-## Proposed Architecture
-- **smart-cs Worker** (public):
-  - Receives chat requests from `chinamedicaltour.org`.
-  - Generates query embedding with Workers AI.
-  - Retrieves top-K chunks from Vectorize.
-  - Builds a compact prompt (rules + retrieved chunks).
-  - Sends to longcat API for response.
-- **ops Worker** (private):
-  - Exposes a login page at `ops.chinamedicaltour.org`.
-  - Validates a shared admin token.
-  - Provides a simple editor that converts content to Markdown.
-  - Uploads the Markdown to R2 (fixed key, e.g. `knowledge/knowledge.md`).
-- **R2 event pipeline**:
-  - R2 object update triggers a Worker/Workflow to rebuild the vector index.
-  - The pipeline fetches Markdown, cleans and splits into chunks, embeds, and upserts into Vectorize with metadata.
+## 方案架构
+- **smart-cs Worker（对外）**：
+  - 接收 `chinamedicaltour.org` 的聊天请求。
+  - 使用 Workers AI 生成 query embedding。
+  - 从 Vectorize 检索 Top‑K 片段。
+  - 构建精简提示词（规则 + 片段）。
+  - 调用 longcat API 生成回复。
+- **ops Worker（内部）**：
+  - 通过 `ops.chinamedicaltour.org` 提供登录页。
+  - 校验共享 admin token。
+  - 提供编辑器，内容转换为 Markdown。
+  - 上传到 R2 固定路径（例如 `knowledge/knowledge.md`）。
+- **R2 事件流水线**：
+  - R2 对象变更触发 Worker/Workflow 重建索引。
+  - 拉取 Markdown，分块，生成 embedding，写入 Vectorize。
 
-## Data Flow
-1. Admin logs in at `ops.chinamedicaltour.org` with a shared token.
-2. Admin edits content and submits.
-3. Frontend converts to Markdown and uploads to R2.
-4. R2 event triggers rebuild:
-   - Parse Markdown -> chunks.
-   - Generate embeddings with Workers AI (embedding model).
-   - Upsert vectors to Vectorize.
-5. User chat request:
-   - smart-cs embeds the user query.
-   - Vectorize returns top-K chunks.
-   - smart-cs builds final prompt and calls longcat.
+## 数据流
+1. 管理员在 `ops.chinamedicaltour.org` 登录并编辑内容。
+2. 前端将内容转为 Markdown 并上传到 R2。
+3. R2 触发重建流程：
+   - 解析 Markdown -> 分块。
+   - Workers AI 生成 embedding。
+   - Vectorize upsert 向量（带 metadata）。
+4. 用户聊天请求：
+   - smart-cs 生成 query embedding。
+   - Vectorize 返回 Top‑K 片段。
+   - smart-cs 拼接提示词并调用 longcat。
 
-## Content Format
-- Preferred upload format: Markdown.
-- Metadata stored in Vectorize: section title, source, updated_at, language.
-- Chunk size: 500-800 tokens (tunable).
+## 内容格式
+- 推荐上传 Markdown。
+- Vectorize metadata 建议包含：章节标题、来源、更新时间、语言。
+- 分块大小建议 500–800 tokens（可调）。
 
-## Error Handling
-- Upload failures show clear error to admin and keep local draft.
-- Rebuild failures log the error and keep the previous Vectorize index.
-- smart-cs falls back to a minimal prompt if Vectorize is unavailable.
+## 错误处理
+- 上传失败：前端提示原因并保留草稿。
+- 重建失败：写日志并保留旧索引。
+- smart-cs 检索失败时降级为最小提示词。
 
-## Security
-- Ops access is guarded by a shared admin token.
-- Token is validated server-side on every upload.
-- Token rotation is manual but documented.
-- Ops Worker is on a separate subdomain and logs all uploads.
+## 安全
+- ops 侧每次上传校验共享 admin token。
+- token 定期轮换并记录更新时间。
+- ops 域名与对外服务隔离，便于审计。
 
-## Observability
-- Add structured logs for:
-  - Upload events (user, time, content version).
-  - Rebuild stats (chunks, embedding calls, duration).
-  - Chat retrieval stats (top-K, latency).
+## 可观测性
+- 上传日志：操作者、时间、版本。
+- 重建日志：分块数量、embedding 次数、耗时。
+- 检索日志：Top‑K、检索耗时。
 
-## Limits and Free Tier Notes
-- Workers AI free allocation: 10,000 neurons/day.
-- Vectorize free allocation:
-  - 30 million queried vector dimensions/month.
-  - 5 million stored vector dimensions.
-- Current content size is small, so Vectorize should stay within free limits.
-- Workers AI embeddings should be monitored daily; chat generation remains on longcat.
+## 免费额度注意事项
+- Workers AI：10,000 Neurons/天。
+- Vectorize（Workers Free）：
+  - 30 million queried vector dimensions / 月。
+  - 5 million stored vector dimensions。
+- 当前内容体量很小，Vectorize 免费额度足够。
+- Workers AI 主要用于 embedding，回复继续走 longcat。
 
-## Rollout Plan
-1. Keep current system prompt as a fallback.
-2. Add ops Worker + R2 upload flow.
-3. Enable R2-triggered rebuild to Vectorize.
-4. Switch smart-cs to RAG for knowledge injection.
-5. Monitor quality and latency, adjust chunking and top-K.
+## 上线步骤
+1. 保留现有系统提示词作为兜底。
+2. 增加 ops Worker + R2 上传。
+3. 启用 R2 触发重建 Vectorize。
+4. smart-cs 切换为 RAG 注入知识。
+5. 观察质量与延迟，调整分块与 Top‑K。
 
-## Open Questions
-- Preferred embedding model and dimension size.
-- Top-K default value and fallback strategy.
-- Whether to allow multiple knowledge files or a single canonical file.
+## 待确认问题
+- 具体 embedding 模型与维度。
+- Top‑K 默认值与检索失败策略。
+- 知识库是否仅单一文件或支持多文件。
