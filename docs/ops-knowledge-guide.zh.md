@@ -29,6 +29,15 @@
 - 知识库文件：`rag/knowledge/knowledge.md`
 - 重建状态：`rag/knowledge/status.json`
 
+## RAG 开关（smart-cs）
+如需启用/关闭 RAG，在 `workers/smart-cs/wrangler.jsonc` 中调整：
+- `RAG_ENABLED`: `"true"` 或 `"false"`
+- 修改后需重新部署 smart-cs：
+  ```bash
+  cd workers/smart-cs
+  npx wrangler deploy
+  ```
+
 ## 注意事项
 - 每次上传都会触发“全量重建”。
 - 系统会尝试删除旧向量，避免残留数据影响检索。
@@ -37,4 +46,3 @@
 ## 快速测试
 - 上传后等待 10–30 秒
 - 若已开启 RAG，可直接向客服问套餐/促销相关问题验证
-
