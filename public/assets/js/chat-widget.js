@@ -90,6 +90,12 @@
     
     // Quick Replies Container
     var suggestions = el("div", { class: "cmt-chat__suggestions" });
+    var suggestionsToggle = el("button", {
+      class: "cmt-chat__suggestions-toggle",
+      type: "button",
+      "aria-expanded": "false",
+      text: "Show more"
+    });
 
     var status = el("div", { class: "cmt-chat__status", text: "Idle" });
     var error = el("div", { class: "cmt-chat__error" }, [
@@ -113,6 +119,7 @@
     panel.appendChild(header);
     panel.appendChild(messages);
     panel.appendChild(suggestions); // Add suggestions between messages and status
+    panel.appendChild(suggestionsToggle);
     panel.appendChild(status);
     panel.appendChild(error);
     panel.appendChild(composer);
@@ -122,7 +129,29 @@
 
     document.body.appendChild(root);
 
-    return { root: root, toggle: toggle, panel: panel, closeBtn: closeBtn, messages: messages, suggestions: suggestions, status: status, error: error, input: input, send: send };
+    return { root: root, toggle: toggle, panel: panel, closeBtn: closeBtn, messages: messages, suggestions: suggestions, suggestionsToggle: suggestionsToggle, status: status, error: error, input: input, send: send };
+  }
+
+  function getCollapsedSuggestionsHeight(el) {
+    var height = parseFloat(window.getComputedStyle(el).getPropertyValue("--suggestions-collapsed-height"));
+    return Number.isFinite(height) ? height : 64;
+  }
+
+  function updateSuggestionsToggle(ui) {
+    var collapsedHeight = getCollapsedSuggestionsHeight(ui.suggestions);
+    ui.suggestions.classList.remove("is-expanded");
+    ui.suggestions.classList.remove("has-more");
+    ui.suggestions.style.maxHeight = "";
+    ui.suggestionsToggle.textContent = "Show more";
+    ui.suggestionsToggle.setAttribute("aria-expanded", "false");
+
+    if (ui.suggestions.scrollHeight > collapsedHeight + 4) {
+      ui.suggestions.classList.add("has-more");
+      ui.suggestions.style.maxHeight = collapsedHeight + "px";
+      ui.suggestionsToggle.style.display = "inline-flex";
+    } else {
+      ui.suggestionsToggle.style.display = "none";
+    }
   }
 
   function getQuickReplies(context) {
@@ -144,9 +173,11 @@
         ui.input.value = text;
         onSend();
         ui.suggestions.innerHTML = ""; // Clear suggestions after click
+        ui.suggestionsToggle.style.display = "none";
       };
       ui.suggestions.appendChild(btn);
     });
+    updateSuggestionsToggle(ui);
   }
 
   function renderMessage(messagesEl, role, text) {
@@ -385,6 +416,26 @@
   });
 
   ui.closeBtn.addEventListener("click", closeChat);
+
+  ui.suggestionsToggle.addEventListener("click", function () {
+    var collapsedHeight = getCollapsedSuggestionsHeight(ui.suggestions);
+    var isExpanded = ui.suggestions.classList.contains("is-expanded");
+
+    if (isExpanded) {
+      ui.suggestions.classList.remove("is-expanded");
+      ui.suggestions.classList.add("has-more");
+      ui.suggestions.style.maxHeight = collapsedHeight + "px";
+      ui.suggestionsToggle.textContent = "Show more";
+      ui.suggestionsToggle.setAttribute("aria-expanded", "false");
+      return;
+    }
+
+    ui.suggestions.classList.add("is-expanded");
+    ui.suggestions.classList.remove("has-more");
+    ui.suggestions.style.maxHeight = ui.suggestions.scrollHeight + "px";
+    ui.suggestionsToggle.textContent = "Show less";
+    ui.suggestionsToggle.setAttribute("aria-expanded", "true");
+  });
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && state.isOpen) closeChat();

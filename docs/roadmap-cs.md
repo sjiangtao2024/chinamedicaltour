@@ -14,6 +14,7 @@
 | **spec-kit-inputs-cs.md** | 模板 | Prompt | Codex CLI + Spec-Kit 的可复制输入模板（constitution/specify/plan/tasks） | 所有开发者 |
 | **superpowers-inputs-cs.md** | 模板 | Prompt | Superpowers（Codex/Claude）安装与常用输入模板 | 所有开发者 |
 | **ops-knowledge-guide.zh.md** | 运维 | RAG 知识库 | ops 后台使用、Markdown 上传、重建状态、存储路径 | 运维 |
+| **smart-cs-features-and-guide.md** | 指南 | 功能总览 | 页面上下文、RAG、英文守卫、日志保留 | 产品、运营、开发 |
 | **plans/2025-12-22-smart-cs-rag-ops-design.md** | 设计 | RAG 架构 | RAG/Vectorize/ops 方案、数据流 | 架构师 |
 | **plans/2025-12-22-smart-cs-rag-ops-api-spec.md** | 设计 | ops API | 登录/上传/状态 API 约定 | 后端 |
 | **plans/2025-12-22-smart-cs-rag-ops-ui-spec.md** | 设计 | ops UI | 登录/上传界面说明 | 前端 |
@@ -32,6 +33,8 @@
 ## 变更记录
 
 - 文档已从 `public/docs` 迁移到 `docs` 目录，便于版本管理与检索。
+- 补充 RAG 知识库更新流程与运维说明。
+- 智能客服功能总览文档已统一为中文版本。
 
 ## 快速指引
 

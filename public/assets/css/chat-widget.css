@@ -187,18 +187,43 @@
 
 /* Quick Replies Styles */
 .cmt-chat__suggestions {
+  --suggestions-collapsed-height: 64px;
   padding: 8px 12px;
   background: #ffffff;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 88px;
-  scrollbar-width: none; /* Hide scrollbar for cleaner look */
+  max-height: var(--suggestions-collapsed-height);
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.2s ease;
 }
-.cmt-chat__suggestions::-webkit-scrollbar {
+
+.cmt-chat__suggestions.has-more::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95));
+  pointer-events: none;
+}
+
+.cmt-chat__suggestions.is-expanded {
+  overflow: hidden;
+}
+
+.cmt-chat__suggestions-toggle {
+  align-self: flex-start;
+  margin: 0 12px 8px 12px;
+  border: none;
+  background: transparent;
+  color: #0f766e;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
   display: none;
 }
 .cmt-chat__suggestion-btn {

@@ -3,6 +3,12 @@
 ## 用途
 该后台用于上传和维护智能客服的知识库内容（Markdown）。上传后系统会自动重建向量索引。
 
+## 知识库来源（仓库）
+知识库的**源文件**统一放在仓库中，便于版本管理：
+- `workers/smart-cs/knowledge/knowledge.md`
+
+运营更新后建议同步提交到仓库，避免线上内容与代码记录不一致。
+
 ## 访问地址
 - https://ops.chinamedicaltour.org
 
@@ -17,12 +23,21 @@
 - **直接在编辑区粘贴/编辑 Markdown**
 
 ## 上传流程
-1) 选择 Markdown 文件或手动编辑内容
-2) 点击 **Save & Upload**
-3) 页面会显示重建状态（running → success/failed）
+1) 从仓库 `workers/smart-cs/knowledge/knowledge.md` 复制内容，或直接上传该文件
+2) 填写 `Update Note`（可选，但建议）
+3) 点击 **Save & Upload**
+4) 页面会显示重建状态（running → success/failed）
 
 ## Update Note 说明
 `Update Note` 用于记录本次更新原因，便于审计和回溯，会随文件一起保存为元数据。
+
+## 重建状态说明
+状态在页面中自动刷新：
+- `running`: 正在重建
+- `success`: 重建完成，显示 chunk 数与 upsert 数
+- `failed`: 重建失败，显示错误信息
+
+如果上传的是同一份内容，也会触发一次**全量重建**，旧向量会被清理并重建，不会累积脏数据。
 
 ## 存储位置（R2）
 为避免混淆，知识库文件和状态文件统一放在专门目录：
