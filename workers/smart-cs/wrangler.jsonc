@@ -36,7 +36,8 @@
     "MAX_TOKENS": 1200,
     "TIMEOUT_MS": 15000,
     "RAG_ENABLED": "false",
-    "RAG_TOP_K": 3
+    "RAG_TOP_K": 3,
+    "LOG_RETENTION_DAYS": 14
   },
   // Staging 环境 (部署到 *.workers.dev)
   "env": {
@@ -49,7 +50,8 @@
         "MAX_TOKENS": 1200,
         "TIMEOUT_MS": 30000,
         "RAG_ENABLED": "false",
-        "RAG_TOP_K": 3
+        "RAG_TOP_K": 3,
+        "LOG_RETENTION_DAYS": 14
       }
       // Secrets: LONGCAT_API_KEYS (由命令行注入)
     },
@@ -70,7 +72,8 @@
         "MAX_TOKENS": 1200,
         "TIMEOUT_MS": 10000,
         "RAG_ENABLED": "false",
-        "RAG_TOP_K": 3
+        "RAG_TOP_K": 3,
+        "LOG_RETENTION_DAYS": 14
       }
     }
   }

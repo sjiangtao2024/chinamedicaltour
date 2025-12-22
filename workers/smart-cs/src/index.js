@@ -3,6 +3,7 @@ import { errorResponse } from "./lib/errors.js";
 import { createRequestId, logJson } from "./lib/logger.js";
 import { normalizeAndTruncateMessages } from "./lib/truncate.js";
 import { createKeyManager } from "./lib/key-manager.js";
+import { buildInsert, buildCleanup } from "./lib/chat-log.js";
 import { fetchLongcatSse } from "./lib/longcat-client.js";
 import { sseHeaders, serializeSseData } from "./lib/sse.js";
 import { getSystemPrompt } from "./lib/knowledge-base.js";
@@ -13,6 +14,13 @@ import { parseRealtimeIntent } from "./lib/intent.js";
 import { getRealtimeReply } from "./lib/realtime.js";
 
 export default {
+  async scheduled(event, env, ctx) {
+    const days = Number(env.LOG_RETENTION_DAYS) || 14;
+    if (!env.DB) return;
+    const sql = buildCleanup(days);
+    ctx.waitUntil(env.DB.prepare(sql).run());
+  },
+
   async fetch(request, env, ctx) {
     const startMs = Date.now();
     const requestId = createRequestId();
@@ -147,6 +155,9 @@ export default {
 
     const messages = normalizeAndTruncateMessages(messagesWithSystem, { requestId });
 
+    const lastUserMessage = [...messages].reverse().find((m) => m?.role === "user");
+    const lastUserText = lastUserMessage?.content || "";
+
     const keyManager = createKeyManager({ env, cooldownMs: 60_000 });
     const timeoutMs =
       typeof env.TIMEOUT_MS === "number"
@@ -212,6 +223,17 @@ export default {
             upstream_status: upstream.status,
             error_code: null,
           });
+
+          if (env.DB) {
+            const sql = buildInsert();
+            const stmt = env.DB.prepare(sql).bind(
+              requestId,
+              lastUserText,
+              "[streamed]",
+              new Date().toISOString(),
+            );
+            ctx.waitUntil(stmt.run());
+          }
 
           return new Response(upstream.body, {
             status: 200,
