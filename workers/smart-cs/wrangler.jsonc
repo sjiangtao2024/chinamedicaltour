@@ -24,7 +24,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "cmt-smart-cs-logs"
+      "database_name": "cmt-smart-cs-logs",
+      "database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
     }
   ],
   // 默认环境 (Local/Dev)

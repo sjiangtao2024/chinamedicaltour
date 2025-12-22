@@ -10,8 +10,15 @@
     "enabled": true
   },
   "vars": {
-    "ADMIN_TOKEN": "replace-with-secret"
+    "ADMIN_TOKEN": "replace-with-secret",
+    "KNOWLEDGE_KEY": "knowledge/knowledge.md"
   },
+  "r2_buckets": [
+    {
+      "binding": "R2_BUCKET",
+      "bucket_name": "cmt-rag-knowledge"
+    }
+  ],
   "routes": [
     {
       "pattern": "ops.chinamedicaltour.org/*",
