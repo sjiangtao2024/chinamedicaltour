@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "smart-cs",
+  "name": "smart-cs-prod",
   "main": "src/index.js",
   "compatibility_date": "2025-01-01",
   "compatibility_flags": [
@@ -14,6 +14,12 @@
       "0 3 * * *"
     ]
   },
+  "routes": [
+    {
+      "pattern": "api.chinamedicaltour.org/api/chat*",
+      "zone_name": "chinamedicaltour.org"
+    }
+  ],
   "vectorize": [
     {
       "binding": "VECTORIZE_INDEX",
@@ -35,89 +41,13 @@
   ],
   // 默认环境 (Local/Dev)
   "vars": {
-    "ALLOWED_ORIGINS": "http://127.0.0.1:5500,http://localhost:8000",
+    "ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://sjiangtao2024.github.io",
     "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
     "MODEL_NAME": "LongCat-Flash-Chat",
     "MAX_TOKENS": 1200,
-    "TIMEOUT_MS": 15000,
-    "RAG_ENABLED": "false",
+    "TIMEOUT_MS": 10000,
+    "RAG_ENABLED": "true",
     "RAG_TOP_K": 3,
     "LOG_RETENTION_DAYS": 14
-  },
-  // Staging 环境 (部署到 *.workers.dev)
-  "env": {
-    "staging": {
-      "name": "smart-cs-staging",
-      "vectorize": [
-        {
-          "binding": "VECTORIZE_INDEX",
-          "index_name": "cmt-rag-index"
-        }
-      ],
-      "r2_buckets": [
-        {
-          "binding": "R2_BUCKET",
-          "bucket_name": "cmt-rag-knowledge"
-        }
-      ],
-      "d1_databases": [
-        {
-          "binding": "DB",
-          "database_name": "cmt-smart-cs-logs",
-          "database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
-        }
-      ],
-      "vars": {
-        "ALLOWED_ORIGINS": "https://staging.chinamedicaltour.org",
-        "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
-        "MODEL_NAME": "LongCat-Flash-Chat",
-        "MAX_TOKENS": 1200,
-        "TIMEOUT_MS": 30000,
-        "RAG_ENABLED": "false",
-        "RAG_TOP_K": 3,
-        "LOG_RETENTION_DAYS": 14
-      }
-      // Secrets: LONGCAT_API_KEYS (由命令行注入)
-    },
-    // Production 环境 (绑定自定义域)
-    "production": {
-      "name": "smart-cs-prod",
-      "routes": [
-        // 将 Worker 映射到 api 子域的 /api/chat 路径
-        {
-          "pattern": "api.chinamedicaltour.org/api/chat*",
-          "zone_name": "chinamedicaltour.org"
-        }
-      ],
-      "vectorize": [
-        {
-          "binding": "VECTORIZE_INDEX",
-          "index_name": "cmt-rag-index"
-        }
-      ],
-      "r2_buckets": [
-        {
-          "binding": "R2_BUCKET",
-          "bucket_name": "cmt-rag-knowledge"
-        }
-      ],
-      "d1_databases": [
-        {
-          "binding": "DB",
-          "database_name": "cmt-smart-cs-logs",
-          "database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
-        }
-      ],
-      "vars": {
-        "ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://sjiangtao2024.github.io",
-        "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
-        "MODEL_NAME": "LongCat-Flash-Chat",
-        "MAX_TOKENS": 1200,
-        "TIMEOUT_MS": 10000,
-        "RAG_ENABLED": "false",
-        "RAG_TOP_K": 3,
-        "LOG_RETENTION_DAYS": 14
-      }
-    }
   }
 }
