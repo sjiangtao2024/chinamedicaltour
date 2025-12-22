@@ -1,6 +1,6 @@
 import { chunkText } from "./chunking.js";
 import { embedText } from "./embeddings.js";
-import { upsertVectors } from "./vectorize.js";
+import { deleteVectors, upsertVectors } from "./vectorize.js";
 
 export async function rebuildIndex({
   ai,
@@ -10,8 +10,10 @@ export async function rebuildIndex({
   maxChars,
   namespace,
   metadata,
+  previousCount,
 }) {
   const chunks = chunkText(text, { maxChars });
+  await deleteVectors({ index, namespace, count: previousCount });
   const vectors = [];
   for (const chunk of chunks) {
     const values = await embedText({ ai, model, input: chunk });

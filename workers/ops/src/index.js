@@ -57,7 +57,9 @@ export default {
       }
 
       const updatedAt = new Date().toISOString();
-      const knowledgeKey = env.KNOWLEDGE_KEY || "knowledge/knowledge.md";
+      const knowledgeKey = env.KNOWLEDGE_KEY || "rag/knowledge/knowledge.md";
+      const statusKey = env.STATUS_KEY || "rag/knowledge/status.json";
+      const previousStatus = await readStatus({ bucket: env.R2_BUCKET, key: statusKey });
 
       await writeKnowledge({
         bucket: env.R2_BUCKET,
@@ -70,13 +72,13 @@ export default {
         },
       });
 
-      const statusKey = env.STATUS_KEY || "knowledge/status.json";
       await writeStatus({
         bucket: env.R2_BUCKET,
         key: statusKey,
         status: {
           state: "running",
           updated_at: updatedAt,
+          version_id: updatedAt,
         },
       });
 
@@ -92,8 +94,10 @@ export default {
               namespace: "knowledge",
               metadata: {
                 updated_at: updatedAt,
+                version_id: updatedAt,
                 source: "ops",
               },
+              previousCount: previousStatus?.upserted || 0,
             });
 
             await writeStatus({
@@ -102,6 +106,7 @@ export default {
               status: {
                 state: "success",
                 updated_at: updatedAt,
+                version_id: updatedAt,
                 chunks: result.chunks,
                 upserted: result.upserted,
               },
@@ -113,6 +118,7 @@ export default {
               status: {
                 state: "failed",
                 updated_at: updatedAt,
+                version_id: updatedAt,
                 error: err?.message || "rebuild_failed",
               },
             });
@@ -132,7 +138,7 @@ export default {
       if (!isValidToken(token, env.ADMIN_TOKEN)) {
         return jsonResponse(401, { ok: false, error: "unauthorized" });
       }
-      const statusKey = env.STATUS_KEY || "knowledge/status.json";
+      const statusKey = env.STATUS_KEY || "rag/knowledge/status.json";
       const status = await readStatus({ bucket: env.R2_BUCKET, key: statusKey });
       return jsonResponse(200, { ok: true, status });
     }
