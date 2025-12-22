@@ -34,7 +34,9 @@
     "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
     "MODEL_NAME": "LongCat-Flash-Chat",
     "MAX_TOKENS": 1200,
-    "TIMEOUT_MS": 15000
+    "TIMEOUT_MS": 15000,
+    "RAG_ENABLED": "false",
+    "RAG_TOP_K": 3
   },
   // Staging 环境 (部署到 *.workers.dev)
   "env": {
@@ -45,7 +47,9 @@
         "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
         "MODEL_NAME": "LongCat-Flash-Chat",
         "MAX_TOKENS": 1200,
-        "TIMEOUT_MS": 30000
+        "TIMEOUT_MS": 30000,
+        "RAG_ENABLED": "false",
+        "RAG_TOP_K": 3
       }
       // Secrets: LONGCAT_API_KEYS (由命令行注入)
     },
@@ -64,7 +68,9 @@
         "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
         "MODEL_NAME": "LongCat-Flash-Chat",
         "MAX_TOKENS": 1200,
-        "TIMEOUT_MS": 10000
+        "TIMEOUT_MS": 10000,
+        "RAG_ENABLED": "false",
+        "RAG_TOP_K": 3
       }
     }
   }

@@ -6,6 +6,8 @@ import { createKeyManager } from "./lib/key-manager.js";
 import { fetchLongcatSse } from "./lib/longcat-client.js";
 import { sseHeaders, serializeSseData } from "./lib/sse.js";
 import { getSystemPrompt } from "./lib/knowledge-base.js";
+import { fetchRagChunks, mergeRagIntoSystemPrompt } from "./lib/rag-runtime.js";
+import { shouldFallback } from "./lib/rag.js";
 import { resolveMaxTokens } from "./lib/token-budget.js";
 import { parseRealtimeIntent } from "./lib/intent.js";
 import { getRealtimeReply } from "./lib/realtime.js";
@@ -123,8 +125,24 @@ export default {
 
     // Insert System Prompt at the beginning
     const sysPrompt = getSystemPrompt();
+    const ragEnabled = env.RAG_ENABLED === true || env.RAG_ENABLED === "true";
+    const ragTopK = Number(env.RAG_TOP_K) || 3;
 
-    const systemMessage = { role: "system", content: sysPrompt };
+    let ragChunks = [];
+    if (ragEnabled) {
+      const lastUserText = lastUser?.content || "";
+      try {
+        ragChunks = await fetchRagChunks({ env, query: lastUserText, topK: ragTopK });
+      } catch {
+        ragChunks = [];
+      }
+    }
+
+    const mergedSystemPrompt = shouldFallback(ragEnabled, ragChunks)
+      ? sysPrompt
+      : mergeRagIntoSystemPrompt(sysPrompt, ragChunks);
+
+    const systemMessage = { role: "system", content: mergedSystemPrompt };
     const messagesWithSystem = [systemMessage, ...rawMessages];
 
     const messages = normalizeAndTruncateMessages(messagesWithSystem, { requestId });
