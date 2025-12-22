@@ -48,6 +48,12 @@ To lower the barrier for interaction, context-sensitive "Quick Reply" buttons ar
 *   **`CORE_KNOWLEDGE`**: The source of truth for the AI. Update prices, policies, and hospital info here.
 *   **`getSystemPrompt()`**: Defines the "Sunny" persona and strict constraints.
 
+### Ops Admin Token (RAG 后台)
+*   **用途**: 访问 `ops.chinamedicaltour.org` 的后台上传与重建功能。
+*   **当前 Token**: `eZfpq4Mofu9sB42srYOvA78dmmHEKZij`
+*   **配置方式**: 在部署 ops Worker 前，用 `wrangler secret put ADMIN_TOKEN` 注入。
+*   **轮换建议**: 每 1-3 个月轮换一次，轮换后同步更新此文档。
+
 ## 4. Deployment
 
 To update the system:
