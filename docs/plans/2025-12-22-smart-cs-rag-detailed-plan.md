@@ -10,6 +10,78 @@
 
 ---
 
+### Task 0: 准备与环境绑定（必须）
+
+**Files:**
+- Create: `workers/ops/wrangler.jsonc`
+- Create: `workers/ops/package.json`
+- Create: `workers/ops/src/index.js`
+- Modify: `workers/smart-cs/wrangler.jsonc`
+
+**Step 1: 新建 ops Worker 骨架**
+
+Create `workers/ops/package.json`:
+```json
+{
+  "name": "ops",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.56.0"
+  }
+}
+```
+
+Create `workers/ops/wrangler.jsonc` (placeholder values):
+```jsonc
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "smart-cs-ops",
+  "main": "src/index.js",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "vars": {
+    "ADMIN_TOKEN": "replace-with-secret"
+  },
+  "routes": [
+    {
+      "pattern": "ops.chinamedicaltour.org/*",
+      "zone_name": "chinamedicaltour.org"
+    }
+  ]
+}
+```
+
+Create `workers/ops/src/index.js` (placeholder response):
+```js
+export default {
+  async fetch() {
+    return new Response("ops ok", { status: 200 });
+  },
+};
+```
+
+**Step 2: 绑定资源（计划内占位）**
+
+Modify `workers/smart-cs/wrangler.jsonc` to add placeholder bindings:
+- `VECTORIZE_INDEX`（Vectorize）
+- `R2_BUCKET`（知识库）
+- `DB`（D1, 仅 Phase 4）
+
+**Step 3: 提交**
+```bash
+git add workers/ops workers/smart-cs/wrangler.jsonc
+git commit -m "chore: add ops worker skeleton and bindings placeholders"
+```
+
+---
+
 ### Task 1: 新增 ops Worker 基础结构
 
 **Files:**
