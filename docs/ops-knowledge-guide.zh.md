@@ -61,3 +61,31 @@
 ## 快速测试
 - 上传后等待 10–30 秒
 - 若已开启 RAG，可直接向客服问套餐/促销相关问题验证
+
+## 聊天记录导出（D1）
+如需分析客服对话，可从 D1 导出，或使用管理页导出：
+
+**管理页导出（CSV）**
+1) 打开 `https://api.chinamedicaltour.org/admin/exports`
+2) 输入 Admin Token
+3) 选择时间范围并下载 CSV
+
+导出字段包含：`request_id`、`user_text`、`assistant_summary`、`rating`、`page_url`、`page_context`、`created_at`。
+
+**全量导出（CSV，推荐）**
+```bash
+cd workers/smart-cs
+wrangler d1 export cmt-smart-cs-logs --remote --output chat_logs.csv
+```
+
+**按天过滤导出（JSON）**
+```bash
+cd workers/smart-cs
+wrangler d1 execute cmt-smart-cs-logs --remote --command "SELECT * FROM chat_logs WHERE created_at >= datetime('now', '-14 days');" --json > chat_logs.json
+```
+
+**核心字段导出（时间/用户问题/回复）**
+```bash
+cd workers/smart-cs
+wrangler d1 execute cmt-smart-cs-logs --remote --command "SELECT created_at, user_text, assistant_text FROM chat_logs ORDER BY created_at DESC;" --json > chat_logs_core.json
+```

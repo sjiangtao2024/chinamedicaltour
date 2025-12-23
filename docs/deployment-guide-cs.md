@@ -83,6 +83,12 @@ npx wrangler secret put LONGCAT_API_KEYS
 # 输入值: sk-prod-key-1,sk-prod-key-2,sk-prod-key-3
 ```
 
+### 2.2.1 Admin Token（导出/后台）
+用于访问聊天记录导出页面与上传后台（ops）。
+```bash
+npx wrangler secret put ADMIN_TOKEN
+```
+
 ### 2.3 部署命令
 ```bash
 # 部署 smart-cs (生产)
@@ -91,6 +97,13 @@ npx wrangler deploy
 # 部署 ops (后台)
 cd workers/ops
 npx wrangler deploy
+```
+
+### 2.4 D1 迁移（新增字段）
+本次新增 `assistant_summary`、`rating`、`page_url`、`page_context` 字段：
+```bash
+cd workers/smart-cs
+npx wrangler d1 execute cmt-smart-cs-logs --remote --file migrations/0002_add_chat_log_fields.sql
 ```
 
 ## 3. 开发与验证

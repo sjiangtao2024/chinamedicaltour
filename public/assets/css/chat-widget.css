@@ -146,6 +146,45 @@
   border-bottom-left-radius: 4px;
 }
 
+.cmt-chat__rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px 40px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.cmt-chat__rating-label {
+  font-weight: 600;
+}
+
+.cmt-chat__rating-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.cmt-chat__rating-star {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: #f59e0b;
+  border-radius: 999px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.cmt-chat__rating-star.is-selected {
+  background: #fef3c7;
+  border-color: #f59e0b;
+}
+
+.cmt-chat__rating-star:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
 /* Markdown Styles for Assistant Bubbles */
 .cmt-chat__msg--assistant .cmt-chat__bubble p {
   margin: 0 0 8px 0;

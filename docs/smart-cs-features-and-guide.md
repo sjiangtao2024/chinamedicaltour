@@ -35,6 +35,8 @@
 
 ### E. 聊天记录保留（D1）
 聊天记录写入 D1，并按 `LOG_RETENTION_DAYS` 自动清理。
+新增字段包含 `assistant_summary`（自动摘要）、`rating`（1–5 星）、`page_url`、`page_context`。
+导出入口：`https://api.chinamedicaltour.org/admin/exports`（需 Admin Token）。
 
 ## 3. 配置与维护
 

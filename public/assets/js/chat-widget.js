@@ -7,7 +7,8 @@
     }
     var apiUrl = (script && script.getAttribute("data-api-url")) || "https://api.chinamedicaltour.org/api/chat";
     var retry = Number((script && script.getAttribute("data-retry")) || "3");
-    return { apiUrl: apiUrl, retry: Number.isFinite(retry) ? retry : 3 };
+    var feedbackUrl = apiUrl.replace(/\/api\/chat$/, "/api/feedback");
+    return { apiUrl: apiUrl, feedbackUrl: feedbackUrl, retry: Number.isFinite(retry) ? retry : 3 };
   }
 
   var config = getConfig();
@@ -205,6 +206,43 @@
     return bubble;
   }
 
+  function renderRating(messagesEl, requestId) {
+    if (!requestId) return;
+    var wrap = el("div", { class: "cmt-chat__rating" });
+    wrap.appendChild(el("span", { class: "cmt-chat__rating-label", text: "Rate this reply:" }));
+    var stars = el("div", { class: "cmt-chat__rating-stars" });
+    for (var i = 1; i <= 5; i++) {
+      (function (rating) {
+        var btn = el("button", {
+          class: "cmt-chat__rating-star",
+          type: "button",
+          "aria-label": "Rate " + rating + " stars",
+          text: "★",
+        });
+        btn.onclick = function () {
+          if (wrap.classList.contains("is-submitted")) return;
+          wrap.classList.add("is-submitted");
+          var payload = { request_id: requestId, rating: rating };
+          fetch(config.feedbackUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }).catch(function () {});
+          wrap.querySelector(".cmt-chat__rating-label").textContent = "Thanks for the feedback!";
+          var starButtons = wrap.querySelectorAll(".cmt-chat__rating-star");
+          for (var j = 0; j < starButtons.length; j++) {
+            starButtons[j].disabled = true;
+            if (j + 1 <= rating) starButtons[j].classList.add("is-selected");
+          }
+        };
+        stars.appendChild(btn);
+      })(i);
+    }
+    wrap.appendChild(stars);
+    messagesEl.appendChild(wrap);
+    scrollToBottom(messagesEl);
+  }
+
   function clearTimers() {
     if (state.firstByteTimer) clearTimeout(state.firstByteTimer);
     if (state.streamGapTimer) clearTimeout(state.streamGapTimer);
@@ -255,6 +293,7 @@
     };
 
     var response;
+    var requestId = null;
     try {
       response = await fetch(config.apiUrl, {
         method: "POST",
@@ -287,6 +326,7 @@
       return;
     }
 
+    requestId = response.headers.get("X-Request-Id");
     state.phase = "awaiting_first_byte";
     setStatus(ui.status, "Awaiting First Byte…");
 
@@ -338,7 +378,7 @@
       state.phase = "done";
       setStatus(ui.status, "Done");
       setError(ui.error, "", null);
-      return assistantText;
+      return { assistantText: assistantText, requestId: requestId };
     } catch (e) {
       ui.send.disabled = false;
       clearTimers();
@@ -457,6 +497,7 @@
     // This avoids issues with multiple system messages confusing the model
     var contextHeader = `[Context: User is viewing '${context.title}' page about ${context.topic}]\n\n`;
     var fullContent = contextHeader + text;
+    var pageContext = "User is viewing '" + context.title + "' page about " + context.topic;
 
     var messagesToSend = snapshot.concat([{ role: "user", content: fullContent }]);
 
@@ -464,17 +505,22 @@
       messages: messagesToSend,
       stream: true,
       temperature: 0.5,
+      meta: {
+        page_url: window.location.href,
+        page_context: pageContext
+      }
     };
 
     console.log('[SmartCS] Sending payload:', payload);
 
     state.lastPayload = payload;
-    streamChat(ui, payload, assistantBubble, {}).then(function (assistantText) {
-      if (assistantText) {
+    streamChat(ui, payload, assistantBubble, {}).then(function (result) {
+      if (result && result.assistantText) {
         state.chatMessages = snapshot.concat([
           { role: "user", content: text },
-          { role: "assistant", content: assistantText },
+          { role: "assistant", content: result.assistantText },
         ]);
+        renderRating(ui.messages, result.requestId);
       }
     });
   }

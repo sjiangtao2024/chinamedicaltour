@@ -3,7 +3,7 @@ import { errorResponse } from "./lib/errors.js";
 import { createRequestId, logJson } from "./lib/logger.js";
 import { normalizeAndTruncateMessages } from "./lib/truncate.js";
 import { createKeyManager } from "./lib/key-manager.js";
-import { buildInsert, buildCleanup } from "./lib/chat-log.js";
+import { buildInsert, buildCleanup, buildUpdateSummary, buildUpdateRating } from "./lib/chat-log.js";
 import { fetchLongcatSse } from "./lib/longcat-client.js";
 import { sseHeaders, serializeSseData } from "./lib/sse.js";
 import { getSystemPrompt } from "./lib/knowledge-base.js";
@@ -13,6 +13,157 @@ import { englishFallbackText, guardEnglishStream } from "./lib/english-guard.js"
 import { resolveMaxTokens } from "./lib/token-budget.js";
 import { parseRealtimeIntent } from "./lib/intent.js";
 import { getRealtimeReply } from "./lib/realtime.js";
+import { collectSseText } from "./lib/sse-collector.js";
+import { parseExportParams } from "./lib/export.js";
+
+const CONTEXT_PREFIX = /^\[Context:\s*([^\]]+)\]\s*/;
+
+function stripContextHeader(text) {
+  if (!text) return "";
+  const match = text.match(CONTEXT_PREFIX);
+  if (!match) return text.trim();
+  return text.slice(match[0].length).trim();
+}
+
+function extractContextHeader(text) {
+  if (!text) return null;
+  const match = text.match(CONTEXT_PREFIX);
+  return match ? match[1].trim() : null;
+}
+
+function normalizeMeta(body, lastUserText) {
+  const meta = body && body.meta && typeof body.meta === "object" ? body.meta : {};
+  const pageUrl = typeof meta.page_url === "string" ? meta.page_url.trim() : "";
+  const pageContext = typeof meta.page_context === "string" ? meta.page_context.trim() : "";
+  const fallbackContext = extractContextHeader(lastUserText || "");
+  return {
+    page_url: pageUrl || null,
+    page_context: pageContext || fallbackContext || null,
+  };
+}
+
+function isAdminAuthorized(request, env) {
+  const expected = env.ADMIN_TOKEN;
+  if (!expected) return false;
+  const url = new URL(request.url);
+  const queryToken = url.searchParams.get("token");
+  if (queryToken && queryToken === expected) return true;
+  const headerToken = request.headers.get("X-Admin-Token");
+  if (headerToken && headerToken === expected) return true;
+  const auth = request.headers.get("Authorization") || "";
+  if (auth.startsWith("Bearer ") && auth.slice(7) === expected) return true;
+  return false;
+}
+
+function buildAdminPage({ tokenParam }) {
+  const tokenValue = tokenParam ? tokenParam.replace(/"/g, "&quot;") : "";
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart CS Export</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 24px; color: #0f172a; }
+      form { display: grid; gap: 12px; max-width: 520px; }
+      label { font-size: 13px; color: #334155; }
+      input { padding: 8px 10px; border: 1px solid #cbd5f5; border-radius: 8px; font-size: 14px; }
+      button { padding: 10px 14px; border: none; border-radius: 8px; background: #0f766e; color: #fff; font-weight: 600; cursor: pointer; }
+      .hint { font-size: 12px; color: #64748b; }
+    </style>
+  </head>
+  <body>
+    <h2>Smart CS Export</h2>
+    <p class="hint">Download chat logs as CSV. Requires admin token.</p>
+    <form method="GET" action="/admin/export.csv">
+      <label>Admin Token</label>
+      <input name="token" type="password" value="${tokenValue}" required />
+      <label>Start (ISO date)</label>
+      <input name="start" type="text" placeholder="2025-01-01" />
+      <label>End (ISO date)</label>
+      <input name="end" type="text" placeholder="2025-01-31" />
+      <label>Limit</label>
+      <input name="limit" type="number" min="1" max="5000" value="1000" />
+      <label>Offset</label>
+      <input name="offset" type="number" min="0" value="0" />
+      <button type="submit">Download CSV</button>
+    </form>
+  </body>
+</html>`;
+}
+
+function csvEscape(value) {
+  if (value === null || value === undefined) return "";
+  let text = String(value);
+  if (/^[=+\-@]/.test(text)) text = `'${text}`;
+  if (text.includes('"') || text.includes(",") || text.includes("\n")) {
+    text = `"${text.replace(/"/g, '""')}"`;
+  }
+  return text;
+}
+
+function buildCsv(rows) {
+  const header = [
+    "request_id",
+    "user_text",
+    "assistant_summary",
+    "rating",
+    "page_url",
+    "page_context",
+    "created_at",
+  ];
+  const lines = [header.join(",")];
+  for (const row of rows) {
+    const line = [
+      row.request_id,
+      row.user_text,
+      row.assistant_summary,
+      row.rating,
+      row.page_url,
+      row.page_context,
+      row.created_at,
+    ].map(csvEscape);
+    lines.push(line.join(","));
+  }
+  return lines.join("\n");
+}
+
+async function generateSummary({ env, requestId, userText, assistantText, timeoutMs }) {
+  if (!assistantText || !assistantText.trim()) return null;
+  const keyManager = createKeyManager({ env, cooldownMs: 60_000 });
+  const keySelection = keyManager.selectKeySlot();
+  if (!keySelection) return null;
+
+  const summaryPrompt = [
+    {
+      role: "system",
+      content:
+        "你是客服质检助手。请用简体中文总结客服回复的要点，保持客观简洁，不超过120字，只输出总结。",
+    },
+    {
+      role: "user",
+      content: `用户提问：${userText}\n\n客服回复：${assistantText}`,
+    },
+  ];
+
+  const upstream = await fetchLongcatSse({
+    env,
+    requestId: `${requestId}_summary`,
+    key: keySelection.key,
+    timeoutMs: timeoutMs || 10_000,
+    clientSignal: undefined,
+    payload: {
+      messages: summaryPrompt,
+      stream: true,
+      temperature: 0.2,
+      max_tokens: 200,
+    },
+  });
+
+  if (!upstream.ok || !upstream.body) return null;
+  const summary = await collectSseText(upstream.body, { maxChars: 400 });
+  return summary ? summary.trim() : null;
+}
 
 export default {
   async scheduled(event, env, ctx) {
@@ -46,6 +197,86 @@ export default {
         error_code: "forbidden_origin",
       });
       return new Response("Forbidden: Origin not allowed", { status: 403, headers: noIndexHeaders });
+    }
+
+    if (path === "/admin/exports") {
+      const url = new URL(request.url);
+      const tokenParam = url.searchParams.get("token") || "";
+      if (!isAdminAuthorized(request, env)) {
+        return new Response(buildAdminPage({ tokenParam }), {
+          status: 401,
+          headers: { "Content-Type": "text/html; charset=utf-8", ...noIndexHeaders },
+        });
+      }
+      return new Response(buildAdminPage({ tokenParam }), {
+        status: 200,
+        headers: { "Content-Type": "text/html; charset=utf-8", ...noIndexHeaders },
+      });
+    }
+
+    if (path === "/admin/export.csv") {
+      if (!isAdminAuthorized(request, env)) {
+        return new Response("Unauthorized", { status: 401, headers: noIndexHeaders });
+      }
+      if (!env.DB) {
+        return new Response("Database unavailable", { status: 503, headers: noIndexHeaders });
+      }
+      const url = new URL(request.url);
+      const { startIso, endIso, limit, offset } = parseExportParams(url, env);
+      const sql = `SELECT request_id, user_text, assistant_summary, rating, page_url, page_context, created_at
+        FROM chat_logs
+        WHERE created_at >= ? AND created_at <= ?
+        ORDER BY created_at DESC
+        LIMIT ? OFFSET ?`;
+      const result = await env.DB.prepare(sql).bind(startIso, endIso, limit, offset).all();
+      const csv = buildCsv(result?.results || []);
+      return new Response(csv, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/csv; charset=utf-8",
+          "Content-Disposition": "attachment; filename=chat_logs.csv",
+          ...noIndexHeaders,
+        },
+      });
+    }
+
+    if (path === "/api/feedback") {
+      if (request.method !== "POST") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { ...noIndexHeaders, ...(corsHeaders || {}) },
+        });
+      }
+      let feedback;
+      try {
+        feedback = await request.json();
+      } catch {
+        return errorResponse({
+          status: 400,
+          error_code: "invalid_request",
+          request_id: requestId,
+          corsHeaders,
+        });
+      }
+      const requestIdValue = typeof feedback?.request_id === "string" ? feedback.request_id : "";
+      const rating = Number(feedback?.rating);
+      if (!requestIdValue || !Number.isFinite(rating) || rating < 1 || rating > 5) {
+        return errorResponse({
+          status: 400,
+          error_code: "invalid_request",
+          request_id: requestId,
+          corsHeaders,
+        });
+      }
+      if (env.DB) {
+        const sql = buildUpdateRating();
+        const stmt = env.DB.prepare(sql).bind(rating, requestIdValue);
+        ctx.waitUntil(stmt.run());
+      }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...(corsHeaders || {}) },
+      });
     }
 
     if (!path.endsWith("/api/chat")) {
@@ -90,7 +321,10 @@ export default {
     const lastUser = [...rawMessages]
       .reverse()
       .find((m) => m && m.role === "user" && typeof m.content === "string");
-    const realtimeIntent = parseRealtimeIntent(lastUser?.content || "");
+    const lastUserTextRaw = lastUser?.content || "";
+    const userText = stripContextHeader(lastUserTextRaw);
+    const meta = normalizeMeta(body, lastUserTextRaw);
+    const realtimeIntent = parseRealtimeIntent(lastUserTextRaw);
     if (realtimeIntent) {
       const realtime = await getRealtimeReply(realtimeIntent);
       if (realtime) {
@@ -122,11 +356,27 @@ export default {
           realtime_error: realtime.meta?.message || null,
         });
 
+        if (env.DB) {
+          const sql = buildInsert();
+          const stmt = env.DB.prepare(sql).bind(
+            requestId,
+            userText,
+            replyText,
+            replyText,
+            null,
+            meta.page_url,
+            meta.page_context,
+            new Date().toISOString(),
+          );
+          ctx.waitUntil(stmt.run());
+        }
+
         return new Response(stream, {
           status: 200,
           headers: {
             ...sseHeaders(),
             ...(corsHeaders || {}),
+            "X-Request-Id": requestId,
           },
         });
       }
@@ -139,7 +389,7 @@ export default {
 
     let ragChunks = [];
     if (ragEnabled) {
-      const lastUserText = lastUser?.content || "";
+      const lastUserText = lastUserTextRaw;
       try {
         ragChunks = await fetchRagChunks({ env, query: lastUserText, topK: ragTopK });
       } catch {
@@ -155,9 +405,6 @@ export default {
     const messagesWithSystem = [systemMessage, ...rawMessages];
 
     const messages = normalizeAndTruncateMessages(messagesWithSystem, { requestId });
-
-    const lastUserMessage = [...messages].reverse().find((m) => m?.role === "user");
-    const lastUserText = lastUserMessage?.content || "";
 
     const keyManager = createKeyManager({ env, cooldownMs: 60_000 });
     const timeoutMs =
@@ -229,26 +476,49 @@ export default {
             const sql = buildInsert();
             const stmt = env.DB.prepare(sql).bind(
               requestId,
-              lastUserText,
+              userText,
               "[streamed]",
+              null,
+              null,
+              meta.page_url,
+              meta.page_context,
               new Date().toISOString(),
             );
             ctx.waitUntil(stmt.run());
           }
 
+          const [clientStream, captureStream] = upstream.body.tee();
           const enforceEnglish = env.ENFORCE_ENGLISH === true || env.ENFORCE_ENGLISH === "true";
           const body = enforceEnglish
             ? guardEnglishStream({
-                upstreamBody: upstream.body,
+                upstreamBody: clientStream,
                 fallbackText: englishFallbackText(),
               })
-            : upstream.body;
+            : clientStream;
+
+          if (env.DB) {
+            const captureTask = (async () => {
+              const assistantText = await collectSseText(captureStream, { maxChars: 4000 });
+              const summary = await generateSummary({
+                env,
+                requestId,
+                userText,
+                assistantText,
+                timeoutMs,
+              });
+              if (!summary) return;
+              const updateSql = buildUpdateSummary();
+              await env.DB.prepare(updateSql).bind(summary, requestId).run();
+            })();
+            ctx.waitUntil(captureTask);
+          }
 
           return new Response(body, {
             status: 200,
             headers: {
               ...sseHeaders(),
               ...(corsHeaders || {}),
+              "X-Request-Id": requestId,
             },
           });
         }
