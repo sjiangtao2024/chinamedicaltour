@@ -42,3 +42,7 @@
 *   **我想部署到生产环境？** -> 查看 `deployment-guide-cs.md` 的 "2. 部署策略"。
 *   **我想了解 Key 是怎么轮询的？** -> 查看 `plan-cs.md` 的 "2. 后端核心策略"。
 *   **我需要配置本地开发环境？** -> 查看 `deployment-guide-cs.md` 的 "3. 开发与验证"。
+
+## Upgrade 2025 Payments
+- docs/upgrade-2025-payments/design.md
+- docs/upgrade-2025-payments/deployment.md
