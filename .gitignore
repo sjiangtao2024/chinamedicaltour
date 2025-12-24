@@ -4,6 +4,7 @@
 .claude/
 backup/
 scripts/
+!scripts/
 !scripts/check-members-pages.js
 public/docs/
 # Ignore specific files
