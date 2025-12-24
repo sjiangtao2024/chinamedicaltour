@@ -5,7 +5,11 @@ import {
   normalizeEmail,
 } from "./lib/verification.js";
 import { createSessionToken } from "./lib/jwt.js";
+import { buildAuthUrl, exchangeCode } from "./lib/google-oauth.js";
 import { jsonResponse } from "./lib/response.js";
+
+const DEFAULT_GOOGLE_REDIRECT =
+  "https://chinamedicaltour.org/api/auth/google/callback";
 
 async function readJson(request) {
   try {
@@ -13,6 +17,20 @@ async function readJson(request) {
   } catch (error) {
     return null;
   }
+}
+
+function base64UrlFromBytes(bytes) {
+  return Buffer.from(bytes)
+    .toString("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
+}
+
+function generateState() {
+  const buffer = new Uint8Array(16);
+  crypto.getRandomValues(buffer);
+  return base64UrlFromBytes(buffer);
 }
 
 export default {
@@ -70,6 +88,47 @@ export default {
       }
       const token = await createSessionToken({ userId }, secret);
       return jsonResponse(200, { ok: true, token });
+    }
+
+    if (url.pathname === "/api/auth/google" && request.method === "GET") {
+      const state = generateState();
+      await env.MEMBERS_KV.put(`oauth_state:${state}`, "1", {
+        expirationTtl: 600,
+      });
+      const redirectUri = env.GOOGLE_REDIRECT_URI || DEFAULT_GOOGLE_REDIRECT;
+      const authUrl = buildAuthUrl(env.GOOGLE_CLIENT_ID, redirectUri, state);
+      return Response.redirect(authUrl, 302);
+    }
+
+    if (url.pathname === "/api/auth/google/callback" && request.method === "GET") {
+      const code = url.searchParams.get("code");
+      const state = url.searchParams.get("state");
+      if (!code || !state) {
+        return jsonResponse(400, { ok: false, error: "missing_oauth_params" });
+      }
+      const key = `oauth_state:${state}`;
+      const stored = await env.MEMBERS_KV.get(key);
+      if (!stored) {
+        return jsonResponse(400, { ok: false, error: "invalid_state" });
+      }
+      await env.MEMBERS_KV.delete(key);
+
+      const redirectUri = env.GOOGLE_REDIRECT_URI || DEFAULT_GOOGLE_REDIRECT;
+      const profile = await exchangeCode({
+        clientId: env.GOOGLE_CLIENT_ID,
+        clientSecret: env.GOOGLE_CLIENT_SECRET,
+        redirectUri,
+        code,
+      });
+
+      return jsonResponse(200, {
+        ok: true,
+        profile: {
+          email: profile.email,
+          name: profile.name,
+          sub: profile.sub,
+        },
+      });
     }
 
     if (url.pathname === "/health") {
