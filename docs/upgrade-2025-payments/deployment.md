@@ -6,6 +6,13 @@
 - PayPal Sandbox app credentials
 - Google OAuth client credentials
 
+## Development workflow (worktree)
+Recommended flow:
+1) Create a worktree and branch: `git worktree add .worktrees/members-payments -b feat/members-payments`
+2) Develop and commit in the worktree
+3) Merge `feat/members-payments` into your main branch
+4) Remove worktree when done: `git worktree remove .worktrees/members-payments`
+
 ## 1) Configure Wrangler bindings
 Update `workers/members/wrangler.jsonc` with:
 - D1 binding: `MEMBERS_DB`
