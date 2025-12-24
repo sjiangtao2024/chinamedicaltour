@@ -5,6 +5,10 @@
     .first();
 }
 
+export async function findOrderById(db, orderId) {
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
+
 export async function insertOrder(db, data) {
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
@@ -48,4 +52,22 @@ export async function insertOrder(db, data) {
     created_at: now,
     updated_at: now,
   };
+}
+
+export async function updateOrderPayment(db, orderId, updates) {
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      "UPDATE orders SET paypal_order_id = ?, paypal_capture_id = ?, status = ?, updated_at = ? WHERE id = ?"
+    )
+    .bind(
+      updates.paypalOrderId || null,
+      updates.paypalCaptureId || null,
+      updates.status,
+      now,
+      orderId
+    )
+    .run();
+
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
 }
