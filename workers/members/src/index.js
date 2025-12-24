@@ -12,12 +12,18 @@ import {
   findOrderByIdempotency,
   insertOrder,
   updateOrderPayment,
+  updateOrderStatus,
 } from "./lib/orders.js";
 import {
   capturePaypalOrder,
   createPaypalOrder,
   verifyWebhookSignature,
 } from "./lib/paypal.js";
+import {
+  insertOrderProfile,
+  normalizeProfile,
+  updateUserFromProfile,
+} from "./lib/profile.js";
 import { jsonResponse } from "./lib/response.js";
 
 const DEFAULT_GOOGLE_REDIRECT =
@@ -50,6 +56,11 @@ function requireDb(env) {
     throw new Error("missing_db_binding");
   }
   return env.MEMBERS_DB;
+}
+
+function matchProfilePath(pathname) {
+  const match = pathname.match(/^\/api\/orders\/([^/]+)\/profile$/);
+  return match ? match[1] : null;
 }
 
 export default {
@@ -326,6 +337,33 @@ export default {
       }
 
       return jsonResponse(200, { ok: true });
+    }
+
+    const profileOrderId = matchProfilePath(url.pathname);
+    if (profileOrderId && request.method === "POST") {
+      const body = await readJson(request);
+      const profile = normalizeProfile(body || {});
+      if (!profile.email) {
+        return jsonResponse(400, { ok: false, error: "email_required" });
+      }
+
+      let db;
+      try {
+        db = requireDb(env);
+      } catch (error) {
+        return jsonResponse(500, { ok: false, error: "missing_db" });
+      }
+
+      const order = await findOrderById(db, profileOrderId);
+      if (!order) {
+        return jsonResponse(404, { ok: false, error: "order_not_found" });
+      }
+
+      const profileRow = await insertOrderProfile(db, order.id, profile);
+      await updateOrderStatus(db, order.id, "profile_completed");
+      await updateUserFromProfile(db, order.user_id, profile);
+
+      return jsonResponse(200, { ok: true, profile: profileRow });
     }
 
     if (url.pathname === "/health") {

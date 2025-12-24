@@ -71,3 +71,13 @@ export async function updateOrderPayment(db, orderId, updates) {
 
   return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
 }
+
+export async function updateOrderStatus(db, orderId, status) {
+  const now = new Date().toISOString();
+  await db
+    .prepare("UPDATE orders SET status = ?, updated_at = ? WHERE id = ?")
+    .bind(status, now, orderId)
+    .run();
+
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
