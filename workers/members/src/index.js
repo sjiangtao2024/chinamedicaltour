@@ -4,6 +4,7 @@ import {
   generateVerificationCode,
   normalizeEmail,
 } from "./lib/verification.js";
+import { createSessionToken } from "./lib/jwt.js";
 import { jsonResponse } from "./lib/response.js";
 
 async function readJson(request) {
@@ -56,6 +57,21 @@ export default {
       await env.MEMBERS_KV.delete(key);
       return jsonResponse(200, { ok: true, email_verified: true });
     }
+
+    if (url.pathname === "/api/auth/session" && request.method === "POST") {
+      const body = await readJson(request);
+      const userId = body?.user_id ? String(body.user_id).trim() : "";
+      if (!userId) {
+        return jsonResponse(400, { ok: false, error: "user_id_required" });
+      }
+      const secret = env.JWT_SECRET;
+      if (!secret) {
+        return jsonResponse(500, { ok: false, error: "missing_jwt_secret" });
+      }
+      const token = await createSessionToken({ userId }, secret);
+      return jsonResponse(200, { ok: true, token });
+    }
+
     if (url.pathname === "/health") {
       return jsonResponse(200, { ok: true });
     }
