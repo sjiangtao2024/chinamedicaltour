@@ -44,6 +44,49 @@
 - KV 命名空间：`MEMBERS_KV`
 - 变量：`FROM_EMAIL`、`GOOGLE_REDIRECT_URI`
 
+### 配置清单（放哪里）
+写入 `workers/members/wrangler.jsonc`：
+- `vars.FROM_EMAIL`
+- `vars.GOOGLE_REDIRECT_URI`
+- `d1_databases`：`MEMBERS_DB`（`database_name: cmt_members` + `database_id`）
+- `kv_namespaces`：`MEMBERS_KV`（`id`）
+
+使用 `wrangler secret put` 写入（Workers Secrets）：
+- `RESEND_API_KEY`
+- `JWT_SECRET`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `PAYPAL_CLIENT_ID`
+- `PAYPAL_SECRET`
+- `PAYPAL_WEBHOOK_ID`
+
+### wrangler.jsonc 示例
+```jsonc
+{
+  "name": "members",
+  "main": "src/index.js",
+  "compatibility_date": "2025-12-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "FROM_EMAIL": "orders@chinamedicaltour.org",
+    "GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback"
+  },
+  "d1_databases": [
+    {
+      "binding": "MEMBERS_DB",
+      "database_name": "cmt_members",
+      "database_id": "<your-d1-id>"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "MEMBERS_KV",
+      "id": "<your-kv-id>"
+    }
+  ]
+}
+```
+
 ## 2) 创建 KV 命名空间（建议名：cmt_members_kv）
 执行：
 ```bash
@@ -88,3 +131,47 @@ wrangler deploy
 - `POST /api/auth/start-email` 能发送验证码
 - `POST /api/orders` 能创建订单
 - PayPal sandbox create/capture 流程可完成
+
+## 部署检查清单
+- [ ] Resend 账号已创建并完成域名验证
+- [ ] PayPal Sandbox 应用已创建并配置 Webhook
+- [ ] Google OAuth 已配置同意屏幕与回调 URL
+- [ ] `wrangler.jsonc` 填入 `FROM_EMAIL` 与 `GOOGLE_REDIRECT_URI`
+- [ ] `MEMBERS_DB` 绑定到 `cmt_members`
+- [ ] `MEMBERS_KV` 绑定到 `cmt_members_kv`
+- [ ] Secrets 已写入（Resend/JWT/Google/PayPal）
+- [ ] D1 migrations 已执行
+- [ ] Worker 已部署
+- [ ] 基本接口验证通过（health/auth/orders/paypal）
+
+## 沙盒凭证敏感性说明
+请勿将以下内容写入代码仓库或明文配置：
+- `PAYPAL_SECRET`
+- `PAYPAL_WEBHOOK_ID`
+- Sandbox 买家/商家账号的邮箱与密码
+
+`PAYPAL_CLIENT_ID` 建议也仅在后端使用，并通过 Secrets 管理。
+
+## PayPal Sandbox 获取步骤（简版）
+1) 进入 https://developer.paypal.com/tools/sandbox/
+2) 在 “Accounts” 中创建一个 **Business**（商家）账号和一个 **Personal**（买家）账号
+3) 在 “Apps & Credentials” 中创建 Sandbox App
+4) 记录 `PAYPAL_CLIENT_ID` 与 `PAYPAL_SECRET`
+5) 在 Sandbox App 的 Webhooks 中新增 Webhook，回调 URL 填：
+   `https://chinamedicaltour.org/api/paypal/webhook`
+6) 记录 `PAYPAL_WEBHOOK_ID`
+7) 使用 Personal 账号登录沙盒进行付款测试
+
+## Google OAuth 获取步骤（简版）
+1) 进入 Google Cloud Console，选择已有项目
+2) OAuth consent screen：填写应用名称、支持邮箱、授权域名
+3) 进入 “Credentials” 创建 OAuth Client ID（Web 应用）
+4) Authorized domain：`chinamedicaltour.org`
+5) Authorized redirect URI：`https://chinamedicaltour.org/api/auth/google/callback`
+6) 记录 `GOOGLE_CLIENT_ID` 与 `GOOGLE_CLIENT_SECRET`
+
+## Resend 域名验证步骤（简版）
+1) 登录 Resend 控制台，添加域名 `chinamedicaltour.org`
+2) 按提示添加 SPF/DKIM/Return-Path DNS 记录
+3) 等待验证通过后设置发件人邮箱 `orders@chinamedicaltour.org`
+4) 记录 `RESEND_API_KEY` 并写入 secrets
