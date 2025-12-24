@@ -17,3 +17,4 @@ workers/**/.npm/
 # Codex tooling artifacts (sensitive/noisy)
 workers/**/.codex/
 workers/**/.specify/
+.worktrees/
