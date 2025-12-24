@@ -6,6 +6,8 @@ import {
 } from "./lib/verification.js";
 import { createSessionToken } from "./lib/jwt.js";
 import { buildAuthUrl, exchangeCode } from "./lib/google-oauth.js";
+import { applyCoupon, resolveCoupon } from "./lib/coupons.js";
+import { findOrderByIdempotency, insertOrder } from "./lib/orders.js";
 import { jsonResponse } from "./lib/response.js";
 
 const DEFAULT_GOOGLE_REDIRECT =
@@ -31,6 +33,13 @@ function generateState() {
   const buffer = new Uint8Array(16);
   crypto.getRandomValues(buffer);
   return base64UrlFromBytes(buffer);
+}
+
+function requireDb(env) {
+  if (!env.MEMBERS_DB) {
+    throw new Error("missing_db_binding");
+  }
+  return env.MEMBERS_DB;
 }
 
 export default {
@@ -129,6 +138,60 @@ export default {
           sub: profile.sub,
         },
       });
+    }
+
+    if (url.pathname === "/api/orders" && request.method === "POST") {
+      const body = await readJson(request);
+      const idempotencyKey = body?.idempotency_key
+        ? String(body.idempotency_key).trim()
+        : "";
+      if (!idempotencyKey) {
+        return jsonResponse(400, { ok: false, error: "idempotency_required" });
+      }
+      const userId = body?.user_id ? String(body.user_id).trim() : "";
+      const itemType = body?.item_type ? String(body.item_type).trim() : "";
+      const itemId = body?.item_id ? String(body.item_id).trim() : "";
+      const currency = body?.currency ? String(body.currency).trim() : "";
+      const amountOriginal = Number(body?.amount_original || 0);
+      if (!userId || !itemType || !itemId || !currency || !amountOriginal) {
+        return jsonResponse(400, { ok: false, error: "missing_fields" });
+      }
+
+      let db;
+      try {
+        db = requireDb(env);
+      } catch (error) {
+        return jsonResponse(500, { ok: false, error: "missing_db" });
+      }
+
+      const existing = await findOrderByIdempotency(db, idempotencyKey);
+      if (existing) {
+        return jsonResponse(200, { ok: true, order: existing, reused: true });
+      }
+
+      const refChannel = body?.ref_channel ? String(body.ref_channel).trim() : "";
+      const couponCode = body?.coupon_code ? String(body.coupon_code).trim() : "";
+      const coupon = await resolveCoupon(db, {
+        code: couponCode,
+        refChannel,
+      });
+      const amounts = applyCoupon(amountOriginal, coupon);
+
+      const order = await insertOrder(db, {
+        userId,
+        itemType,
+        itemId,
+        amountOriginal: amounts.original,
+        discountAmount: amounts.discount,
+        amountPaid: amounts.paid,
+        currency,
+        refChannel,
+        couponId: coupon?.id || null,
+        status: "created",
+        idempotencyKey,
+      });
+
+      return jsonResponse(201, { ok: true, order });
     }
 
     if (url.pathname === "/health") {
