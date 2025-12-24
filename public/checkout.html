@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout | China Medical Tour</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/members.css" />
+</head>
+<body class="bg-slate-50 text-slate-900" data-page="checkout">
+  <main class="members-shell">
+    <section class="members-card">
+      <h1 class="members-title">Checkout</h1>
+      <p class="members-subtitle">Pay securely with PayPal (sandbox).</p>
+
+      <label class="members-label" for="package">Package</label>
+      <select id="package" class="members-input">
+        <option value="package-basic" data-amount="150000">Executive Basic Package - $1,500</option>
+        <option value="package-premium" data-amount="250000">Executive Premium Package - $2,500</option>
+        <option value="deposit" data-amount="50000">Reservation Deposit - $500</option>
+      </select>
+
+      <label class="members-label" for="coupon">Coupon code (optional)</label>
+      <input id="coupon" type="text" class="members-input" placeholder="Enter code" />
+
+      <button id="start-payment" class="members-button">Create PayPal order</button>
+
+      <p id="status" class="members-status"></p>
+    </section>
+  </main>
+
+  <script src="assets/js/members.js"></script>
+</body>
+</html>

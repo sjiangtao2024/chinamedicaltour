@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Member Registration | China Medical Tour</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/members.css" />
+</head>
+<body class="bg-slate-50 text-slate-900" data-page="register">
+  <main class="members-shell">
+    <section class="members-card">
+      <h1 class="members-title">Create your member account</h1>
+      <p class="members-subtitle">Verify your email or sign in with Google before checkout.</p>
+
+      <div class="members-section">
+        <label class="members-label" for="email">Email</label>
+        <input id="email" type="email" class="members-input" placeholder="you@example.com" required />
+        <button id="send-code" class="members-button">Send verification code</button>
+      </div>
+
+      <div class="members-section">
+        <label class="members-label" for="code">Verification code</label>
+        <input id="code" type="text" class="members-input" placeholder="6-digit code" />
+        <button id="verify-code" class="members-button members-button-outline">Verify email</button>
+      </div>
+
+      <div class="members-divider">or</div>
+
+      <button id="google-login" class="members-button members-button-google">Continue with Google</button>
+
+      <p id="status" class="members-status"></p>
+    </section>
+  </main>
+
+  <script src="assets/js/members.js"></script>
+</body>
+</html>

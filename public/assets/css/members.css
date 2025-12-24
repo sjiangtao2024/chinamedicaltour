@@ -1,0 +1,104 @@
+﻿.members-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.members-card {
+  width: min(720px, 100%);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+}
+
+.members-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.members-subtitle {
+  color: #475569;
+  margin-bottom: 24px;
+}
+
+.members-section {
+  margin-bottom: 16px;
+}
+
+.members-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.members-input {
+  width: 100%;
+  border: 1px solid #cbd5f5;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: #f8fafc;
+}
+
+.members-button {
+  width: 100%;
+  background: #0f766e;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.members-button:hover {
+  background: #115e59;
+}
+
+.members-button-outline {
+  background: #ffffff;
+  color: #0f766e;
+  border: 1px solid #0f766e;
+}
+
+.members-button-outline:hover {
+  background: #f0fdfa;
+}
+
+.members-button-google {
+  background: #111827;
+}
+
+.members-button-google:hover {
+  background: #0f172a;
+}
+
+.members-divider {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 18px 0;
+}
+
+.members-status {
+  margin-top: 16px;
+  color: #0f172a;
+}
+
+.members-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+  .members-card {
+    padding: 24px;
+  }
+}

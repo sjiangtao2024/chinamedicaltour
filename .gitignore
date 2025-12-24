@@ -4,6 +4,7 @@
 .claude/
 backup/
 scripts/
+!scripts/check-members-pages.js
 public/docs/
 # Ignore specific files
 International Medical Tourism Application Form.docx

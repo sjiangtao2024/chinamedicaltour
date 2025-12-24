@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complete Your Profile | China Medical Tour</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/members.css" />
+</head>
+<body class="bg-slate-50 text-slate-900" data-page="post-payment">
+  <main class="members-shell">
+    <section class="members-card">
+      <h1 class="members-title">Complete your profile</h1>
+      <p class="members-subtitle">We need a few more details to schedule your checkup.</p>
+
+      <div class="members-grid">
+        <div>
+          <label class="members-label" for="name">Full name</label>
+          <input id="name" type="text" class="members-input" />
+        </div>
+        <div>
+          <label class="members-label" for="gender">Gender</label>
+          <input id="gender" type="text" class="members-input" placeholder="Female / Male / Other" />
+        </div>
+        <div>
+          <label class="members-label" for="birth-date">Birth date</label>
+          <input id="birth-date" type="date" class="members-input" />
+        </div>
+        <div>
+          <label class="members-label" for="checkup-date">Preferred checkup date</label>
+          <input id="checkup-date" type="date" class="members-input" />
+        </div>
+        <div>
+          <label class="members-label" for="contact">Contact info</label>
+          <input id="contact" type="text" class="members-input" placeholder="WhatsApp / WeChat / Phone" />
+        </div>
+        <div>
+          <label class="members-label" for="email">Email</label>
+          <input id="email" type="email" class="members-input" />
+        </div>
+        <div>
+          <label class="members-label" for="companions">Companions</label>
+          <input id="companions" type="text" class="members-input" placeholder="Names and count" />
+        </div>
+        <div>
+          <label class="members-label" for="emergency">Emergency contact</label>
+          <input id="emergency" type="text" class="members-input" placeholder="Name + phone" />
+        </div>
+      </div>
+
+      <button id="submit-profile" class="members-button">Submit profile</button>
+      <p id="status" class="members-status"></p>
+    </section>
+  </main>
+
+  <script src="assets/js/members.js"></script>
+</body>
+</html>
