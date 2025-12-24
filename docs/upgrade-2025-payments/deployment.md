@@ -44,17 +44,17 @@
 - KV 命名空间：`MEMBERS_KV`
 - 变量：`FROM_EMAIL`、`GOOGLE_REDIRECT_URI`
 
-## 2) 创建 KV 命名空间
+## 2) 创建 KV 命名空间（建议名：members_kv）
 执行：
 ```bash
-wrangler kv namespace create MEMBERS_KV
+wrangler kv namespace create members_kv
 ```
 将返回的 ID 填入 `wrangler.jsonc`。
 
-## 3) 创建或绑定 D1 数据库
+## 3) 创建或绑定 D1 数据库（建议名：members_payments）
 执行：
 ```bash
-wrangler d1 create members_db
+wrangler d1 create members_payments
 ```
 将数据库绑定为 `MEMBERS_DB`。
 
