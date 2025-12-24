@@ -1,4 +1,4 @@
-# Ignore specific files and directories in current directory (chinamedicaltour)
+﻿# Ignore specific files and directories in current directory (chinamedicaltour)
 
 # Ignore directories
 .claude/
@@ -9,7 +9,7 @@ scripts/
 public/docs/
 # Ignore specific files
 International Medical Tourism Application Form.docx
-MedTour产品list V2带英文.xlsx
+MedTour浜у搧list V2甯﹁嫳鏂?xlsx
 public/assets/images/concept_design.png
 # Workers: deps & local secrets
 workers/**/node_modules/
