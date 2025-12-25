@@ -1,4 +1,6 @@
-﻿function getStatusEl() {
+const API_BASE = "https://members.chinamedicaltour.org";
+
+function getStatusEl() {
   return document.getElementById("status");
 }
 
@@ -20,7 +22,8 @@ function resetTurnstile() {
   }
 }
 
-async function postJson(url, payload) {
+async function postJson(path, payload) {
+  const url = `${API_BASE}${path}`;
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -83,7 +86,7 @@ function initRegister() {
   });
 
   googleLogin?.addEventListener("click", () => {
-    window.location.href = "/api/auth/google";
+    window.location.href = `${API_BASE}/api/auth/google`;
   });
 }
 
