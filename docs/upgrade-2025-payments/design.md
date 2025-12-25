@@ -6,24 +6,25 @@
 - 新增会员注册/登录（Google OAuth + 邮箱验证码）
 - PayPal 沙盒支付（一次性支付：套餐/定金）
 - 优惠券（固定金额/百分比；渠道归因参数为主，券码兜底；不可叠加）
-- 支付后补充信息 + 邮件提醒
+- 支付前补充信息 + 邮件提醒
 - 保持 Cloudflare 免费方案可用
 
 ## 总体架构与边界
 - 新增 `workers/members`，承载公众 API：注册、登录、支付、优惠券、资料补充。
 - D1 作为主数据（用户/订单/优惠券/资料），KV 用于验证码与短期会话。
-- 前端保持 Pages 静态站，新增独立注册页与支付页，支付后回跳资料补充页。
+- 前端保持 Pages 静态站，新增独立注册页、资料补充页与支付页，资料在支付前完成。
 - 验证规则：支付前必须完成“邮箱验证码”或“Google OAuth”。
-- 支付后状态：订单生效但未预约，需补充信息；通过邮件 + 页面引导完成。
+- 支付后状态：订单已支付，后续进入预约流程。
 
 ## 组件与数据流
 页面：
-- `/register`：Google OAuth 或邮箱验证码；邮箱注册设置密码。
+- `/register`：Google OAuth 或邮箱验证码；邮箱验证后设置密码。
+- `/login`：邮箱 + 密码登录（或 Google OAuth）。
+- `/profile`（对应 `public/profile.html`）：补充信息表单；必须在支付前完成。
 - `/checkout`：选择套餐/定金，读取 `?ref=xxx` 归因并自动应用优惠。
-- `/post-payment`：补充信息表单；未补充可后续邮件提醒。
 
 数据流：
-`register -> verify -> session -> checkout -> create order -> PayPal -> capture -> paid_pending_profile -> profile_completed -> scheduled`
+`register -> verify -> set_password -> login -> session -> profile -> checkout -> create order -> PayPal -> capture -> scheduled`
 失败/放弃分支：
 `create order -> payment_failed`，`create order -> payment_expired`，`capture -> payment_failed`
 
@@ -32,16 +33,20 @@
 - `users`：email、name、country、preferred_contact、status, created_at, updated_at
 - `auth_identities`：user_id、provider、google_sub、password_hash、email_verified_at
 - `orders`：user_id、item_type(package/deposit)、item_id、amount_original、discount_amount、amount_paid、currency、ref_channel、coupon_id、paypal_order_id、paypal_capture_id、status、created_at、updated_at
-- `order_profiles`：order_id、gender、birth_date、contact_info、companions、emergency_contact、email、checkup_date
+- `user_profiles`：user_id、name、gender、birth_date、contact_info、companions、emergency_contact、email、checkup_date、created_at、updated_at
 - `coupons`：code、type(fixed/percent)、value、ref_channel、scope、valid_from、valid_to、usage_limit、used_count
 
 ## 核心 API（workers/members）
 认证/验证：
 - `POST /api/auth/start-email` 发送验证码
-- `POST /api/auth/verify-email` 验证并创建/登录
+- `POST /api/auth/verify-email` 验证邮箱有效性（注册流程）
+- `POST /api/auth/set-password` 设置密码（注册流程）
+- `POST /api/auth/login` 邮箱 + 密码登录
 - `GET /api/auth/google` 跳转 Google
 - `GET /api/auth/google/callback` 交换 code（默认回调模板，可替换）
 - `POST /api/auth/session` 返回短期 session（建议 JWT，默认 24h，有效期内可直接支付）
+- `POST /api/auth/reset-start` 发送重置密码验证码
+- `POST /api/auth/reset-password` 验证并重置密码
 
 支付与订单：
 - `POST /api/orders` 创建订单（含 ref/coupon）
@@ -51,7 +56,7 @@
 - `GET /api/orders/:id` 查询订单状态
 
 资料补充：
-- `POST /api/orders/:id/profile` 提交资料并转状态
+- `POST /api/profile` 提交资料（需鉴权）
 
 ## 优惠券与渠道归因
 - 以 `?ref=xxx` 自动归因为主，手动券码为兜底。
@@ -78,14 +83,17 @@
 - 验证通过后将发信人设为 `orders@chinamedicaltour.org`。
 
 ## 安全与合规
-- 邮箱验证码 10 分钟有效，限制频率与重放。
+- 邮箱验证码 10 分钟有效，限制频率与重放（仅用于注册/重置密码）。
+- 发送保护（最小集）：同一邮箱/同一 IP 至少 60s 间隔；每日上限（如 5 次/邮箱、20 次/IP）；统一响应避免探测邮箱存在。
+- 可选加固：触发频控阈值后启用 Turnstile，人机验证可与验证码发送接口共用。
 - OAuth 使用 state 防 CSRF。
+- 密码存储使用强哈希（如 argon2/bcrypt），限制登录尝试频率。
 - PayPal secret 仅在 Worker 保存，前端不暴露。
 - 订单 capture 需幂等处理与金额校验。
 - 注册与支付页面均勾选隐私/条款并记录时间戳。
 资料策略：
-- 支付后补充信息写入 `order_profiles` 作为履约主档。
-- 仅将非敏感字段（如姓名、首选联系方式）同步到 `users`，其余保持订单级隔离。
+- 支付前补充信息写入 `user_profiles` 作为履约主档。
+- 仅将非敏感字段（如姓名、首选联系方式）同步到 `users`，其余保持 `user_profiles` 中隔离。
 
 ## 会话与过期策略
 - session token 默认有效期 24 小时；过期需重新验证（邮箱或 Google）。
@@ -117,11 +125,11 @@
 - **外部服务额度**：Resend 免费额度可能受限，超量时升级或切换备用发信服务。
 
 ## 静态站改造最小清单
-- 新增独立页面：`public/register.html`、`public/checkout.html`、`public/post-payment.html`
+- 新增独立页面：`public/register.html`、`public/profile.html`、`public/checkout.html`
 - 新增入口链接：`public/index.html` 头部/导航增加“会员注册”入口
 - 新增前端脚本：`public/assets/js/members.js`（验证码/OAuth/下单/支付回跳/资料提交）
 - 新增样式：复用 `public/assets/css/style.css`，必要时补充 `public/assets/css/members.css`
 - API 端点约定：前端统一使用同域 `/api/...` 指向 `workers/members`
-- 支付回跳处理：在 `checkout` 中完成 `capture` 并跳转到 `post-payment`
+- 支付回跳处理：在 `checkout` 中完成 `capture` 并跳转到确认/完成页
 - 表单校验与提示：最小化校验 + 清晰错误提示
 - 文案与合规：注册/支付页勾选隐私与条款，链接 `public/privacy.html` / `public/terms.html`

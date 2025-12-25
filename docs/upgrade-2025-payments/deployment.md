@@ -162,6 +162,70 @@ wrangler deploy
 - Google OAuth：完成授权后跳转 `auth-callback.html` 并换取 session
 - smart-cs：`POST /api/profile` 后能在 `member_leads` 写入记录
 
+## 9) 验证清单（带命令）
+> 仅用于部署后快速验证，域名与 token 请替换为你的实际值。
+
+### 9.1 Members 健康检查
+```bash
+curl -s https://members.chinamedicaltour.org/health
+```
+
+### 9.2 登录与资料（示例）
+```bash
+# 登录（邮箱+密码）
+curl -s -X POST https://members.chinamedicaltour.org/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"you@example.com","password":"your-password"}'
+
+# 创建 session（拿到 user_id 后）
+curl -s -X POST https://members.chinamedicaltour.org/api/auth/session \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"<user_id>"}'
+
+# 提交资料（带 JWT）
+curl -s -X POST https://members.chinamedicaltour.org/api/profile \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <jwt_token>" \
+  -d '{
+    "name":"Test User",
+    "gender":"Female",
+    "birth_date":"1990-01-01",
+    "contact_info":"WhatsApp +1xxx",
+    "companions":"None",
+    "emergency_contact":"Alice +1yyy",
+    "email":"you@example.com",
+    "checkup_date":"2025-12-30"
+  }'
+```
+
+### 9.3 下单与支付（示例）
+```bash
+# 创建订单
+curl -s -X POST https://members.chinamedicaltour.org/api/orders \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <jwt_token>" \
+  -d '{
+    "item_type":"package",
+    "item_id":"package-basic",
+    "amount_original":150000,
+    "currency":"USD",
+    "ref_channel":"",
+    "coupon_code":"",
+    "idempotency_key":"<uuid>"
+  }'
+
+# 创建 PayPal Order
+curl -s -X POST https://members.chinamedicaltour.org/api/paypal/create \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <jwt_token>" \
+  -d '{"order_id":"<order_id>"}'
+```
+
+### 9.4 smart-cs lead 写入检查
+```bash
+wrangler d1 execute DB --remote --command "SELECT * FROM member_leads ORDER BY created_at DESC LIMIT 5;"
+```
+
 ## 部署检查清单
 - [ ] Resend 账号已创建并完成域名验证
 - [ ] PayPal Sandbox 应用已创建并配置 Webhook
