@@ -48,7 +48,7 @@
     "TIMEOUT_MS": 10000,
     "RAG_ENABLED": "true",
     "RAG_TOP_K": 3,
-    "LOG_RETENTION_DAYS": 14,
+    "LOG_RETENTION_DAYS": 31,
     "ENFORCE_ENGLISH": "true"
   }
 }

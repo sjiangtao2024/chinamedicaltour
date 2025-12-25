@@ -14,13 +14,13 @@
     {
       "binding": "MEMBERS_DB",
       "database_name": "cmt_members",
-      "database_id": "<YOUR_D1_DATABASE_ID>"
+      "database_id": "c597eeb8-b3d2-44e7-9e64-ebdc21e8690d"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "MEMBERS_KV",
-      "id": "<YOUR_KV_NAMESPACE_ID>"
+      "id": "ef772a86a3d54cff8c60ac381163e89f"
     }
   ]
 }

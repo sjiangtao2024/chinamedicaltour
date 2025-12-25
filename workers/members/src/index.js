@@ -58,6 +58,49 @@ function requireDb(env) {
   return env.MEMBERS_DB;
 }
 
+async function verifyTurnstile(request, env, token) {
+  if (!env.TURNSTILE_SECRET) {
+    return { ok: false, status: 500, error: "missing_turnstile_secret" };
+  }
+  if (!token) {
+    return { ok: false, status: 400, error: "turnstile_required" };
+  }
+
+  const form = new URLSearchParams();
+  form.set("secret", env.TURNSTILE_SECRET);
+  form.set("response", token);
+  const ip = request.headers.get("CF-Connecting-IP");
+  if (ip) {
+    form.set("remoteip", ip);
+  }
+
+  let response;
+  try {
+    response = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: form,
+      }
+    );
+  } catch (error) {
+    return { ok: false, status: 502, error: "turnstile_unreachable" };
+  }
+
+  if (!response.ok) {
+    return { ok: false, status: 502, error: "turnstile_unreachable" };
+  }
+
+  const data = await response.json().catch(() => null);
+  if (!data?.success) {
+    return { ok: false, status: 400, error: "turnstile_failed" };
+  }
+  return { ok: true };
+}
+
 function matchProfilePath(pathname) {
   const match = pathname.match(/^\/api\/orders\/([^/]+)\/profile$/);
   return match ? match[1] : null;
@@ -71,6 +114,17 @@ export default {
       const email = normalizeEmail(body?.email);
       if (!email) {
         return jsonResponse(400, { ok: false, error: "email_required" });
+      }
+      const turnstileResult = await verifyTurnstile(
+        request,
+        env,
+        body?.turnstile_token
+      );
+      if (!turnstileResult.ok) {
+        return jsonResponse(turnstileResult.status, {
+          ok: false,
+          error: turnstileResult.error,
+        });
       }
 
       const code = generateVerificationCode();
@@ -91,6 +145,17 @@ export default {
       const code = body?.code ? String(body.code).trim() : "";
       if (!email || !code) {
         return jsonResponse(400, { ok: false, error: "missing_fields" });
+      }
+      const turnstileResult = await verifyTurnstile(
+        request,
+        env,
+        body?.turnstile_token
+      );
+      if (!turnstileResult.ok) {
+        return jsonResponse(turnstileResult.status, {
+          ok: false,
+          error: turnstileResult.error,
+        });
       }
 
       const key = buildVerificationKey(email);
