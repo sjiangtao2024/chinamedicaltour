@@ -49,6 +49,7 @@
     "RAG_ENABLED": "true",
     "RAG_TOP_K": 3,
     "LOG_RETENTION_DAYS": 31,
-    "ENFORCE_ENGLISH": "true"
+    "ENFORCE_ENGLISH": "true",
+    "SMART_CS_LEAD_TOKEN": "__SECRET__"
   }
 }

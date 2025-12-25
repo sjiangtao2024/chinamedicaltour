@@ -8,7 +8,13 @@
   },
   "vars": {
     "FROM_EMAIL": "orders@chinamedicaltour.org",
-    "GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback"
+    "GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
+    "JWT_SECRET": "__SECRET__",
+    "SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
+    "SMART_CS_LEAD_TOKEN": "__SECRET__",
+    "PAYPAL_CLIENT_ID": "__SECRET__",
+    "PAYPAL_SECRET": "__SECRET__",
+    "TURNSTILE_SECRET": "__SECRET__"
   },
   "d1_databases": [
     {
