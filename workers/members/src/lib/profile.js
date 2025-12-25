@@ -48,3 +48,55 @@ export async function updateUserFromProfile(db, userId, profile) {
     .bind(profile.name || null, profile.contact_info || null, now, userId)
     .run();
 }
+
+export async function upsertUserProfile(db, userId, profile) {
+  const now = new Date().toISOString();
+  const existing = await db
+    .prepare("SELECT user_id FROM user_profiles WHERE user_id = ?")
+    .bind(userId)
+    .first();
+
+  if (existing) {
+    await db
+      .prepare(
+        "UPDATE user_profiles SET name = ?, gender = ?, birth_date = ?, contact_info = ?, companions = ?, emergency_contact = ?, email = ?, checkup_date = ?, updated_at = ? WHERE user_id = ?"
+      )
+      .bind(
+        profile.name || null,
+        profile.gender || null,
+        profile.birth_date || null,
+        profile.contact_info || null,
+        profile.companions || null,
+        profile.emergency_contact || null,
+        profile.email || null,
+        profile.checkup_date || null,
+        now,
+        userId
+      )
+      .run();
+  } else {
+    await db
+      .prepare(
+        "INSERT INTO user_profiles (user_id, name, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      )
+      .bind(
+        userId,
+        profile.name || null,
+        profile.gender || null,
+        profile.birth_date || null,
+        profile.contact_info || null,
+        profile.companions || null,
+        profile.emergency_contact || null,
+        profile.email || null,
+        profile.checkup_date || null,
+        now,
+        now
+      )
+      .run();
+  }
+
+  return db
+    .prepare("SELECT * FROM user_profiles WHERE user_id = ?")
+    .bind(userId)
+    .first();
+}
