@@ -1,5 +1,6 @@
 const API_BASE = "https://members.chinamedicaltour.org";
 const SESSION_KEY = "member_session_token";
+const ORDER_KEY = "member_last_order";
 
 function getStatusEl() {
   return document.getElementById("status");
@@ -31,6 +32,20 @@ function setSessionToken(token) {
   if (token) {
     sessionStorage.setItem(SESSION_KEY, token);
   }
+}
+
+function setLastOrder(orderId) {
+  if (orderId) {
+    sessionStorage.setItem(ORDER_KEY, orderId);
+  }
+}
+
+function getLastOrder() {
+  return sessionStorage.getItem(ORDER_KEY) || "";
+}
+
+function clearLastOrder() {
+  sessionStorage.removeItem(ORDER_KEY);
 }
 
 async function postJson(path, payload, token) {
@@ -82,7 +97,7 @@ function initRegister() {
       });
       setStatus("Code sent. Check your inbox.");
     } catch (error) {
-      setStatus(`Failed to send code: ${error.message}`, true);
+      setStatus("Failed to send code: " + error.message, true);
       resetTurnstile();
     }
   });
@@ -102,7 +117,7 @@ function initRegister() {
       }
       setStatus("Email verified. Set a password to continue.");
     } catch (error) {
-      setStatus(`Verification failed: ${error.message}`, true);
+      setStatus("Verification failed: " + error.message, true);
       resetTurnstile();
     }
   });
@@ -129,7 +144,7 @@ function initRegister() {
       setStatus("Account ready. Redirecting...");
       window.location.href = "profile.html";
     } catch (error) {
-      setStatus(`Password setup failed: ${error.message}`, true);
+      setStatus("Password setup failed: " + error.message, true);
     }
   });
 
@@ -151,16 +166,69 @@ function initLogin() {
         email: emailInput.value,
         password: passwordInput.value,
       });
+      sessionStorage.setItem("member_email", emailInput.value.trim());
       await createSession(result.user_id);
       setStatus("Signed in. Redirecting...");
       window.location.href = "profile.html";
     } catch (error) {
-      setStatus(`Login failed: ${error.message}`, true);
+      setStatus("Login failed: " + error.message, true);
     }
   });
 
   googleLogin?.addEventListener("click", () => {
     window.location.href = API_BASE + "/api/auth/google";
+  });
+}
+
+function initAuthCallback() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code") || "";
+  if (!code) {
+    setStatus("Missing login code.", true);
+    return;
+  }
+  setStatus("Finalizing sign-in...");
+  postJson("/api/auth/exchange", { code })
+    .then((result) => {
+      setSessionToken(result.token);
+      setStatus("Signed in. Redirecting...");
+      window.location.href = "profile.html";
+    })
+    .catch((error) => {
+      setStatus("Sign-in failed: " + error.message, true);
+    });
+}
+
+function initReset() {
+  const emailInput = document.getElementById("email");
+  const codeInput = document.getElementById("code");
+  const passwordInput = document.getElementById("password");
+  const sendCode = document.getElementById("send-code");
+  const resetButton = document.getElementById("reset-password");
+
+  sendCode?.addEventListener("click", async () => {
+    setStatus("Sending reset code...");
+    try {
+      await postJson("/api/auth/reset-start", { email: emailInput.value });
+      setStatus("Reset code sent. Check your inbox.");
+    } catch (error) {
+      setStatus("Failed to send code: " + error.message, true);
+    }
+  });
+
+  resetButton?.addEventListener("click", async () => {
+    setStatus("Resetting password...");
+    try {
+      await postJson("/api/auth/reset-password", {
+        email: emailInput.value,
+        code: codeInput.value,
+        password: passwordInput.value,
+      });
+      setStatus("Password updated. Redirecting to login...");
+      window.location.href = "login.html";
+    } catch (error) {
+      setStatus("Reset failed: " + error.message, true);
+    }
   });
 }
 
@@ -196,9 +264,26 @@ function initProfile() {
       setStatus("Profile saved. Redirecting to checkout...");
       window.location.href = "checkout.html";
     } catch (error) {
-      setStatus(`Submission failed: ${error.message}`, true);
+      setStatus("Submission failed: " + error.message, true);
     }
   });
+}
+
+async function handlePaypalReturn(token) {
+  const session = getSessionToken();
+  const orderId = getLastOrder();
+  if (!session || !orderId) {
+    setStatus("Missing session or order. Please try again.", true);
+    return;
+  }
+  try {
+    setStatus("Capturing payment...");
+    await postJson("/api/paypal/capture", { order_id: orderId }, session);
+    clearLastOrder();
+    setStatus("Payment captured. We will follow up shortly.");
+  } catch (error) {
+    setStatus("Capture failed: " + error.message, true);
+  }
 }
 
 function initCheckout() {
@@ -209,6 +294,14 @@ function initCheckout() {
   if (!token) {
     setStatus("Please sign in first.", true);
     return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("paypal") === "return") {
+    handlePaypalReturn(params.get("token"));
+  }
+  if (params.get("paypal") === "cancel") {
+    setStatus("Payment canceled. You can try again.", true);
   }
 
   startPayment?.addEventListener("click", async () => {
@@ -234,6 +327,7 @@ function initCheckout() {
         },
         token
       );
+      setLastOrder(orderResponse.order.id);
 
       const paypalResponse = await postJson(
         "/api/paypal/create",
@@ -248,7 +342,7 @@ function initCheckout() {
       }
       setStatus("Missing PayPal approval link.", true);
     } catch (error) {
-      setStatus(`Checkout failed: ${error.message}`, true);
+      setStatus("Checkout failed: " + error.message, true);
     }
   });
 }
@@ -256,5 +350,7 @@ function initCheckout() {
 const page = document.body.dataset.page;
 if (page === "register") initRegister();
 if (page === "login") initLogin();
+if (page === "auth-callback") initAuthCallback();
+if (page === "reset") initReset();
 if (page === "checkout") initCheckout();
 if (page === "profile" || page === "post-payment") initProfile();

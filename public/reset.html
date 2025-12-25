@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset Password | China Medical Tour</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/members.css" />
+</head>
+<body class="bg-slate-50 text-slate-900" data-page="reset">
+  <main class="members-shell">
+    <section class="members-card">
+      <h1 class="members-title">Reset your password</h1>
+      <p class="members-subtitle">We will email a code to verify your request.</p>
+
+      <div class="members-section">
+        <label class="members-label" for="email">Email</label>
+        <input id="email" type="email" class="members-input" placeholder="you@example.com" />
+        <button id="send-code" class="members-button">Send reset code</button>
+      </div>
+
+      <div class="members-section">
+        <label class="members-label" for="code">Reset code</label>
+        <input id="code" type="text" class="members-input" placeholder="6-digit code" />
+      </div>
+
+      <div class="members-section">
+        <label class="members-label" for="password">New password</label>
+        <input id="password" type="password" class="members-input" placeholder="New password" />
+      </div>
+
+      <button id="reset-password" class="members-button">Update password</button>
+      <p class="members-status">Remembered it? <a href="login.html">Back to login</a></p>
+      <p id="status" class="members-status"></p>
+    </section>
+  </main>
+
+  <script src="assets/js/members.js"></script>
+</body>
+</html>

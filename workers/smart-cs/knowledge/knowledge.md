@@ -124,3 +124,11 @@
 
 ## 8. CONTACT & SUPPORT
 - **Complex Inquiries:** For custom itineraries or specific medical questions not covered here, please contact us via WhatsApp (+86 199 1038 5444) or Email (info@chinamedicaltour.org).
+
+## 10. MEMBER REGISTRATION & PAYMENT FLOW
+- **Step 1:** Register with email verification or Google OAuth at `https://chinamedicaltour.org/register.html`.
+- **Step 2:** Set a password (email login) or complete Google sign-in.
+- **Step 3:** Complete your profile at `https://chinamedicaltour.org/profile.html` (required before checkout).
+- **Step 4:** Proceed to checkout and pay with PayPal at `https://chinamedicaltour.org/checkout.html`.
+- **Password reset:** Use `https://chinamedicaltour.org/reset.html`.
+- **Support:** If a user is stuck, collect email + brief issue description and escalate.
