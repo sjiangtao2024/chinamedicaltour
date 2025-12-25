@@ -129,39 +129,42 @@ export default {
     const url = new URL(request.url);
     const respond = (status, payload) =>
       jsonResponse(status, payload, corsHeaders(request));
-
-    if (request.method === "OPTIONS" && url.pathname.startsWith("/api/")) {
-      return new Response(null, { status: 204, headers: corsHeaders(request) });
-    }
-    if (url.pathname === "/api/auth/start-email" && request.method === "POST") {
-      const body = await readJson(request);
-      const email = normalizeEmail(body?.email);
-      if (!email) {
-        return respond(400, { ok: false, error: "email_required" });
+    try {
+      if (request.method === "OPTIONS" && url.pathname.startsWith("/api/")) {
+        return new Response(null, { status: 204, headers: corsHeaders(request) });
       }
-      const turnstileResult = await verifyTurnstile(
-        request,
-        env,
-        body?.turnstile_token
-      );
-      if (!turnstileResult.ok) {
-        return respond(turnstileResult.status, {
-          ok: false,
-          error: turnstileResult.error,
+      if (url.pathname === "/api/auth/start-email" && request.method === "POST") {
+        const body = await readJson(request);
+        const email = normalizeEmail(body?.email);
+        if (!email) {
+          return respond(400, { ok: false, error: "email_required" });
+        }
+        const turnstileResult = await verifyTurnstile(
+          request,
+          env,
+          body?.turnstile_token
+        );
+        if (!turnstileResult.ok) {
+          return respond(turnstileResult.status, {
+            ok: false,
+            error: turnstileResult.error,
+          });
+        }
+        if (!env.RESEND_API_KEY || !env.FROM_EMAIL) {
+          return respond(500, { ok: false, error: "missing_email_config" });
+        }
+
+        const code = generateVerificationCode();
+        const key = buildVerificationKey(email);
+        await env.MEMBERS_KV.put(key, code, { expirationTtl: 600 });
+        await sendVerificationEmail({
+          apiKey: env.RESEND_API_KEY,
+          from: env.FROM_EMAIL,
+          to: email,
+          code,
         });
+        return respond(200, { ok: true });
       }
-
-      const code = generateVerificationCode();
-      const key = buildVerificationKey(email);
-      await env.MEMBERS_KV.put(key, code, { expirationTtl: 600 });
-      await sendVerificationEmail({
-        apiKey: env.RESEND_API_KEY,
-        from: env.FROM_EMAIL,
-        to: email,
-        code,
-      });
-      return respond(200, { ok: true });
-    }
 
     if (url.pathname === "/api/auth/verify-email" && request.method === "POST") {
       const body = await readJson(request);
@@ -455,9 +458,15 @@ export default {
       return respond(200, { ok: true, profile: profileRow });
     }
 
-    if (url.pathname === "/health") {
-      return jsonResponse(200, { ok: true }, corsHeaders(request));
+      if (url.pathname === "/health") {
+        return jsonResponse(200, { ok: true }, corsHeaders(request));
+      }
+      return jsonResponse(404, { error: "not_found" }, corsHeaders(request));
+    } catch (error) {
+      return respond(500, {
+        ok: false,
+        error: error?.message || "internal_error",
+      });
     }
-    return jsonResponse(404, { error: "not_found" }, corsHeaders(request));
   },
 };

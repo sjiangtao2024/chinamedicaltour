@@ -58,7 +58,6 @@ function initRegister() {
       setStatus("Code sent. Check your inbox.");
     } catch (error) {
       setStatus(`Failed to send code: ${error.message}`, true);
-    } finally {
       resetTurnstile();
     }
   });
@@ -80,7 +79,6 @@ function initRegister() {
       setStatus("Email verified. Continue to checkout.");
     } catch (error) {
       setStatus(`Verification failed: ${error.message}`, true);
-    } finally {
       resetTurnstile();
     }
   });
