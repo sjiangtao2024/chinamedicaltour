@@ -15,6 +15,7 @@ import { parseRealtimeIntent } from "./lib/intent.js";
 import { getRealtimeReply } from "./lib/realtime.js";
 import { collectSseText } from "./lib/sse-collector.js";
 import { parseExportParams } from "./lib/export.js";
+import { insertLead, normalizeLead } from "./lib/member-leads.js";
 
 const CONTEXT_PREFIX = /^\[Context:\s*([^\]]+)\]\s*/;
 
@@ -240,7 +241,45 @@ export default {
       });
     }
 
-    if (path === "/api/feedback") {
+        if (path === "/api/leads") {
+      if (request.method !== "POST") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { ...noIndexHeaders, ...(corsHeaders || {}) },
+        });
+      }
+      const auth = request.headers.get("Authorization") || "";
+      const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+      if (!env.SMART_CS_LEAD_TOKEN || token !== env.SMART_CS_LEAD_TOKEN) {
+        return new Response("Unauthorized", {
+          status: 401,
+          headers: { ...noIndexHeaders, ...(corsHeaders || {}) },
+        });
+      }
+      let payload;
+      try {
+        payload = await request.json();
+      } catch {
+        return new Response(JSON.stringify({ ok: false, error: "invalid_json" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...(corsHeaders || {}) },
+        });
+      }
+      if (!env.DB) {
+        return new Response(JSON.stringify({ ok: false, error: "db_unavailable" }), {
+          status: 503,
+          headers: { "Content-Type": "application/json", ...(corsHeaders || {}) },
+        });
+      }
+      const lead = normalizeLead(payload || {});
+      const saved = await insertLead(env.DB, lead);
+      return new Response(JSON.stringify({ ok: true, lead: saved }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...(corsHeaders || {}) },
+      });
+    }
+
+if (path === "/api/feedback") {
       if (request.method !== "POST") {
         return new Response("Method Not Allowed", {
           status: 405,
