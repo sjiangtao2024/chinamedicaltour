@@ -49,12 +49,16 @@
 更新 `workers/members/wrangler.jsonc`：
 - D1 绑定：`MEMBERS_DB`
 - KV 命名空间：`MEMBERS_KV`
-- 变量：`FROM_EMAIL`、`GOOGLE_REDIRECT_URI`
+- 变量：`FROM_EMAIL`、`GOOGLE_REDIRECT_URI`、`SMART_CS_LEAD_URL`、`PAYPAL_RETURN_URL`、`PAYPAL_CANCEL_URL`
 
 ### 配置清单（放哪里）
 写入 `workers/members/wrangler.jsonc`：
-- `vars.FROM_EMAIL`
+- `vars.FROM_EMAIL`（订单/通用发件人）
+- `vars.VERIFY_FROM_EMAIL`（验证码专用发件人）
 - `vars.GOOGLE_REDIRECT_URI`
+- `vars.SMART_CS_LEAD_URL`（如 `https://api.chinamedicaltour.org/api/leads`）
+- `vars.PAYPAL_RETURN_URL`（如 `https://chinamedicaltour.org/checkout.html?paypal=return`）
+- `vars.PAYPAL_CANCEL_URL`（如 `https://chinamedicaltour.org/checkout.html?paypal=cancel`）
 - `d1_databases`：`MEMBERS_DB`（`database_name: cmt_members` + `database_id`）
 - `kv_namespaces`：`MEMBERS_KV`（`id`）
 
@@ -66,6 +70,7 @@
 - `PAYPAL_CLIENT_ID`
 - `PAYPAL_SECRET`
 - `PAYPAL_WEBHOOK_ID`
+- `SMART_CS_LEAD_TOKEN`
 - `TURNSTILE_SECRET`
 
 ### wrangler.jsonc 示例
@@ -77,7 +82,11 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "FROM_EMAIL": "orders@chinamedicaltour.org",
-    "GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback"
+    "VERIFY_FROM_EMAIL": "verify@chinamedicaltour.org",
+    "GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
+    "SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
+    "PAYPAL_RETURN_URL": "https://chinamedicaltour.org/checkout.html?paypal=return",
+    "PAYPAL_CANCEL_URL": "https://chinamedicaltour.org/checkout.html?paypal=cancel"
   },
   "d1_databases": [
     {
@@ -125,6 +134,7 @@ wrangler secret put GOOGLE_CLIENT_SECRET
 wrangler secret put PAYPAL_CLIENT_ID
 wrangler secret put PAYPAL_SECRET
 wrangler secret put PAYPAL_WEBHOOK_ID
+wrangler secret put SMART_CS_LEAD_TOKEN
 wrangler secret put TURNSTILE_SECRET
 ```
 
@@ -135,23 +145,36 @@ cd workers/members
 wrangler deploy
 ```
 
-## 7) 验证
+## 7) 部署 smart-cs（接收 leads）
+执行：
+```bash
+cd workers/smart-cs
+wrangler deploy
+```
+
+## 8) 验证（按流程）
 - `GET /health` 返回 `{ ok: true }`
-- `POST /api/auth/start-email` 能发送验证码
-- `POST /api/orders` 能创建订单
-- PayPal sandbox create/capture 流程可完成
+- 注册：`POST /api/auth/start-email` → `POST /api/auth/verify-email` → `POST /api/auth/set-password`
+- 登录：`POST /api/auth/login` → `POST /api/auth/session`
+- 资料：`POST /api/profile` 成功
+- 下单：`POST /api/orders` 成功
+- 支付：`POST /api/paypal/create` → PayPal 回跳 `checkout.html` → `POST /api/paypal/capture`
+- Google OAuth：完成授权后跳转 `auth-callback.html` 并换取 session
+- smart-cs：`POST /api/profile` 后能在 `member_leads` 写入记录
 
 ## 部署检查清单
 - [ ] Resend 账号已创建并完成域名验证
 - [ ] PayPal Sandbox 应用已创建并配置 Webhook
 - [ ] Google OAuth 已配置同意屏幕与回调 URL
 - [ ] `wrangler.jsonc` 填入 `FROM_EMAIL` 与 `GOOGLE_REDIRECT_URI`
+- [ ] `wrangler.jsonc` 填入 `SMART_CS_LEAD_URL`、`PAYPAL_RETURN_URL`、`PAYPAL_CANCEL_URL`
 - [ ] `MEMBERS_DB` 绑定到 `cmt_members`
 - [ ] `MEMBERS_KV` 绑定到 `cmt_members_kv`
-- [ ] Secrets 已写入（Resend/JWT/Google/PayPal）
+- [ ] Secrets 已写入（Resend/JWT/Google/PayPal/Smart-CS/Turnstile）
 - [ ] D1 migrations 已执行
 - [ ] Worker 已部署
 - [ ] 基本接口验证通过（health/auth/orders/paypal）
+ - [ ] smart-cs 已部署并能接收 leads
 
 ## 沙盒凭证敏感性说明
 请勿将以下内容写入代码仓库或明文配置：

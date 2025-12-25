@@ -1,34 +1,43 @@
-﻿{
-  "name": "members",
-  "main": "src/index.js",
-  "compatibility_date": "2025-12-24",
-  "compatibility_flags": ["nodejs_compat"],
-  "observability": {
-    "enabled": true
-  },
-  "vars": {
-    "FROM_EMAIL": "orders@chinamedicaltour.org",
-    "GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
-    "JWT_SECRET": "__SECRET__",
-    "SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
-    "SMART_CS_LEAD_TOKEN": "__SECRET__",
-    "PAYPAL_CLIENT_ID": "__SECRET__",
-    "PAYPAL_SECRET": "__SECRET__",
-    "PAYPAL_RETURN_URL": "https://chinamedicaltour.org/checkout.html?paypal=return",
-    "PAYPAL_CANCEL_URL": "https://chinamedicaltour.org/checkout.html?paypal=cancel",
-    "TURNSTILE_SECRET": "__SECRET__"
-  },
-  "d1_databases": [
-    {
-      "binding": "MEMBERS_DB",
-      "database_name": "cmt_members",
-      "database_id": "c597eeb8-b3d2-44e7-9e64-ebdc21e8690d"
-    }
-  ],
-  "kv_namespaces": [
-    {
-      "binding": "MEMBERS_KV",
-      "id": "ef772a86a3d54cff8c60ac381163e89f"
-    }
-  ]
+{
+	"name": "members",
+	"main": "src/index.js",
+	"compatibility_date": "2025-12-24",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true
+	},
+	"vars": {
+		"FROM_EMAIL": "orders@chinamedicaltour.org",
+		"VERIFY_FROM_EMAIL": "verify@chinamedicaltour.org",
+		"GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
+		"SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
+		"PAYPAL_RETURN_URL": "https://chinamedicaltour.org/checkout.html?paypal=return",
+		"PAYPAL_CANCEL_URL": "https://chinamedicaltour.org/checkout.html?paypal=cancel"
+	},
+	"d1_databases": [
+		{
+			"binding": "MEMBERS_DB",
+			"database_name": "cmt_members",
+			"database_id": "c597eeb8-b3d2-44e7-9e64-ebdc21e8690d"
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "MEMBERS_KV",
+			"id": "ef772a86a3d54cff8c60ac381163e89f"
+		}
+	],
+	"routes": [
+		{
+			"pattern": "members.chinamedicaltour.org/*",
+			"zone_name": "chinamedicaltour.org"
+		},
+		{
+			"pattern": "members.chinamedicaltour.org",
+			"zone_name": "chinamedicaltour.org",
+			"custom_domain": true
+		}
+	]
 }
