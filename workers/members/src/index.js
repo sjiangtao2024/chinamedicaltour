@@ -58,6 +58,24 @@ function requireDb(env) {
   return env.MEMBERS_DB;
 }
 
+function corsHeaders(request) {
+  const origin = request.headers.get("Origin") || "";
+  const allowed = new Set([
+    "https://chinamedicaltour.org",
+    "https://members.chinamedicaltour.org",
+  ]);
+  if (!allowed.has(origin)) {
+    return {};
+  }
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
+
 async function verifyTurnstile(request, env, token) {
   if (!env.TURNSTILE_SECRET) {
     return { ok: false, status: 500, error: "missing_turnstile_secret" };
@@ -109,11 +127,17 @@ function matchProfilePath(pathname) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    const respond = (status, payload) =>
+      jsonResponse(status, payload, corsHeaders(request));
+
+    if (request.method === "OPTIONS" && url.pathname.startsWith("/api/")) {
+      return new Response(null, { status: 204, headers: corsHeaders(request) });
+    }
     if (url.pathname === "/api/auth/start-email" && request.method === "POST") {
       const body = await readJson(request);
       const email = normalizeEmail(body?.email);
       if (!email) {
-        return jsonResponse(400, { ok: false, error: "email_required" });
+        return respond(400, { ok: false, error: "email_required" });
       }
       const turnstileResult = await verifyTurnstile(
         request,
@@ -121,7 +145,7 @@ export default {
         body?.turnstile_token
       );
       if (!turnstileResult.ok) {
-        return jsonResponse(turnstileResult.status, {
+        return respond(turnstileResult.status, {
           ok: false,
           error: turnstileResult.error,
         });
@@ -136,7 +160,7 @@ export default {
         to: email,
         code,
       });
-      return jsonResponse(200, { ok: true });
+      return respond(200, { ok: true });
     }
 
     if (url.pathname === "/api/auth/verify-email" && request.method === "POST") {
@@ -144,7 +168,7 @@ export default {
       const email = normalizeEmail(body?.email);
       const code = body?.code ? String(body.code).trim() : "";
       if (!email || !code) {
-        return jsonResponse(400, { ok: false, error: "missing_fields" });
+        return respond(400, { ok: false, error: "missing_fields" });
       }
       const turnstileResult = await verifyTurnstile(
         request,
@@ -152,7 +176,7 @@ export default {
         body?.turnstile_token
       );
       if (!turnstileResult.ok) {
-        return jsonResponse(turnstileResult.status, {
+        return respond(turnstileResult.status, {
           ok: false,
           error: turnstileResult.error,
         });
@@ -161,28 +185,28 @@ export default {
       const key = buildVerificationKey(email);
       const stored = await env.MEMBERS_KV.get(key);
       if (!stored) {
-        return jsonResponse(400, { ok: false, error: "code_expired" });
+        return respond(400, { ok: false, error: "code_expired" });
       }
       if (stored !== code) {
-        return jsonResponse(400, { ok: false, error: "code_invalid" });
+        return respond(400, { ok: false, error: "code_invalid" });
       }
 
       await env.MEMBERS_KV.delete(key);
-      return jsonResponse(200, { ok: true, email_verified: true });
+      return respond(200, { ok: true, email_verified: true });
     }
 
     if (url.pathname === "/api/auth/session" && request.method === "POST") {
       const body = await readJson(request);
       const userId = body?.user_id ? String(body.user_id).trim() : "";
       if (!userId) {
-        return jsonResponse(400, { ok: false, error: "user_id_required" });
+        return respond(400, { ok: false, error: "user_id_required" });
       }
       const secret = env.JWT_SECRET;
       if (!secret) {
-        return jsonResponse(500, { ok: false, error: "missing_jwt_secret" });
+        return respond(500, { ok: false, error: "missing_jwt_secret" });
       }
       const token = await createSessionToken({ userId }, secret);
-      return jsonResponse(200, { ok: true, token });
+      return respond(200, { ok: true, token });
     }
 
     if (url.pathname === "/api/auth/google" && request.method === "GET") {
@@ -199,12 +223,12 @@ export default {
       const code = url.searchParams.get("code");
       const state = url.searchParams.get("state");
       if (!code || !state) {
-        return jsonResponse(400, { ok: false, error: "missing_oauth_params" });
+        return respond(400, { ok: false, error: "missing_oauth_params" });
       }
       const key = `oauth_state:${state}`;
       const stored = await env.MEMBERS_KV.get(key);
       if (!stored) {
-        return jsonResponse(400, { ok: false, error: "invalid_state" });
+        return respond(400, { ok: false, error: "invalid_state" });
       }
       await env.MEMBERS_KV.delete(key);
 
@@ -223,7 +247,7 @@ export default {
           name: profile.name,
           sub: profile.sub,
         },
-      });
+      }, corsHeaders(request));
     }
 
     if (url.pathname === "/api/orders" && request.method === "POST") {
@@ -232,7 +256,7 @@ export default {
         ? String(body.idempotency_key).trim()
         : "";
       if (!idempotencyKey) {
-        return jsonResponse(400, { ok: false, error: "idempotency_required" });
+        return respond(400, { ok: false, error: "idempotency_required" });
       }
       const userId = body?.user_id ? String(body.user_id).trim() : "";
       const itemType = body?.item_type ? String(body.item_type).trim() : "";
@@ -240,19 +264,19 @@ export default {
       const currency = body?.currency ? String(body.currency).trim() : "";
       const amountOriginal = Number(body?.amount_original || 0);
       if (!userId || !itemType || !itemId || !currency || !amountOriginal) {
-        return jsonResponse(400, { ok: false, error: "missing_fields" });
+        return respond(400, { ok: false, error: "missing_fields" });
       }
 
       let db;
       try {
         db = requireDb(env);
       } catch (error) {
-        return jsonResponse(500, { ok: false, error: "missing_db" });
+        return respond(500, { ok: false, error: "missing_db" });
       }
 
       const existing = await findOrderByIdempotency(db, idempotencyKey);
       if (existing) {
-        return jsonResponse(200, { ok: true, order: existing, reused: true });
+        return respond(200, { ok: true, order: existing, reused: true });
       }
 
       const refChannel = body?.ref_channel ? String(body.ref_channel).trim() : "";
@@ -277,26 +301,26 @@ export default {
         idempotencyKey,
       });
 
-      return jsonResponse(201, { ok: true, order });
+      return respond(201, { ok: true, order });
     }
 
     if (url.pathname === "/api/paypal/create" && request.method === "POST") {
       const body = await readJson(request);
       const orderId = body?.order_id ? String(body.order_id).trim() : "";
       if (!orderId) {
-        return jsonResponse(400, { ok: false, error: "order_id_required" });
+        return respond(400, { ok: false, error: "order_id_required" });
       }
 
       let db;
       try {
         db = requireDb(env);
       } catch (error) {
-        return jsonResponse(500, { ok: false, error: "missing_db" });
+        return respond(500, { ok: false, error: "missing_db" });
       }
 
       const order = await findOrderById(db, orderId);
       if (!order) {
-        return jsonResponse(404, { ok: false, error: "order_not_found" });
+        return respond(404, { ok: false, error: "order_not_found" });
       }
 
       const paypalOrder = await createPaypalOrder({
@@ -312,7 +336,7 @@ export default {
         status: "awaiting_payment",
       });
 
-      return jsonResponse(200, {
+      return respond(200, {
         ok: true,
         order: updated,
         paypal_order_id: paypalOrder.id,
@@ -324,19 +348,19 @@ export default {
       const body = await readJson(request);
       const orderId = body?.order_id ? String(body.order_id).trim() : "";
       if (!orderId) {
-        return jsonResponse(400, { ok: false, error: "order_id_required" });
+        return respond(400, { ok: false, error: "order_id_required" });
       }
 
       let db;
       try {
         db = requireDb(env);
       } catch (error) {
-        return jsonResponse(500, { ok: false, error: "missing_db" });
+        return respond(500, { ok: false, error: "missing_db" });
       }
 
       const order = await findOrderById(db, orderId);
       if (!order || !order.paypal_order_id) {
-        return jsonResponse(404, { ok: false, error: "paypal_order_missing" });
+        return respond(404, { ok: false, error: "paypal_order_missing" });
       }
 
       const capture = await capturePaypalOrder({
@@ -353,7 +377,7 @@ export default {
         status: "paid_pending_profile",
       });
 
-      return jsonResponse(200, { ok: true, order: updated, capture });
+      return respond(200, { ok: true, order: updated, capture });
     }
 
     if (url.pathname === "/api/paypal/webhook" && request.method === "POST") {
@@ -362,7 +386,7 @@ export default {
       try {
         event = JSON.parse(raw);
       } catch (error) {
-        return jsonResponse(400, { ok: false, error: "invalid_json" });
+        return respond(400, { ok: false, error: "invalid_json" });
       }
 
       const verified = await verifyWebhookSignature({
@@ -374,7 +398,7 @@ export default {
       });
 
       if (!verified) {
-        return jsonResponse(400, { ok: false, error: "invalid_signature" });
+        return respond(400, { ok: false, error: "invalid_signature" });
       }
 
       const resource = event.resource || {};
@@ -384,7 +408,7 @@ export default {
         try {
           db = requireDb(env);
         } catch (error) {
-          return jsonResponse(500, { ok: false, error: "missing_db" });
+          return respond(500, { ok: false, error: "missing_db" });
         }
 
         if (event.event_type === "CHECKOUT.ORDER.APPROVED") {
@@ -401,7 +425,7 @@ export default {
         }
       }
 
-      return jsonResponse(200, { ok: true });
+      return respond(200, { ok: true });
     }
 
     const profileOrderId = matchProfilePath(url.pathname);
@@ -409,31 +433,31 @@ export default {
       const body = await readJson(request);
       const profile = normalizeProfile(body || {});
       if (!profile.email) {
-        return jsonResponse(400, { ok: false, error: "email_required" });
+        return respond(400, { ok: false, error: "email_required" });
       }
 
       let db;
       try {
         db = requireDb(env);
       } catch (error) {
-        return jsonResponse(500, { ok: false, error: "missing_db" });
+        return respond(500, { ok: false, error: "missing_db" });
       }
 
       const order = await findOrderById(db, profileOrderId);
       if (!order) {
-        return jsonResponse(404, { ok: false, error: "order_not_found" });
+        return respond(404, { ok: false, error: "order_not_found" });
       }
 
       const profileRow = await insertOrderProfile(db, order.id, profile);
       await updateOrderStatus(db, order.id, "profile_completed");
       await updateUserFromProfile(db, order.user_id, profile);
 
-      return jsonResponse(200, { ok: true, profile: profileRow });
+      return respond(200, { ok: true, profile: profileRow });
     }
 
     if (url.pathname === "/health") {
-      return jsonResponse(200, { ok: true });
+      return jsonResponse(200, { ok: true }, corsHeaders(request));
     }
-    return jsonResponse(404, { error: "not_found" });
+    return jsonResponse(404, { error: "not_found" }, corsHeaders(request));
   },
 };
