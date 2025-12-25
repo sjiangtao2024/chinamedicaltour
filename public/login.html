@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Member Login | China Medical Tour</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/members.css" />
+</head>
+<body class="bg-slate-50 text-slate-900" data-page="login">
+  <main class="members-shell">
+    <section class="members-card">
+      <h1 class="members-title">Welcome back</h1>
+      <p class="members-subtitle">Sign in to complete your profile and checkout.</p>
+
+      <div class="members-section">
+        <label class="members-label" for="email">Email</label>
+        <input id="email" type="email" class="members-input" placeholder="you@example.com" />
+      </div>
+
+      <div class="members-section">
+        <label class="members-label" for="password">Password</label>
+        <input id="password" type="password" class="members-input" placeholder="Your password" />
+      </div>
+
+      <button id="login" class="members-button">Sign in</button>
+
+      <div class="members-divider">or</div>
+
+      <button id="google-login" class="members-button members-button-google">Continue with Google</button>
+      <p class="members-status">New here? <a href="register.html">Create an account</a></p>
+      <p id="status" class="members-status"></p>
+    </section>
+  </main>
+
+  <script src="assets/js/members.js"></script>
+</body>
+</html>

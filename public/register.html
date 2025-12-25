@@ -13,7 +13,12 @@
   <main class="members-shell">
     <section class="members-card">
       <h1 class="members-title">Create your member account</h1>
-      <p class="members-subtitle">Verify your email or sign in with Google before checkout.</p>
+      <p class="members-subtitle">Verify your email, then set a password before checkout.</p>
+
+      <div class="members-section">
+        <label class="members-label" for="name">Full name</label>
+        <input id="name" type="text" class="members-input" placeholder="Your name" />
+      </div>
 
       <div class="members-section">
         <label class="members-label" for="email">Email</label>
@@ -31,10 +36,18 @@
         <button id="verify-code" class="members-button members-button-outline">Verify email</button>
       </div>
 
+      <div id="password-section" class="members-section" hidden>
+        <label class="members-label" for="password">Password</label>
+        <input id="password" type="password" class="members-input" placeholder="Create a password" />
+        <label class="members-label" for="password-confirm">Confirm password</label>
+        <input id="password-confirm" type="password" class="members-input" placeholder="Repeat password" />
+        <button id="set-password" class="members-button">Set password</button>
+      </div>
+
       <div class="members-divider">or</div>
 
       <button id="google-login" class="members-button members-button-google">Continue with Google</button>
-
+      <p class="members-status">Already have an account? <a href="login.html">Sign in</a></p>
       <p id="status" class="members-status"></p>
     </section>
   </main>
