@@ -72,6 +72,9 @@
 
 导出字段包含：`request_id`、`user_text`、`assistant_summary`、`rating`、`page_url`、`page_context`、`created_at`。
 
+**默认保留与清理**
+聊天记录默认保留 14 天，定时清理（由 `LOG_RETENTION_DAYS` 控制）。
+
 **全量导出（CSV，推荐）**
 ```bash
 cd workers/smart-cs

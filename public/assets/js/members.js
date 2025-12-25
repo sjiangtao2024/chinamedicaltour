@@ -9,6 +9,17 @@ function setStatus(message, isError) {
   el.style.color = isError ? "#b91c1c" : "#0f172a";
 }
 
+function getTurnstileToken() {
+  const input = document.querySelector('input[name="cf-turnstile-response"]');
+  return input?.value?.trim() || "";
+}
+
+function resetTurnstile() {
+  if (window.turnstile?.reset) {
+    window.turnstile.reset();
+  }
+}
+
 async function postJson(url, payload) {
   const res = await fetch(url, {
     method: "POST",
@@ -32,24 +43,42 @@ function initRegister() {
   sendCode?.addEventListener("click", async () => {
     setStatus("Sending code...");
     try {
-      await postJson("/api/auth/start-email", { email: emailInput.value });
+      const token = getTurnstileToken();
+      if (!token) {
+        setStatus("Please complete the Turnstile check.", true);
+        return;
+      }
+      await postJson("/api/auth/start-email", {
+        email: emailInput.value,
+        turnstile_token: token,
+      });
       setStatus("Code sent. Check your inbox.");
     } catch (error) {
       setStatus(`Failed to send code: ${error.message}`, true);
+    } finally {
+      resetTurnstile();
     }
   });
 
   verifyCode?.addEventListener("click", async () => {
     setStatus("Verifying...");
     try {
+      const token = getTurnstileToken();
+      if (!token) {
+        setStatus("Please complete the Turnstile check.", true);
+        return;
+      }
       await postJson("/api/auth/verify-email", {
         email: emailInput.value,
         code: codeInput.value,
+        turnstile_token: token,
       });
       localStorage.setItem("member_email", emailInput.value.trim());
       setStatus("Email verified. Continue to checkout.");
     } catch (error) {
       setStatus(`Verification failed: ${error.message}`, true);
+    } finally {
+      resetTurnstile();
     }
   });
 

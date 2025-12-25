@@ -5,6 +5,7 @@
 - Resend API key + 域名已验证
 - PayPal Sandbox 应用凭证
 - Google OAuth 客户端凭证
+- Cloudflare Turnstile 站点密钥与密钥对
 
 ## 账号配置清单（部署前完成）
 ### Resend（邮箱验证）
@@ -25,6 +26,12 @@
 3) 授权域名：`chinamedicaltour.org`
 4) 回调 URL：`https://chinamedicaltour.org/api/auth/google/callback`
 5) 将 `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` 写入 secrets
+
+### Turnstile（防恶意注册）
+1) 在 Cloudflare Turnstile 创建站点密钥（域名：`chinamedicaltour.org`）
+2) 记录 `TURNSTILE_SITE_KEY` 与 `TURNSTILE_SECRET`
+3) 将 `TURNSTILE_SECRET` 写入 secrets
+4) 将 `TURNSTILE_SITE_KEY` 填入 `public/register.html` 的 `data-sitekey`
 
 ## D1 数据库选择
 建议为 members/payments **单独新建 D1**。
@@ -59,6 +66,7 @@
 - `PAYPAL_CLIENT_ID`
 - `PAYPAL_SECRET`
 - `PAYPAL_WEBHOOK_ID`
+- `TURNSTILE_SECRET`
 
 ### wrangler.jsonc 示例
 ```jsonc
@@ -117,6 +125,7 @@ wrangler secret put GOOGLE_CLIENT_SECRET
 wrangler secret put PAYPAL_CLIENT_ID
 wrangler secret put PAYPAL_SECRET
 wrangler secret put PAYPAL_WEBHOOK_ID
+wrangler secret put TURNSTILE_SECRET
 ```
 
 ## 6) 部署 Worker
