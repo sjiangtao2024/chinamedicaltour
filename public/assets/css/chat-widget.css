@@ -144,6 +144,8 @@
   color: #0f172a;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
+  line-height: 1.6;
 }
 
 .cmt-chat__rating {
@@ -187,7 +189,7 @@
 
 /* Markdown Styles for Assistant Bubbles */
 .cmt-chat__msg--assistant .cmt-chat__bubble p {
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
 }
 .cmt-chat__msg--assistant .cmt-chat__bubble p:last-child {
   margin-bottom: 0;
@@ -195,15 +197,15 @@
 .cmt-chat__msg--assistant .cmt-chat__bubble strong,
 .cmt-chat__msg--assistant .cmt-chat__bubble b {
   font-weight: 600;
-  color: #0d9488; /* Teal accent for bold text */
+  color: #0f766e; /* Teal accent for bold text */
 }
 .cmt-chat__msg--assistant .cmt-chat__bubble ul,
 .cmt-chat__msg--assistant .cmt-chat__bubble ol {
-  margin: 8px 0;
-  padding-left: 20px;
+  margin: 10px 0;
+  padding-left: 18px;
 }
 .cmt-chat__msg--assistant .cmt-chat__bubble li {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   list-style-type: disc;
 }
 .cmt-chat__msg--assistant .cmt-chat__bubble ol li {
@@ -222,6 +224,34 @@
 .cmt-chat__msg--assistant .cmt-chat__bubble h2:first-child,
 .cmt-chat__msg--assistant .cmt-chat__bubble h3:first-child {
   margin-top: 0;
+}
+
+.cmt-chat__msg--assistant .cmt-chat__bubble a {
+  color: #0f766e;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble a:hover {
+  color: #115e59;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble blockquote {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-left: 3px solid rgba(13, 148, 136, 0.35);
+  background: rgba(15, 118, 110, 0.06);
+  color: #0f172a;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble hr {
+  border: none;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  margin: 12px 0;
+}
+.cmt-chat__msg--assistant .cmt-chat__bubble code {
+  background: rgba(15, 23, 42, 0.06);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 0.95em;
 }
 
 /* Quick Replies Styles */
