@@ -1,8 +1,8 @@
 export const LEAD_QUESTIONS = {
   purpose:
     "We can connect you with our team after we collect a few details. You can also fill out the form here:\n" +
-    "https://chinamedicaltour.org/contact\n" +
-    "To begin, which option best matches your needs?\n" +
+    "https://chinamedicaltour.org/contact\n\n" +
+    "To begin, which option best matches your needs?\n\n" +
     "A) Health screening\n" +
     "B) Specialized care\n" +
     "C) TCM & wellness\n" +
@@ -16,17 +16,17 @@ export const LEAD_QUESTIONS = {
     "Thanks! Please share a valid contact in one line:\n" +
     "A) Email - e.g., A: name@example.com\n" +
     "B) WhatsApp - e.g., B: +86 199 1038 5444",
-  city: "Which city do you prefer?\nA) Beijing\nB) Chengdu\nPlease reply with A or B.",
+  city: "Which city do you prefer?\n\nA) Beijing\nB) Chengdu\nPlease reply with A or B.",
   stay_duration:
-    "How long do you expect to stay?\n" +
+    "How long do you expect to stay?\n\n" +
     "A) 1-3 days\n" +
     "B) 4-7 days\n" +
     "C) 8-14 days\n" +
     "D) 15+ days\n" +
     "Please reply with A, B, C, or D.",
-  language: "Do you need English interpretation?\nA) Yes\nB) No\nPlease reply with A or B.",
+  language: "Do you need English interpretation?\n\nA) Yes\nB) No\nPlease reply with A or B.",
   budget_range:
-    "What is your budget range? (Optional)\n" +
+    "What is your budget range? (Optional)\n\n" +
     "A) Under $1,000\n" +
     "B) $1,000-$3,000\n" +
     "C) $3,000-$5,000\n" +
