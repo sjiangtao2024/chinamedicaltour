@@ -16,7 +16,13 @@ import { getRealtimeReply } from "./lib/realtime.js";
 import { collectSseText } from "./lib/sse-collector.js";
 import { parseExportParams } from "./lib/export.js";
 import { insertLead, normalizeLead } from "./lib/member-leads.js";
-import { buildLeadExtractionPrompt, isLeadComplete, parseLeadExtraction, sendLeadEmail } from "./lib/lead-intake.js";
+import {
+  buildLeadExtractionPrompt,
+  isLeadComplete,
+  parseLeadExtraction,
+  sendLeadEmail,
+  validateContact,
+} from "./lib/lead-intake.js";
 
 const CONTEXT_PREFIX = /^\[Context:\s*([^\]]+)\]\s*/;
 
@@ -575,6 +581,8 @@ if (path === "/api/feedback") {
             const leadText = await collectSseText(leadUpstream.body, { maxChars: 1200 });
             const lead = parseLeadExtraction(leadText);
             if (!isLeadComplete(lead)) return;
+            const contactCheck = validateContact(lead.contact);
+            if (!contactCheck.ok) return;
             await sendLeadEmail({ env, lead, meta, requestId });
           })();
           ctx.waitUntil(leadTask);
