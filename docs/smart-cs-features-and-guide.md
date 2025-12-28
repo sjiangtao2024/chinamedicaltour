@@ -45,7 +45,7 @@
 - `public/assets/js/chat-widget.js`：页面上下文、欢迎语、快捷问题
 
 ### 3.2 后端核心配置
-- `workers/smart-cs/src/lib/knowledge-base.js`：系统提示词与基础规则
+- `workers/smart-cs/src/lib/knowledge-base.js`：系统提示词与基础规则（**系统提示词保持最小化，不写业务事实**）
 - `workers/smart-cs/src/lib/rag-runtime.js`：RAG 检索逻辑
 - `workers/smart-cs/src/lib/english-guard.js`：英文守卫逻辑
 
@@ -53,6 +53,7 @@
 - 源文件：`workers/smart-cs/knowledge/knowledge.md`
 - 上传入口：`https://ops.chinamedicaltour.org`
 - 详细流程：见 `docs/ops-knowledge-guide.zh.md`
+- **准则**：业务信息一律写入 `knowledge.md` 并通过 RAG 注入；不要在系统提示词中维护业务细节。
 
 ### 3.4 Ops Admin Token（后台登录）
 - **用途**：访问 `ops.chinamedicaltour.org` 的登录与上传功能
