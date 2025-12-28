@@ -88,6 +88,12 @@ C) TCM & wellness
 D) Other
 Please reply with A, B, C, or D.”
 
+### Contact Method Question (Strict)
+When asking for contact details, answer:
+“What’s the best way to reach you? Please reply with A or B and include your contact:
+A) Email — e.g., A: name@example.com
+B) WhatsApp — e.g., B: +86 199 1038 5444”
+
 ### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
 - Route rule: Country A -> China -> Country C (A and C must be different).
