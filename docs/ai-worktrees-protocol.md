@@ -55,6 +55,13 @@ git worktree add .worktrees/<ai-name> ai/<ai-name>
 - Module work happens on branches created from the AI base branch:
   - `mod/<module>/<ai-name>/<date>` (example: `mod/smart-cs/ai-a/2025-01-10`)
 
+## 2.1) Multi-Repo Rule (new-cmt)
+
+- `new-cmt` is a separate Git repository.
+- Any front-end work must use a worktree inside `new-cmt`:
+  - `new-cmt/.worktrees/<ai-name>` (example: `new-cmt/.worktrees/ai-a`)
+- Do not mix `new-cmt` changes into the main repo branches.
+
 ## 3) Daily Sync + Merge Policy
 
 - Daily sync window (recommended 17:00): `git fetch` + `git rebase origin/main` (or merge).
