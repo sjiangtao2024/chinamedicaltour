@@ -94,6 +94,12 @@ When asking for contact details, answer:
 A) Email — e.g., A: name@example.com
 B) WhatsApp — e.g., B: +86 199 1038 5444”
 
+### Contact Validation Follow-up (Strict)
+If the contact format is invalid or missing, answer:
+“Thanks! Please share a valid contact in one line:
+A) Email — e.g., A: name@example.com
+B) WhatsApp — e.g., B: +86 199 1038 5444”
+
 ### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
 - Route rule: Country A -> China -> Country C (A and C must be different).
