@@ -16,6 +16,7 @@ import { getRealtimeReply } from "./lib/realtime.js";
 import { collectSseText } from "./lib/sse-collector.js";
 import { parseExportParams } from "./lib/export.js";
 import { insertLead, normalizeLead } from "./lib/member-leads.js";
+import { buildLeadExtractionPrompt, isLeadComplete, parseLeadExtraction, sendLeadEmail } from "./lib/lead-intake.js";
 
 const CONTEXT_PREFIX = /^\[Context:\s*([^\]]+)\]\s*/;
 
@@ -552,6 +553,31 @@ if (path === "/api/feedback") {
             })();
             ctx.waitUntil(captureTask);
           }
+          const leadTask = (async () => {
+            const keyManager = createKeyManager({ env, cooldownMs: 60_000 });
+            const keySelection = keyManager.selectKeySlot();
+            if (!keySelection) return;
+            const leadPrompt = buildLeadExtractionPrompt(rawMessages, null);
+            const leadUpstream = await fetchLongcatSse({
+              env,
+              requestId: `${requestId}_lead`,
+              key: keySelection.key,
+              timeoutMs: 10_000,
+              clientSignal: undefined,
+              payload: {
+                messages: leadPrompt,
+                stream: true,
+                temperature: 0.2,
+                max_tokens: 300,
+              },
+            });
+            if (!leadUpstream.ok || !leadUpstream.body) return;
+            const leadText = await collectSseText(leadUpstream.body, { maxChars: 1200 });
+            const lead = parseLeadExtraction(leadText);
+            if (!isLeadComplete(lead)) return;
+            await sendLeadEmail({ env, lead, meta, requestId });
+          })();
+          ctx.waitUntil(leadTask);
 
           return new Response(body, {
             status: 200,
