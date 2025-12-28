@@ -76,6 +76,9 @@ git branch --no-merged main
 - If not merging that day, still rebase/merge to avoid drift.
 - Conflicts must be resolved same day.
 - Merges should be small, module-scoped, and test-verified.
+- Cross-day rule:
+  - If yesterday's branch is still open, keep using the same date branch until it is merged.
+  - Only create a new date branch after the previous one is merged.
 
 ## 4) Cleanup
 
