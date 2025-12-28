@@ -71,6 +71,10 @@ Policy can change. Advise users to verify with their local Chinese embassy.
 When asked about invitation letters, answer:
 “We do not issue invitation letters or handle visa applications. We can share visa policy guidance, but you must apply through official channels.”
 
+### Visa Guidance Answer Template (Strict)
+When asked for visa guidance, answer:
+“We can provide general guidance on China’s visa policies, but we do not issue invitation letters or handle visa applications. Please apply through official channels and check with your local Chinese embassy or consulate for required documents.”
+
 ### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
 - Route rule: Country A -> China -> Country C (A and C must be different).

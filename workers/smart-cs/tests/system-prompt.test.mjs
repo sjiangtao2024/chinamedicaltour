@@ -15,3 +15,4 @@ assert.match(prompt, /knowledge\.md/i);
 assert.match(prompt, /RAG/i);
 assert.match(prompt, /system prompt is intentionally minimal/i);
 assert.match(prompt, /invitation letter|visa application/i);
+assert.match(prompt, /do not list invitation letters?/i);
