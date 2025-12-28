@@ -18,3 +18,4 @@ assert.match(prompt, /invitation letter|visa application/i);
 assert.match(prompt, /do not list invitation letters?/i);
 assert.match(prompt, /always include a relevant website link/i);
 assert.match(prompt, /emoji/i);
+assert.match(prompt, /greeting must include.*emoji/i);
