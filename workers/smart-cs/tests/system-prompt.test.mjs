@@ -11,3 +11,6 @@ assert.match(prompt, /coding|programming/i);
 assert.match(prompt, /redirect/i);
 assert.match(prompt, /exchange rate/i);
 assert.match(prompt, /real-time|实时/i);
+assert.match(prompt, /knowledge\.md/i);
+assert.match(prompt, /RAG/i);
+assert.match(prompt, /system prompt is intentionally minimal/i);

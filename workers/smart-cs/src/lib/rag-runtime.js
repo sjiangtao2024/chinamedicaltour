@@ -6,7 +6,10 @@ export async function fetchRagChunks({ env, query, topK }) {
   const vector = embedding?.data?.[0]?.embedding || embedding?.data?.[0];
   if (!vector) return [];
 
-  const results = await env.VECTORIZE_INDEX.query(vector, { topK: topK || 3 });
+  const results = await env.VECTORIZE_INDEX.query(vector, {
+    topK: topK || 3,
+    returnMetadata: true,
+  });
   const matches = results?.matches || [];
   return matches.map((m) => m?.metadata?.preview).filter(Boolean);
 }

@@ -363,6 +363,22 @@ if (path === "/api/feedback") {
     const lastUserTextRaw = lastUser?.content || "";
     const userText = stripContextHeader(lastUserTextRaw);
     const meta = normalizeMeta(body, lastUserTextRaw);
+
+    // Insert System Prompt at the beginning
+    const sysPrompt = getSystemPrompt();
+    const ragEnabled = env.RAG_ENABLED === true || env.RAG_ENABLED === "true";
+    const ragTopK = Number(env.RAG_TOP_K) || 3;
+
+    let ragChunks = [];
+    if (ragEnabled) {
+      const lastUserText = lastUserTextRaw;
+      try {
+        ragChunks = await fetchRagChunks({ env, query: lastUserText, topK: ragTopK });
+      } catch {
+        ragChunks = [];
+      }
+    }
+
     const realtimeIntent = parseRealtimeIntent(lastUserTextRaw);
     if (realtimeIntent) {
       const realtime = await getRealtimeReply(realtimeIntent);
@@ -418,21 +434,6 @@ if (path === "/api/feedback") {
             "X-Request-Id": requestId,
           },
         });
-      }
-    }
-
-    // Insert System Prompt at the beginning
-    const sysPrompt = getSystemPrompt();
-    const ragEnabled = env.RAG_ENABLED === true || env.RAG_ENABLED === "true";
-    const ragTopK = Number(env.RAG_TOP_K) || 3;
-
-    let ragChunks = [];
-    if (ragEnabled) {
-      const lastUserText = lastUserTextRaw;
-      try {
-        ragChunks = await fetchRagChunks({ env, query: lastUserText, topK: ragTopK });
-      } catch {
-        ragChunks = [];
       }
     }
 

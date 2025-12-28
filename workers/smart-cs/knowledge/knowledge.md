@@ -1,134 +1,133 @@
 # CHINA MEDICAL TOUR - KNOWLEDGE BASE
 
 ## 1. COMPANY OVERVIEW
-- **Name:** China Medical Tour
-- **Website:** chinamedicaltour.org
-- **Mission:** Providing premium, high-tech, and affordable medical checkups & tourism in China for international patients.
-- **Key Advantages:** 
-  - **Cost:** 1/5th to 1/10th of US/EU prices.
-  - **Speed:** Zero wait times for MRI/CT/Specialists via our VIP Green Channel.
-  - **Quality:** Partnering with China's top hospitals (301, PUMCH).
-  - **Safety:** Beijing is one of the safest cities globally.
+- Name: China Medical Tour (ChinaMedicalTour.org)
+- Website: https://chinamedicaltour.org
+- Mission: Frictionless Access to Elite Chinese Healthcare.
+- Tagline: Modern Precision, Ancient Wisdom.
+- Cities served (current operations): Beijing and Chengdu.
+- Core advantages:
+  - Cost: typically 60-80% lower than US/EU private care.
+  - Speed: no long waits for imaging and specialists.
+  - Quality: partnerships with top-tier 3A hospitals.
+  - Concierge: travel, translation, and care coordination.
 
-## 2. MEDICAL PACKAGES (Prices are reference only)
+## 2. CORE SERVICES
+These are the only current service modules. Do not mention legacy package tiers (Basic/Elite/VIP).
 
-### A. Basic Package (from $299)
-- **Target:** Annual physicals, young adults.
-- **Includes:**
-  - Doctor Consultation: Internal Med, Surgery, Ophthalmology, ENT, Stomatology.
-  - Instruments: Height/Weight, BP, ECG, Chest X-Ray, Upper Abdominal Ultrasound (Liver, Gallbladder, Pancreas, Spleen, Kidney).
-  - Lab Tests: CBC, Urinalysis, Liver Function (11 items), Kidney Function (3 items), Lipids (4 items), Fasting Blood Glucose.
+### A. Service Q&A (High Priority)
+Q: What services do you offer?
+A: We offer four core modules in **Beijing and Chengdu only**: Health Screening, TCM & Wellness, Specialized Care, and Concierge Services. For an overview, visit https://chinamedicaltour.org/health-screening
 
-### B. Elite Package (from $599) - *Most Popular*
-- **Target:** Comprehensive screening, middle-aged adults.
-- **Includes:** EVERYTHING in Basic, PLUS:
-  - **Deep Imaging:** Chest CT (Lung cancer screening), Thyroid Ultrasound, Carotid Artery Ultrasound, Bone Density Scan.
-  - **Pelvic Ultrasound:** Prostate (Male) or Uterus/Adnexa (Female).
-  - **Tumor Markers (Cancer Screening):** CEA, AFP, PSA (Male), CA-125 (Female).
-  - **Others:** H. Pylori Test, Homocysteine.
+### B. Service Scope (Strict)
+- Only list the four modules below. Do **not** invent additional services.
+- Do **not** mention legacy package tiers (Basic/Elite/VIP).
+- Do **not** claim 24/7 support or insurance coordination.
+- If asked about 24/7 support: say it is not offered at this time.
+- Do **not** add extra commentary or examples beyond the four modules.
+- Do **not** mention hotel bookings or "medical packages" pages.
 
-### C. VIP Package (from $1,399)
-- **Target:** Executive health, high-risk groups, luxury experience.
-- **Includes:** EVERYTHING in Elite, PLUS:
-  - **Advanced Imaging:** Coronary CTA (Heart) OR Head/Neck CTA.
-  - **Endocrine/Immune:** Thyroid Function (5 items), Sex Hormones (6 items), Rheumatism panel.
-  - **Genetics:** Common Tumor Susceptibility Genes (13 items).
-  - **Service:** 1-on-1 Expert Report Interpretation.
+### C. Health Screening
+- Full Body Scan: MRI/CT + blood panels + organ screening. Same-day results for many items.
+- Cancer Screening: PET-CT, tumor markers, and advanced imaging.
+- Cardiovascular Check: CTA, stress echo, and cardiology consults.
+- Typical benefits: results in hours, not weeks; streamlined workflow; significant cost savings.
 
-## 3. VISA POLICIES (Crucial for Travel)
+### D. TCM & Wellness
+- Focus areas: pain management, dermatology, women's health, and short reset programs.
+- Modalities: acupuncture, cupping, herbal therapy, pulse diagnosis, and lifestyle guidance.
+- Goal: holistic care paired with modern diagnostics.
 
-### A. Unilateral Visa-Free Entry (15 or 30 Days)
-- **Citizens of:** France, Germany, Italy, Netherlands, Spain, Switzerland, Ireland, Hungary, Austria, Belgium, Luxembourg, Australia, New Zealand, Poland, Malaysia (30d), Singapore (30d), Thailand (Permanent), Japan/Korea (check latest).
-  - **Action:** Just fly. No application needed.
+### E. Specialized Care
+- Dentistry: implants, veneers, whitening, restorative care.
+- Ophthalmology: vision correction and cataract services.
+- Medical aesthetics: skin rejuvenation and anti-aging programs.
+- Orthopedics: joint and spine solutions.
+- Benefits: scheduling in days, high-volume specialists, 60-80% savings.
 
-### B. 144-Hour Visa-Free Transit (The "Medical Layout")
-- **Concept:** Transit through China to a THIRD country. Stay up to 6 days.
-- **Eligibility:** 54 Countries (US, Canada, UK, EU, etc.).
-- **Route Rule:** Origin (Country A) -> China (Beijing/Shanghai) -> Destination (Country C).
-  - *Example OK:* USA -> Beijing -> Hong Kong.
-  - *Example OK:* USA -> Beijing -> Seoul.
-  - *Example NOT OK:* USA -> Beijing -> USA.
-- **Ports:** Beijing (PEK/PKX), Shanghai (PVG), Chengdu, Guangzhou.
-
-## 4. PAYMENT METHODS FOR FOREIGNERS
-- **Alipay & WeChat Pay:** The primary way to pay in China.
-- **Why it's Essential:** China is a cashless society. You NEED these apps for daily life: taxis (DiDi), subway, street food, convenience stores, and coffee shops. Cash is often inconvenient (no change).
-- **Setup:** Download app -> Sign up with foreign phone number -> Link Visa/Mastercard/Amex.
-- **Fees:**
-  - Transactions under 200 RMB: FREE.
-  - Transactions over 200 RMB: 3% fee charged by the payment provider (not us).
-  - **Limit:** Usually 50,000 RMB per transaction (verify with app).
-- **Cash:** Accepted but inconvenient (finding change is hard).
-
-## 5. SAFETY & SECURITY (Is China Safe?)
-- **Verdict:** YES. China is statistically one of the safest countries in the world.
-- **Crime:** Violent crime against foreigners is extremely rare. Petty theft is also uncommon due to ubiquitous surveillance and cashless payments.
-- **Nighttime:** It is completely safe to walk alone at night in major cities like Beijing and Chengdu.
-- **Medical Safety:** Our partner hospitals (301, PUMCH) meet international JCI or 3A standards, comparable to Mayo Clinic.
-
-## 7. CLIMATE & WEATHER GUIDE (General Advice Only)
-- **Note:** I cannot provide real-time forecasts (e.g., "Will it rain today?"). I provide general seasonal advice.
-- **Spring (March-May):** Pleasant but dry. Temp: 10°C to 25°C. Good for travel.
-- **Summer (June-August):** Hot (30°C+) and sometimes humid. Light clothing recommended.
-- **Autumn (Sept-Nov):** The BEST season. Cool, crisp, blue skies. Temp: 10°C to 20°C.
-- **Winter (Dec-Feb):** Cold and dry. Temp: -5°C to 5°C. Heavy coats/thermals required.
-  - *Beijing:* Very dry, rare snow.
-  - *Chengdu:* Cool and damp, no central heating in some older places (but our partner hotels have it).
-
-## 8. OTHER SERVICES
-- **TCM:** Acupuncture, Cupping, Herbal Therapy at authentic Beijing clinics.- **Dental:** Implants, Veneers, Whitening (fraction of US cost).
-- **Stem Cell:** Regenerative therapies for anti-aging/joints.
-- **Ophthalmology:** LASIK, Cataract surgery.
-
-## 9. FREQUENTLY ASKED QUESTIONS (FAQ & POLICIES)
-
-### A. Visa & Entry
-- **Visa-Free Countries:** (See Section 3). Citizens of these countries can just buy a ticket and fly.
-- **Other Countries:** You must apply for a visa yourself. We can provide an invitation letter *after* the deposit is paid.
-
-### B. Travel Logistics (Flights & Hotels)
-- **Not Included:** Our medical packages cover the checkup *only*. Flights, hotels, and local transport are **NOT** included in the base price.
-- **Concierge Booking:** We can book flights/hotels for you upon request, but a **30% Service Fee** will be added to the total booking cost.
-
-### C. Translation & Privacy
-- **Language:** We currently provide **English** translation only.
-- **Accompaniment:** A translator can accompany you. However, please note that in **VIP core examination areas**, 100% accompaniment may not be possible due to strict privacy regulations. We strive to arrange bilingual nurses for these moments.
-
-### D. Treatment & Follow-ups
-- **Reports:** English reports are issued **5-7 working days** after the checkup, followed by a detailed interpretation call.
-- **Immediate Treatment:** If issues are found, we can arrange treatment/surgery if your visa stay permits.
-- **Specific Doctors:** You can request specific top-tier experts. Note that top expert consultation fees are high (approx. **$500 USD**).
-- **Service Fee:** For all *additional* medical arrangements (treatment, surgery, expert booking) outside the package, we charge a **30% Service Fee**.
-
-### E. Member Support
-- **Commitment:** Once you become a member, we support you throughout your stay in China.
-- **Emergencies:** You can contact us for any medical needs while in China. We will assist immediately, though please note that emergency medical services are **not free**.
+### F. Concierge Services
+- Visa guidance and itinerary planning.
+- Airport pickup and local transportation support.
+- English interpretation and hospital coordination.
+- Medical record translation and follow-up assistance.
 
 
-## 7. EXECUTIVE VITALITY PASS (2026 Strategy) — CHRISTMAS OFFER
-- **Audience:** High-performance leaders (approx. ages 35–45).
-- **Core Protocol (~$5,500 Value):**
-  - **Digestive Gold Standard:** Painless Gastroscopy & Colonoscopy (under anesthesia).
-  - **Advanced Imaging:** Cranial MRI (Brain) & Chest CT (Lung).
-  - **Cardiovascular Suite:** 12-Lead ECG & Color Doppler Echocardiography.
-  - **Full Defense Panel:** Comprehensive tumor markers + Thyroid/Abdomen/Urinary ultrasounds.
-- **Gender Customization:**
-  - *For Her:* Breast ultrasound + full gynecology panel (uterus/ovaries).
-  - *For Him:* Prostate & male urinary risk focus.
-- **Retainer:** **$100 USD** to lock in 2025 rates for any 2026 visit.
-- **Refund Policy:** 100% refundable **before** we deliver your customized Medical Strategy Proposal.
-- **Priority:** Guaranteed slot with **14 days' notice**.
-- **Leadership:** Managed by former executives from **Amazon** and **Apple**.
-- **How to Pay:** Alipay / WeChat Pay (international cards accepted).
-- **Full Details:** https://chinamedicaltour.org/executive-pass.html
+## 3. VISA POLICIES (SUMMARY)
 
-## 8. CONTACT & SUPPORT
-- **Complex Inquiries:** For custom itineraries or specific medical questions not covered here, please contact us via WhatsApp (+86 199 1038 5444) or Email (info@chinamedicaltour.org).
+### A. 15/30-Day Visa-Free Entry
+Citizens of select countries can enter China visa-free for business, tourism, family visits, or transit.
+Examples include: France, Germany, Italy, Netherlands, Spain, Switzerland, Ireland, Hungary, Austria,
+Belgium, Luxembourg, Australia, New Zealand, Poland, Malaysia (30 days), Singapore (30 days),
+Thailand (permanent), Japan, and South Korea.
 
-## 10. MEMBER REGISTRATION & PAYMENT FLOW
-- **Step 1:** Register with email verification or Google OAuth at `https://chinamedicaltour.org/register.html`.
-- **Step 2:** Set a password (email login) or complete Google sign-in.
-- **Step 3:** Complete your profile at `https://chinamedicaltour.org/profile.html` (required before checkout).
-- **Step 4:** Proceed to checkout and pay with PayPal at `https://chinamedicaltour.org/checkout.html`.
-- **Password reset:** Use `https://chinamedicaltour.org/reset.html`.
-- **Support:** If a user is stuck, collect email + brief issue description and escalate.
+Policy can change. Advise users to verify with their local Chinese embassy.
+
+### B. 144-Hour Visa-Free Transit
+- Concept: transit through China to a third country or region, stay up to 6 days.
+- Route rule: Country A -> China -> Country C (A and C must be different).
+- Eligible countries: 54 (US, Canada, UK, EU, etc).
+- Ports include: Beijing (PEK/PKX), Chengdu (TFU/CTU), Shanghai (PVG/SHA), Guangzhou (CAN).
+- Note: Our medical services are currently focused in Beijing and Chengdu.
+
+## 4. PAYMENT METHODS
+- We support PayPal, Alipay, and WeChat Pay only.
+- Do not mention bank transfer or other payment methods unless explicitly provided by operations.
+- Alipay/WeChat Pay setup: download the app, sign up with a foreign phone number, link Visa/Mastercard/Amex.
+- Fees: transactions under 200 RMB are usually free; over 200 RMB typically incur a 3% fee from the provider.
+- Payment details are provided after consultation and plan confirmation.
+
+### Payment Answer Template (Strict)
+When asked about payment methods, answer:
+“We accept **PayPal, Alipay, and WeChat Pay** only. We do not offer bank transfers, credit cards, or cash payments at this time.”
+
+### Page Links (Use When Relevant)
+When a user asks a topic-related question, include the most relevant page link at the end of the reply:
+- Payments / PayPal / Alipay / WeChat Pay → https://chinamedicaltour.org/how-to-pay
+- Payment flow / checkout → https://chinamedicaltour.org/payment
+- Health screening / checkups → https://chinamedicaltour.org/health-screening
+- TCM / acupuncture / wellness → https://chinamedicaltour.org/tcm-wellness
+- Specialized care (dental, ophthalmology, ortho, aesthetics) → https://chinamedicaltour.org/specialized-care
+- Concierge services / green channel / interpretation / airport pickup → https://chinamedicaltour.org/concierge-services
+- Patient stories / testimonials → https://chinamedicaltour.org/stories
+- About / mission / team → https://chinamedicaltour.org/about
+- Contact / consultation → https://chinamedicaltour.org/contact
+- Savings / cost comparison → https://chinamedicaltour.org/savings-calculator
+
+If multiple pages apply, choose the single best match. If no clear match, do not add a link.
+
+## 5. SAFETY & QUALITY
+- China is widely regarded as safe for travelers; major cities are well-monitored and secure.
+- Partner hospitals are top-tier 3A institutions with modern equipment (MRI, CT, PET-CT).
+- We prioritize clear consent, privacy, and bilingual support when possible.
+
+## 6. FAQ & POLICIES
+
+### A. Travel Logistics
+- Medical packages cover the checkup or treatment only.
+- Flights, hotels, and local transportation are not included by default.
+- Concierge booking is available upon request.
+
+### B. Service Scope (Current)
+- We currently operate only in Beijing and Chengdu.
+- Do not claim services in Shanghai, Guangzhou, or other cities unless confirmed by the user.
+
+### C. Legacy Content (Do Not Use)
+- Do not describe Basic/Elite/VIP package tiers.
+- Do not mention Executive Vitality Pass or old membership registration pages.
+
+### B. Translation & Privacy
+- English interpretation is provided for core consultations.
+- In some VIP or sensitive areas, full accompaniment may be limited due to privacy policies.
+
+### C. Reports & Follow-up
+- English reports are typically delivered within 5-7 working days.
+- If follow-up treatment is needed, we can coordinate next steps depending on visa duration.
+
+### D. Medical Disclaimer
+- We provide logistics and care coordination.
+- We do not replace medical diagnosis by licensed clinicians.
+
+## 7. CONTACT
+- WhatsApp: +86 199 1038 5444
+- Email: info@chinamedicaltour.org
+- Consultation: https://chinamedicaltour.org/contact

@@ -1,54 +1,64 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "smart-cs-prod",
-  "main": "src/index.js",
-  "compatibility_date": "2025-01-01",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "observability": {
-    "enabled": true
-  },
-  "triggers": {
-    "crons": [
-      "0 3 * * *"
-    ]
-  },
-  "routes": [
-    {
-      "pattern": "api.chinamedicaltour.org/api/chat*",
-      "zone_name": "chinamedicaltour.org"
-    }
-  ],
-  "vectorize": [
-    {
-      "binding": "VECTORIZE_INDEX",
-      "index_name": "cmt-rag-index"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "R2_BUCKET",
-      "bucket_name": "cmt-rag-knowledge"
-    }
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "cmt-smart-cs-logs",
-      "database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
-    }
-  ],
-  // 默认环境 (Local/Dev)
-  "vars": {
-    "ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://sjiangtao2024.github.io",
-    "LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
-    "MODEL_NAME": "LongCat-Flash-Chat",
-    "MAX_TOKENS": 1200,
-    "TIMEOUT_MS": 10000,
-    "RAG_ENABLED": "true",
-    "RAG_TOP_K": 3,
-    "LOG_RETENTION_DAYS": 31,
-    "ENFORCE_ENGLISH": "true",
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "smart-cs-prod",
+	"main": "src/index.js",
+	"compatibility_date": "2025-01-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true
+	},
+	"triggers": {
+		"crons": [
+			"0 3 * * *"
+		]
+	},
+	"routes": [
+		{
+			"pattern": "api.chinamedicaltour.org/api/chat*",
+			"zone_name": "chinamedicaltour.org"
+		},
+		{
+			"pattern": "api.chinamedicaltour.org",
+			"zone_name": "chinamedicaltour.org",
+			"custom_domain": true
+		}
+	],
+	"vectorize": [
+		{
+			"binding": "VECTORIZE_INDEX",
+			"index_name": "cmt-rag-index"
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"r2_buckets": [
+		{
+			"binding": "R2_BUCKET",
+			"bucket_name": "cmt-rag-knowledge"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "cmt-smart-cs-logs",
+			"database_id": "3fef5d4f-d05d-4511-b81c-b2d0bde0a6a5"
+		}
+	],
+	// 默认环境 (Local/Dev)
+	"vars": {
+		"ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://sjiangtao2024.github.io,https://preview.chinamedicaltour.org",
+		"LONGCAT_API_ENDPOINT": "https://api.longcat.chat/openai/v1/chat/completions",
+		"MODEL_NAME": "LongCat-Flash-Chat",
+		"MAX_TOKENS": 1200,
+		"TIMEOUT_MS": 10000,
+		"RAG_ENABLED": "true",
+		"RAG_TOP_K": 6,
+		"LOG_RETENTION_DAYS": 31,
+		"ENFORCE_ENGLISH": "true",
+		"name": "TIMEOUT_MS",
+		"json": 10000,
+	}
 }
