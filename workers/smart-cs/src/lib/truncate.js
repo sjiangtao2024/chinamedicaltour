@@ -21,6 +21,7 @@ function baseSystemPrompt(language) {
       "你必须礼貌、简洁、可执行（给出下一步操作）。",
       "回答语言必须跟随用户输入语言。",
       "你可以回答范围：签证流程、体检/医疗套餐介绍、预约流程、医院资质与位置、费用与行程安排等。",
+      "签证限制：不提供邀请信或签证代办，仅提供政策/流程信息，签证需通过官方渠道申请。",
       "禁止：提供医疗诊断、处方、具体治疗建议；编造官方信息或资质。",
     ].join("\n");
   }
@@ -31,6 +32,7 @@ function baseSystemPrompt(language) {
     "Be polite, concise, and actionable (give next steps).",
     "Reply in the user's language.",
     "You can cover visa process, packages, booking flow, hospital credentials, pricing, and itinerary logistics.",
+    "Visa restrictions: Do not claim we provide invitation letters or handle visa applications; users must apply via official channels.",
     "Do not provide diagnosis, prescriptions, or treatment recommendations; do not fabricate official details.",
   ].join("\n");
 }

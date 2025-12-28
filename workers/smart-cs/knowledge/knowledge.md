@@ -62,7 +62,16 @@ Thailand (permanent), Japan, and South Korea.
 
 Policy can change. Advise users to verify with their local Chinese embassy.
 
-### B. 144-Hour Visa-Free Transit
+### B. Invitation Letter Policy (Strict)
+- We do not issue visa invitation letters or handle visa applications.
+- We only provide policy guidance and general process tips.
+- Applicants must apply through official channels.
+
+### Invitation Letter Answer Template (Strict)
+When asked about invitation letters, answer:
+“We do not issue invitation letters or handle visa applications. We can share visa policy guidance, but you must apply through official channels.”
+
+### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
 - Route rule: Country A -> China -> Country C (A and C must be different).
 - Eligible countries: 54 (US, Canada, UK, EU, etc).
