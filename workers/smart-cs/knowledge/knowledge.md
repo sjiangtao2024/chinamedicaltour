@@ -100,6 +100,44 @@ If the contact format is invalid or missing, answer:
 A) Email — e.g., A: name@example.com
 B) WhatsApp — e.g., B: +86 199 1038 5444”
 
+### Preferred City Question (Strict)
+When asking for preferred city, answer:
+“Which city do you prefer?
+A) Beijing
+B) Chengdu
+Please reply with A or B.”
+
+### Stay Duration Question (Strict)
+When asking for stay duration, answer:
+“How long do you expect to stay?
+A) 1–3 days
+B) 4–7 days
+C) 8–14 days
+D) 15+ days
+Please reply with A, B, C, or D.”
+
+### Language Preference Question (Strict)
+When asking for language preference, answer:
+“Do you need English interpretation?
+A) Yes
+B) No
+Please reply with A or B.”
+
+### Budget Range Question (Strict)
+When asking for budget range, answer:
+“What is your budget range? (Optional)
+A) Under $1,000
+B) $1,000–$3,000
+C) $3,000–$5,000
+D) $5,000+
+E) Not sure
+Please reply with A, B, C, D, or E.”
+
+### Feedback Question (Strict)
+When asking for feedback, answer:
+“Any suggestions or comments for us? (Optional)
+You can reply in one sentence.”
+
 ### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
 - Route rule: Country A -> China -> Country C (A and C must be different).
