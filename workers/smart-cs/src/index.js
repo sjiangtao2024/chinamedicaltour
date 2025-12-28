@@ -16,6 +16,7 @@ import { getRealtimeReply } from "./lib/realtime.js";
 import { collectSseText } from "./lib/sse-collector.js";
 import { parseExportParams } from "./lib/export.js";
 import { insertLead, normalizeLead } from "./lib/member-leads.js";
+import { nextLeadQuestion, shouldUseLeadFlow } from "./lib/lead-flow.js";
 import {
   buildLeadExtractionPrompt,
   isLeadComplete,
@@ -442,6 +443,97 @@ if (path === "/api/feedback") {
           },
         });
       }
+    }
+
+    const leadFlowActive = shouldUseLeadFlow({ lastUserText: userText, messages: rawMessages });
+    if (leadFlowActive) {
+      let lead = {};
+      let contactStatus = null;
+      const keyManager = createKeyManager({ env, cooldownMs: 60_000 });
+      const keySelection = keyManager.selectKeySlot();
+
+      if (keySelection) {
+        try {
+          const leadPrompt = buildLeadExtractionPrompt(rawMessages, null);
+          const leadUpstream = await fetchLongcatSse({
+            env,
+            requestId: `${requestId}_leadflow`,
+            key: keySelection.key,
+            timeoutMs: 10_000,
+            clientSignal: request.signal,
+            payload: {
+              messages: leadPrompt,
+              stream: true,
+              temperature: 0.2,
+              max_tokens: 300,
+            },
+          });
+          if (leadUpstream.ok && leadUpstream.body) {
+            const leadText = await collectSseText(leadUpstream.body, { maxChars: 1200 });
+            lead = parseLeadExtraction(leadText);
+          }
+        } catch {
+          lead = {};
+        }
+      }
+
+      if (lead?.contact) {
+        contactStatus = validateContact(lead.contact);
+      }
+
+      const nextStep = nextLeadQuestion({ lead, contactStatus });
+      const replyText = nextStep.text;
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        start(controller) {
+          controller.enqueue(
+            encoder.encode(serializeSseData({ choices: [{ delta: { content: replyText } }] })),
+          );
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+        },
+      });
+
+      logJson("info", {
+        request_id: requestId,
+        origin: origin || null,
+        path,
+        status: 200,
+        latency_ms: Date.now() - startMs,
+        key_slot: keySelection?.key_slot || null,
+        attempt: 0,
+        upstream_status: null,
+        error_code: "lead_flow_reply",
+        lead_step: nextStep.step,
+      });
+
+      if (env.DB) {
+        const sql = buildInsert();
+        const stmt = env.DB.prepare(sql).bind(
+          requestId,
+          userText,
+          replyText,
+          replyText,
+          null,
+          meta.page_url,
+          meta.page_context,
+          new Date().toISOString(),
+        );
+        ctx.waitUntil(stmt.run());
+      }
+
+      if (nextStep.step === "done" && contactStatus?.ok) {
+        ctx.waitUntil(sendLeadEmail({ env, lead, meta, requestId }));
+      }
+
+      return new Response(stream, {
+        status: 200,
+        headers: {
+          ...sseHeaders(),
+          ...(corsHeaders || {}),
+          "X-Request-Id": requestId,
+        },
+      });
     }
 
     const mergedSystemPrompt = shouldFallback(ragEnabled, ragChunks)
