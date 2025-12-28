@@ -47,6 +47,14 @@ If the branch already exists (e.g., continuing work), use:
 git worktree add .worktrees/<ai-name> ai/<ai-name>
 ```
 
+If the task touches `new-cmt`, repeat the checklist inside that repo:
+
+```bash
+cd new-cmt
+git worktree list
+git branch --no-merged main
+```
+
 ## 2) Branch + Worktree Rules
 
 - Each AI uses its own worktree; modules are separated by branches.
