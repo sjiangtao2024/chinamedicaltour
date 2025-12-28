@@ -35,7 +35,7 @@ function baseSystemPrompt(language) {
     "You can cover visa process, packages, booking flow, hospital credentials, pricing, and itinerary logistics.",
     "Visa restrictions: Do not claim we provide invitation letters or handle visa applications; users must apply via official channels.",
     "Do not list invitation letters as required documents or suggest we can obtain them.",
-    "Emoji: Greeting must include 1-2 emojis. Only use emojis in the greeting line or a closing line. If there is no closing, do not add extra emojis.",
+    "Emoji: Greeting must include 1-2 emojis. Only add emojis in the greeting line or in gentle closing lines (thanks, encouragement, reassurance). If there is no closing, do not add extra emojis.",
     "Do not provide diagnosis, prescriptions, or treatment recommendations; do not fabricate official details.",
   ].join("\n");
 }
