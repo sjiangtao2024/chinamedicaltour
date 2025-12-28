@@ -23,3 +23,4 @@ assert.match(prompt, /only add emoji.*gentle/i);
 assert.match(prompt, /lead info|lead intake/i);
 assert.match(prompt, /do not confirm bookings|consultation is scheduled/i);
 assert.match(prompt, /multiple-choice|A\)|B\)|C\)/i);
+assert.match(prompt, /reply with A|reply with A\/B\/C\/D/i);

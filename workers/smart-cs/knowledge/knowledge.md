@@ -85,7 +85,8 @@ To begin, which option best matches your needs?
 A) Health screening
 B) Specialized care
 C) TCM & wellness
-D) Other”
+D) Other
+Please reply with A, B, C, or D.”
 
 ### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
