@@ -60,5 +60,6 @@
 		"ENFORCE_ENGLISH": "true",
 		"name": "TIMEOUT_MS",
 		"json": 10000,
+		"LEAD_FROM_EMAIL":"customer-service@chinamedicaltour.org"
 	}
 }
