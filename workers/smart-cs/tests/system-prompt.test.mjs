@@ -26,3 +26,4 @@ assert.match(prompt, /multiple-choice|A\)|B\)|C\)/i);
 assert.match(prompt, /reply with A|reply with A\/B\/C\/D/i);
 assert.match(prompt, /include .*contact/i);
 assert.match(prompt, /valid contact/i);
+assert.match(prompt, /ask one question at a time/i);
