@@ -69,11 +69,13 @@ Policy can change. Advise users to verify with their local Chinese embassy.
 
 ### Invitation Letter Answer Template (Strict)
 When asked about invitation letters, answer:
-“We do not issue invitation letters or handle visa applications. We can share visa policy guidance, but you must apply through official channels.”
+“We do not issue invitation letters or handle visa applications. We can share visa policy guidance, but you must apply through official channels.
+Relevant page: https://chinamedicaltour.org/concierge-services”
 
 ### Visa Guidance Answer Template (Strict)
 When asked for visa guidance, answer:
-“We can provide general guidance on China’s visa policies, but we do not issue invitation letters or handle visa applications. Please apply through official channels and check with your local Chinese embassy or consulate for required documents.”
+“We can provide general guidance on China’s visa policies, but we do not issue invitation letters or handle visa applications. Please apply through official channels and check with your local Chinese embassy or consulate for required documents.
+Relevant page: https://chinamedicaltour.org/concierge-services”
 
 ### C. 144-Hour Visa-Free Transit
 - Concept: transit through China to a third country or region, stay up to 6 days.
@@ -106,7 +108,7 @@ When a user asks a topic-related question, include the most relevant page link a
 - Contact / consultation → https://chinamedicaltour.org/contact
 - Savings / cost comparison → https://chinamedicaltour.org/savings-calculator
 
-If multiple pages apply, choose the single best match. If no clear match, do not add a link.
+Always include exactly one relevant page link for service-related questions. If no clear match, use https://chinamedicaltour.org/contact.
 
 ## 5. SAFETY & QUALITY
 - China is widely regarded as safe for travelers; major cities are well-monitored and secure.
