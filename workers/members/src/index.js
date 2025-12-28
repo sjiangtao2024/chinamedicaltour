@@ -100,23 +100,35 @@ async function requireAuth(request, env) {
     return { ok: false, status: 401, error: "unauthorized" };
   }
 }
-function corsHeaders(request) {
-  const origin = request.headers.get("Origin") || "";
-  const allowed = new Set([
-    "https://chinamedicaltour.org",
-    "https://members.chinamedicaltour.org",
-  ]);
-  if (!allowed.has(origin)) {
-    return {};
-  }
-  return {
-    "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Access-Control-Max-Age": "86400",
-    Vary: "Origin",
-  };
-}
+function parseAllowedOrigins(env) {
+  const raw = env?.ALLOWED_ORIGINS || "";
+  const origins = raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+  if (origins.length > 0) {
+    return new Set(origins);
+  }
+  return new Set([
+    "https://chinamedicaltour.org",
+    "https://members.chinamedicaltour.org",
+  ]);
+}
+
+function corsHeaders(request, env) {
+  const origin = request.headers.get("Origin") || "";
+  const allowed = parseAllowedOrigins(env);
+  if (!allowed.has(origin)) {
+    return {};
+  }
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
 
 async function verifyTurnstile(request, env, token) {
   if (!env.TURNSTILE_SECRET) {
@@ -169,11 +181,11 @@ function matchProfilePath(pathname) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const respond = (status, payload) =>
-      jsonResponse(status, payload, corsHeaders(request));
+    const respond = (status, payload) =>
+      jsonResponse(status, payload, corsHeaders(request, env));
     try {
       if (request.method === "OPTIONS" && url.pathname.startsWith("/api/")) {
-        return new Response(null, { status: 204, headers: corsHeaders(request) });
+        return new Response(null, { status: 204, headers: corsHeaders(request, env) });
       }
 
       if (url.pathname === "/api/auth/start-email" && request.method === "POST") {
@@ -754,9 +766,9 @@ if (url.pathname === "/api/paypal/webhook" && request.method === "POST") {
     }
 
       if (url.pathname === "/health") {
-        return jsonResponse(200, { ok: true }, corsHeaders(request));
+        return jsonResponse(200, { ok: true }, corsHeaders(request, env));
       }
-      return jsonResponse(404, { error: "not_found" }, corsHeaders(request));
+      return jsonResponse(404, { error: "not_found" }, corsHeaders(request, env));
     } catch (error) {
       return respond(500, {
         ok: false,
