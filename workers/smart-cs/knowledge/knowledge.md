@@ -94,6 +94,9 @@ When asking for contact details, answer:
 A) Email — e.g., A: name@example.com
 B) WhatsApp — e.g., B: +86 199 1038 5444”
 
+### Contact Format Note (Strict)
+If the user sends only an email address or a WhatsApp number (without A/B), accept it.
+
 ### Contact Validation Follow-up (Strict)
 If the contact format is invalid or missing, answer:
 “Thanks! Please share a valid contact in one line:

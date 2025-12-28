@@ -14,3 +14,11 @@ assert.equal(badEmail.ok, false);
 
 const badWhatsApp = validateContact("B: 1234");
 assert.equal(badWhatsApp.ok, false);
+
+const rawEmail = validateContact("name@example.com");
+assert.equal(rawEmail.ok, true);
+assert.equal(rawEmail.type, "email");
+
+const rawPhone = validateContact("+86 199 1038 5444");
+assert.equal(rawPhone.ok, true);
+assert.equal(rawPhone.type, "whatsapp");

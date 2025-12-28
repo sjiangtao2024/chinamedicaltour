@@ -90,19 +90,28 @@ export function validateContact(raw) {
   const value = normalizeString(raw);
   if (!value) return { ok: false };
   const [prefix, rest] = value.split(":");
-  if (!rest) return { ok: false };
-  const label = prefix.trim().toUpperCase();
-  const contact = rest.trim();
-  if (label === "A") {
-    const isEmail = /.+@.+\..+/.test(contact);
-    return { ok: isEmail, type: "email", contact };
+  if (rest) {
+    const label = prefix.trim().toUpperCase();
+    const contact = rest.trim();
+    if (label === "A") {
+      const isEmail = /.+@.+\..+/.test(contact);
+      return { ok: isEmail, type: "email", contact };
+    }
+    if (label === "B") {
+      const digits = contact.replace(/[^0-9]/g, "");
+      const hasPlus = contact.includes("+");
+      const isPhone = hasPlus && digits.length >= 8;
+      return { ok: isPhone, type: "whatsapp", contact };
+    }
+    return { ok: false };
   }
-  if (label === "B") {
-    const digits = contact.replace(/[^0-9]/g, "");
-    const hasPlus = contact.includes("+");
-    const isPhone = hasPlus && digits.length >= 8;
-    return { ok: isPhone, type: "whatsapp", contact };
-  }
+
+  const isEmail = /.+@.+\..+/.test(value);
+  if (isEmail) return { ok: true, type: "email", contact: value };
+  const digits = value.replace(/[^0-9]/g, "");
+  const hasPlus = value.includes("+");
+  const isPhone = hasPlus && digits.length >= 8;
+  if (isPhone) return { ok: true, type: "whatsapp", contact: value };
   return { ok: false };
 }
 
