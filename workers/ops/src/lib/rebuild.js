@@ -28,3 +28,9 @@ export async function rebuildIndex({
   const result = await upsertVectors({ index, namespace, vectors });
   return { chunks: chunks.length, upserted: result.upserted };
 }
+
+export function resolveDeleteCount(previousCount, deleteUpTo) {
+  const prev = Number.isFinite(previousCount) ? previousCount : 0;
+  const cap = Number.isFinite(deleteUpTo) ? deleteUpTo : 0;
+  return Math.max(prev, cap);
+}

@@ -2,7 +2,7 @@ import { isValidToken } from "./lib/auth.js";
 import { parseUpload } from "./lib/upload.js";
 import { writeKnowledge, writeStatus, readStatus } from "./lib/r2.js";
 import { getUiHtml } from "./ui.js";
-import { rebuildIndex } from "./lib/rebuild.js";
+import { rebuildIndex, resolveDeleteCount } from "./lib/rebuild.js";
 
 function getBearerToken(request) {
   const header = request.headers.get("Authorization") || "";
@@ -85,6 +85,8 @@ export default {
       ctx.waitUntil(
         (async () => {
           try {
+            const deleteUpTo = Number(env.DELETE_UP_TO) || 500;
+            const deleteCount = resolveDeleteCount(previousStatus?.upserted, deleteUpTo);
             const result = await rebuildIndex({
               ai: env.AI,
               index: env.VECTORIZE_INDEX,
@@ -97,7 +99,7 @@ export default {
                 version_id: updatedAt,
                 source: "ops",
               },
-              previousCount: previousStatus?.upserted || 0,
+              previousCount: deleteCount,
             });
 
             await writeStatus({
