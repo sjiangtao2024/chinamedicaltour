@@ -10,3 +10,9 @@ const profileSql = fs.readFileSync(
   "utf8"
 );
 assert.ok(profileSql.includes("CREATE TABLE user_profiles"));
+
+const couponSql = fs.readFileSync(
+  "workers/members/migrations/0003_add_coupon_max_discount.sql",
+  "utf8"
+);
+assert.ok(couponSql.includes("ALTER TABLE coupons ADD COLUMN max_discount"));

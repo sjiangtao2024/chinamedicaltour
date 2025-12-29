@@ -1,4 +1,4 @@
-const ITERATIONS = 120000;
+const ITERATIONS = 100000;
 const KEYLEN = 32;
 
 function base64(bytes) {
