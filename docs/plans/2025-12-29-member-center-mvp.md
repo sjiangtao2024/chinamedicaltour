@@ -10,7 +10,7 @@ Provide a clear, lightweight member value surface that connects auth, profile co
   - Short benefit/entitlement list.
 - Auth flow changes:
   - Login: email + password + Turnstile.
-  - Registration: email verification (send/verify code) + profile fields + password + Turnstile.
+  - Registration: email verification (send/verify code) + password + confirm password + Turnstile.
   - Google OAuth login supported.
 - Post-auth redirect to member center.
 
@@ -41,7 +41,13 @@ Provide a clear, lightweight member value surface that connects auth, profile co
 
 ## Turnstile
 - Site key: `0x4AAAAAACI9tc3hGWz8MG8F`
-- Token required on email verification endpoints (start/verify) and login.
+- Token required on email verification start and login; registration flow reuses login with Turnstile after setting password.
+
+## Implementation Notes (2025-12-29)
+- Auth page uses a single Turnstile widget for both login and registration.
+- Registration now only captures email + verification code + password (confirm), profile collected later.
+- Header shows masked email after login and provides a sign out entry.
+- Member center remains the post-auth redirect destination.
 
 ## Success Criteria
 - Auth page no longer shows placeholder; Turnstile is functional.
