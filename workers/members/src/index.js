@@ -34,12 +34,13 @@ import {
   createPaypalOrder,
   verifyWebhookSignature,
 } from "./lib/paypal.js";
-import {
-  insertOrderProfile,
-  normalizeProfile,
-  updateUserFromProfile,
-  upsertUserProfile,
-} from "./lib/profile.js";
+import {
+  insertOrderProfile,
+  isProfileComplete,
+  normalizeProfile,
+  updateUserFromProfile,
+  upsertUserProfile,
+} from "./lib/profile.js";
 import { jsonResponse } from "./lib/response.js";
 import { buildLeadPayload, sendLead } from "./lib/smart-cs.js";
 const DEFAULT_GOOGLE_REDIRECT =
@@ -531,11 +532,11 @@ export default {
         callbackUrl.searchParams.set("code", loginCode);
         return Response.redirect(callbackUrl.toString(), 302);
       }
-      if (url.pathname === "/api/profile" && request.method === "POST") {
-        const auth = await requireAuth(request, env);
-        if (!auth.ok) {
-          return respond(auth.status, { ok: false, error: auth.error });
-        }
+      if (url.pathname === "/api/profile" && request.method === "POST") {
+        const auth = await requireAuth(request, env);
+        if (!auth.ok) {
+          return respond(auth.status, { ok: false, error: auth.error });
+        }
         const body = await readJson(request);
         const profile = normalizeProfile(body || {});
         let db;
@@ -552,8 +553,29 @@ export default {
         } catch (error) {
           console.log("smart_cs_sync_failed", error?.message || error);
         }
-        return respond(200, { ok: true, profile: saved });
-      }
+        return respond(200, { ok: true, profile: saved });
+      }
+      if (url.pathname === "/api/profile" && request.method === "GET") {
+        const auth = await requireAuth(request, env);
+        if (!auth.ok) {
+          return respond(auth.status, { ok: false, error: auth.error });
+        }
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+        const profile = await db
+          .prepare("SELECT * FROM user_profiles WHERE user_id = ?")
+          .bind(auth.userId)
+          .first();
+        return respond(200, {
+          ok: true,
+          profile: profile || null,
+          profile_required: !isProfileComplete(profile),
+        });
+      }
 if (url.pathname === "/api/orders" && request.method === "POST") {
         const auth = await requireAuth(request, env);
         if (!auth.ok) {

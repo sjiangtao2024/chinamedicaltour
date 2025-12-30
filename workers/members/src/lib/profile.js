@@ -15,6 +15,10 @@ export function normalizeProfile(input) {
   };
 }
 
+export function isProfileComplete(profile) {
+  return Boolean(profile?.user_id);
+}
+
 export async function insertOrderProfile(db, orderId, profile) {
   const id = crypto.randomUUID();
   const now = new Date().toISOString();
