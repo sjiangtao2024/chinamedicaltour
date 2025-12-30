@@ -17,7 +17,8 @@ import {
   upsertGoogleIdentity,
   upsertPasswordIdentity,
 } from "./lib/users.js";
-import { buildAuthUrl, exchangeCode } from "./lib/google-oauth.js";
+import { checkBearerToken, parseBearerToken } from "./lib/auth.js";
+import { buildAuthUrl, exchangeCode } from "./lib/google-oauth.js";
 import { applyCoupon, incrementCouponUsage, resolveCoupon } from "./lib/coupons.js";
 import {
   findOrderById,
@@ -83,8 +84,7 @@ function requireDb(env) {
 
 async function requireAuth(request, env) {
   const authHeader = request.headers.get("Authorization") || "";
-  const match = authHeader.match(/^Bearers+(.+)$/i);
-  const token = match ? match[1] : "";
+  const token = parseBearerToken(authHeader);
   if (!token) {
     return { ok: false, status: 401, error: "unauthorized" };
   }
@@ -442,19 +442,31 @@ export default {
         const token = await createSessionToken({ userId }, env.JWT_SECRET);
         return respond(200, { ok: true, token });
       }
-      if (url.pathname === "/api/auth/session" && request.method === "POST") {
-        const body = await readJson(request);
-        const userId = body?.user_id ? String(body.user_id).trim() : "";
-        if (!userId) {
-          return respond(400, { ok: false, error: "user_id_required" });
+      if (url.pathname === "/api/auth/session" && request.method === "POST") {
+        const body = await readJson(request);
+        const userId = body?.user_id ? String(body.user_id).trim() : "";
+        if (!userId) {
+          return respond(400, { ok: false, error: "user_id_required" });
         }
         const secret = env.JWT_SECRET;
         if (!secret) {
           return respond(500, { ok: false, error: "missing_jwt_secret" });
         }
-        const token = await createSessionToken({ userId }, secret);
-        return respond(200, { ok: true, token });
-      }
+        const token = await createSessionToken({ userId }, secret);
+        return respond(200, { ok: true, token });
+      }
+
+      if (url.pathname === "/api/auth/debug-token" && request.method === "GET") {
+        const authHeader = request.headers.get("Authorization") || "";
+        const result = await checkBearerToken(authHeader, env.JWT_SECRET);
+        if (!result.ok && result.error === "missing_secret") {
+          return respond(500, { ok: false, error: "missing_jwt_secret" });
+        }
+        if (!result.ok) {
+          return respond(401, { ok: false, error: result.error });
+        }
+        return respond(200, { ok: true, user_id: result.userId });
+      }
 
       if (url.pathname === "/api/auth/google" && request.method === "GET") {
         const state = generateState();
