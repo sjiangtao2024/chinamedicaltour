@@ -1,6 +1,7 @@
 import {
   findOrderById,
   findOrderByIdempotency,
+  findOpenOrderForUserItem,
   findOrderByUser,
   insertOrder,
   listOrdersByUser,
@@ -99,6 +100,25 @@ export async function handleOrders({ request, env, url, respond }) {
       refChannel: input.refChannel,
     });
     const amounts = applyCoupon(input.amountOriginal, coupon);
+    const openOrder = await findOpenOrderForUserItem(
+      db,
+      auth.userId,
+      input.itemType,
+      input.itemId
+    );
+    if (openOrder) {
+      const matchesCoupon = (openOrder.coupon_id || null) === (coupon?.id || null);
+      const matchesAmounts =
+        Number(openOrder.amount_original) === amounts.original &&
+        Number(openOrder.discount_amount) === amounts.discount &&
+        Number(openOrder.amount_paid) === amounts.paid;
+      const matchesCurrency = String(openOrder.currency) === String(input.currency);
+      const matchesRef = String(openOrder.ref_channel || "") === String(input.refChannel || "");
+
+      if (matchesCoupon && matchesAmounts && matchesCurrency && matchesRef) {
+        return respond(200, { ok: true, order: openOrder, reused: true });
+      }
+    }
 
     const order = await insertOrder(db, {
       userId: auth.userId,

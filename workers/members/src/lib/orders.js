@@ -5,9 +5,21 @@
     .first();
 }
 
-export async function findOrderById(db, orderId) {
-  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
-}
+export async function findOrderById(db, orderId) {
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
+
+export async function findOpenOrderForUserItem(db, userId, itemType, itemId) {
+  if (!db || !userId || !itemType || !itemId) {
+    return null;
+  }
+  return db
+    .prepare(
+      "SELECT * FROM orders WHERE user_id = ? AND item_type = ? AND item_id = ? AND status IN ('created','awaiting_payment','awaiting_capture') ORDER BY created_at DESC LIMIT 1"
+    )
+    .bind(userId, itemType, itemId)
+    .first();
+}
 
 export async function insertOrder(db, data) {
   const now = new Date().toISOString();
