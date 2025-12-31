@@ -26,6 +26,7 @@ import {
   findOrderByUser,
   insertOrder,
   listOrdersByUser,
+  markPaidOrdersProfileCompleted,
   normalizeOrderInput,
   requireProfile,
   toOrderSummary,
@@ -542,8 +543,11 @@ export default {
         } catch (error) {
           return respond(500, { ok: false, error: "missing_db" });
         }
-        const saved = await upsertUserProfile(db, auth.userId, profile);
-        await updateUserFromProfile(db, auth.userId, profile);
+        const saved = await upsertUserProfile(db, auth.userId, profile);
+        await updateUserFromProfile(db, auth.userId, profile);
+        if (isProfileComplete(saved)) {
+          await markPaidOrdersProfileCompleted(db, auth.userId);
+        }
         try {
           const lead = buildLeadPayload({ ...profile, user_id: auth.userId });
           await sendLead(env, lead);

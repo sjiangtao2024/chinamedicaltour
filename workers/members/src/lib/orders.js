@@ -113,6 +113,14 @@ export async function findOrderByUser(db, orderId, userId) {
     .bind(orderId, userId)
     .first();
 }
+
+export async function markPaidOrdersProfileCompleted(db, userId) {
+  const now = new Date().toISOString();
+  return db
+    .prepare("UPDATE orders SET status = ?, updated_at = ? WHERE user_id = ? AND status = ?")
+    .bind("paid", now, userId, "paid_pending_profile")
+    .run();
+}
 export async function requireProfile(db, userId) {
   if (!db || !userId) {
     throw new Error("missing_profile");
