@@ -10,6 +10,44 @@ export async function isAdminUser(db, userId) {
   return Boolean(admin);
 }
 
+export async function listAdminOrders(db, { status, userId, from, to, limit = 50 }) {
+  if (!db) {
+    return { results: [] };
+  }
+  const conditions = [];
+  const params = [];
+  if (status) {
+    conditions.push("orders.status = ?");
+    params.push(status);
+  }
+  if (userId) {
+    conditions.push("orders.user_id = ?");
+    params.push(userId);
+  }
+  if (from) {
+    conditions.push("orders.created_at >= ?");
+    params.push(from);
+  }
+  if (to) {
+    conditions.push("orders.created_at <= ?");
+    params.push(to);
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+  const query =
+    "SELECT orders.id, orders.user_id, orders.item_type, orders.item_id, orders.amount_paid, orders.currency, " +
+    "orders.status, orders.created_at, orders.paypal_order_id, orders.paypal_capture_id, " +
+    "COALESCE(user_profiles.name, users.name) AS user_name, " +
+    "COALESCE(user_profiles.email, users.email) AS user_email " +
+    "FROM orders " +
+    "LEFT JOIN users ON orders.user_id = users.id " +
+    "LEFT JOIN user_profiles ON orders.user_id = user_profiles.user_id " +
+    where +
+    " ORDER BY orders.created_at DESC LIMIT ?";
+
+  return db.prepare(query).bind(...params, limit).all();
+}
+
 export function reconcilePaypalTransactions(orders, transactions) {
   const orderList = Array.isArray(orders) ? orders : [];
   const transactionList = Array.isArray(transactions) ? transactions : [];

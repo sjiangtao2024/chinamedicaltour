@@ -1,6 +1,6 @@
 import { findOrderById, updateOrderStatus } from "../lib/orders.js";
 import { listPaypalTransactions } from "../lib/paypal.js";
-import { reconcilePaypalTransactions } from "../lib/admin.js";
+import { listAdminOrders, reconcilePaypalTransactions } from "../lib/admin.js";
 import { requireAdmin, requireDb, readJson } from "../lib/request.js";
 
 export async function handleAdmin({ request, env, url, respond }) {
@@ -39,39 +39,30 @@ export async function handleAdmin({ request, env, url, respond }) {
     const limitRaw = Number(url.searchParams.get("limit") || 50);
     const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;
 
-    const conditions = [];
-    const params = [];
-    if (status) {
-      conditions.push("status = ?");
-      params.push(status);
-    }
-    if (userId) {
-      conditions.push("user_id = ?");
-      params.push(userId);
-    }
+    let fromIso = "";
     if (from) {
       const fromDate = new Date(from);
       if (Number.isNaN(fromDate.getTime())) {
         return respond(400, { ok: false, error: "invalid_from" });
       }
-      conditions.push("created_at >= ?");
-      params.push(fromDate.toISOString());
+      fromIso = fromDate.toISOString();
     }
+    let toIso = "";
     if (to) {
       const toDate = new Date(to);
       if (Number.isNaN(toDate.getTime())) {
         return respond(400, { ok: false, error: "invalid_to" });
       }
-      conditions.push("created_at <= ?");
-      params.push(toDate.toISOString());
+      toIso = toDate.toISOString();
     }
 
-    const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
-    const query =
-      "SELECT id, user_id, item_type, item_id, amount_paid, currency, status, created_at, paypal_order_id, paypal_capture_id FROM orders " +
-      where +
-      " ORDER BY created_at DESC LIMIT ?";
-    const { results } = await db.prepare(query).bind(...params, limit).all();
+    const { results } = await listAdminOrders(db, {
+      status,
+      userId,
+      from: fromIso || "",
+      to: toIso || "",
+      limit,
+    });
     return respond(200, { ok: true, orders: results || [] });
   }
 
