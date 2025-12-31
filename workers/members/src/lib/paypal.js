@@ -29,6 +29,19 @@ export function buildOrderPayload({ amount, currency, customId, returnUrl, cance
   return payload;
 }
 
+export function buildTransactionSearchParams({ startDate, endDate }) {
+  const params = new URLSearchParams();
+  if (startDate) {
+    params.set("start_date", startDate);
+  }
+  if (endDate) {
+    params.set("end_date", endDate);
+  }
+  params.set("fields", "transaction_info");
+  params.set("page_size", "100");
+  return params;
+}
+
 async function getAccessToken({ clientId, secret }) {
   const auth = Buffer.from(clientId + ":" + secret).toString("base64");
   const res = await fetch(SANDBOX_BASE + "/v1/oauth2/token", {
@@ -82,6 +95,25 @@ export async function capturePaypalOrder({ clientId, secret, orderId }) {
   if (!res.ok) {
     const text = await res.text();
     throw new Error("paypal_capture_error:" + res.status + ":" + text);
+  }
+
+  return res.json();
+}
+
+export async function listPaypalTransactions({ clientId, secret, startDate, endDate }) {
+  const token = await getAccessToken({ clientId, secret });
+  const params = buildTransactionSearchParams({ startDate, endDate });
+  const res = await fetch(SANDBOX_BASE + "/v1/reporting/transactions?" + params.toString(), {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error("paypal_report_error:" + res.status + ":" + text);
   }
 
   return res.json();

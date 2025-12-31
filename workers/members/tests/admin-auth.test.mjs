@@ -1,6 +1,24 @@
 import assert from "node:assert/strict";
-import { isAdminAuthorized } from "../src/lib/admin.js";
+import { isAdminUser } from "../src/lib/admin.js";
 
-assert.equal(isAdminAuthorized("", "token-1"), false);
-assert.equal(isAdminAuthorized("Bearer token-1", "token-1"), true);
-assert.equal(isAdminAuthorized("Bearer token-2", "token-1"), false);
+const fakeDb = {
+  prepare() {
+    return {
+      bind(userId) {
+        return {
+          async first() {
+            if (userId === "user-1") {
+              return { user_id: "user-1", role: "admin" };
+            }
+            return null;
+          },
+        };
+      },
+    };
+  },
+};
+
+assert.equal(await isAdminUser(fakeDb, "user-1"), true);
+assert.equal(await isAdminUser(fakeDb, "user-2"), false);
+assert.equal(await isAdminUser(null, "user-1"), false);
+assert.equal(await isAdminUser(fakeDb, ""), false);

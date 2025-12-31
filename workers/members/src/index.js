@@ -33,11 +33,12 @@ import {
   updateOrderPayment,
   updateOrderStatus,
 } from "./lib/orders.js";
-import {
-  capturePaypalOrder,
-  createPaypalOrder,
-  verifyWebhookSignature,
-} from "./lib/paypal.js";
+import {
+  capturePaypalOrder,
+  createPaypalOrder,
+  listPaypalTransactions,
+  verifyWebhookSignature,
+} from "./lib/paypal.js";
 import {
   insertOrderProfile,
   isProfileComplete,
@@ -47,7 +48,7 @@ import {
 } from "./lib/profile.js";
 import { jsonResponse } from "./lib/response.js";
 import { buildLeadPayload, sendLead } from "./lib/smart-cs.js";
-import { isAdminAuthorized } from "./lib/admin.js";
+import { findAdminUser, reconcilePaypalTransactions } from "./lib/admin.js";
 import { requireTurnstileToken, verifyTurnstile } from "./lib/turnstile.js";
 const DEFAULT_GOOGLE_REDIRECT =
   "https://chinamedicaltour.org/api/auth/google/callback";
@@ -107,16 +108,22 @@ async function requireAuth(request, env) {
     return { ok: false, status: 401, error: "unauthorized" };
   }
 }
-function requireAdmin(request, env) {
-  const adminToken = env?.ADMIN_TOKEN;
-  if (!adminToken) {
-    return { ok: false, status: 500, error: "missing_admin_token" };
+async function requireAdmin(request, env) {
+  const auth = await requireAuth(request, env);
+  if (!auth.ok) {
+    return auth;
   }
-  const authHeader = request.headers.get("Authorization") || "";
-  if (!isAdminAuthorized(authHeader, adminToken)) {
-    return { ok: false, status: 401, error: "unauthorized" };
+  let db;
+  try {
+    db = requireDb(env);
+  } catch (error) {
+    return { ok: false, status: 500, error: "missing_db" };
   }
-  return { ok: true };
+  const admin = await findAdminUser(db, auth.userId);
+  if (!admin) {
+    return { ok: false, status: 403, error: "forbidden" };
+  }
+  return { ok: true, userId: auth.userId, admin };
 }
 function parseAllowedOrigins(env) {
   const raw = env?.ALLOWED_ORIGINS || "";
@@ -129,6 +136,7 @@ function parseAllowedOrigins(env) {
   }
   return new Set([
     "https://chinamedicaltour.org",
+    "https://admin.chinamedicaltour.org",
     "https://members.chinamedicaltour.org",
   ]);
 }
@@ -141,7 +149,7 @@ function corsHeaders(request, env) {
   }
   return {
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Methods": "GET,POST,PATCH,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
@@ -577,8 +585,166 @@ export default {
           profile_required: !isProfileComplete(profile),
         });
       }
+      if (url.pathname === "/api/admin/me" && request.method === "GET") {
+        const admin = await requireAdmin(request, env);
+        if (!admin.ok) {
+          return respond(admin.status, { ok: false, error: admin.error });
+        }
+        return respond(200, {
+          ok: true,
+          user_id: admin.userId,
+          role: admin.admin?.role || "admin",
+        });
+      }
+      if (url.pathname === "/api/admin/orders" && request.method === "GET") {
+        const admin = await requireAdmin(request, env);
+        if (!admin.ok) {
+          return respond(admin.status, { ok: false, error: admin.error });
+        }
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+
+        const status = url.searchParams.get("status")?.trim();
+        const userId = url.searchParams.get("user_id")?.trim();
+        const from = url.searchParams.get("from")?.trim();
+        const to = url.searchParams.get("to")?.trim();
+        const limitRaw = Number(url.searchParams.get("limit") || 50);
+        const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;
+
+        const conditions = [];
+        const params = [];
+        if (status) {
+          conditions.push("status = ?");
+          params.push(status);
+        }
+        if (userId) {
+          conditions.push("user_id = ?");
+          params.push(userId);
+        }
+        if (from) {
+          const fromDate = new Date(from);
+          if (Number.isNaN(fromDate.getTime())) {
+            return respond(400, { ok: false, error: "invalid_from" });
+          }
+          conditions.push("created_at >= ?");
+          params.push(fromDate.toISOString());
+        }
+        if (to) {
+          const toDate = new Date(to);
+          if (Number.isNaN(toDate.getTime())) {
+            return respond(400, { ok: false, error: "invalid_to" });
+          }
+          conditions.push("created_at <= ?");
+          params.push(toDate.toISOString());
+        }
+
+        const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+        const query =
+          "SELECT id, user_id, item_type, item_id, amount_paid, currency, status, created_at, paypal_order_id, paypal_capture_id FROM orders " +
+          where +
+          " ORDER BY created_at DESC LIMIT ?";
+        const { results } = await db.prepare(query).bind(...params, limit).all();
+        return respond(200, { ok: true, orders: results || [] });
+      }
+      const adminOrderMatch = url.pathname.match(/^\/api\/admin\/orders\/([^/]+)$/);
+      if (adminOrderMatch && request.method === "GET") {
+        const admin = await requireAdmin(request, env);
+        if (!admin.ok) {
+          return respond(admin.status, { ok: false, error: admin.error });
+        }
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+        const orderId = adminOrderMatch[1];
+        const order = await findOrderById(db, orderId);
+        if (!order) {
+          return respond(404, { ok: false, error: "order_not_found" });
+        }
+        return respond(200, { ok: true, order });
+      }
+      if (adminOrderMatch && request.method === "PATCH") {
+        const admin = await requireAdmin(request, env);
+        if (!admin.ok) {
+          return respond(admin.status, { ok: false, error: admin.error });
+        }
+        const body = await readJson(request);
+        const status = body?.status ? String(body.status).trim() : "";
+        if (!status) {
+          return respond(400, { ok: false, error: "status_required" });
+        }
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+        const orderId = adminOrderMatch[1];
+        const updated = await updateOrderStatus(db, orderId, status);
+        if (!updated) {
+          return respond(404, { ok: false, error: "order_not_found" });
+        }
+        return respond(200, { ok: true, order: updated });
+      }
+      if (url.pathname === "/api/admin/payments" && request.method === "GET") {
+        const admin = await requireAdmin(request, env);
+        if (!admin.ok) {
+          return respond(admin.status, { ok: false, error: admin.error });
+        }
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+        if (!env.PAYPAL_CLIENT_ID || !env.PAYPAL_SECRET) {
+          return respond(500, { ok: false, error: "missing_paypal_credentials" });
+        }
+
+        const now = new Date();
+        const defaultFrom = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        const from = url.searchParams.get("from") || defaultFrom.toISOString();
+        const to = url.searchParams.get("to") || now.toISOString();
+        const fromDate = new Date(from);
+        const toDate = new Date(to);
+        if (Number.isNaN(fromDate.getTime())) {
+          return respond(400, { ok: false, error: "invalid_from" });
+        }
+        if (Number.isNaN(toDate.getTime())) {
+          return respond(400, { ok: false, error: "invalid_to" });
+        }
+
+        const { results } = await db
+          .prepare("SELECT * FROM orders WHERE created_at >= ? AND created_at <= ? ORDER BY created_at DESC")
+          .bind(fromDate.toISOString(), toDate.toISOString())
+          .all();
+        const orders = results || [];
+        const paypalReport = await listPaypalTransactions({
+          clientId: env.PAYPAL_CLIENT_ID,
+          secret: env.PAYPAL_SECRET,
+          startDate: fromDate.toISOString(),
+          endDate: toDate.toISOString(),
+        });
+        const transactions = paypalReport?.transaction_details || [];
+        const reconciliation = reconcilePaypalTransactions(orders, transactions);
+
+        return respond(200, {
+          ok: true,
+          orders,
+          paypal: {
+            transactions,
+          },
+          reconciliation,
+        });
+      }
       if (url.pathname === "/api/admin/coupons" && request.method === "POST") {
-        const admin = requireAdmin(request, env);
+        const admin = await requireAdmin(request, env);
         if (!admin.ok) {
           return respond(admin.status, { ok: false, error: admin.error });
         }
