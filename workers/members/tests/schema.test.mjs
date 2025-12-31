@@ -16,3 +16,9 @@ const couponSql = fs.readFileSync(
   "utf8"
 );
 assert.ok(couponSql.includes("ALTER TABLE coupons ADD COLUMN max_discount"));
+
+const adminSql = fs.readFileSync(
+  "workers/members/migrations/0004_add_admin_users.sql",
+  "utf8"
+);
+assert.ok(adminSql.includes("CREATE TABLE admin_users"));
