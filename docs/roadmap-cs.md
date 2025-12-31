@@ -46,3 +46,4 @@
 ## Upgrade 2025 Payments
 - docs/upgrade-2025-payments/design.md
 - docs/upgrade-2025-payments/deployment.md
+- docs/upgrade-2025-payments/members-api.md
