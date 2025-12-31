@@ -37,6 +37,8 @@
 - `coupons`：code、type(fixed/percent)、value、ref_channel、scope、valid_from、valid_to、usage_limit、used_count
 
 ## 核心 API（workers/members）
+完整清单见：`docs/upgrade-2025-payments/members-api.md`
+
 认证/验证：
 - `POST /api/auth/start-email` 发送验证码
 - `POST /api/auth/verify-email` 验证邮箱有效性（注册流程）
