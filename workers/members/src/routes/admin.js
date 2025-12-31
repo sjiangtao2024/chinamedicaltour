@@ -174,6 +174,39 @@ export async function handleAdmin({ request, env, url, respond }) {
     });
   }
 
+  if (url.pathname === "/api/admin/coupons" && request.method === "GET") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const limitRaw = Number(url.searchParams.get("limit") || 50);
+    const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;
+    const offsetRaw = Number(url.searchParams.get("offset") || 0);
+    const offset = Number.isFinite(offsetRaw) ? Math.max(offsetRaw, 0) : 0;
+
+    const totalRow = await db.prepare("SELECT COUNT(*) as count FROM coupons").first();
+    const total = Number(totalRow?.count || 0);
+    const { results } = await db
+      .prepare(
+        "SELECT id, code, type, value, ref_channel, scope, valid_from, valid_to, usage_limit, used_count, max_discount, issuer_name, issuer_contact, created_at FROM coupons ORDER BY created_at DESC LIMIT ? OFFSET ?"
+      )
+      .bind(limit, offset)
+      .all();
+
+    return respond(200, {
+      ok: true,
+      coupons: results || [],
+      meta: { total, limit, offset },
+    });
+  }
+
   if (url.pathname === "/api/admin/coupons" && request.method === "POST") {
     const admin = await requireAdmin(request, env);
     if (!admin.ok) {
@@ -188,6 +221,14 @@ export async function handleAdmin({ request, env, url, respond }) {
     const refChannel = body?.ref_channel ? String(body.ref_channel).trim() : "";
     if (!refChannel) {
       return respond(400, { ok: false, error: "ref_channel_required" });
+    }
+    const issuerName = body?.issuer_name ? String(body.issuer_name).trim() : "";
+    if (!issuerName) {
+      return respond(400, { ok: false, error: "issuer_name_required" });
+    }
+    const issuerContact = body?.issuer_contact ? String(body.issuer_contact).trim() : "";
+    if (!issuerContact) {
+      return respond(400, { ok: false, error: "issuer_contact_required" });
     }
     const type = body?.type ? String(body.type).trim().toLowerCase() : "percent";
     if (!["percent", "fixed"].includes(type)) {
@@ -250,7 +291,7 @@ export async function handleAdmin({ request, env, url, respond }) {
     const createdAt = now.toISOString();
     await db
       .prepare(
-        "INSERT INTO coupons (id, code, type, value, ref_channel, scope, valid_from, valid_to, usage_limit, used_count, max_discount, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        "INSERT INTO coupons (id, code, type, value, ref_channel, scope, valid_from, valid_to, usage_limit, used_count, max_discount, issuer_name, issuer_contact, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
       )
       .bind(
         id,
@@ -264,6 +305,8 @@ export async function handleAdmin({ request, env, url, respond }) {
         Math.round(usageLimit),
         0,
         type === "percent" ? (maxDiscount != null ? Math.round(maxDiscount) : null) : null,
+        issuerName,
+        issuerContact,
         createdAt
       )
       .run();
@@ -282,6 +325,8 @@ export async function handleAdmin({ request, env, url, respond }) {
         usage_limit: Math.round(usageLimit),
         used_count: 0,
         max_discount: type === "percent" ? (maxDiscount != null ? Math.round(maxDiscount) : null) : null,
+        issuer_name: issuerName,
+        issuer_contact: issuerContact,
         created_at: createdAt,
       },
     });

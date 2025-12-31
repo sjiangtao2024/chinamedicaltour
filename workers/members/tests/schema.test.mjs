@@ -11,6 +11,13 @@ const profileSql = fs.readFileSync(
 );
 assert.ok(profileSql.includes("CREATE TABLE user_profiles"));
 
+const couponIssuerSql = fs.readFileSync(
+  "workers/members/migrations/0005_add_coupon_issuer.sql",
+  "utf8"
+);
+assert.ok(couponIssuerSql.includes("issuer_name"));
+assert.ok(couponIssuerSql.includes("issuer_contact"));
+
 const couponSql = fs.readFileSync(
   "workers/members/migrations/0003_add_coupon_max_discount.sql",
   "utf8"
