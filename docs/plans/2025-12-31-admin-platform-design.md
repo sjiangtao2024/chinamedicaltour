@@ -4,7 +4,7 @@
 Build an admin management platform as protected routes inside the existing `new-cmt` front-end, served at `admin.chinamedicaltour.org`, backed by members worker APIs under `/api/admin/*`. Admin access is controlled by a new `admin_users` table and role checks in the members worker.
 
 ## Architecture
-- **Front-end**: `new-cmt` (same deployment as preview). New routes under `/admin`, `/admin/orders`, `/admin/orders/:id`, `/admin/payments`.
+- **Front-end**: `new-cmt` (same deployment as preview). New routes under `/admin`, `/admin/orders`, `/admin/orders/:id`, `/admin/payments`, `/admin/coupons`.
 - **Domain**: `admin.chinamedicaltour.org` mapped to `new-cmt` Pages project (additional custom domain).
 - **API**: `https://members.chinamedicaltour.org/api/...`.
 - **Auth**: reuse existing login; admin role check via `admin_users` table.
@@ -28,6 +28,7 @@ Build an admin management platform as protected routes inside the existing `new-
 2. `/admin/orders` - order list + filters
 3. `/admin/orders/:id` - order details + status update
 4. `/admin/payments` - payment reconciliation view
+5. `/admin/coupons` - coupon list + creation form
 
 ### APIs (members worker)
 - `GET /api/admin/me`
@@ -36,6 +37,8 @@ Build an admin management platform as protected routes inside the existing `new-
 - `PATCH /api/admin/orders/:id` (update status)
 - `GET /api/admin/payments?from&to`:
   - returns system orders + PayPal transactions + reconciliation summary
+- `GET /api/admin/coupons`
+- `POST /api/admin/coupons` (requires `issuer_name`, `issuer_contact`)
 
 ## Reconciliation (PayPal + Orders)
 - Match by `paypal_capture_id` or `paypal_order_id`.
@@ -44,10 +47,17 @@ Build an admin management platform as protected routes inside the existing `new-
   - `order_missing_paypal`
   - `paypal_missing_order`
 
+## Coupons (Marketing Attribution)
+- Store issuer attribution on coupons:
+  - `issuer_name` (marketing partner or influencer)
+  - `issuer_contact` (email/phone/social handle, free text)
+- Admin UI supports manual code input plus one-click code generation.
+
 ## MVP Scope
 1. Admin auth (`admin_users` + `/api/admin/me`)
 2. Orders list + detail + status update
 3. Payments reconciliation view (basic)
+4. Coupon creation + list (issuer attribution)
 
 ## Deferred
 - Advanced role levels (beyond admin)

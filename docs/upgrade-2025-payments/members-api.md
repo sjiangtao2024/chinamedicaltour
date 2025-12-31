@@ -73,5 +73,7 @@
   更新订单状态（需 `Authorization`）
 - `GET /api/admin/payments`  
   PayPal 对账查询（需 `Authorization`，支持 `from/to`）
+- `GET /api/admin/coupons`  
+  优惠券列表（需 `Authorization`，支持 `limit/offset`）
 - `POST /api/admin/coupons`  
-  创建优惠券（需 `Authorization`）
+  创建优惠券（需 `Authorization`，必填 `issuer_name`、`issuer_contact`）

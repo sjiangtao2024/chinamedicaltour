@@ -34,7 +34,7 @@
 - `auth_identities`：user_id、provider、google_sub、password_hash、email_verified_at
 - `orders`：user_id、item_type(package/deposit)、item_id、amount_original、discount_amount、amount_paid、currency、ref_channel、coupon_id、paypal_order_id、paypal_capture_id、status、created_at、updated_at
 - `user_profiles`：user_id、name、gender、birth_date、contact_info、companions、emergency_contact、email、checkup_date、created_at、updated_at
-- `coupons`：code、type(fixed/percent)、value、ref_channel、scope、valid_from、valid_to、usage_limit、used_count
+- `coupons`：code、type(fixed/percent)、value、ref_channel、scope、valid_from、valid_to、usage_limit、used_count、issuer_name、issuer_contact
 
 ## 核心 API（workers/members）
 完整清单见：`docs/upgrade-2025-payments/members-api.md`
