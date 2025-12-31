@@ -20,15 +20,18 @@ import {
 import { checkBearerToken, parseBearerToken } from "./lib/auth.js";
 import { buildAuthUrl, exchangeCode } from "./lib/google-oauth.js";
 import { applyCoupon, incrementCouponUsage, resolveCoupon } from "./lib/coupons.js";
-import {
-  findOrderById,
-  findOrderByIdempotency,
-  insertOrder,
-  normalizeOrderInput,
-  requireProfile,
-  updateOrderPayment,
-  updateOrderStatus,
-} from "./lib/orders.js";
+import {
+  findOrderById,
+  findOrderByIdempotency,
+  findOrderByUser,
+  insertOrder,
+  listOrdersByUser,
+  normalizeOrderInput,
+  requireProfile,
+  toOrderSummary,
+  updateOrderPayment,
+  updateOrderStatus,
+} from "./lib/orders.js";
 import {
   capturePaypalOrder,
   createPaypalOrder,
@@ -682,11 +685,49 @@ export default {
           },
         });
       }
-if (url.pathname === "/api/orders" && request.method === "POST") {
-        const auth = await requireAuth(request, env);
-        if (!auth.ok) {
-          return respond(auth.status, { ok: false, error: auth.error });
-        }
+      if (url.pathname === "/api/orders" && request.method === "GET") {
+        const auth = await requireAuth(request, env);
+        if (!auth.ok) {
+          return respond(auth.status, { ok: false, error: auth.error });
+        }
+
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+
+        const { results } = await listOrdersByUser(db, auth.userId, 10);
+        const orders = (results || []).map(toOrderSummary).filter(Boolean);
+        return respond(200, { ok: true, orders });
+      }
+      const orderMatch = url.pathname.match(/^\/api\/orders\/([^/]+)$/);
+      if (orderMatch && request.method === "GET") {
+        const auth = await requireAuth(request, env);
+        if (!auth.ok) {
+          return respond(auth.status, { ok: false, error: auth.error });
+        }
+
+        let db;
+        try {
+          db = requireDb(env);
+        } catch (error) {
+          return respond(500, { ok: false, error: "missing_db" });
+        }
+
+        const orderId = orderMatch[1];
+        const order = await findOrderByUser(db, orderId, auth.userId);
+        if (!order) {
+          return respond(404, { ok: false, error: "order_not_found" });
+        }
+        return respond(200, { ok: true, order });
+      }
+      if (url.pathname === "/api/orders" && request.method === "POST") {
+        const auth = await requireAuth(request, env);
+        if (!auth.ok) {
+          return respond(auth.status, { ok: false, error: auth.error });
+        }
         const body = await readJson(request);
         const input = normalizeOrderInput(body || {});
         if (!input.idempotencyKey) {

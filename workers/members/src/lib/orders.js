@@ -72,15 +72,47 @@ export async function updateOrderPayment(db, orderId, updates) {
   return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
 }
 
-export async function updateOrderStatus(db, orderId, status) {
-  const now = new Date().toISOString();
-  await db
-    .prepare("UPDATE orders SET status = ?, updated_at = ? WHERE id = ?")
-    .bind(status, now, orderId)
-    .run();
-
-  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
-}
+export async function updateOrderStatus(db, orderId, status) {
+  const now = new Date().toISOString();
+  await db
+    .prepare("UPDATE orders SET status = ?, updated_at = ? WHERE id = ?")
+    .bind(status, now, orderId)
+    .run();
+
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
+
+export function toOrderSummary(order) {
+  if (!order) {
+    return null;
+  }
+  return {
+    id: order.id,
+    item_type: order.item_type,
+    item_id: order.item_id,
+    amount_paid: order.amount_paid,
+    currency: order.currency,
+    status: order.status,
+    created_at: order.created_at,
+  };
+}
+
+export async function listOrdersByUser(db, userId, limit = 10) {
+  const safeLimit = Number.isFinite(limit) ? Math.min(Math.max(limit, 1), 50) : 10;
+  return db
+    .prepare(
+      "SELECT id, item_type, item_id, amount_paid, currency, status, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC LIMIT ?"
+    )
+    .bind(userId, safeLimit)
+    .all();
+}
+
+export async function findOrderByUser(db, orderId, userId) {
+  return db
+    .prepare("SELECT * FROM orders WHERE id = ? AND user_id = ?")
+    .bind(orderId, userId)
+    .first();
+}
 export async function requireProfile(db, userId) {
   if (!db || !userId) {
     throw new Error("missing_profile");
