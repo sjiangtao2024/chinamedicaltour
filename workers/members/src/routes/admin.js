@@ -143,13 +143,24 @@ export async function handleAdmin({ request, env, url, respond }) {
       .bind(fromDate.toISOString(), toDate.toISOString())
       .all();
     const orders = results || [];
-    const paypalReport = await listPaypalTransactions({
-      clientId: env.PAYPAL_CLIENT_ID,
-      secret: env.PAYPAL_SECRET,
-      startDate: fromDate.toISOString(),
-      endDate: toDate.toISOString(),
-    });
-    const transactions = paypalReport?.transaction_details || [];
+    let transactions = [];
+    let paypalError = null;
+    try {
+      const paypalReport = await listPaypalTransactions({
+        clientId: env.PAYPAL_CLIENT_ID,
+        secret: env.PAYPAL_SECRET,
+        startDate: fromDate.toISOString(),
+        endDate: toDate.toISOString(),
+      });
+      transactions = paypalReport?.transaction_details || [];
+    } catch (error) {
+      const message = String(error?.message || "");
+      if (message.startsWith("paypal_report_error:403")) {
+        paypalError = "not_authorized";
+      } else {
+        return respond(502, { ok: false, error: "paypal_report_error" });
+      }
+    }
     const reconciliation = reconcilePaypalTransactions(orders, transactions);
 
     return respond(200, {
@@ -157,6 +168,7 @@ export async function handleAdmin({ request, env, url, respond }) {
       orders,
       paypal: {
         transactions,
+        error: paypalError,
       },
       reconciliation,
     });
