@@ -51,6 +51,10 @@
   创建订单（需 `Authorization`）
 - `GET /api/orders/:id`  
   获取订单详情（需 `Authorization`）
+- `POST /api/orders/:id/cancel`  
+  取消未支付订单（需 `Authorization`）
+- `POST /api/orders/:id/refund-request`  
+  提交退款申请（需 `Authorization`）
 - `POST /api/orders/:id/profile`  
   订单资料补充（当前不要求 JWT）
 
@@ -77,3 +81,7 @@
   优惠券列表（需 `Authorization`，支持 `limit/offset`）
 - `POST /api/admin/coupons`  
   创建优惠券（需 `Authorization`，必填 `issuer_name`、`issuer_contact`）
+- `GET /api/admin/refund-requests`  
+  退款申请列表（需 `Authorization`）
+- `PATCH /api/admin/refund-requests/:id`  
+  处理退款申请（需 `Authorization`，status: approved/rejected/completed）

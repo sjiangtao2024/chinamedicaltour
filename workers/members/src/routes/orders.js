@@ -8,6 +8,8 @@ import {
   normalizeOrderInput,
   requireProfile,
   toOrderSummary,
+  expireOrderIfNeeded,
+  isOrderPaymentExpired,
   updateOrderStatus,
 } from "../lib/orders.js";
 import { applyCoupon, incrementCouponUsage, resolveCoupon } from "../lib/coupons.js";
@@ -16,6 +18,16 @@ import { requireAuth, requireDb, readJson } from "../lib/request.js";
 
 function matchProfilePath(pathname) {
   const match = pathname.match(/^\/api\/orders\/([^/]+)\/profile$/);
+  return match ? match[1] : null;
+}
+
+function matchCancelPath(pathname) {
+  const match = pathname.match(/^\/api\/orders\/([^/]+)\/cancel$/);
+  return match ? match[1] : null;
+}
+
+function matchRefundPath(pathname) {
+  const match = pathname.match(/^\/api\/orders\/([^/]+)\/refund-request$/);
   return match ? match[1] : null;
 }
 
@@ -38,7 +50,10 @@ export async function handleOrders({ request, env, url, respond }) {
     }
 
     const { results } = await listOrdersByUser(db, auth.userId, 10);
-    const orders = (results || []).map(toOrderSummary).filter(Boolean);
+    const refreshed = await Promise.all(
+      (results || []).map((order) => expireOrderIfNeeded(db, order))
+    );
+    const orders = refreshed.map(toOrderSummary).filter(Boolean);
     return respond(200, { ok: true, orders });
   }
 
@@ -61,7 +76,8 @@ export async function handleOrders({ request, env, url, respond }) {
     if (!order) {
       return respond(404, { ok: false, error: "order_not_found" });
     }
-    return respond(200, { ok: true, order });
+    const refreshed = await expireOrderIfNeeded(db, order);
+    return respond(200, { ok: true, order: refreshed });
   }
 
   if (url.pathname === "/api/orders" && request.method === "POST") {
@@ -166,6 +182,98 @@ export async function handleOrders({ request, env, url, respond }) {
     await updateUserFromProfile(db, order.user_id, profile);
 
     return respond(200, { ok: true, profile: profileRow });
+  }
+
+  const cancelOrderId = matchCancelPath(url.pathname);
+  if (cancelOrderId && request.method === "POST") {
+    const auth = await requireAuth(request, env);
+    if (!auth.ok) {
+      return respond(auth.status, { ok: false, error: auth.error });
+    }
+
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const order = await findOrderByUser(db, cancelOrderId, auth.userId);
+    if (!order) {
+      return respond(404, { ok: false, error: "order_not_found" });
+    }
+    if (isOrderPaymentExpired(order)) {
+      await updateOrderStatus(db, order.id, "payment_expired");
+      return respond(400, { ok: false, error: "order_expired" });
+    }
+    if (!["created", "awaiting_payment"].includes(order.status)) {
+      return respond(400, { ok: false, error: "cancel_not_allowed" });
+    }
+    const updated = await updateOrderStatus(db, order.id, "cancelled");
+    return respond(200, { ok: true, order: updated });
+  }
+
+  const refundOrderId = matchRefundPath(url.pathname);
+  if (refundOrderId && request.method === "POST") {
+    const auth = await requireAuth(request, env);
+    if (!auth.ok) {
+      return respond(auth.status, { ok: false, error: auth.error });
+    }
+    const body = await readJson(request);
+    const reason = body?.reason ? String(body.reason).trim() : "";
+    if (!reason) {
+      return respond(400, { ok: false, error: "refund_reason_required" });
+    }
+
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const order = await findOrderByUser(db, refundOrderId, auth.userId);
+    if (!order) {
+      return respond(404, { ok: false, error: "order_not_found" });
+    }
+    if (!["paid", "paid_pending_profile"].includes(order.status)) {
+      return respond(400, { ok: false, error: "refund_not_allowed" });
+    }
+
+    const existing = await db
+      .prepare(
+        "SELECT * FROM refund_requests WHERE order_id = ? AND status IN ('pending','approved') LIMIT 1"
+      )
+      .bind(order.id)
+      .first();
+    if (existing) {
+      return respond(409, { ok: false, error: "refund_request_exists" });
+    }
+
+    const now = new Date().toISOString();
+    const refundId = crypto.randomUUID();
+    await db
+      .prepare(
+        "INSERT INTO refund_requests (id, order_id, user_id, reason, status, admin_note, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+      )
+      .bind(refundId, order.id, auth.userId, reason, "pending", null, now, now)
+      .run();
+
+    const updated = await updateOrderStatus(db, order.id, "refund_requested");
+    return respond(201, {
+      ok: true,
+      order: updated,
+      refund_request: {
+        id: refundId,
+        order_id: order.id,
+        user_id: auth.userId,
+        reason,
+        status: "pending",
+        admin_note: null,
+        created_at: now,
+        updated_at: now,
+      },
+    });
   }
 
   return null;

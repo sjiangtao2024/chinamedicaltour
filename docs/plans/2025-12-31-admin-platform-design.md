@@ -29,6 +29,7 @@ Build an admin management platform as protected routes inside the existing `new-
 3. `/admin/orders/:id` - order details + status update
 4. `/admin/payments` - payment reconciliation view
 5. `/admin/coupons` - coupon list + creation form
+6. Refund requests list (embedded in `/admin/orders`)
 
 ### APIs (members worker)
 - `GET /api/admin/me`
@@ -39,6 +40,8 @@ Build an admin management platform as protected routes inside the existing `new-
   - returns system orders + PayPal transactions + reconciliation summary
 - `GET /api/admin/coupons`
 - `POST /api/admin/coupons` (requires `issuer_name`, `issuer_contact`)
+- `GET /api/admin/refund-requests`
+- `PATCH /api/admin/refund-requests/:id`
 
 ## Reconciliation (PayPal + Orders)
 - Match by `paypal_capture_id` or `paypal_order_id`.

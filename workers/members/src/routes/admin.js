@@ -110,6 +110,86 @@ export async function handleAdmin({ request, env, url, respond }) {
     return respond(200, { ok: true, order: updated });
   }
 
+  if (url.pathname === "/api/admin/refund-requests" && request.method === "GET") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const limitRaw = Number(url.searchParams.get("limit") || 50);
+    const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;
+    const offsetRaw = Number(url.searchParams.get("offset") || 0);
+    const offset = Number.isFinite(offsetRaw) ? Math.max(offsetRaw, 0) : 0;
+
+    const { results } = await db
+      .prepare(
+        "SELECT id, order_id, user_id, reason, status, admin_note, created_at, updated_at FROM refund_requests ORDER BY created_at DESC LIMIT ? OFFSET ?"
+      )
+      .bind(limit, offset)
+      .all();
+
+    return respond(200, { ok: true, requests: results || [] });
+  }
+
+  const refundMatch = url.pathname.match(/^\/api\/admin\/refund-requests\/([^/]+)$/);
+  if (refundMatch && request.method === "PATCH") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    const body = await readJson(request);
+    const status = body?.status ? String(body.status).trim().toLowerCase() : "";
+    if (!status || !["approved", "rejected", "completed"].includes(status)) {
+      return respond(400, { ok: false, error: "invalid_status" });
+    }
+    const adminNote = body?.admin_note ? String(body.admin_note).trim() : null;
+
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const refundId = refundMatch[1];
+    const existing = await db
+      .prepare(
+        "SELECT id, order_id, user_id, reason, status, admin_note, created_at, updated_at FROM refund_requests WHERE id = ?"
+      )
+      .bind(refundId)
+      .first();
+    if (!existing) {
+      return respond(404, { ok: false, error: "refund_request_not_found" });
+    }
+
+    const now = new Date().toISOString();
+    await db
+      .prepare("UPDATE refund_requests SET status = ?, admin_note = ?, updated_at = ? WHERE id = ?")
+      .bind(status, adminNote, now, refundId)
+      .run();
+
+    const orderStatusMap = {
+      approved: "refund_approved",
+      rejected: "refund_rejected",
+      completed: "refunded",
+    };
+    const updatedOrder = await updateOrderStatus(db, existing.order_id, orderStatusMap[status]);
+    const updatedRequest = await db
+      .prepare(
+        "SELECT id, order_id, user_id, reason, status, admin_note, created_at, updated_at FROM refund_requests WHERE id = ?"
+      )
+      .bind(refundId)
+      .first();
+
+    return respond(200, { ok: true, request: updatedRequest, order: updatedOrder });
+  }
+
   if (url.pathname === "/api/admin/payments" && request.method === "GET") {
     const admin = await requireAdmin(request, env);
     if (!admin.ok) {

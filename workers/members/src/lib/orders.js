@@ -94,6 +94,34 @@ export async function updateOrderStatus(db, orderId, status) {
   return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
 }
 
+const PAYMENT_EXPIRY_MS = 2 * 60 * 60 * 1000;
+
+export function isOrderPaymentExpired(order, now = new Date()) {
+  if (!order?.created_at) {
+    return false;
+  }
+  const status = String(order.status || "");
+  if (!["created", "awaiting_payment"].includes(status)) {
+    return false;
+  }
+  const createdAt = new Date(order.created_at);
+  if (Number.isNaN(createdAt.getTime())) {
+    return false;
+  }
+  return now.getTime() - createdAt.getTime() >= PAYMENT_EXPIRY_MS;
+}
+
+export async function expireOrderIfNeeded(db, order, now = new Date()) {
+  if (!order || !db) {
+    return order;
+  }
+  if (!isOrderPaymentExpired(order, now)) {
+    return order;
+  }
+  const updated = await updateOrderStatus(db, order.id, "payment_expired");
+  return updated || { ...order, status: "payment_expired" };
+}
+
 export function toOrderSummary(order) {
   if (!order) {
     return null;

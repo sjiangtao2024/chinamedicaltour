@@ -29,3 +29,9 @@ const adminSql = fs.readFileSync(
   "utf8"
 );
 assert.ok(adminSql.includes("CREATE TABLE admin_users"));
+
+const refundSql = fs.readFileSync(
+  "workers/members/migrations/0006_add_refund_requests.sql",
+  "utf8"
+);
+assert.ok(refundSql.includes("CREATE TABLE refund_requests"));
