@@ -690,55 +690,123 @@ if (url.pathname === "/api/orders" && request.method === "POST") {
 
         return respond(200, { ok: true, order: updated, capture });
       }
-if (url.pathname === "/api/paypal/webhook" && request.method === "POST") {
-      const raw = await request.text();
-      let event;
-      try {
-        event = JSON.parse(raw);
-      } catch (error) {
-        return respond(400, { ok: false, error: "invalid_json" });
-      }
-
-      const verified = await verifyWebhookSignature({
-        clientId: env.PAYPAL_CLIENT_ID,
-        secret: env.PAYPAL_SECRET,
-        webhookId: env.PAYPAL_WEBHOOK_ID,
-        headers: request.headers,
-        body: event,
-      });
-
-      if (!verified) {
-        return respond(400, { ok: false, error: "invalid_signature" });
-      }
-
-      const resource = event.resource || {};
-      const customId = resource.custom_id;
-      if (customId) {
-        let db;
-        try {
-          db = requireDb(env);
-        } catch (error) {
-          return respond(500, { ok: false, error: "missing_db" });
-        }
-
-        if (event.event_type === "CHECKOUT.ORDER.APPROVED") {
-          await updateOrderPayment(db, customId, {
-            paypalOrderId: resource.id,
-            status: "awaiting_capture",
-          });
-        }
-        if (event.event_type === "PAYMENT.CAPTURE.COMPLETED") {
-          await updateOrderPayment(db, customId, {
-            paypalCaptureId: resource.id,
-            status: "paid_pending_profile",
-          });
-        }
-      }
-
-      return respond(200, { ok: true });
-    }
-
-    const profileOrderId = matchProfilePath(url.pathname);
+if (url.pathname === "/api/paypal/webhook" && request.method === "POST") {
+      const raw = await request.text();
+      let event;
+      try {
+        event = JSON.parse(raw);
+      } catch (error) {
+        return respond(400, { ok: false, error: "invalid_json" });
+      }
+
+      const verified = await verifyWebhookSignature({
+        clientId: env.PAYPAL_CLIENT_ID,
+        secret: env.PAYPAL_SECRET,
+        webhookId: env.PAYPAL_WEBHOOK_ID,
+        headers: request.headers,
+        body: event,
+      });
+
+      if (!verified) {
+        return respond(400, { ok: false, error: "invalid_signature" });
+      }
+
+      let db;
+      try {
+        db = requireDb(env);
+      } catch (error) {
+        return respond(500, { ok: false, error: "missing_db" });
+      }
+
+      const eventId = event?.id ? String(event.id) : "";
+      const eventType = event?.event_type ? String(event.event_type) : "";
+      const resource = event?.resource || {};
+      const customId = resource?.custom_id ? String(resource.custom_id) : "";
+
+      if (!eventId) {
+        return respond(400, { ok: false, error: "missing_event_id" });
+      }
+
+      const existingEvent = await db
+        .prepare("SELECT event_id FROM webhook_events WHERE event_id = ?")
+        .bind(eventId)
+        .first();
+      if (existingEvent) {
+        return respond(200, { ok: true, ignored: true });
+      }
+
+      const now = new Date().toISOString();
+      const recordEvent = async (status, resourceId, error) =>
+        db
+          .prepare(
+            "INSERT INTO webhook_events (event_id, event_type, resource_id, status, error, created_at) VALUES (?, ?, ?, ?, ?, ?)"
+          )
+          .bind(eventId, eventType, resourceId || null, status, error || null, now)
+          .run();
+
+      if (!customId) {
+        await recordEvent("ignored", null, "missing_custom_id");
+        return respond(200, { ok: true, ignored: true });
+      }
+
+      if (eventType === "CHECKOUT.ORDER.APPROVED") {
+        const order = await findOrderById(db, customId);
+        if (!order) {
+          await recordEvent("failed", customId, "order_not_found");
+          return respond(404, { ok: false, error: "order_not_found" });
+        }
+        await updateOrderPayment(db, customId, {
+          paypalOrderId: resource.id,
+          status: "awaiting_capture",
+        });
+        await recordEvent("processed", customId, null);
+        return respond(200, { ok: true });
+      }
+      if (eventType === "PAYMENT.CAPTURE.COMPLETED") {
+        const order = await findOrderById(db, customId);
+        if (!order) {
+          await recordEvent("failed", customId, "order_not_found");
+          return respond(404, { ok: false, error: "order_not_found" });
+        }
+
+        const paidAmountStr =
+          resource?.amount?.value ||
+          resource?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value ||
+          "0";
+        const paidCurrency =
+          resource?.amount?.currency_code ||
+          resource?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code ||
+          "";
+        const paidAmount = Number.parseFloat(paidAmountStr);
+        if (!Number.isFinite(paidAmount)) {
+          await recordEvent("failed", customId, "invalid_amount");
+          return respond(400, { ok: false, error: "amount_invalid" });
+        }
+
+        const paidAmountCents = Math.round(paidAmount * 100);
+        const normalizedCurrency = String(paidCurrency || "").toUpperCase();
+        const orderCurrency = String(order.currency || "").toUpperCase();
+        if (!normalizedCurrency || normalizedCurrency !== orderCurrency) {
+          await recordEvent("failed", customId, "currency_mismatch");
+          return respond(400, { ok: false, error: "currency_mismatch" });
+        }
+        if (paidAmountCents !== order.amount_paid) {
+          await recordEvent("failed", customId, "amount_mismatch");
+          return respond(400, { ok: false, error: "amount_mismatch" });
+        }
+
+        await updateOrderPayment(db, customId, {
+          paypalCaptureId: resource.id,
+          status: "paid_pending_profile",
+        });
+        await recordEvent("processed", customId, null);
+        return respond(200, { ok: true });
+      }
+
+      await recordEvent("ignored", customId, "unhandled_event_type");
+      return respond(200, { ok: true, ignored: true });
+    }
+const profileOrderId = matchProfilePath(url.pathname);
     if (profileOrderId && request.method === "POST") {
       const body = await readJson(request);
       const profile = normalizeProfile(body || {});
