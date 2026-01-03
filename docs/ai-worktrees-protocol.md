@@ -70,6 +70,15 @@ git branch --no-merged main
   - `new-cmt/.worktrees/<ai-name>` (example: `new-cmt/.worktrees/ai-a`)
 - Do not mix `new-cmt` changes into the main repo branches.
 
+## 2.2) Exceptions
+
+The following tasks do NOT require a separate worktree and can be performed directly in the main workspace:
+
+- **Installing Skills**: Adding or updating skills (e.g., in `.claude/skills` or `docs/skills`).
+- **Tool Configuration**: Updating `.gitignore`, `.env.example`, or IDE settings.
+- **Documentation Only**: Minor documentation fixes that don't touch code (e.g., updating this protocol).
+- **Read-Only Tasks**: Exploration, analysis, or generating reports.
+
 ## 3) Daily Sync + Merge Policy
 
 - Daily sync window (recommended 17:00): `git fetch` + `git rebase origin/main` (or merge).
