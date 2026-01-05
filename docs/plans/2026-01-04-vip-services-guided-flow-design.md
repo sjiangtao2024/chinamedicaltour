@@ -95,6 +95,19 @@ All prices are taken from the source document and use **upper bounds** when a ra
 - Stage 6 is locked/disabled with "Coming Soon" badge.
 - Final summary page lists selected services with totals.
 
+## Flow Diagram Assets
+
+- Desktop flow diagram
+  - Filename: vip-services-flow.png
+  - Resolution: 1920x800
+  - File type: PNG
+  - Prompt: "Create a clean, modern horizontal flow diagram for a VIP medical travel service journey. 5 steps in a single row with clear numbered circles and simple line connectors. Steps: 1) Create Account (Email/Google, require WhatsApp or WeChat), 2) Prepare Mobile Payments (Alipay/WeChat Pay; China is cashless), 3) Select Services (Mandatory vs Optional), 4) Confirm Plan & Pay, 5) Concierge Follow-up (WhatsApp/WeChat). Use a light, airy background with subtle gradient, soft teal and navy accents, rounded cards, minimal icons, readable sans-serif type, and short one-line captions. Keep plenty of white space and align content for web header placement."
+- Mobile flow diagram
+  - Filename: vip-services-flow-mobile.png
+  - Resolution: 1080x1920
+  - File type: PNG
+  - Prompt: "Create a clean, modern vertical flow diagram for a VIP medical travel service journey optimized for mobile. 5 stacked steps with large numbered badges, bigger icons, and one short line of text per step. Steps: 1) Create Account (Email/Google, require WhatsApp or WeChat), 2) Prepare Mobile Payments (Alipay/WeChat Pay; China is cashless), 3) Select Services (Mandatory vs Optional), 4) Confirm Plan & Pay, 5) Concierge Follow-up (WhatsApp/WeChat). Use a light background, soft teal and navy accents, generous spacing, and high contrast for small screens. Keep the layout narrow and centered for phone view."
+
 ## Domain Mapping
 
 - `vipservices.chinamedicaltour.org` should resolve to `/vip-services` within the same app.
