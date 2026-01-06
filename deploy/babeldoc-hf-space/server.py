@@ -23,6 +23,9 @@ from babeldoc.format.pdf.translation_config import TranslationConfig
 from babeldoc.format.pdf.translation_config import WatermarkOutputMode
 from babeldoc.translator.translator import OpenAITranslator
 
+from result_files import find_glossary_result
+from result_files import find_pdf_result
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("BabelDOC-Backend")
 
@@ -279,8 +282,14 @@ async def run_translate_with_model(
                     raise RetryableModelError(error_detail)
                 raise TranslationError(error_detail)
             if event["type"] == "finish":
-                for f in RESULT_DIR.glob(f"*{task_id}*"):
-                    tasks_db[task_id]["result_path"] = str(f)
+                result_pdf = find_pdf_result(RESULT_DIR, task_id)
+                glossary = find_glossary_result(RESULT_DIR, task_id)
+                if result_pdf:
+                    tasks_db[task_id]["result_path"] = str(result_pdf)
+                if glossary:
+                    tasks_db[task_id]["glossary_path"] = str(glossary)
+                if not result_pdf:
+                    raise TranslationError("Result PDF not found")
                 tasks_db[task_id].update(
                     {
                         "status": "completed",
@@ -311,6 +320,12 @@ async def download(task_id: str):
     if not task or task.get("status") != "completed":
         raise HTTPException(status_code=400, detail="Not ready")
     result_path = Path(task["result_path"])
+    if not result_path.exists():
+        discovered = find_pdf_result(RESULT_DIR, task_id)
+        if not discovered:
+            raise HTTPException(status_code=404, detail="Result not found")
+        result_path = discovered
+        task["result_path"] = str(discovered)
     input_path = Path(task.get("input_path", ""))
     response = FileResponse(result_path, filename=f"Translated_{task['filename']}")
     try:
