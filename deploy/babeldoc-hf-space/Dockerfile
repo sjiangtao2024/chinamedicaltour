@@ -19,6 +19,6 @@ RUN pip install --upgrade pip \
 
 WORKDIR /app
 COPY server.py /app/server.py
-
+COPY result_files.py /app/result_files.py
 ENV PORT=7860
 CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "7860"]
