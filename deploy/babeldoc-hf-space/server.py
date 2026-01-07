@@ -21,6 +21,7 @@ from babeldoc.assets.assets import warmup
 from babeldoc.format.pdf.high_level import async_translate
 from babeldoc.format.pdf.translation_config import TranslationConfig
 from babeldoc.format.pdf.translation_config import WatermarkOutputMode
+from babeldoc.translator.translator import BaseTranslator
 from babeldoc.translator.translator import OpenAITranslator
 from babeldoc.translator.translator import set_translate_rate_limiter
 
@@ -38,6 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def warmup_assets():
     try:
@@ -46,12 +48,26 @@ async def warmup_assets():
     except Exception:
         logger.exception("BabelDOC assets warmup failed.")
 
+
 NVIDIA_KEYS = [k.strip() for k in os.getenv("NVIDIA_KEYS", "").split(",") if k.strip()]
 NVIDIA_MODELS = [
     m.strip() for m in os.getenv("NVIDIA_MODELS", "").split(",") if m.strip()
 ]
 DEFAULT_MODEL = os.getenv("NVIDIA_DEFAULT_MODEL", "z-ai/glm4.7")
 MODEL_QPS = float(os.getenv("NVIDIA_QPS", "0.6"))
+TRANSLATION_MODELS = [
+    m.strip() for m in os.getenv("TRANSLATION_MODELS", "").split(",") if m.strip()
+]
+TRANSLATION_DEFAULT_MODEL = os.getenv("TRANSLATION_DEFAULT_MODEL", "").strip()
+TRANSLATION_BASE_URL = os.getenv("TRANSLATION_BASE_URL", "").strip()
+TRANSLATION_KEYS = [
+    k.strip() for k in os.getenv("TRANSLATION_KEYS", "").split(",") if k.strip()
+]
+TRANSLATION_PROVIDER_ORDER = [
+    item.strip()
+    for item in os.getenv("TRANSLATION_PROVIDER_ORDER", "nim").split(",")
+    if item.strip()
+]
 TERM_EXTRACTION_MODEL = os.getenv("TERM_EXTRACTION_MODEL", "").strip()
 TERM_EXTRACTION_BASE_URL = os.getenv("TERM_EXTRACTION_BASE_URL", "").strip()
 TERM_EXTRACTION_KEYS = [
@@ -88,6 +104,25 @@ class TranslationError(Exception):
     pass
 
 
+def select_translation_provider_config(
+    *, default_base_url: str, default_api_key: str
+) -> tuple[str, list[str]]:
+    for provider in TRANSLATION_PROVIDER_ORDER:
+        if provider == "google":
+            if TRANSLATION_BASE_URL and TRANSLATION_KEYS:
+                return TRANSLATION_BASE_URL, TRANSLATION_KEYS
+        elif provider == "nim":
+            keys = NVIDIA_KEYS or [default_api_key]
+            return default_base_url, keys
+    return default_base_url, [default_api_key]
+
+
+def get_effective_qps(base_qps: float, key_count: int) -> float:
+    if base_qps <= 0:
+        return base_qps
+    return base_qps * max(1, key_count)
+
+
 def configure_rate_limiters(qps: float) -> None:
     if qps and qps > 0:
         set_translate_rate_limiter(qps)
@@ -121,6 +156,46 @@ def get_term_extraction_provider_configs(
     return configs
 
 
+def build_term_extraction_translators(
+    *,
+    lang_in: str,
+    lang_out: str,
+    term_model: str,
+    default_base_url: str,
+    default_api_key: str,
+) -> list["RotatingOpenAITranslator"]:
+    translators: list[RotatingOpenAITranslator] = []
+    for provider in TERM_EXTRACTION_PROVIDER_ORDER:
+        if provider == "term":
+            base_url = TERM_EXTRACTION_BASE_URL or default_base_url
+            keys = TERM_EXTRACTION_KEYS or [default_api_key]
+        elif provider == "nim":
+            base_url = default_base_url
+            keys = NVIDIA_KEYS or [default_api_key]
+        else:
+            continue
+        translators.append(
+            RotatingOpenAITranslator(
+                lang_in=lang_in,
+                lang_out=lang_out,
+                model=term_model,
+                base_url=base_url,
+                api_keys=keys,
+            )
+        )
+    if not translators:
+        translators.append(
+            RotatingOpenAITranslator(
+                lang_in=lang_in,
+                lang_out=lang_out,
+                model=term_model,
+                base_url=default_base_url,
+                api_keys=[default_api_key],
+            )
+        )
+    return translators
+
+
 def is_retryable_error(error: object) -> bool:
     message = str(error).lower()
     retryable_markers = (
@@ -134,7 +209,28 @@ def is_retryable_error(error: object) -> bool:
     return any(marker in message for marker in retryable_markers)
 
 
-def get_model_pool() -> list[str]:
+def _is_rate_limit_error(error: Exception) -> bool:
+    message = str(error).lower()
+    class_name = error.__class__.__name__.lower()
+    markers = (
+        "rate limit",
+        "too many requests",
+        "error code: 429",
+        "status code: 429",
+        "status': 429",
+        "resource_exhausted",
+        "quota",
+    )
+    if "ratelimit" in class_name or "rate" in class_name:
+        return True
+    return any(marker in message for marker in markers)
+
+
+def get_translation_model_pool() -> list[str]:
+    if TRANSLATION_MODELS:
+        return TRANSLATION_MODELS
+    if TRANSLATION_DEFAULT_MODEL:
+        return [TRANSLATION_DEFAULT_MODEL]
     return NVIDIA_MODELS if NVIDIA_MODELS else [DEFAULT_MODEL]
 
 
@@ -143,7 +239,7 @@ def select_model(avoid: set[str] | None = None, now: float | None = None) -> str
     avoid_models = avoid or set()
     available = [
         model
-        for model in get_model_pool()
+        for model in get_translation_model_pool()
         if model not in avoid_models
         and model_cooldowns.get(model, 0) <= timestamp
     ]
@@ -196,6 +292,95 @@ def cleanup_expired_tasks(now: float | None = None) -> int:
     return len(expired)
 
 
+def cleanup_download_artifacts(task_id: str, result_path: str, input_path: str) -> None:
+    try:
+        Path(result_path).unlink(missing_ok=True)
+    except OSError:
+        logger.warning("Failed to delete result file: %s", result_path)
+    if input_path:
+        try:
+            Path(input_path).unlink(missing_ok=True)
+        except OSError:
+            logger.warning("Failed to delete input file: %s", input_path)
+    tasks_db.pop(task_id, None)
+
+
+class RotatingOpenAITranslator(BaseTranslator):
+    name = "openai"
+
+    def __init__(
+        self,
+        lang_in: str,
+        lang_out: str,
+        model: str,
+        base_url: str | None,
+        api_keys: list[str],
+        ignore_cache: bool = False,
+        enable_json_mode_if_requested: bool = False,
+        send_dashscope_header: bool = False,
+        send_temperature: bool = True,
+        reasoning: str | None = None,
+        translator_class=OpenAITranslator,
+    ):
+        super().__init__(lang_in, lang_out, ignore_cache)
+        self.model = model
+        self.base_url = base_url
+        self.api_keys = [key for key in api_keys if key]
+        if not self.api_keys:
+            raise ValueError("No API keys configured for translation")
+        self.enable_json_mode_if_requested = enable_json_mode_if_requested
+        self.send_dashscope_header = send_dashscope_header
+        self.send_temperature = send_temperature
+        self.reasoning = reasoning
+        self._translator_class = translator_class
+        self._translator_cycle = itertools.cycle(self.api_keys)
+        self._translators: dict[str, OpenAITranslator] = {}
+
+    def _get_translator(self) -> OpenAITranslator:
+        api_key = next(self._translator_cycle)
+        translator = self._translators.get(api_key)
+        if not translator:
+            translator = self._translator_class(
+                lang_in=self.lang_in,
+                lang_out=self.lang_out,
+                model=self.model,
+                base_url=self.base_url,
+                api_key=api_key,
+                ignore_cache=True,
+                enable_json_mode_if_requested=self.enable_json_mode_if_requested,
+                send_dashscope_header=self.send_dashscope_header,
+                send_temperature=self.send_temperature,
+                reasoning=self.reasoning,
+            )
+            self._translators[api_key] = translator
+        return translator
+
+    def _translate_with_rotation(self, method_name: str, text, rate_limit_params: dict):
+        last_error = None
+        for _ in range(len(self.api_keys)):
+            translator = self._get_translator()
+            try:
+                method = getattr(translator, method_name)
+                return method(text, rate_limit_params)
+            except Exception as exc:
+                last_error = exc
+                if _is_rate_limit_error(exc):
+                    continue
+                raise
+        if last_error:
+            raise last_error
+        raise RuntimeError("No API keys available for translation")
+
+    def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
+        return self.do_llm_translate(text, rate_limit_params)
+
+    def do_llm_translate(self, text, rate_limit_params: dict = None):
+        return self._translate_with_rotation("do_llm_translate", text, rate_limit_params)
+
+    def do_translate(self, text, rate_limit_params: dict = None):
+        return self._translate_with_rotation("do_translate", text, rate_limit_params)
+
+
 class SafeTermExtractionTranslator(OpenAITranslator):
     def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
         try:
@@ -236,6 +421,18 @@ class FallbackTermExtractionTranslator:
 
 
 class SafePrimaryTranslator(OpenAITranslator):
+    def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
+        try:
+            result = super().llm_translate(
+                text, ignore_cache=ignore_cache, rate_limit_params=rate_limit_params
+            )
+        except Exception as exc:
+            logger.warning("Primary translation LLM failed: %s", exc)
+            return text or ""
+        return result if result is not None else (text or "")
+
+
+class RotatingSafePrimaryTranslator(RotatingOpenAITranslator):
     def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
         try:
             result = super().llm_translate(
@@ -293,7 +490,7 @@ async def translate_pdf(
 
 async def run_pipeline(task_id: str, path: str, lang_in: str, lang_out: str):
     attempted = []
-    model_pool = get_model_pool()
+    model_pool = get_translation_model_pool()
     if not model_pool:
         tasks_db[task_id].update({"status": "error", "error": "No available models"})
         return
@@ -347,29 +544,27 @@ async def run_translate_with_model(
     model: str,
     api_key: str,
 ):
-    configure_rate_limiters(MODEL_QPS)
-    base_url = "https://integrate.api.nvidia.com/v1"
-    translator = SafePrimaryTranslator(
+    default_base_url = "https://integrate.api.nvidia.com/v1"
+    base_url, primary_keys = select_translation_provider_config(
+        default_base_url=default_base_url,
+        default_api_key=api_key,
+    )
+    configure_rate_limiters(get_effective_qps(MODEL_QPS, len(primary_keys)))
+    translator = RotatingSafePrimaryTranslator(
         lang_in=lang_in,
         lang_out=lang_out,
         model=model,
         base_url=base_url,
-        api_key=api_key,
+        api_keys=primary_keys,
     )
     term_model = TERM_EXTRACTION_MODEL or model
-    term_translators = []
-    for term_base_url, term_api_key in get_term_extraction_provider_configs(
-        base_url, api_key
-    ):
-        term_translators.append(
-            OpenAITranslator(
-                lang_in=lang_in,
-                lang_out=lang_out,
-                model=term_model,
-                base_url=term_base_url,
-                api_key=term_api_key,
-            )
-        )
+    term_translators = build_term_extraction_translators(
+        lang_in=lang_in,
+        lang_out=lang_out,
+        term_model=term_model,
+        default_base_url=default_base_url,
+        default_api_key=api_key,
+    )
     term_translator = FallbackTermExtractionTranslator(term_translators)
     config = TranslationConfig(
         input_file=path,
@@ -428,7 +623,7 @@ async def get_status(task_id: str):
 
 
 @app.get("/api/download/{task_id}")
-async def download(task_id: str):
+async def download(task_id: str, bg: BackgroundTasks):
     cleanup_expired_tasks()
     task = tasks_db.get(task_id)
     if not task or task.get("status") != "completed":
@@ -442,14 +637,11 @@ async def download(task_id: str):
         task["result_path"] = str(discovered)
     input_path = Path(task.get("input_path", ""))
     response = FileResponse(result_path, filename=f"Translated_{task['filename']}")
-    try:
-        result_path.unlink(missing_ok=True)
-    except OSError:
-        logger.warning("Failed to delete result file: %s", result_path)
-    if input_path:
-        try:
-            input_path.unlink(missing_ok=True)
-        except OSError:
-            logger.warning("Failed to delete input file: %s", input_path)
-    tasks_db.pop(task_id, None)
+    bg.add_task(
+        cleanup_download_artifacts,
+        task_id,
+        str(result_path),
+        str(input_path) if input_path else "",
+    )
+    response.background = bg
     return response
