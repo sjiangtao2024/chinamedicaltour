@@ -407,6 +407,8 @@ class RotatingOpenAITranslator(BaseTranslator):
         return translator.do_translate(text, rate_limit_params)
 
     def _translate_with_rotation(self, method_name: str, text, rate_limit_params: dict):
+        if text is None or text == "":
+            return ""
         last_error = None
         for _ in range(len(self.api_keys)):
             translator = self._get_translator()

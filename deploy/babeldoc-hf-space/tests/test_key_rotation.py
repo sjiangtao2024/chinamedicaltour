@@ -76,3 +76,18 @@ def test_rotating_translator_bypasses_openai_retry():
     result = translator.do_llm_translate("hello")
 
     assert result == "ok"
+
+
+def test_rotating_translator_skips_empty_input():
+    translator = server.RotatingOpenAITranslator(
+        lang_in="en",
+        lang_out="zh",
+        model="test-model",
+        base_url="https://example.com/v1",
+        api_keys=["key-1"],
+        translator_class=FakeOpenAITranslator,
+    )
+
+    result = translator.do_llm_translate(None)
+
+    assert result == ""
