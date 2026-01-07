@@ -355,13 +355,65 @@ class RotatingOpenAITranslator(BaseTranslator):
             self._translators[api_key] = translator
         return translator
 
+    def _openai_llm_translate(self, translator, text, rate_limit_params: dict | None):
+        options = {}
+        if getattr(translator, "send_temperature", True):
+            options.update(getattr(translator, "options", {}))
+        if getattr(translator, "enable_json_mode_if_requested", False) and (
+            rate_limit_params or {}
+        ).get("request_json_mode", False):
+            options["response_format"] = {"type": "json_object"}
+        extra_headers = {}
+        if getattr(translator, "send_dashscope_header", False):
+            extra_headers["X-DashScope-DataInspection"] = (
+                '{"input": "disable", "output": "disable"}'
+            )
+        response = translator.client.chat.completions.create(
+            model=translator.model,
+            **options,
+            max_tokens=2048,
+            messages=[{"role": "user", "content": text}],
+            extra_headers=extra_headers,
+            extra_body=getattr(translator, "extra_body", None),
+        )
+        update_token_count = getattr(translator, "update_token_count", None)
+        if callable(update_token_count):
+            update_token_count(response)
+        return response.choices[0].message.content.strip()
+
+    def _openai_translate(self, translator, text, _rate_limit_params: dict | None):
+        options = {}
+        if getattr(translator, "send_temperature", True):
+            options.update(getattr(translator, "options", {}))
+        response = translator.client.chat.completions.create(
+            model=translator.model,
+            **options,
+            messages=translator.prompt(text),
+            extra_body=getattr(translator, "extra_body", None),
+        )
+        update_token_count = getattr(translator, "update_token_count", None)
+        if callable(update_token_count):
+            update_token_count(response)
+        return response.choices[0].message.content.strip()
+
+    def _raw_llm_translate(self, translator, text, rate_limit_params: dict | None):
+        if isinstance(translator, OpenAITranslator):
+            return self._openai_llm_translate(translator, text, rate_limit_params)
+        return translator.do_llm_translate(text, rate_limit_params)
+
+    def _raw_translate(self, translator, text, rate_limit_params: dict | None):
+        if isinstance(translator, OpenAITranslator):
+            return self._openai_translate(translator, text, rate_limit_params)
+        return translator.do_translate(text, rate_limit_params)
+
     def _translate_with_rotation(self, method_name: str, text, rate_limit_params: dict):
         last_error = None
         for _ in range(len(self.api_keys)):
             translator = self._get_translator()
             try:
-                method = getattr(translator, method_name)
-                return method(text, rate_limit_params)
+                if method_name == "do_llm_translate":
+                    return self._raw_llm_translate(translator, text, rate_limit_params)
+                return self._raw_translate(translator, text, rate_limit_params)
             except Exception as exc:
                 last_error = exc
                 if _is_rate_limit_error(exc):
