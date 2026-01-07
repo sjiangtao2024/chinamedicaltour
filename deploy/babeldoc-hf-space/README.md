@@ -16,6 +16,10 @@ This folder contains a minimal FastAPI wrapper to run BabelDOC in a Hugging Face
    - `NVIDIA_MODELS`: comma-separated model list (randomly chosen per task)
    - `NVIDIA_DEFAULT_MODEL`: fallback model if `NVIDIA_MODELS` is empty
    - `NVIDIA_QPS`: per-key QPS limit (default `0.6` for ~40 RPM)
+   - `TERM_EXTRACTION_MODEL`: optional model for term extraction (defaults to the translation model)
+   - `TERM_EXTRACTION_BASE_URL`: optional OpenAI-compatible base URL for term extraction (e.g. Gemini)
+   - `TERM_EXTRACTION_KEYS`: optional comma-separated API keys for term extraction
+   - `TERM_EXTRACTION_PROVIDER_ORDER`: provider order for term extraction (default `term,nim`)
    - `RESULT_TTL_SECONDS`: auto-clean completed tasks after this TTL (default `86400`)
    - `OCR_WORKAROUND`: enable OCR workaround for scanned PDFs (default `true`)
    - `AUTO_ENABLE_OCR`: auto-enable OCR when scanned pages detected (default `true`)
@@ -25,6 +29,10 @@ Example:
 ```
 NVIDIA_KEYS=key1,key2,key3
 NVIDIA_MODELS=z-ai/glm4.7,minimaxai/minimax-m2.1
+TERM_EXTRACTION_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai
+TERM_EXTRACTION_MODEL=gemini-2.5-flash-lite
+TERM_EXTRACTION_KEYS=term_key1,term_key2
+TERM_EXTRACTION_PROVIDER_ORDER=term,nim
 ```
 4. Launch the Space. The service exposes:
    - `GET /health`

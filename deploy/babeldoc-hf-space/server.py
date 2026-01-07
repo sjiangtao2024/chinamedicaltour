@@ -22,6 +22,7 @@ from babeldoc.format.pdf.high_level import async_translate
 from babeldoc.format.pdf.translation_config import TranslationConfig
 from babeldoc.format.pdf.translation_config import WatermarkOutputMode
 from babeldoc.translator.translator import OpenAITranslator
+from babeldoc.translator.translator import set_translate_rate_limiter
 
 from result_files import find_glossary_result
 from result_files import find_pdf_result
@@ -51,12 +52,23 @@ NVIDIA_MODELS = [
 ]
 DEFAULT_MODEL = os.getenv("NVIDIA_DEFAULT_MODEL", "z-ai/glm4.7")
 MODEL_QPS = float(os.getenv("NVIDIA_QPS", "0.6"))
+TERM_EXTRACTION_MODEL = os.getenv("TERM_EXTRACTION_MODEL", "").strip()
+TERM_EXTRACTION_BASE_URL = os.getenv("TERM_EXTRACTION_BASE_URL", "").strip()
+TERM_EXTRACTION_KEYS = [
+    k.strip() for k in os.getenv("TERM_EXTRACTION_KEYS", "").split(",") if k.strip()
+]
+TERM_EXTRACTION_PROVIDER_ORDER = [
+    item.strip()
+    for item in os.getenv("TERM_EXTRACTION_PROVIDER_ORDER", "term,nim").split(",")
+    if item.strip()
+]
 RESULT_TTL_SECONDS = int(os.getenv("RESULT_TTL_SECONDS", "86400"))
 OCR_WORKAROUND = os.getenv("OCR_WORKAROUND", "true").lower() in {"1", "true", "yes"}
 AUTO_ENABLE_OCR = os.getenv("AUTO_ENABLE_OCR", "true").lower() in {"1", "true", "yes"}
 PROXY_SECRET = os.getenv("PROXY_SECRET", "")
 MODEL_COOLDOWN_SECONDS = 300
 key_cycle = itertools.cycle(NVIDIA_KEYS)
+term_key_cycle = itertools.cycle(TERM_EXTRACTION_KEYS) if TERM_EXTRACTION_KEYS else None
 
 BASE_DIR = Path(os.getenv("BABELDOC_TMP", "/tmp/babeldoc"))
 UPLOAD_DIR = BASE_DIR / "uploads"
@@ -74,6 +86,39 @@ class RetryableModelError(Exception):
 
 class TranslationError(Exception):
     pass
+
+
+def configure_rate_limiters(qps: float) -> None:
+    if qps and qps > 0:
+        set_translate_rate_limiter(qps)
+
+
+def get_term_extraction_config(
+    default_base_url: str, default_api_key: str
+) -> tuple[str, str]:
+    base_url = TERM_EXTRACTION_BASE_URL or default_base_url
+    if TERM_EXTRACTION_KEYS:
+        api_key = next(itertools.cycle(TERM_EXTRACTION_KEYS))
+    else:
+        api_key = default_api_key
+    return base_url, api_key
+
+
+def get_term_extraction_provider_configs(
+    default_base_url: str, default_api_key: str
+) -> list[tuple[str, str]]:
+    configs: list[tuple[str, str]] = []
+    for provider in TERM_EXTRACTION_PROVIDER_ORDER:
+        if provider == "term":
+            if TERM_EXTRACTION_BASE_URL or TERM_EXTRACTION_KEYS:
+                base_url = TERM_EXTRACTION_BASE_URL or default_base_url
+                keys = TERM_EXTRACTION_KEYS or [default_api_key]
+                configs.extend((base_url, key) for key in keys)
+        elif provider == "nim":
+            configs.append((default_base_url, default_api_key))
+    if not configs:
+        configs.append((default_base_url, default_api_key))
+    return configs
 
 
 def is_retryable_error(error: object) -> bool:
@@ -149,6 +194,45 @@ def cleanup_expired_tasks(now: float | None = None) -> int:
         tasks_db.pop(task_id, None)
 
     return len(expired)
+
+
+class SafeTermExtractionTranslator(OpenAITranslator):
+    def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
+        try:
+            result = super().llm_translate(
+                text, ignore_cache=ignore_cache, rate_limit_params=rate_limit_params
+            )
+        except Exception as exc:
+            logger.warning("Term extraction LLM failed: %s", exc)
+            return "[]"
+        return result if result is not None else "[]"
+
+
+class FallbackTermExtractionTranslator:
+    def __init__(self, translators: list[OpenAITranslator]):
+        self.translators = translators
+
+    def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
+        last_error = None
+        for translator in self.translators:
+            try:
+                result = translator.llm_translate(
+                    text,
+                    ignore_cache=ignore_cache,
+                    rate_limit_params=rate_limit_params,
+                )
+            except Exception as exc:
+                last_error = exc
+                logger.warning("Term extraction provider failed: %s", exc)
+                continue
+            if result is None:
+                last_error = ValueError("Empty response")
+                logger.warning("Term extraction provider returned empty response")
+                continue
+            return result
+        if last_error:
+            logger.warning("Term extraction fallback exhausted: %s", last_error)
+        return "[]"
 
 
 @app.middleware("http")
@@ -251,17 +335,35 @@ async def run_translate_with_model(
     model: str,
     api_key: str,
 ):
+    configure_rate_limiters(MODEL_QPS)
+    base_url = "https://integrate.api.nvidia.com/v1"
     translator = OpenAITranslator(
         lang_in=lang_in,
         lang_out=lang_out,
         model=model,
-        base_url="https://integrate.api.nvidia.com/v1",
+        base_url=base_url,
         api_key=api_key,
     )
+    term_model = TERM_EXTRACTION_MODEL or model
+    term_translators = []
+    for term_base_url, term_api_key in get_term_extraction_provider_configs(
+        base_url, api_key
+    ):
+        term_translators.append(
+            OpenAITranslator(
+                lang_in=lang_in,
+                lang_out=lang_out,
+                model=term_model,
+                base_url=term_base_url,
+                api_key=term_api_key,
+            )
+        )
+    term_translator = FallbackTermExtractionTranslator(term_translators)
     config = TranslationConfig(
         input_file=path,
         output_dir=str(RESULT_DIR),
         translator=translator,
+        term_extraction_translator=term_translator,
         lang_in=lang_in,
         lang_out=lang_out,
         doc_layout_model=None,
