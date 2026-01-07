@@ -235,6 +235,18 @@ class FallbackTermExtractionTranslator:
         return "[]"
 
 
+class SafePrimaryTranslator(OpenAITranslator):
+    def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
+        try:
+            result = super().llm_translate(
+                text, ignore_cache=ignore_cache, rate_limit_params=rate_limit_params
+            )
+        except Exception as exc:
+            logger.warning("Primary translation LLM failed: %s", exc)
+            return text or ""
+        return result if result is not None else (text or "")
+
+
 @app.middleware("http")
 async def check_auth(request: Request, call_next):
     if request.url.path in {"/", "/health"}:
@@ -337,7 +349,7 @@ async def run_translate_with_model(
 ):
     configure_rate_limiters(MODEL_QPS)
     base_url = "https://integrate.api.nvidia.com/v1"
-    translator = OpenAITranslator(
+    translator = SafePrimaryTranslator(
         lang_in=lang_in,
         lang_out=lang_out,
         model=model,

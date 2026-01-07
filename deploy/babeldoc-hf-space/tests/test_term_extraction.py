@@ -75,3 +75,42 @@ def test_provider_order_prefers_term_then_nim(monkeypatch):
 
     assert configs[0] == ("https://gemini.local/v1", "term-key")
     assert configs[1] == ("https://nim.local/v1", "nim-key")
+
+
+def test_safe_primary_translator_returns_input_on_error(monkeypatch):
+    def fake_init(self, *args, **kwargs):
+        return None
+
+    def raise_error(self, *args, **kwargs):
+        raise AttributeError("strip")
+
+    monkeypatch.setattr(server.OpenAITranslator, "__init__", fake_init)
+    monkeypatch.setattr(server.OpenAITranslator, "llm_translate", raise_error)
+
+    translator = server.SafePrimaryTranslator(
+        lang_in="en",
+        lang_out="zh",
+        model="mock-model",
+        base_url="http://example.com",
+        api_key="mock-key",
+    )
+
+    assert translator.llm_translate("keep me") == "keep me"
+
+
+def test_safe_primary_translator_returns_input_on_none(monkeypatch):
+    def fake_init(self, *args, **kwargs):
+        return None
+
+    monkeypatch.setattr(server.OpenAITranslator, "__init__", fake_init)
+    monkeypatch.setattr(server.OpenAITranslator, "llm_translate", lambda *_a, **_k: None)
+
+    translator = server.SafePrimaryTranslator(
+        lang_in="en",
+        lang_out="zh",
+        model="mock-model",
+        base_url="http://example.com",
+        api_key="mock-key",
+    )
+
+    assert translator.llm_translate("keep me") == "keep me"
