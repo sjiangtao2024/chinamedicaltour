@@ -39,6 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def warmup_assets():
     try:
@@ -46,6 +47,7 @@ async def warmup_assets():
         logger.info("BabelDOC assets warmup completed.")
     except Exception:
         logger.exception("BabelDOC assets warmup failed.")
+
 
 NVIDIA_KEYS = [k.strip() for k in os.getenv("NVIDIA_KEYS", "").split(",") if k.strip()]
 NVIDIA_MODELS = [
@@ -207,6 +209,23 @@ def is_retryable_error(error: object) -> bool:
     return any(marker in message for marker in retryable_markers)
 
 
+def _is_rate_limit_error(error: Exception) -> bool:
+    message = str(error).lower()
+    class_name = error.__class__.__name__.lower()
+    markers = (
+        "rate limit",
+        "too many requests",
+        "error code: 429",
+        "status code: 429",
+        "status': 429",
+        "resource_exhausted",
+        "quota",
+    )
+    if "ratelimit" in class_name or "rate" in class_name:
+        return True
+    return any(marker in message for marker in markers)
+
+
 def get_translation_model_pool() -> list[str]:
     if TRANSLATION_MODELS:
         return TRANSLATION_MODELS
@@ -307,6 +326,8 @@ class RotatingOpenAITranslator(BaseTranslator):
         self.model = model
         self.base_url = base_url
         self.api_keys = [key for key in api_keys if key]
+        if not self.api_keys:
+            raise ValueError("No API keys configured for translation")
         self.enable_json_mode_if_requested = enable_json_mode_if_requested
         self.send_dashscope_header = send_dashscope_header
         self.send_temperature = send_temperature
@@ -334,89 +355,30 @@ class RotatingOpenAITranslator(BaseTranslator):
             self._translators[api_key] = translator
         return translator
 
-    def _is_rate_limit_error(self, exc: Exception) -> bool:
-        name = exc.__class__.__name__.lower()
-        if "ratelimit" in name:
-            return True
-        message = str(exc).lower()
-        return "rate limit" in message or "resource_exhausted" in message or "429" in message
+    def _translate_with_rotation(self, method_name: str, text, rate_limit_params: dict):
+        last_error = None
+        for _ in range(len(self.api_keys)):
+            translator = self._get_translator()
+            try:
+                method = getattr(translator, method_name)
+                return method(text, rate_limit_params)
+            except Exception as exc:
+                last_error = exc
+                if _is_rate_limit_error(exc):
+                    continue
+                raise
+        if last_error:
+            raise last_error
+        raise RuntimeError("No API keys available for translation")
 
-    def _openai_llm_translate(self, translator: OpenAITranslator, text, rate_limit_params):
-        options = {}
-        if translator.send_temperature:
-            options.update(translator.options)
-        if translator.enable_json_mode_if_requested and rate_limit_params.get(
-            "request_json_mode", False
-        ):
-            options["response_format"] = {"type": "json_object"}
-        extra_headers = {}
-        if translator.send_dashscope_header:
-            extra_headers["X-DashScope-DataInspection"] = (
-                '{"input": "disable", "output": "disable"}'
-            )
-        response = translator.client.chat.completions.create(
-            model=translator.model,
-            **options,
-            max_tokens=2048,
-            messages=[{"role": "user", "content": text}],
-            extra_headers=extra_headers,
-            extra_body=translator.extra_body,
-        )
-        translator.update_token_count(response)
-        return response.choices[0].message.content.strip()
-
-    def _openai_translate(self, translator: OpenAITranslator, text, _rate_limit_params):
-        options = {}
-        if translator.send_temperature:
-            options.update(translator.options)
-        response = translator.client.chat.completions.create(
-            model=translator.model,
-            **options,
-            messages=translator.prompt(text),
-            extra_body=translator.extra_body,
-        )
-        translator.update_token_count(response)
-        return response.choices[0].message.content.strip()
-
-    def _raw_llm_translate(self, translator, text, rate_limit_params):
-        if isinstance(translator, OpenAITranslator):
-            return self._openai_llm_translate(translator, text, rate_limit_params)
-        return translator.do_llm_translate(text, rate_limit_params)
-
-    def _raw_translate(self, translator, text, rate_limit_params):
-        if isinstance(translator, OpenAITranslator):
-            return self._openai_translate(translator, text, rate_limit_params)
-        return translator.do_translate(text, rate_limit_params)
+    def llm_translate(self, text, ignore_cache=False, rate_limit_params: dict = None):
+        return self.do_llm_translate(text, rate_limit_params)
 
     def do_llm_translate(self, text, rate_limit_params: dict = None):
-        last_exc = None
-        for _ in range(len(self.api_keys)):
-            translator = self._get_translator()
-            try:
-                return self._raw_llm_translate(translator, text, rate_limit_params)
-            except Exception as exc:
-                if self._is_rate_limit_error(exc):
-                    last_exc = exc
-                    continue
-                raise
-        if last_exc:
-            raise last_exc
-        raise RuntimeError("No available API keys for translation.")
+        return self._translate_with_rotation("do_llm_translate", text, rate_limit_params)
 
     def do_translate(self, text, rate_limit_params: dict = None):
-        last_exc = None
-        for _ in range(len(self.api_keys)):
-            translator = self._get_translator()
-            try:
-                return self._raw_translate(translator, text, rate_limit_params)
-            except Exception as exc:
-                if self._is_rate_limit_error(exc):
-                    last_exc = exc
-                    continue
-                raise
-        if last_exc:
-            raise last_exc
-        raise RuntimeError("No available API keys for translation.")
+        return self._translate_with_rotation("do_translate", text, rate_limit_params)
 
 
 class SafeTermExtractionTranslator(OpenAITranslator):
