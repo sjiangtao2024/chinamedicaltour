@@ -146,6 +146,7 @@ export async function handleOrders({ request, env, url, respond }) {
       currency: input.currency,
       refChannel: input.refChannel,
       couponId: coupon?.id || null,
+      intakeSummary: input.intakeSummary || "",
       status: "created",
       idempotencyKey: input.idempotencyKey,
     });

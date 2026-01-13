@@ -9,3 +9,7 @@ assert.deepEqual(applyCoupon(10000, { type: "percent", value: 10 }), {
 });
 
 assert.equal(normalizeOrderInput({ item_type: "package" }).itemType, "package");
+assert.equal(
+  normalizeOrderInput({ intake_summary: "Case summary" }).intakeSummary,
+  "Case summary"
+);

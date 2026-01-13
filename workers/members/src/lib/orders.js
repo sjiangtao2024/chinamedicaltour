@@ -21,32 +21,33 @@ export async function findOpenOrderForUserItem(db, userId, itemType, itemId) {
     .first();
 }
 
-export async function insertOrder(db, data) {
-  const now = new Date().toISOString();
-  const id = crypto.randomUUID();
-  await db
-    .prepare(
-      "INSERT INTO orders (id, user_id, item_type, item_id, amount_original, discount_amount, amount_paid, currency, ref_channel, coupon_id, paypal_order_id, paypal_capture_id, status, idempotency_key, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    )
-    .bind(
-      id,
-      data.userId,
-      data.itemType,
-      data.itemId,
-      data.amountOriginal,
-      data.discountAmount,
-      data.amountPaid,
-      data.currency,
-      data.refChannel,
-      data.couponId,
-      null,
-      null,
-      data.status,
-      data.idempotencyKey,
-      now,
-      now
-    )
-    .run();
+export async function insertOrder(db, data) {
+  const now = new Date().toISOString();
+  const id = crypto.randomUUID();
+  await db
+    .prepare(
+      "INSERT INTO orders (id, user_id, item_type, item_id, amount_original, discount_amount, amount_paid, currency, ref_channel, coupon_id, intake_summary, paypal_order_id, paypal_capture_id, status, idempotency_key, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    )
+    .bind(
+      id,
+      data.userId,
+      data.itemType,
+      data.itemId,
+      data.amountOriginal,
+      data.discountAmount,
+      data.amountPaid,
+      data.currency,
+      data.refChannel,
+      data.couponId,
+      data.intakeSummary || null,
+      null,
+      null,
+      data.status,
+      data.idempotencyKey,
+      now,
+      now
+    )
+    .run();
 
   return {
     id,
@@ -55,16 +56,17 @@ export async function insertOrder(db, data) {
     item_id: data.itemId,
     amount_original: data.amountOriginal,
     discount_amount: data.discountAmount,
-    amount_paid: data.amountPaid,
-    currency: data.currency,
-    ref_channel: data.refChannel,
-    coupon_id: data.couponId,
-    status: data.status,
-    idempotency_key: data.idempotencyKey,
-    created_at: now,
-    updated_at: now,
-  };
-}
+    amount_paid: data.amountPaid,
+    currency: data.currency,
+    ref_channel: data.refChannel,
+    coupon_id: data.couponId,
+    intake_summary: data.intakeSummary || null,
+    status: data.status,
+    idempotency_key: data.idempotencyKey,
+    created_at: now,
+    updated_at: now,
+  };
+}
 
 export async function updateOrderPayment(db, orderId, updates) {
   const now = new Date().toISOString();
@@ -174,16 +176,17 @@ export async function requireProfile(db, userId) {
   }
   return profile;
 }
-export function normalizeOrderInput(input) {
-  return {
-    itemType: input?.item_type ? String(input.item_type).trim() : "",
-    itemId: input?.item_id ? String(input.item_id).trim() : "",
-    currency: input?.currency ? String(input.currency).trim() : "",
-    amountOriginal: Number(input?.amount_original || 0),
-    refChannel: input?.ref_channel ? String(input.ref_channel).trim() : "",
-    couponCode: input?.coupon_code ? String(input.coupon_code).trim() : "",
-    idempotencyKey: input?.idempotency_key
-      ? String(input.idempotency_key).trim()
-      : "",
-  };
-}
+export function normalizeOrderInput(input) {
+  return {
+    itemType: input?.item_type ? String(input.item_type).trim() : "",
+    itemId: input?.item_id ? String(input.item_id).trim() : "",
+    currency: input?.currency ? String(input.currency).trim() : "",
+    amountOriginal: Number(input?.amount_original || 0),
+    refChannel: input?.ref_channel ? String(input.ref_channel).trim() : "",
+    couponCode: input?.coupon_code ? String(input.coupon_code).trim() : "",
+    intakeSummary: input?.intake_summary ? String(input.intake_summary).trim() : "",
+    idempotencyKey: input?.idempotency_key
+      ? String(input.idempotency_key).trim()
+      : "",
+  };
+}
