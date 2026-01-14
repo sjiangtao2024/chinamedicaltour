@@ -45,9 +45,8 @@
 *   **我需要配置本地开发环境？** -> 查看 `deployment-guide-cs.md` 的 "3. 开发与验证"。
 
 ## Upgrade 2025 Payments
-- docs/upgrade-2025-payments/design.md
-- docs/upgrade-2025-payments/deployment.md
-- docs/upgrade-2025-payments/members-api.md
+- docs/plans/2025-12-25-upgrade-2025-payments-phase-plan.md
+- docs/plans/2025-12-24-members-payments-phase-plan.md
 
 ## Payments 2026
 - docs/plans/2026-01-14-refund-policy-implementation.md
