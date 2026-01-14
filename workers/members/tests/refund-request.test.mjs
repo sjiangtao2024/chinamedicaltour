@@ -7,6 +7,10 @@ const token = await createSessionToken({ userId: "user-1" }, secret);
 
 let orderStatus = "paid";
 let refundStatus = "pending";
+let refundPolicyType = "STANDARD";
+let deliveryStatus = "PENDING";
+let deliveredAt = null;
+let serviceStartDate = "2099-01-01T00:00:00.000Z";
 const orderId = "order-456";
 
 const orderRow = () => ({
@@ -15,8 +19,13 @@ const orderRow = () => ({
   item_type: "package",
   item_id: "full-body",
   amount_paid: 80000,
+  payment_gateway_fee: 0,
   currency: "USD",
   status: orderStatus,
+  refund_policy_type: refundPolicyType,
+  service_start_date: serviceStartDate,
+  delivery_status: deliveryStatus,
+  delivered_at: deliveredAt,
   created_at: "2025-01-01T00:00:00.000Z",
 });
 
@@ -110,3 +119,36 @@ const secondResponse = await handleOrders({
 assert.equal(secondResponse.status, 400);
 const errorPayload = await secondResponse.json();
 assert.equal(errorPayload.error, "refund_not_allowed");
+
+orderStatus = "paid";
+refundPolicyType = "INTELLECTUAL";
+deliveryStatus = "DELIVERED";
+deliveredAt = "2025-01-02T00:00:00.000Z";
+const thirdRequest = new Request(
+  `https://members.chinamedicaltour.org/api/orders/${orderId}/refund-request`,
+  {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ reason: "Need to reschedule" }),
+  }
+);
+const thirdResponse = await handleOrders({
+  request: thirdRequest,
+  env: {
+    MEMBERS_DB: db,
+    JWT_SECRET: secret,
+  },
+  url: new URL(thirdRequest.url),
+  respond: (status, payload) =>
+    new Response(JSON.stringify(payload), {
+      status,
+      headers: { "Content-Type": "application/json" },
+    }),
+});
+
+assert.equal(thirdResponse.status, 400);
+const thirdPayload = await thirdResponse.json();
+assert.equal(thirdPayload.error, "refund_not_allowed");

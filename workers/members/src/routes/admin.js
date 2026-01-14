@@ -1,5 +1,5 @@
 import { findOrderById, updateOrderStatus } from "../lib/orders.js";
-import { listPaypalTransactions } from "../lib/paypal.js";
+import { listPaypalTransactions, parsePaypalFee, refundPaypalCapture } from "../lib/paypal.js";
 import { listAdminOrders, reconcilePaypalTransactions } from "../lib/admin.js";
 import { requireAdmin, requireDb, readJson } from "../lib/request.js";
 
@@ -108,6 +108,109 @@ export async function handleAdmin({ request, env, url, respond }) {
       return respond(404, { ok: false, error: "order_not_found" });
     }
     return respond(200, { ok: true, order: updated });
+  }
+
+  const refundIssueMatch = url.pathname.match(/^\/api\/admin\/orders\/([^/]+)\/refund$/);
+  if (refundIssueMatch && request.method === "POST") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    const body = await readJson(request);
+    const amountRaw = body?.amount;
+    const reason = body?.reason ? String(body.reason).trim() : "";
+
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+    if (!env.PAYPAL_CLIENT_ID || !env.PAYPAL_SECRET) {
+      return respond(500, { ok: false, error: "missing_paypal_credentials" });
+    }
+
+    const orderId = refundIssueMatch[1];
+    const order = await findOrderById(db, orderId);
+    if (!order) {
+      return respond(404, { ok: false, error: "order_not_found" });
+    }
+    if (!order.paypal_capture_id) {
+      return respond(400, { ok: false, error: "paypal_capture_missing" });
+    }
+
+    const paidAmount = Number(order.amount_paid || 0);
+    const refundedAmount = Number(order.amount_refunded || 0);
+    const remaining = Math.max(0, paidAmount - refundedAmount);
+    const requestedAmount =
+      amountRaw == null ? null : Number.isFinite(Number(amountRaw)) ? Number(amountRaw) : NaN;
+    const refundAmount = requestedAmount == null ? remaining : Math.round(requestedAmount);
+
+    if (!Number.isFinite(refundAmount) || refundAmount <= 0) {
+      return respond(400, { ok: false, error: "refund_amount_invalid" });
+    }
+    if (refundAmount > remaining) {
+      return respond(400, { ok: false, error: "refund_amount_exceeds_remaining" });
+    }
+
+    let refund;
+    try {
+      refund = await refundPaypalCapture({
+        clientId: env.PAYPAL_CLIENT_ID,
+        secret: env.PAYPAL_SECRET,
+        captureId: order.paypal_capture_id,
+        amount: refundAmount,
+        currency: order.currency,
+        noteToPayer: reason || undefined,
+        invoiceId: order.id,
+      });
+    } catch (error) {
+      return respond(502, { ok: false, error: "paypal_refund_error" });
+    }
+
+    const refundFee = parsePaypalFee(refund);
+    const now = new Date().toISOString();
+    const refundId = crypto.randomUUID();
+    const refundStatus = String(refund?.status || "COMPLETED");
+    await db
+      .prepare(
+        "INSERT INTO payment_refunds (id, order_id, user_id, amount, currency, gateway_fee, gateway_refund_id, status, reason, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      )
+      .bind(
+        refundId,
+        order.id,
+        order.user_id,
+        refundAmount,
+        order.currency,
+        refundFee,
+        refund?.id || null,
+        refundStatus,
+        reason || null,
+        now
+      )
+      .run();
+
+    const nextRefunded = refundedAmount + refundAmount;
+    const nextStatus = nextRefunded >= paidAmount ? "refunded" : "refund_partial";
+    await db
+      .prepare("UPDATE orders SET amount_refunded = ?, status = ?, updated_at = ? WHERE id = ?")
+      .bind(nextRefunded, nextStatus, now, order.id)
+      .run();
+
+    const updatedOrder = { ...order, amount_refunded: nextRefunded, status: nextStatus };
+
+    return respond(200, {
+      ok: true,
+      order: updatedOrder,
+      refund: {
+        id: refundId,
+        order_id: order.id,
+        amount: refundAmount,
+        currency: order.currency,
+        status: refundStatus,
+        gateway_refund_id: refund?.id || null,
+      },
+    });
   }
 
   if (url.pathname === "/api/admin/refund-requests" && request.method === "GET") {

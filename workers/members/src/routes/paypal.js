@@ -1,4 +1,9 @@
-import { capturePaypalOrder, createPaypalOrder, verifyWebhookSignature } from "../lib/paypal.js";
+import {
+  capturePaypalOrder,
+  createPaypalOrder,
+  parsePaypalFee,
+  verifyWebhookSignature,
+} from "../lib/paypal.js";
 import { findOrderById, updateOrderPayment } from "../lib/orders.js";
 import { requireAuth, requireDb, readJson } from "../lib/request.js";
 
@@ -93,10 +98,12 @@ export async function handlePaypal({ request, env, url, respond }) {
       orderId: order.paypal_order_id,
     });
     const captureId = capture?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
+    const paymentGatewayFee = parsePaypalFee(capture);
 
     const updated = await updateOrderPayment(db, order.id, {
       paypalOrderId: order.paypal_order_id,
       paypalCaptureId: captureId,
+      paymentGatewayFee: paymentGatewayFee ?? null,
       status: "paid",
     });
 
@@ -157,7 +164,8 @@ export async function handlePaypal({ request, env, url, respond }) {
         .bind(eventId, eventType, resourceId || null, status, error || null, now)
         .run();
 
-    if (!customId) {
+    const allowMissingCustomId = eventType === "PAYMENT.CAPTURE.REFUNDED";
+    if (!customId && !allowMissingCustomId) {
       await recordEvent("ignored", null, "missing_custom_id");
       return respond(200, { ok: true, ignored: true });
     }
@@ -208,11 +216,57 @@ export async function handlePaypal({ request, env, url, respond }) {
         return respond(400, { ok: false, error: "amount_mismatch" });
       }
 
+      const paymentGatewayFee = parsePaypalFee(resource);
       await updateOrderPayment(db, customId, {
         paypalCaptureId: resource.id,
+        paymentGatewayFee: paymentGatewayFee ?? null,
         status: "paid_pending_profile",
       });
       await recordEvent("processed", customId, null);
+      return respond(200, { ok: true });
+    }
+
+    if (eventType === "PAYMENT.CAPTURE.REFUNDED") {
+      const refundId = resource?.id ? String(resource.id) : "";
+      if (!refundId) {
+        await recordEvent("failed", customId, "refund_id_missing");
+        return respond(200, { ok: true, ignored: true });
+      }
+
+      const existingRefund = await db
+        .prepare("SELECT * FROM payment_refunds WHERE gateway_refund_id = ?")
+        .bind(refundId)
+        .first();
+      if (!existingRefund) {
+        await recordEvent("ignored", refundId, "refund_not_found");
+        return respond(200, { ok: true, ignored: true });
+      }
+
+      const refundStatus = String(resource?.status || "COMPLETED");
+      const refundFee = parsePaypalFee(resource);
+      await db
+        .prepare(
+          "UPDATE payment_refunds SET status = ?, gateway_fee = COALESCE(?, gateway_fee) WHERE gateway_refund_id = ?"
+        )
+        .bind(refundStatus, refundFee, refundId)
+        .run();
+
+      const totals = await db
+        .prepare("SELECT SUM(amount) AS total FROM payment_refunds WHERE order_id = ?")
+        .bind(existingRefund.order_id)
+        .first();
+      const totalRefunded = Number(totals?.total || 0);
+      const order = await findOrderById(db, existingRefund.order_id);
+      if (order) {
+        const nextStatus =
+          totalRefunded >= Number(order.amount_paid || 0) ? "refunded" : "refund_partial";
+        await db
+          .prepare("UPDATE orders SET amount_refunded = ?, status = ?, updated_at = ? WHERE id = ?")
+          .bind(totalRefunded, nextStatus, now, order.id)
+          .run();
+      }
+
+      await recordEvent("processed", refundId, null);
       return respond(200, { ok: true });
     }
 
