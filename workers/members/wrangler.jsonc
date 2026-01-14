@@ -9,14 +9,13 @@
 		"enabled": true
 	},
 	"vars": {
-		"ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://members.chinamedicaltour.org,https://preview.chinamedicaltour.org,https://admin.chinamedicaltour.org",
+		"ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://members.chinamedicaltour.org,https://preview.chinamedicaltour.org,https://admin.chinamedicaltour.org,https://vipservices.chinamedicaltour.org",
 		"FROM_EMAIL": "orders@chinamedicaltour.org",
 		"VERIFY_FROM_EMAIL": "verify@chinamedicaltour.org",
 		"GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
 		"SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
 		"PAYPAL_RETURN_URL": "https://preview.chinamedicaltour.org/payment?paypal=return",
-		"PAYPAL_CANCEL_URL": "https://preview.chinamedicaltour.org/payment?paypal=cancel",
-		"LIBRARY_ADMIN_TOKEN": "replace_me"
+		"PAYPAL_CANCEL_URL": "https://preview.chinamedicaltour.org/payment?paypal=cancel"
 	},
 	"d1_databases": [
 		{

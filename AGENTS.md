@@ -7,6 +7,7 @@
   - Always follow the worktree rules for this repo and `new-cmt`.
 - Superpowers: run the bootstrap and follow skill workflows before starting any task.
 - Frontend: Must use `frontend-design:frontend-design` skill for any UI/Frontend implementation.
+- Planning files: review `task_plan.md`, `findings.md`, and `progress.md` when starting or resuming complex work.
 
 ## Recommended Workflow (Upgrade 2025 Payments)
 
