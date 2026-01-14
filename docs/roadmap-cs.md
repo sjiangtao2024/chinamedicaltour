@@ -15,6 +15,7 @@
 | **superpowers-inputs-cs.md** | 模板 | Prompt | Superpowers（Codex/Claude）安装与常用输入模板 | 所有开发者 |
 | **ops-knowledge-guide.zh.md** | 运维 | RAG 知识库 | ops 后台使用、Markdown 上传、重建状态、存储路径 | 运维 |
 | **smart-cs-features-and-guide.md** | 指南 | 功能总览 | 页面上下文、RAG、英文守卫、日志保留 | 产品、运营、开发 |
+| **2026-01-14-terms-consent.md** | 变更 | 合规 | 条款同意留痕接口、DB 迁移与验收 checklist | 前后端、运维 |
 | **plans/2025-12-22-smart-cs-rag-ops-design.md** | 设计 | RAG 架构 | RAG/Vectorize/ops 方案、数据流 | 架构师 |
 | **plans/2025-12-22-smart-cs-rag-ops-api-spec.md** | 设计 | ops API | 登录/上传/状态 API 约定 | 后端 |
 | **plans/2025-12-22-smart-cs-rag-ops-ui-spec.md** | 设计 | ops UI | 登录/上传界面说明 | 前端 |
@@ -35,7 +36,7 @@
 - 文档已从 `public/docs` 迁移到 `docs` 目录，便于版本管理与检索。
 - 补充 RAG 知识库更新流程与运维说明。
 - 智能客服功能总览文档已统一为中文版本。
-- 新增条款同意留痕方案：`/api/agreements` 接口与 `agreement_acceptances` 迁移，前端支付页接入并补充审计展示。
+- 新增条款同意留痕方案：`/api/agreements` 接口、`agreement_acceptances` 迁移、验收 checklist。
 
 ## 快速指引
 
