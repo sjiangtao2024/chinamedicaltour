@@ -13,6 +13,9 @@ MedTour浜у搧list V2甯﹁嫳鏂?xlsx
 public/assets/images/concept_design.png
 # Workers: deps & local secrets
 workers/**/node_modules/
+/node_modules/
+/package-lock.json
+/package.json
 workers/**/.dev.vars
 workers/**/.wrangler/
 workers/**/.npm/
