@@ -7,6 +7,28 @@ function toCurrencyValue(amount) {
   return Number(amount).toFixed(2);
 }
 
+function toCents(value) {
+  const amount = Number.parseFloat(value);
+  if (!Number.isFinite(amount)) {
+    return null;
+  }
+  return Math.round(amount * 100);
+}
+
+export function parsePaypalFee(payload) {
+  const feeValue =
+    payload?.seller_receivable_breakdown?.paypal_fee?.value ||
+    payload?.purchase_units?.[0]?.payments?.captures?.[0]?.seller_receivable_breakdown?.paypal_fee
+      ?.value ||
+    payload?.resource?.seller_receivable_breakdown?.paypal_fee?.value ||
+    null;
+
+  if (!feeValue) {
+    return null;
+  }
+  return toCents(feeValue);
+}
+
 export function buildOrderPayload({ amount, currency, customId, returnUrl, cancelUrl }) {
   const payload = {
     intent: "CAPTURE",
@@ -25,6 +47,23 @@ export function buildOrderPayload({ amount, currency, customId, returnUrl, cance
       return_url: returnUrl,
       cancel_url: cancelUrl,
     };
+  }
+  return payload;
+}
+
+export function buildRefundPayload({ amount, currency, noteToPayer, invoiceId }) {
+  const payload = {};
+  if (amount != null) {
+    payload.amount = {
+      currency_code: currency,
+      value: toCurrencyValue(amount),
+    };
+  }
+  if (noteToPayer) {
+    payload.note_to_payer = noteToPayer;
+  }
+  if (invoiceId) {
+    payload.invoice_id = invoiceId;
   }
   return payload;
 }
@@ -114,6 +153,34 @@ export async function listPaypalTransactions({ clientId, secret, startDate, endD
   if (!res.ok) {
     const text = await res.text();
     throw new Error("paypal_report_error:" + res.status + ":" + text);
+  }
+
+  return res.json();
+}
+
+export async function refundPaypalCapture({
+  clientId,
+  secret,
+  captureId,
+  amount,
+  currency,
+  noteToPayer,
+  invoiceId,
+}) {
+  const token = await getAccessToken({ clientId, secret });
+  const payload = buildRefundPayload({ amount, currency, noteToPayer, invoiceId });
+  const res = await fetch(SANDBOX_BASE + "/v2/payments/captures/" + captureId + "/refund", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error("paypal_refund_error:" + res.status + ":" + text);
   }
 
   return res.json();

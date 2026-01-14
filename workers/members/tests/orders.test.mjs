@@ -13,3 +13,10 @@ assert.equal(
   normalizeOrderInput({ intake_summary: "Case summary" }).intakeSummary,
   "Case summary"
 );
+
+const normalizedTerms = normalizeOrderInput({
+  terms_version: "2026-01-14",
+  terms_agreed_at: "2026-01-14T12:00:00Z",
+});
+assert.equal(normalizedTerms.termsVersion, "2026-01-14");
+assert.equal(normalizedTerms.termsAgreedAt, "2026-01-14T12:00:00Z");

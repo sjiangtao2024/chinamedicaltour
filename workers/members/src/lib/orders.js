@@ -9,6 +9,16 @@ export async function findOrderById(db, orderId) {
   return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
 }
 
+export async function findServiceProduct(db, { itemType, itemId }) {
+  if (!db || !itemType || !itemId) {
+    return null;
+  }
+  return db
+    .prepare("SELECT * FROM service_products WHERE item_type = ? AND item_id = ?")
+    .bind(itemType, itemId)
+    .first();
+}
+
 export async function findOpenOrderForUserItem(db, userId, itemType, itemId) {
   if (!db || !userId || !itemType || !itemId) {
     return null;
@@ -26,7 +36,7 @@ export async function insertOrder(db, data) {
   const id = crypto.randomUUID();
   await db
     .prepare(
-      "INSERT INTO orders (id, user_id, item_type, item_id, amount_original, discount_amount, amount_paid, currency, ref_channel, coupon_id, intake_summary, paypal_order_id, paypal_capture_id, status, idempotency_key, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO orders (id, user_id, item_type, item_id, amount_original, discount_amount, amount_paid, currency, ref_channel, coupon_id, intake_summary, refund_policy_type, terms_version, terms_agreed_at, service_start_date, delivery_status, delivered_at, payment_gateway_fee, is_deposit, check_in_date, amount_refunded, paypal_order_id, paypal_capture_id, status, idempotency_key, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     )
     .bind(
       id,
@@ -40,6 +50,16 @@ export async function insertOrder(db, data) {
       data.refChannel,
       data.couponId,
       data.intakeSummary || null,
+      data.refundPolicyType || null,
+      data.termsVersion || null,
+      data.termsAgreedAt || null,
+      data.serviceStartDate || null,
+      data.deliveryStatus || "PENDING",
+      data.deliveredAt || null,
+      Number.isFinite(data.paymentGatewayFee) ? data.paymentGatewayFee : 0,
+      data.isDeposit ? 1 : 0,
+      data.checkInDate || null,
+      Number.isFinite(data.amountRefunded) ? data.amountRefunded : 0,
       null,
       null,
       data.status,
@@ -61,6 +81,16 @@ export async function insertOrder(db, data) {
     ref_channel: data.refChannel,
     coupon_id: data.couponId,
     intake_summary: data.intakeSummary || null,
+    refund_policy_type: data.refundPolicyType || null,
+    terms_version: data.termsVersion || null,
+    terms_agreed_at: data.termsAgreedAt || null,
+    service_start_date: data.serviceStartDate || null,
+    delivery_status: data.deliveryStatus || "PENDING",
+    delivered_at: data.deliveredAt || null,
+    payment_gateway_fee: Number.isFinite(data.paymentGatewayFee) ? data.paymentGatewayFee : 0,
+    is_deposit: data.isDeposit ? 1 : 0,
+    check_in_date: data.checkInDate || null,
+    amount_refunded: Number.isFinite(data.amountRefunded) ? data.amountRefunded : 0,
     status: data.status,
     idempotency_key: data.idempotencyKey,
     created_at: now,
@@ -68,29 +98,43 @@ export async function insertOrder(db, data) {
   };
 }
 
-export async function updateOrderPayment(db, orderId, updates) {
-  const now = new Date().toISOString();
-  await db
-    .prepare(
-      "UPDATE orders SET paypal_order_id = ?, paypal_capture_id = ?, status = ?, updated_at = ? WHERE id = ?"
-    )
-    .bind(
-      updates.paypalOrderId || null,
-      updates.paypalCaptureId || null,
-      updates.status,
-      now,
-      orderId
-    )
-    .run();
-
-  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
-}
+export async function updateOrderPayment(db, orderId, updates) {
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      "UPDATE orders SET paypal_order_id = ?, paypal_capture_id = ?, payment_gateway_fee = COALESCE(?, payment_gateway_fee), status = ?, updated_at = ? WHERE id = ?"
+    )
+    .bind(
+      updates.paypalOrderId || null,
+      updates.paypalCaptureId || null,
+      Number.isFinite(updates.paymentGatewayFee) ? updates.paymentGatewayFee : null,
+      updates.status,
+      now,
+      orderId
+    )
+    .run();
+
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
 
 export async function updateOrderStatus(db, orderId, status) {
   const now = new Date().toISOString();
   await db
     .prepare("UPDATE orders SET status = ?, updated_at = ? WHERE id = ?")
     .bind(status, now, orderId)
+    .run();
+
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
+
+export async function updateOrderServiceStartDate(db, orderId, serviceStartDate) {
+  if (!serviceStartDate) {
+    return null;
+  }
+  const now = new Date().toISOString();
+  await db
+    .prepare("UPDATE orders SET service_start_date = ?, updated_at = ? WHERE id = ?")
+    .bind(serviceStartDate, now, orderId)
     .run();
 
   return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
@@ -149,6 +193,18 @@ export async function listOrdersByUser(db, userId, limit = 10) {
     .all();
 }
 
+export async function listServiceProducts(db, { itemType = "package" } = {}) {
+  if (!db) {
+    return { results: [] };
+  }
+  return db
+    .prepare(
+      "SELECT item_type, item_id, name, category, price, currency, features, refund_policy_type, terms_version FROM service_products WHERE item_type = ? ORDER BY name ASC"
+    )
+    .bind(itemType)
+    .all();
+}
+
 export async function findOrderByUser(db, orderId, userId) {
   return db
     .prepare("SELECT * FROM orders WHERE id = ? AND user_id = ?")
@@ -185,6 +241,8 @@ export function normalizeOrderInput(input) {
     refChannel: input?.ref_channel ? String(input.ref_channel).trim() : "",
     couponCode: input?.coupon_code ? String(input.coupon_code).trim() : "",
     intakeSummary: input?.intake_summary ? String(input.intake_summary).trim() : "",
+    termsVersion: input?.terms_version ? String(input.terms_version).trim() : "",
+    termsAgreedAt: input?.terms_agreed_at ? String(input.terms_agreed_at).trim() : "",
     idempotencyKey: input?.idempotency_key
       ? String(input.idempotency_key).trim()
       : "",
