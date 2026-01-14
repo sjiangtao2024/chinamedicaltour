@@ -2,10 +2,11 @@
 
 ## Required Reading (Before Any Work)
 
-- Worktree protocol: `docs/ai-worktrees-protocol.md`
+- Worktree protocol: `docs/agent-rules/ai-worktrees-protocol.md`
   - This is the single source of truth for Multi‑AI worktree rules.
   - Always follow the worktree rules for this repo and `new-cmt`.
 - Superpowers: run the bootstrap and follow skill workflows before starting any task.
+- Python execution rules: `docs/agent-rules/python-script-rules.md`
 - Frontend: Must use `frontend-design:frontend-design` skill for any UI/Frontend implementation.
 - Planning files: review `task_plan.md`, `findings.md`, and `progress.md` when starting or resuming complex work.
 
