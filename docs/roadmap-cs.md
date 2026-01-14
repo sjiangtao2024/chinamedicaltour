@@ -48,3 +48,12 @@
 - docs/upgrade-2025-payments/design.md
 - docs/upgrade-2025-payments/deployment.md
 - docs/upgrade-2025-payments/members-api.md
+
+## Payments 2026
+- docs/plans/2026-01-14-refund-policy-implementation.md
+- docs/plans/2026-01-14-refund-policy-spec.md
+- docs/plans/2026-01-14-packages-api-implementation-plan.md
+- docs/plans/2026-01-14-order-details-ui-spec.md
+- docs/plans/2026-01-13-paypal-refund-automation-implementation-plan.md
+- docs/plans/2026-01-13-paypal-refund-automation-design.md
+- docs/payments-2026/manual-payment-test-cases.md
