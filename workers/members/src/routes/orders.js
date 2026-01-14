@@ -3,7 +3,9 @@ import {
   findOrderByIdempotency,
   findOpenOrderForUserItem,
   findOrderByUser,
+  findServiceProduct,
   insertOrder,
+  listServiceProducts,
   listOrdersByUser,
   normalizeOrderInput,
   requireProfile,
@@ -11,7 +13,9 @@ import {
   expireOrderIfNeeded,
   isOrderPaymentExpired,
   updateOrderStatus,
+  updateOrderServiceStartDate,
 } from "../lib/orders.js";
+import { calculateRefund } from "../lib/refunds.js";
 import { applyCoupon, incrementCouponUsage, resolveCoupon } from "../lib/coupons.js";
 import { insertOrderProfile, normalizeProfile, updateUserFromProfile } from "../lib/profile.js";
 import { requireAuth, requireDb, readJson } from "../lib/request.js";
@@ -31,8 +35,28 @@ function matchRefundPath(pathname) {
   return match ? match[1] : null;
 }
 
+function matchRefundEstimatePath(pathname) {
+  const match = pathname.match(/^\/api\/orders\/([^/]+)\/refund-estimate$/);
+  return match ? match[1] : null;
+}
+
 export async function handleOrders({ request, env, url, respond }) {
   if (!url.pathname.startsWith("/api/orders")) {
+    if (url.pathname === "/api/packages" && request.method === "GET") {
+      let db;
+      try {
+        db = requireDb(env);
+      } catch (error) {
+        return respond(500, { ok: false, error: "missing_db" });
+      }
+      const { results } = await listServiceProducts(db, { itemType: "package" });
+      const packages = (results || []).map((row) => ({
+        ...row,
+        price: Number(row.price || 0),
+        features: row.features ? String(row.features).split("|") : [],
+      }));
+      return respond(200, { ok: true, packages });
+    }
     return null;
   }
 
@@ -55,6 +79,39 @@ export async function handleOrders({ request, env, url, respond }) {
     );
     const orders = refreshed.map(toOrderSummary).filter(Boolean);
     return respond(200, { ok: true, orders });
+  }
+
+  const refundEstimateOrderId = matchRefundEstimatePath(url.pathname);
+  if (refundEstimateOrderId && request.method === "GET") {
+    const auth = await requireAuth(request, env);
+    if (!auth.ok) {
+      return respond(auth.status, { ok: false, error: auth.error });
+    }
+
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const order = await findOrderByUser(db, refundEstimateOrderId, auth.userId);
+    if (!order) {
+      return respond(404, { ok: false, error: "order_not_found" });
+    }
+
+    const refund = calculateRefund({ order });
+    const refunded = Number(order.amount_refunded || 0);
+    const remaining = Math.max(0, refund.refundable_amount - refunded);
+
+    return respond(200, {
+      ok: true,
+      refund: {
+        ...refund,
+        refundable_amount: remaining,
+        amount_refunded: refunded,
+      },
+    });
   }
 
   const orderMatch = url.pathname.match(/^\/api\/orders\/([^/]+)$/);
@@ -92,6 +149,9 @@ export async function handleOrders({ request, env, url, respond }) {
     }
     if (!input.itemType || !input.itemId || !input.currency || !input.amountOriginal) {
       return respond(400, { ok: false, error: "missing_fields" });
+    }
+    if (!input.termsVersion || !input.termsAgreedAt) {
+      return respond(400, { ok: false, error: "terms_required" });
     }
 
     let db;
@@ -136,6 +196,17 @@ export async function handleOrders({ request, env, url, respond }) {
       }
     }
 
+    const serviceProduct = await findServiceProduct(db, {
+      itemType: input.itemType,
+      itemId: input.itemId,
+    });
+    if (!serviceProduct?.refund_policy_type) {
+      return respond(400, { ok: false, error: "service_product_not_configured" });
+    }
+    if (serviceProduct.terms_version && serviceProduct.terms_version !== input.termsVersion) {
+      return respond(400, { ok: false, error: "terms_version_mismatch" });
+    }
+
     const order = await insertOrder(db, {
       userId: auth.userId,
       itemType: input.itemType,
@@ -147,6 +218,9 @@ export async function handleOrders({ request, env, url, respond }) {
       refChannel: input.refChannel,
       couponId: coupon?.id || null,
       intakeSummary: input.intakeSummary || "",
+      refundPolicyType: String(serviceProduct.refund_policy_type || "").toUpperCase(),
+      termsVersion: input.termsVersion,
+      termsAgreedAt: input.termsAgreedAt,
       status: "created",
       idempotencyKey: input.idempotencyKey,
     });
@@ -229,6 +303,9 @@ export async function handleOrders({ request, env, url, respond }) {
     }
 
     const profileRow = await insertOrderProfile(db, order.id, profile);
+    if (profile?.checkup_date) {
+      await updateOrderServiceStartDate(db, order.id, profile.checkup_date);
+    }
     await updateOrderStatus(db, order.id, "profile_completed");
     await updateUserFromProfile(db, order.user_id, profile);
 
@@ -288,6 +365,10 @@ export async function handleOrders({ request, env, url, respond }) {
       return respond(404, { ok: false, error: "order_not_found" });
     }
     if (!["paid", "paid_pending_profile"].includes(order.status)) {
+      return respond(400, { ok: false, error: "refund_not_allowed" });
+    }
+    const refundCheck = calculateRefund({ order });
+    if (refundCheck.status === "not_refundable" || refundCheck.status === "missing_data") {
       return respond(400, { ok: false, error: "refund_not_allowed" });
     }
 
