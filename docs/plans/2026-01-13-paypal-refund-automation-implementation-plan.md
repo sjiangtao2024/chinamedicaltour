@@ -75,6 +75,15 @@ git commit -m "feat(refund): add schema fields for automation"
 - Modify: `workers/members/src/routes/admin.js`
 - Test: `workers/members/tests/refund-calc.test.mjs`
 
+**状态说明（先记录，不立即实现）**
+- 1–7 天区间退款比例仍在讨论中，规则未确定。
+- 在退款策略确认前，暂不落地自动计算逻辑；保留设计与测试占位即可。
+
+**策略确认后的落地占位（待补充）**
+1) 在文档中追加明确规则（如分段比例或线性递减），并更新条款页面文本。
+2) 在 `calculateRefundCents` 中实现新规则，并补充对应测试用例。
+3) 在管理端 UI/接口中展示“系统计算金额”与“管理员调整金额”，并记录差异原因。
+
 **Step 1: 写失败测试**
 
 ```js

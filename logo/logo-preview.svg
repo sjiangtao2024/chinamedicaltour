@@ -1,0 +1,20 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><!-- 背景（透明） --><rect width="600" height="200" fill="none" /><!-- 图标部分：融合五行之“金”（圆）与“水”（流线） --><g transform="translate(50, 40)"><!-- 外圆环：厚度调整，增强稳固感 --><circle cx="60" cy="60" r="58" fill="none" stroke="#0A3D62" stroke-width="5" /><!-- P 与 C 的艺术化动态连接 -->
+<path d="M60 22 A 38 38 0 1 1 22 60 L 42 60 A 18 18 0 1 0 60 42 Z" fill="#0A3D62" />
+<path d="M60 98 A 38 38 0 0 0 98 60 L 78 60 A 18 18 0 0 1 60 78 Z" fill="#4A90E2" />
+
+<!-- 医疗十字：采用圆角矩形，更具亲和力 -->
+<rect x="53" y="46" width="14" height="28" rx="3" fill="#FFFFFF" />
+<rect x="46" y="53" width="28" height="14" rx="3" fill="#FFFFFF" />
+
+<!-- 核心圆点：象征三位合伙人的凝聚点 -->
+<circle cx="60" cy="60" r="4.5" fill="#0A3D62" />
+</g><!-- 文字组：对标高端网页排版 --><g transform="translate(190, 82)"><!-- 英文主品牌：增加字重，体现权威 --><text font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="#0A3D62">Prime<tspan fill="#4A90E2">Care</tspan></text><!-- 中文名称：使用更具质感的灰色调，避免喧宾夺主 -->
+<text x="2" y="48" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="34" font-weight="600" fill="#2C3E50" letter-spacing="5">
+  普瑞医疗
+</text>
+
+<!-- 底部标识：增加间距，对标奢侈品/高端服务排版 -->
+<text x="4" y="85" font-family="'Segoe UI', Arial, sans-serif" font-size="18" letter-spacing="12" font-weight="400" fill="#95A5A6">
+  CHINA
+</text>
+</g><!-- 底部装饰线：极细浅灰线，增加层次感 --><line x1="195" y1="180" x2="450" y2="180" stroke="#EBEEF5" stroke-width="1.5" /></svg>
