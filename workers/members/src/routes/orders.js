@@ -177,14 +177,6 @@ export async function handleOrders({ request, env, url, respond }) {
       return respond(404, { ok: false, error: "order_not_found" });
     }
 
-    const profile = await db
-      .prepare("SELECT * FROM order_profiles WHERE order_id = ? ORDER BY created_at DESC LIMIT 1")
-      .bind(profileOrderId)
-      .first();
-    if (!profile) {
-      return respond(404, { ok: false, error: "order_profile_not_found" });
-    }
-
     const fallbackProfile = await db
       .prepare(
         "SELECT name, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date FROM user_profiles WHERE user_id = ?"
@@ -195,8 +187,16 @@ export async function handleOrders({ request, env, url, respond }) {
       .prepare("SELECT name FROM users WHERE id = ?")
       .bind(order.user_id)
       .first();
+    const profile = await db
+      .prepare("SELECT * FROM order_profiles WHERE order_id = ? ORDER BY created_at DESC LIMIT 1")
+      .bind(profileOrderId)
+      .first();
 
-    const mergedProfile = { ...profile };
+    if (!profile && !fallbackProfile && !fallbackUser) {
+      return respond(404, { ok: false, error: "order_profile_not_found" });
+    }
+
+    const mergedProfile = profile ? { ...profile } : {};
     const fallback = fallbackProfile || fallbackUser || {};
     ["name", "gender", "birth_date", "contact_info", "companions", "emergency_contact", "email", "checkup_date"].forEach(
       (key) => {

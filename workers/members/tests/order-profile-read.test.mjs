@@ -134,6 +134,27 @@ const userFallbackPayload = await userFallbackResponse.json();
 assert.equal(userFallbackPayload.profile.name, "User Fallback");
 
 hasProfile = false;
+hasUserProfile = true;
+const missingOrderProfileResponse = await handleOrders({
+  request,
+  env: {
+    MEMBERS_DB: db,
+    JWT_SECRET: secret,
+  },
+  url: new URL(request.url),
+  respond: (status, payload) =>
+    new Response(JSON.stringify(payload), {
+      status,
+      headers: { "Content-Type": "application/json" },
+    }),
+});
+
+assert.equal(missingOrderProfileResponse.status, 200);
+const missingOrderProfilePayload = await missingOrderProfileResponse.json();
+assert.equal(missingOrderProfilePayload.profile.name, "User Name");
+
+hasUserProfile = false;
+hasUserName = false;
 const secondResponse = await handleOrders({
   request,
   env: {
