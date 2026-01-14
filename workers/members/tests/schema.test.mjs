@@ -42,3 +42,24 @@ const orderProfileSql = fs.readFileSync(
 );
 assert.ok(orderProfileSql.includes("ALTER TABLE order_profiles"));
 assert.ok(orderProfileSql.includes("ADD COLUMN name"));
+
+const refundPolicySql = fs.readFileSync(
+  "workers/members/migrations/0010_add_refund_policy_fields.sql",
+  "utf8"
+);
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN refund_policy_type"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN terms_version"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN terms_agreed_at"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN service_start_date"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN delivery_status"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN delivered_at"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN payment_gateway_fee"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN is_deposit"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN check_in_date"));
+assert.ok(refundPolicySql.includes("ALTER TABLE orders ADD COLUMN amount_refunded"));
+assert.ok(refundPolicySql.includes("CREATE TABLE service_products"));
+assert.ok(refundPolicySql.includes("CREATE TABLE payment_refunds"));
+assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN category"));
+assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN price"));
+assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN currency"));
+assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN features"));
