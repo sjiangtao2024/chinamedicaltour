@@ -24,11 +24,12 @@ export async function insertOrderProfile(db, orderId, profile) {
   const now = new Date().toISOString();
   await db
     .prepare(
-      "INSERT INTO order_profiles (id, order_id, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO order_profiles (id, order_id, name, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     )
     .bind(
       id,
       orderId,
+      profile.name || null,
       profile.gender || null,
       profile.birth_date || null,
       profile.contact_info || null,

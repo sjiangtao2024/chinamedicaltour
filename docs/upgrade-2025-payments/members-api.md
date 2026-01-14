@@ -51,6 +51,8 @@
   创建订单（需 `Authorization`）
 - `GET /api/orders/:id`  
   获取订单详情（需 `Authorization`）
+- `GET /api/orders/:id/profile`  
+  获取订单 Intake 资料（需 `Authorization`）
 - `POST /api/orders/:id/cancel`  
   取消未支付订单（需 `Authorization`）
 - `POST /api/orders/:id/refund-request`  

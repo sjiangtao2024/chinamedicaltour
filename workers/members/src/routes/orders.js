@@ -159,6 +159,56 @@ export async function handleOrders({ request, env, url, respond }) {
   }
 
   const profileOrderId = matchProfilePath(url.pathname);
+  if (profileOrderId && request.method === "GET") {
+    const auth = await requireAuth(request, env);
+    if (!auth.ok) {
+      return respond(auth.status, { ok: false, error: auth.error });
+    }
+
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const order = await findOrderByUser(db, profileOrderId, auth.userId);
+    if (!order) {
+      return respond(404, { ok: false, error: "order_not_found" });
+    }
+
+    const profile = await db
+      .prepare("SELECT * FROM order_profiles WHERE order_id = ? ORDER BY created_at DESC LIMIT 1")
+      .bind(profileOrderId)
+      .first();
+    if (!profile) {
+      return respond(404, { ok: false, error: "order_profile_not_found" });
+    }
+
+    const fallbackProfile = await db
+      .prepare(
+        "SELECT name, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date FROM user_profiles WHERE user_id = ?"
+      )
+      .bind(order.user_id)
+      .first();
+    const fallbackUser = await db
+      .prepare("SELECT name FROM users WHERE id = ?")
+      .bind(order.user_id)
+      .first();
+
+    const mergedProfile = { ...profile };
+    const fallback = fallbackProfile || fallbackUser || {};
+    ["name", "gender", "birth_date", "contact_info", "companions", "emergency_contact", "email", "checkup_date"].forEach(
+      (key) => {
+        const value = profile?.[key];
+        if (!value && fallback[key]) {
+          mergedProfile[key] = fallback[key];
+        }
+      }
+    );
+
+    return respond(200, { ok: true, profile: mergedProfile });
+  }
   if (profileOrderId && request.method === "POST") {
     const body = await readJson(request);
     const profile = normalizeProfile(body || {});

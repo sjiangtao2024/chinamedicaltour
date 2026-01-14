@@ -35,3 +35,10 @@ const refundSql = fs.readFileSync(
   "utf8"
 );
 assert.ok(refundSql.includes("CREATE TABLE refund_requests"));
+
+const orderProfileSql = fs.readFileSync(
+  "workers/members/migrations/0008_add_order_profile_name.sql",
+  "utf8"
+);
+assert.ok(orderProfileSql.includes("ALTER TABLE order_profiles"));
+assert.ok(orderProfileSql.includes("ADD COLUMN name"));
