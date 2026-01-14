@@ -100,3 +100,11 @@
 
 ## 变更记录
 - 2026-01-14：首次落地退款策略、退款估算与自动退款流程。
+
+## 上线检查清单
+1. 部署 members（含 `/api/packages` 与退款逻辑）
+2. 部署 new-cmt（支付页读取 `/api/packages`）
+3. 验收：
+   - `GET https://members.chinamedicaltour.org/api/packages` 返回 12 套餐并含价格/特性
+   - `/payment?package=full-body` 页面能展示套餐信息
+   - 下单时必须勾选退款政策，订单创建成功
