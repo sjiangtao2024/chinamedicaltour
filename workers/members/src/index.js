@@ -7,8 +7,18 @@ import { handleLibrary } from "./routes/library.js";
 import { handleOrders } from "./routes/orders.js";
 import { handlePaypal } from "./routes/paypal.js";
 import { handleProfile } from "./routes/profile.js";
+import { handleAgreements } from "./routes/agreements.js";
 
-const ROUTES = [handleAuth, handleProfile, handleAdmin, handleOrders, handlePaypal, handleHealth, handleLibrary];
+const ROUTES = [
+  handleAuth,
+  handleProfile,
+  handleAdmin,
+  handleOrders,
+  handleAgreements,
+  handlePaypal,
+  handleHealth,
+  handleLibrary,
+];
 
 export default {
   async fetch(request, env, ctx) {
