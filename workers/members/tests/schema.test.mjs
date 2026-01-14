@@ -42,7 +42,6 @@ const orderProfileSql = fs.readFileSync(
 );
 assert.ok(orderProfileSql.includes("ALTER TABLE order_profiles"));
 assert.ok(orderProfileSql.includes("ADD COLUMN name"));
-
 const refundPolicySql = fs.readFileSync(
   "workers/members/migrations/0010_add_refund_policy_fields.sql",
   "utf8"
@@ -67,3 +66,14 @@ assert.ok(refundPolicySql.includes("'Full Body Scan'"));
 assert.ok(refundPolicySql.includes("'Health Screening'"));
 assert.ok(refundPolicySql.includes("80000"));
 assert.ok(refundPolicySql.includes("3T MRI"));
+
+const agreementSql = fs.readFileSync(
+  "workers/members/migrations/0011_create_agreement_acceptances.sql",
+  "utf8"
+);
+assert.ok(agreementSql.includes("CREATE TABLE agreement_acceptances"));
+assert.ok(agreementSql.includes("terms_version"));
+assert.ok(agreementSql.includes("terms_doc_id"));
+assert.ok(agreementSql.includes("accepted_at"));
+assert.ok(agreementSql.includes("user_agent"));
+assert.ok(agreementSql.includes("ip_address"));
