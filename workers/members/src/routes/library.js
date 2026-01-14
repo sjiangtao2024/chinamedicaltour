@@ -44,7 +44,7 @@ function pickUpdate(body, key) {
 }
 
 function buildEntryPayload(body, now) {
-  return {
+  const payload = {
     slug: normalizeText(body?.slug),
     title: normalizeText(body?.title),
     summary: normalizeText(body?.summary),
@@ -60,6 +60,12 @@ function buildEntryPayload(body, now) {
     created_at: now,
     updated_at: now,
   };
+
+  if (payload.status === "published" && !payload.published_at) {
+    payload.published_at = now;
+  }
+
+  return payload;
 }
 
 function buildUpdatePayload(body, now) {
@@ -79,6 +85,9 @@ function buildUpdatePayload(body, now) {
   };
 
   const filtered = Object.fromEntries(Object.entries(payload).filter(([, value]) => value !== undefined));
+  if (filtered.status === "published" && !filtered.published_at) {
+    filtered.published_at = now;
+  }
   if (Object.keys(filtered).length === 0) {
     return filtered;
   }
