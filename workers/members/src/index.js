@@ -3,11 +3,12 @@ import { buildRespond, corsHeaders } from "./lib/request.js";
 import { handleAdmin } from "./routes/admin.js";
 import { handleAuth } from "./routes/auth.js";
 import { handleHealth } from "./routes/health.js";
+import { handleLibrary } from "./routes/library.js";
 import { handleOrders } from "./routes/orders.js";
 import { handlePaypal } from "./routes/paypal.js";
 import { handleProfile } from "./routes/profile.js";
 
-const ROUTES = [handleAuth, handleProfile, handleAdmin, handleOrders, handlePaypal, handleHealth];
+const ROUTES = [handleAuth, handleProfile, handleAdmin, handleOrders, handlePaypal, handleHealth, handleLibrary];
 
 export default {
   async fetch(request, env, ctx) {

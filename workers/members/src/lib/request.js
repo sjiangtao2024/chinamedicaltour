@@ -57,6 +57,21 @@ export async function requireAdmin(request, env) {
   return { ok: true, userId: auth.userId, admin };
 }
 
+export async function requireLibraryAdmin(request, env) {
+  const authHeader = request.headers.get("Authorization") || "";
+  const token = parseBearerToken(authHeader);
+  if (!token) {
+    return { ok: false, status: 401, error: "unauthorized" };
+  }
+  if (!env.LIBRARY_ADMIN_TOKEN) {
+    return { ok: false, status: 500, error: "missing_library_admin_token" };
+  }
+  if (token !== env.LIBRARY_ADMIN_TOKEN) {
+    return { ok: false, status: 403, error: "forbidden" };
+  }
+  return { ok: true };
+}
+
 export function parseAllowedOrigins(env) {
   const raw = env?.ALLOWED_ORIGINS || "";
   const origins = raw
