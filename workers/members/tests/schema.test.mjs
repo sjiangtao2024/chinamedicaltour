@@ -63,3 +63,7 @@ assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN cate
 assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN price"));
 assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN currency"));
 assert.ok(refundPolicySql.includes("ALTER TABLE service_products ADD COLUMN features"));
+assert.ok(refundPolicySql.includes("'Full Body Scan'"));
+assert.ok(refundPolicySql.includes("'Health Screening'"));
+assert.ok(refundPolicySql.includes("80000"));
+assert.ok(refundPolicySql.includes("3T MRI"));
