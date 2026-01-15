@@ -43,8 +43,8 @@ Phase 1
 ### Phase 4: Verification & Merge
 - [x] Run targeted tests (workers + new-cmt)
 - [ ] Run full test suite (if required)
-- [ ] Merge and push
-- **Status:** pending
+- [x] Merge and push
+- **Status:** complete
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

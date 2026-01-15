@@ -36,6 +36,7 @@
 - Created new worktrees: `/.worktrees/ai-a` in root and `new-cmt/.worktrees/ai-a` in new-cmt for fixes.
 - Added webhook capture test and profile redirect tests; ran `node workers/members/tests/paypal-webhook-capture-profile.test.mjs` (pass) and `npx vitest run src/__tests__/profileFlow.test.tsx` (pass).
 - Re-ran targeted tests on worktrees: webhook capture test (pass) and profileFlow test (pass).
+- Merged fixes into main for both repos, removed worktrees, and pushed to origin.
 
 ## Test Results
 
