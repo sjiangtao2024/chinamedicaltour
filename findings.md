@@ -1,31 +1,15 @@
 # Findings & Decisions
 
 ## Requirements
-- Debug `terms_version_mismatch` from `POST /api/agreements` during payment setup.
-- Identify backend validation and the expected terms version.
+- Investigate admin UI routing and preview/admin domain behavior.
 
 ## Research Findings
-- User reports error: `Payment setup failed: terms_version_mismatch`.
-- Failing endpoint: `https://members.chinamedicaltour.org/api/agreements` (HTTP 400).
-- Payload includes `terms_version: "2026-01"` and `terms_doc_id: "terms-2026-01"`.
-- Error is emitted in `workers/members/src/routes/agreements.js` and also in `workers/members/src/routes/orders.js`.
-- Agreements handler is implemented in `workers/members/src/routes/agreements.js` and wired in `workers/members/src/index.js`.
-- /api/agreements rejects when order.terms_version exists and differs from body.terms_version.
-- /api/orders rejects when service_product.terms_version exists and differs from input.termsVersion.
-- Payment page (new-cmt) creates order with payload containing duplicate `terms_version` keys; later value will overwrite earlier in JSON.stringify.
-- Payment page sends agreement with `terms_version: TERMS_VERSION` and `terms_doc_id: TERMS_DOC_ID`, so mismatch can occur if order saved with a different terms_version.
-- TERMS_VERSION and TERMS_DOC_ID constants are defined in `new-cmt/src/lib/terms.ts` as `2026-01` and `terms-2026-01`.
-- Payment page defines `REFUND_POLICY_VERSION = "2026-01-14"` and uses it in the order payload (duplicate key), which can overwrite `TERMS_VERSION`.
-- /api/orders derives input.termsVersion from request body and requires it; this value is written to orders.terms_version.
-- normalizeOrderInput maps request `terms_version` directly into termsVersion with no separate refund policy field.
-- service_products.terms_version is seeded as "2026-01-14" in migrations, indicating backend expects that value for orders.
-- Repro evidence: order.terms_version persisted as "2026-01-14" while agreement payload uses "2026-01", triggering /api/agreements mismatch.
+- 
 
 ## Technical Decisions
 | Decision | Rationale |
 |----------|-----------|
-| Use systematic debugging | Root cause must be identified before proposing fixes |
-| Align agreement terms_version to order terms_version | Backend enforces equality between order.terms_version and agreement terms_version |
+|          |           |
 
 ## Issues Encountered
 | Issue | Resolution |
@@ -33,12 +17,7 @@
 |       |            |
 
 ## Resources
-- workers/members/src/routes/agreements.js
-- workers/members/src/routes/orders.js
-- workers/members/src/index.js
-- new-cmt/src/pages/Payment.tsx
-- new-cmt/src/lib/terms.ts
-- workers/members/migrations/0010_add_refund_policy_fields.sql
+- 
 
 ## Visual/Browser Findings
 - 
@@ -46,3 +25,92 @@
 ---
 *Update this file after every 2 view/browser/search operations*
 *This prevents visual information from being lost*
+
+## Research Findings
+- new-cmt App routing only defines /admin/library; other admin routes are not registered in App.tsx.
+- new-cmt has multiple admin pages (AdminDashboard/AdminOrders/AdminPayments/AdminCoupons/AdminOrderDetails) that link to /admin/* paths.
+- Auth page defines ADMIN_HOST = admin.chinamedicaltour.org and redirects admin logins to /admin.
+
+## Resources
+- new-cmt/src/App.tsx
+- new-cmt/src/pages/Auth.tsx
+- new-cmt/src/pages/admin/AdminDashboard.tsx
+- new-cmt/src/pages/admin/AdminOrders.tsx
+- new-cmt/src/pages/admin/AdminPayments.tsx
+- new-cmt/src/pages/admin/AdminCoupons.tsx
+
+## Research Findings
+- Auth login redirects admin host (admin.chinamedicaltour.org) to /admin after login.
+- new-cmt App.tsx only registers /admin/library; no /admin, /admin/orders, /admin/payments, or /admin/coupons routes.
+
+## Resources
+- new-cmt/src/pages/Auth.tsx
+- new-cmt/src/App.tsx
+
+## Research Findings
+- Docs state admin UI should live at admin.chinamedicaltour.org and expose /admin, /admin/orders, /admin/payments, /admin/coupons routes in new-cmt.
+- ops doc instructs login via https://admin.chinamedicaltour.org/auth and use /admin/coupons.
+- Backend allows admin origin in members worker (ALLOWED_ORIGINS includes admin.chinamedicaltour.org).
+
+## Resources
+- docs/work/ops/admin-coupons-ops.md
+- docs/dev/plans/2025-12-31-admin-platform-design.md
+- workers/members/src/lib/request.js
+- workers/members/wrangler.jsonc
+
+## Research Findings
+- Worktree protocol requires ai identity + module selection, and worktree isolation for new-cmt changes.
+- new-cmt routing lives in new-cmt/src/App.tsx; admin pages are under new-cmt/src/pages/admin/.
+
+## Resources
+- docs/agent-rules/ai-worktrees-protocol.md
+- docs/agent-rules/project-architecture.md
+
+## Research Findings
+- Python scripts must use uv + .venv; prefer `uv run` and avoid global installs.
+- Planning files must be updated per phase/findings/errors; new docs go under `docs/` with roadmap updates.
+
+## Resources
+- docs/agent-rules/python-script-rules.md
+- docs/agent-rules/ai-planning-and-documentation.md
+
+## Research Findings
+- Roadmap doc lists admin ops doc and payments/terms docs; confirms terms consent doc in docs/work/legal/2026-01-14-terms-consent.md.
+
+## Research Findings
+- new-cmt App routes only define `/admin/library`; no `/admin` or other admin paths.
+- Auth page redirects admin hostname logins to `/admin`, implying route should exist on admin domain.
+
+## Research Findings
+- Admin ops doc expects login at `https://admin.chinamedicaltour.org/auth` and coupons at `/admin/coupons`.
+- Admin platform design specifies admin routes under new-cmt served via `admin.chinamedicaltour.org`, including `/admin`, `/admin/orders`, `/admin/payments`, `/admin/coupons`.
+
+## Resources
+- docs/work/ops/admin-coupons-ops.md
+- docs/dev/plans/2025-12-31-admin-platform-design.md
+
+## Research Findings
+- `paymentProfileGate.test.tsx` failed only in full suite on `main` but passes when run alone, indicating a timing/flakiness issue.
+- Failure showed "Pay $0 USD" instead of "Pay $800", consistent with `Payment` rendering before `/api/packages` load updates `orderSummary.total`.
+- `Payment` sets `orderSummary.total` from `selectedPackage.priceCents`, which defaults to 0 until packages fetch resolves.
+
+## Resources
+- new-cmt/src/__tests__/paymentProfileGate.test.tsx
+- new-cmt/src/pages/Payment.tsx
+
+## Research Findings
+- PayPal webhook (`/api/paypal/webhook`) sets status to `paid_pending_profile` unconditionally on `PAYMENT.CAPTURE.COMPLETED`.
+- Orders only upgrade from `paid_pending_profile` to `paid` when `/api/profile` POST completes and profile is complete.
+- Profile page always redirects to `/payment` after save, regardless of order status.
+
+## Resources
+- workers/members/src/routes/paypal.js
+- workers/members/src/routes/profile.js
+- new-cmt/src/pages/Profile.tsx
+
+## Resources
+- new-cmt/src/App.tsx
+- new-cmt/src/pages/Auth.tsx
+
+## Resources
+- docs/work/roadmap/roadmap-cs.md
