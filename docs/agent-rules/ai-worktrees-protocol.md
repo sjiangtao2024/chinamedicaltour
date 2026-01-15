@@ -94,6 +94,12 @@ The following tasks do NOT require a separate worktree and can be performed dire
 - After merge: remove worktree and optionally delete branch.
 - If a branch is idle for 3 days, rebase/merge before further changes.
 
+### Cleanup Best Practices
+
+- After merge/PR/discard, remove the worktree: `git worktree remove <worktree-path>`.
+- If discarding a branch, confirm and delete it explicitly: `git branch -D <branch>`.
+- If keeping a branch for later, do not remove its worktree.
+
 ## 5) Known Modules
 
 - smart-cs

@@ -5,10 +5,16 @@
 - Worktree protocol: `docs/agent-rules/ai-worktrees-protocol.md`
   - This is the single source of truth for Multi‑AI worktree rules.
   - Always follow the worktree rules for this repo and `new-cmt`.
+- Project architecture: `docs/agent-rules/project-architecture.md`
+  - Fast overview of repo structure, `new-cmt`, and `workers`.
 - Superpowers: run the bootstrap and follow skill workflows before starting any task.
 - Python execution rules: `docs/agent-rules/python-script-rules.md`
 - Frontend: Must use `frontend-design:frontend-design` skill for any UI/Frontend implementation.
 - Planning files: review `task_plan.md`, `findings.md`, and `progress.md` when starting or resuming complex work.
+- Roadmap: `docs/work/roadmap/roadmap-cs.md`
+  - Project roadmap and milestones.
+- AI planning & docs: `docs/agent-rules/ai-planning-and-documentation.md`
+  - How to update plans/progress and place docs.
 
 ## Recommended Workflow (Upgrade 2025 Payments)
 

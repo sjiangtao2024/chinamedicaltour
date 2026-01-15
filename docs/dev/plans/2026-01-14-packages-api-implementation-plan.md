@@ -310,7 +310,7 @@ git commit -m "feat(payment): load packages from api"
 ### Task 5: Update documentation
 
 **Files:**
-- Modify: `docs/plans/2026-01-14-refund-policy-implementation.md`
+- Modify: `docs/dev/plans/2026-01-14-refund-policy-implementation.md`
 
 **Step 1: Update doc**
 
@@ -321,7 +321,7 @@ Add a section:
 **Step 2: Commit**
 
 ```bash
-git add docs/plans/2026-01-14-refund-policy-implementation.md
+git add docs/dev/plans/2026-01-14-refund-policy-implementation.md
 git commit -m "docs(refund): document packages api as source of truth"
 ```
 
