@@ -217,10 +217,15 @@ export async function handlePaypal({ request, env, url, respond }) {
       }
 
       const paymentGatewayFee = parsePaypalFee(resource);
+      const profile = await db
+        .prepare("SELECT user_id FROM user_profiles WHERE user_id = ?")
+        .bind(order.user_id)
+        .first();
+      const nextStatus = profile ? "paid" : "paid_pending_profile";
       await updateOrderPayment(db, customId, {
         paypalCaptureId: resource.id,
         paymentGatewayFee: paymentGatewayFee ?? null,
-        status: "paid_pending_profile",
+        status: nextStatus,
       });
       await recordEvent("processed", customId, null);
       return respond(200, { ok: true });
