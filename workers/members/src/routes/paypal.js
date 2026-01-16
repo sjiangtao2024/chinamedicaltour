@@ -60,9 +60,9 @@ const sendOrderEmailIfNeeded = async (db, env, order) => {
 
   const fromEmail = env.ORDER_FROM_EMAIL || env.FROM_EMAIL || "";
   const fromName = env.MAIL_FROM_NAME || "CMT Care Team";
-  const supportEmail = env.SUPPORT_EMAIL || fromEmail;
+  const supportEmail = env.SUPPORT_EMAIL || "";
   const from = buildFromAddress(fromName, fromEmail);
-  if (!env.RESEND_API_KEY || !from || !supportEmail) {
+  if (!env.RESEND_API_KEY || !from) {
     await recordOrderEmailEvent(db, emailEventId, order.id, "ignored", "missing_email_config");
     return;
   }

@@ -94,6 +94,7 @@ export function buildOrderConfirmationEmail({
   const signature = brandName || "CMT Care Team";
   const subject = "Order confirmed - Next steps for your care";
   const noReply = "Please do not reply to this email.";
+  const supportLine = supportEmail ? `Contact us at ${supportEmail}.` : "";
 
   const text = `Hi ${firstName},
 
@@ -117,7 +118,7 @@ Quick links
 - Update intake information: ${intakeLink}
 
 Need help?
-Contact us at ${supportEmail}.
+${supportLine}
 
 ${noReply}
 
@@ -145,7 +146,11 @@ ${noReply}
       <li><a href="${orderLink}">View your order</a></li>
       <li><a href="${intakeLink}">Update intake information</a></li>
     </ul>
-    <p>Need help? Contact us at <a href="mailto:${supportEmail}">${supportEmail}</a>.</p>
+    ${
+      supportEmail
+        ? `<p>Need help? Contact us at <a href="mailto:${supportEmail}">${supportEmail}</a>.</p>`
+        : ""
+    }
     <p>${noReply}</p>
     <p>-- ${signature}</p>
   `.trim();

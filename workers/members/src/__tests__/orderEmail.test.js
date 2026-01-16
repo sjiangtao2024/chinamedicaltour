@@ -20,8 +20,28 @@ test("buildOrderConfirmationEmail renders required content", () => {
   assert.ok(email.subject.includes("Order confirmed"));
   assert.ok(email.text.includes("Order ID: order-1"));
   assert.ok(email.text.includes("Pending contact"));
+  assert.ok(email.text.includes("Contact us at support@example.com."));
   assert.ok(email.text.includes("Please do not reply"));
   assert.ok(email.html.includes("CMT Care Team"));
+});
+
+test("buildOrderConfirmationEmail omits support line when supportEmail missing", () => {
+  const email = buildOrderConfirmationEmail({
+    recipientName: "Jane Doe",
+    orderId: "order-1",
+    packageName: "Full Body Scan",
+    amountPaid: 80000,
+    currency: "USD",
+    paidAt: "2026-01-16T00:00:00.000Z",
+    serviceStatus: "pending_contact",
+    orderLink: "https://chinamedicaltour.org/member-center/orders/order-1",
+    intakeLink: "https://chinamedicaltour.org/member-center/orders/order-1#intake",
+    supportEmail: "",
+    brandName: "CMT Care Team",
+  });
+
+  assert.equal(email.text.includes("Contact us at"), false);
+  assert.equal(email.html.includes("Contact us at"), false);
 });
 
 test("sendOrderConfirmationEmail posts to Resend", async () => {
