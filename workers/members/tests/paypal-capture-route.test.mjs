@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
+import { createSessionToken } from "../src/lib/jwt.js";
 import { handlePaypal } from "../src/routes/paypal.js";
 
 let updatedStatus = null;
 let updatedPaypalOrderId = null;
-const existingPaypalOrderId = "pp-order-1";
 
 const db = {
   prepare(sql) {
@@ -11,28 +11,21 @@ const db = {
       bind(...args) {
         return {
           async first() {
-            if (sql.includes("FROM webhook_events")) {
-              return null;
-            }
             if (sql.includes("FROM orders WHERE id = ?")) {
               return {
                 id: "order-1",
                 user_id: "user-1",
                 amount_paid: 9900,
                 currency: "USD",
-                paypal_order_id: existingPaypalOrderId,
+                paypal_order_id: "pp-order-1",
               };
-            }
-            if (sql.includes("FROM user_profiles")) {
-              return { user_id: "user-1" };
             }
             return null;
           },
           async run() {
             if (sql.startsWith("UPDATE orders SET paypal_order_id")) {
-              const preserveExisting = sql.includes("paypal_order_id = COALESCE");
+              updatedPaypalOrderId = args[0];
               updatedStatus = args[3];
-              updatedPaypalOrderId = preserveExisting ? args[0] ?? existingPaypalOrderId : args[0];
             }
             return { success: true };
           },
@@ -50,11 +43,28 @@ const fetchMock = async (input) => {
       headers: { "Content-Type": "application/json" },
     });
   }
-  if (url.endsWith("/v1/notifications/verify-webhook-signature")) {
-    return new Response(JSON.stringify({ verification_status: "SUCCESS" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+  if (url.includes("/v2/checkout/orders/") && url.endsWith("/capture")) {
+    return new Response(
+      JSON.stringify({
+        status: "COMPLETED",
+        purchase_units: [
+          {
+            payments: {
+              captures: [
+                {
+                  id: "cap-1",
+                  amount: { value: "99.00", currency_code: "USD" },
+                  seller_receivable_breakdown: {
+                    paypal_fee: { value: "3.67" },
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
   }
   return new Response("not found", { status: 404 });
 };
@@ -62,27 +72,15 @@ const fetchMock = async (input) => {
 const originalFetch = global.fetch;
 global.fetch = fetchMock;
 
-const event = {
-  id: "evt-1",
-  event_type: "PAYMENT.CAPTURE.COMPLETED",
-  resource: {
-    id: "cap-1",
-    custom_id: "order-1",
-    amount: { value: "99.00", currency_code: "USD" },
-  },
-};
-
-const request = new Request("https://members.chinamedicaltour.org/api/paypal/webhook", {
+const secret = "test-secret";
+const token = await createSessionToken({ userId: "user-1" }, secret);
+const request = new Request("https://members.chinamedicaltour.org/api/paypal/capture", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "paypal-auth-algo": "algo",
-    "paypal-cert-url": "cert",
-    "paypal-transmission-id": "tx",
-    "paypal-transmission-sig": "sig",
-    "paypal-transmission-time": "time",
+    Authorization: `Bearer ${token}`,
   },
-  body: JSON.stringify(event),
+  body: JSON.stringify({ order_id: "order-1" }),
 });
 
 const response = await handlePaypal({
@@ -91,7 +89,7 @@ const response = await handlePaypal({
     MEMBERS_DB: db,
     PAYPAL_CLIENT_ID: "client",
     PAYPAL_SECRET: "secret",
-    PAYPAL_WEBHOOK_ID: "wh",
+    JWT_SECRET: secret,
   },
   url: new URL(request.url),
   respond: (status, payload) =>
@@ -102,7 +100,7 @@ const response = await handlePaypal({
 });
 
 assert.equal(response.status, 200);
-assert.equal(updatedStatus, "paid");
+assert.equal(updatedStatus, "awaiting_capture");
 assert.equal(updatedPaypalOrderId, "pp-order-1");
 
 global.fetch = originalFetch;

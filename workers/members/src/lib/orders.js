@@ -102,7 +102,7 @@ export async function updateOrderPayment(db, orderId, updates) {
   const now = new Date().toISOString();
   await db
     .prepare(
-      "UPDATE orders SET paypal_order_id = ?, paypal_capture_id = ?, payment_gateway_fee = COALESCE(?, payment_gateway_fee), status = ?, updated_at = ? WHERE id = ?"
+      "UPDATE orders SET paypal_order_id = COALESCE(?, paypal_order_id), paypal_capture_id = COALESCE(?, paypal_capture_id), payment_gateway_fee = COALESCE(?, payment_gateway_fee), status = ?, updated_at = ? WHERE id = ?"
     )
     .bind(
       updates.paypalOrderId || null,
