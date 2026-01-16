@@ -108,6 +108,7 @@ export async function handlePaypal({ request, env, url, respond }) {
       paymentGatewayFee: paymentGatewayFee ?? null,
       paymentChannel: "paypal",
       transactionId: captureId || order.paypal_order_id,
+      serviceStatus: "pending_contact",
       status: "paid",
     });
 
@@ -233,6 +234,7 @@ export async function handlePaypal({ request, env, url, respond }) {
         paymentGatewayFee: paymentGatewayFee ?? null,
         paymentChannel: "paypal",
         transactionId: resource.id,
+        serviceStatus: "pending_contact",
         status: nextStatus,
       });
       await recordEvent("processed", customId, null);

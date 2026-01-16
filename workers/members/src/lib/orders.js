@@ -102,7 +102,7 @@ export async function updateOrderPayment(db, orderId, updates) {
   const now = new Date().toISOString();
   await db
     .prepare(
-      "UPDATE orders SET paypal_order_id = ?, paypal_capture_id = ?, payment_gateway_fee = COALESCE(?, payment_gateway_fee), payment_channel = COALESCE(?, payment_channel), transaction_id = COALESCE(?, transaction_id), status = ?, updated_at = ? WHERE id = ?"
+      "UPDATE orders SET paypal_order_id = ?, paypal_capture_id = ?, payment_gateway_fee = COALESCE(?, payment_gateway_fee), payment_channel = COALESCE(?, payment_channel), transaction_id = COALESCE(?, transaction_id), service_status = COALESCE(?, service_status), status = ?, updated_at = ? WHERE id = ?"
     )
     .bind(
       updates.paypalOrderId || null,
@@ -110,6 +110,7 @@ export async function updateOrderPayment(db, orderId, updates) {
       Number.isFinite(updates.paymentGatewayFee) ? updates.paymentGatewayFee : null,
       updates.paymentChannel || null,
       updates.transactionId || null,
+      updates.serviceStatus || null,
       updates.status,
       now,
       orderId
@@ -124,6 +125,16 @@ export async function updateOrderStatus(db, orderId, status) {
   await db
     .prepare("UPDATE orders SET status = ?, updated_at = ? WHERE id = ?")
     .bind(status, now, orderId)
+    .run();
+
+  return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
+}
+
+export async function updateOrderServiceStatus(db, orderId, serviceStatus) {
+  const now = new Date().toISOString();
+  await db
+    .prepare("UPDATE orders SET service_status = ?, updated_at = ? WHERE id = ?")
+    .bind(serviceStatus || null, now, orderId)
     .run();
 
   return db.prepare("SELECT * FROM orders WHERE id = ?").bind(orderId).first();
@@ -181,6 +192,7 @@ export function toOrderSummary(order) {
     amount_paid: order.amount_paid,
     currency: order.currency,
     status: order.status,
+    service_status: order.service_status || null,
     created_at: order.created_at,
   };
 }
@@ -189,7 +201,7 @@ export async function listOrdersByUser(db, userId, limit = 10) {
   const safeLimit = Number.isFinite(limit) ? Math.min(Math.max(limit, 1), 50) : 10;
   return db
     .prepare(
-      "SELECT id, item_type, item_id, amount_paid, currency, status, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC LIMIT ?"
+      "SELECT id, item_type, item_id, amount_paid, currency, status, service_status, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC LIMIT ?"
     )
     .bind(userId, safeLimit)
     .all();

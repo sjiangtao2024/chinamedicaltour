@@ -36,6 +36,7 @@ test("updateOrderPayment persists payment channel and transaction id", async () 
     paypalCaptureId: "paypal-capture",
     paymentChannel: "wechat",
     transactionId: "wx-transaction",
+    serviceStatus: "pending_contact",
     status: "paid",
     paymentGatewayFee: 120,
   });
@@ -44,10 +45,12 @@ test("updateOrderPayment persists payment channel and transaction id", async () 
   const updateCall = calls[0];
   assert.ok(updateCall.query.includes("payment_channel"));
   assert.ok(updateCall.query.includes("transaction_id"));
+  assert.ok(updateCall.query.includes("service_status"));
   assert.deepEqual(updateCall.binds.slice(0, 2), ["paypal-order", "paypal-capture"]);
   assert.equal(updateCall.binds[2], 120);
   assert.equal(updateCall.binds[3], "wechat");
   assert.equal(updateCall.binds[4], "wx-transaction");
-  assert.equal(updateCall.binds[5], "paid");
+  assert.equal(updateCall.binds[5], "pending_contact");
+  assert.equal(updateCall.binds[6], "paid");
   assert.equal(updateCall.binds[updateCall.binds.length - 1], "order-1");
 });

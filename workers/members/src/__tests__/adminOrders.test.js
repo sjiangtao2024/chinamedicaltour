@@ -39,6 +39,7 @@ test("listAdminOrders selects extended admin fields", async () => {
   assert.ok(query.includes("orders.updated_at"));
   assert.ok(query.includes("orders.payment_channel"));
   assert.ok(query.includes("orders.transaction_id"));
+  assert.ok(query.includes("orders.service_status"));
   assert.ok(query.includes("AS contact_info"));
   assert.ok(query.includes("AS payment_channel"));
   assert.ok(query.includes("AS transaction_id"));
@@ -55,6 +56,7 @@ test("findAdminOrderDetails joins profile contact info", async () => {
   const { query, binds } = calls[0];
   assert.ok(query.includes("orders.payment_channel"));
   assert.ok(query.includes("orders.transaction_id"));
+  assert.ok(query.includes("orders.service_status"));
   assert.ok(query.includes("order_profiles"));
   assert.ok(query.includes("travel_date"));
   assert.ok(query.includes("travel_group_size"));

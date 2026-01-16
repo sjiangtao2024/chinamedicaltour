@@ -114,3 +114,10 @@
 
 ## Resources
 - docs/work/roadmap/roadmap-cs.md
+## 2025-01-16
+- task_plan.md currently references prior admin routing/payment work; needs reset for service_status feature.
+- ai-worktrees-protocol: must use ai-a worktrees; run git worktree list + git branch --no-merged main in root and new-cmt before coding.
+- project-architecture: new-cmt is separate repo; admin pages in new-cmt/src/pages/admin; workers/members handles orders.
+- python-script-rules: use uv + .venv for Python, uv run only.
+- ai-planning: must keep task_plan/findings/progress updated; new docs in docs/.
+- roadmap: reference doc index; no specific constraints beyond doc placement.

@@ -1,7 +1,7 @@
-# Task Plan: Investigate admin UI routing for preview/admin domains
+# Task Plan: Add service status to paid orders (admin + user)
 
 ## Goal
-Fix payment/profile flow so paid orders with completed profiles upgrade correctly and profile save does not mislead users into paying again.
+Expose a user-facing service status after payment, editable by admins, with API support and minimal UI updates in admin and user order pages.
 
 ## Current Phase
 Phase 1
@@ -9,59 +9,35 @@ Phase 1
 ## Phases
 
 ### Phase 1: Requirements & Discovery
-- [x] Confirm environment and reported URLs
-- [x] Review routing and admin pages in new-cmt
-- [x] Review relevant deployment/docs for admin domain
-- [x] Document findings in findings.md
-- **Status:** complete
+- [x] Confirm service status values/labels and where to show (admin list/detail, user list/detail)
+- [ ] Identify API endpoints to extend (admin orders patch, user orders list/detail)
+- [ ] Identify DB migration needs in workers/members
+**Status:** complete
 
-### Phase 2: Analysis
-- [x] Identify expected admin host/path mapping
-- [x] Compare preview vs admin domain behavior
-- [x] Draft recommended URL(s) and fixes
-- **Status:** complete
-
-### Phase 3: Delivery
-- [x] Summarize findings and actionable steps
-- **Status:** complete
-
-### Phase 1: Investigation
-- [x] Trace webhook status update path
-- [x] Trace profile save redirect path
-- **Status:** complete
-
-### Phase 2: Test Design
-- [x] Add webhook test for paid vs paid_pending_profile
-- [x] Add profile redirect test for paid orders
+### Phase 2: Test Design (TDD)
+- [x] Add failing backend tests for service_status persistence/response
+- [x] Add failing frontend tests for service_status rendering and admin update
 - **Status:** complete
 
 ### Phase 3: Implementation
-- [x] Update PayPal webhook to set paid when profile complete
-- [x] Update profile save redirect to avoid repeated payment
+- [x] Add `service_status` column + migration
+- [x] Wire backend update + response fields
+- [x] Update admin UI to edit service status
+- [x] Update user UI to display service status
 - **Status:** complete
 
 ### Phase 4: Verification & Merge
-- [x] Run targeted tests (workers + new-cmt)
-- [ ] Run full test suite (if required)
-- [x] Merge and push
-- **Status:** complete
+- [x] Run targeted workers tests
+- [x] Run targeted new-cmt tests
+- [ ] Merge + push both repos
+- **Status:** in_progress
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
 | --- | --- | --- |
-| `paymentProfileGate.test.tsx` expected "Pay $800" but got "Pay $0 USD" after merge on main | 1 | Added waitFor around pay button assertions in paymentProfileGate tests (worktree) |
-
-## Key Questions
-1. Which repo serves admin UI (new-cmt vs separate app)?
-2. Is /admin route configured in new-cmt routing?
-3. Is admin.chinamedicaltour.org pointing at a different frontend?
+| | 1 | |
 
 ## Decisions Made
 | Decision | Rationale |
-|----------|-----------|
-| Use planning files | Multi-step investigation |
-
-## Errors Encountered
-| Error | Attempt | Resolution |
-|-------|---------|------------|
-|       | 1       |            |
+| --- | --- |
+| Use planning files | Multi-step feature touching backend + frontend |

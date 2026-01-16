@@ -36,7 +36,7 @@ export async function listAdminOrders(db, { status, userId, from, to, limit = 50
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
   const query =
     "SELECT orders.id, orders.user_id, orders.item_type, orders.item_id, orders.amount_paid, orders.currency, " +
-    "orders.status, orders.created_at, orders.updated_at, orders.paypal_order_id, orders.paypal_capture_id, " +
+    "orders.status, orders.service_status, orders.created_at, orders.updated_at, orders.paypal_order_id, orders.paypal_capture_id, " +
     "orders.payment_channel, orders.transaction_id, " +
     "COALESCE(user_profiles.name, users.name) AS user_name, " +
     "COALESCE(user_profiles.email, users.email) AS user_email, " +
@@ -58,7 +58,7 @@ export async function findAdminOrderDetails(db, orderId) {
   }
   const query =
     "SELECT orders.*, " +
-    "orders.payment_channel, orders.transaction_id, " +
+    "orders.payment_channel, orders.transaction_id, orders.service_status, " +
     "order_profiles.nationality AS nationality, " +
     "order_profiles.travel_date AS travel_date, " +
     "order_profiles.travel_group_size AS travel_group_size, " +

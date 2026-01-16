@@ -61,3 +61,10 @@
 
 ---
 *Update after completing each phase or encountering errors*
+## 2025-01-16
+- Read required agent rules docs (worktrees protocol, project architecture, python rules, ai planning, roadmap).
+- Verified worktrees/branches: root + new-cmt have mod/web/ai-a/2026-01-16 and no unmerged branches.
+- Reset task_plan.md for service_status feature phases.
+- Confirmed service status values and placement (user list + detail, admin detail). Updated task_plan Phase 1 complete, Phase 2 in progress.
+- Added backend failing tests for service_status; ran node --test (ordersPayment/orderServiceStatus/adminOrders) failing then fixed; now passing.
+- Added frontend tests for service status; ran vitest targeted tests, fixed UI to pass.
