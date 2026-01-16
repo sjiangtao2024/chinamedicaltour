@@ -179,6 +179,8 @@ export async function handleOrders({ request, env, url, respond }) {
     const coupon = await resolveCoupon(db, {
       code: input.couponCode,
       refChannel: input.refChannel,
+      itemType: input.itemType,
+      itemId: input.itemId,
     });
     const amounts = applyCoupon(input.amountOriginal, coupon);
     const openOrder = await findOpenOrderForUserItem(

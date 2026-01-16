@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { applyCoupon, isCouponActive } from "../src/lib/coupons.js";
+import { applyCoupon, isCouponActive, isCouponApplicable } from "../src/lib/coupons.js";
 
 assert.deepEqual(
   applyCoupon(10000, { type: "percent", value: 20, max_discount: 1000 }),
@@ -27,5 +27,35 @@ assert.equal(
     type: "percent",
     value: 10,
   }),
+  false
+);
+
+assert.equal(
+  isCouponApplicable(
+    {
+      scope: null,
+    },
+    { itemType: "package", itemId: "full-body" }
+  ),
+  true
+);
+
+assert.equal(
+  isCouponApplicable(
+    {
+      scope: JSON.stringify(["full-body", "cancer"]),
+    },
+    { itemType: "package", itemId: "full-body" }
+  ),
+  true
+);
+
+assert.equal(
+  isCouponApplicable(
+    {
+      scope: JSON.stringify(["cancer"]),
+    },
+    { itemType: "package", itemId: "full-body" }
+  ),
   false
 );

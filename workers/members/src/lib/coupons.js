@@ -36,6 +36,38 @@ export function isCouponActive(coupon, now = new Date()) {
   return true;
 }
 
+const parseCouponScope = (scope) => {
+  if (!scope) {
+    return null;
+  }
+  if (scope === "all") {
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(scope);
+    if (!Array.isArray(parsed)) {
+      return null;
+    }
+    return parsed.filter((item) => typeof item === "string");
+  } catch {
+    return null;
+  }
+};
+
+export function isCouponApplicable(coupon, { itemType, itemId }) {
+  if (!coupon) {
+    return false;
+  }
+  const scopeItems = parseCouponScope(coupon.scope);
+  if (!scopeItems || scopeItems.length === 0) {
+    return true;
+  }
+  if (itemType !== "package") {
+    return false;
+  }
+  return scopeItems.includes(itemId);
+}
+
 export async function findCouponByCode(db, code) {
   if (!code) return null;
   return db.prepare("SELECT * FROM coupons WHERE code = ?").bind(code).first();
@@ -49,14 +81,14 @@ export async function findCouponByRef(db, refChannel) {
     .first();
 }
 
-export async function resolveCoupon(db, { code, refChannel }) {
+export async function resolveCoupon(db, { code, refChannel, itemType, itemId }) {
   if (code) {
     const byCode = await findCouponByCode(db, code);
-    if (isCouponActive(byCode)) return byCode;
+    if (isCouponActive(byCode) && isCouponApplicable(byCode, { itemType, itemId })) return byCode;
   }
   if (refChannel) {
     const byRef = await findCouponByRef(db, refChannel);
-    if (isCouponActive(byRef)) return byRef;
+    if (isCouponActive(byRef) && isCouponApplicable(byRef, { itemType, itemId })) return byRef;
   }
   return null;
 }

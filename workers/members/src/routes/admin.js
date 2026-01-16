@@ -460,7 +460,27 @@ export async function handleAdmin({ request, env, url, respond }) {
     if (maxDiscount != null && (!Number.isFinite(maxDiscount) || maxDiscount <= 0)) {
       return respond(400, { ok: false, error: "invalid_max_discount" });
     }
-    const scope = body?.scope ? String(body.scope).trim() : null;
+    let scope = null;
+    if (body?.scope != null && body?.scope !== "") {
+      const rawScope = body.scope;
+      let parsed = [];
+      if (Array.isArray(rawScope)) {
+        parsed = rawScope;
+      } else {
+        try {
+          parsed = JSON.parse(String(rawScope));
+        } catch (error) {
+          return respond(400, { ok: false, error: "invalid_scope" });
+        }
+      }
+      if (!Array.isArray(parsed)) {
+        return respond(400, { ok: false, error: "invalid_scope" });
+      }
+      const list = parsed.filter((item) => typeof item === "string" && item.trim());
+      if (list.length > 0) {
+        scope = JSON.stringify(list);
+      }
+    }
 
     let db;
     try {
