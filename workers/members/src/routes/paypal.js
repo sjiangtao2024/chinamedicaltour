@@ -208,6 +208,11 @@ export async function handlePaypal({ request, env, url, respond }) {
       orderId: order.paypal_order_id,
     });
     const captureId = capture?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
+    const captureStatus =
+      capture?.status || capture?.purchase_units?.[0]?.payments?.captures?.[0]?.status || "";
+    if (!captureId || (captureStatus && captureStatus !== "COMPLETED")) {
+      return respond(400, { ok: false, error: "capture_incomplete" });
+    }
     const paymentGatewayFee = parsePaypalFee(capture);
 
     const updated = await updateOrderPayment(db, order.id, {
@@ -217,11 +222,8 @@ export async function handlePaypal({ request, env, url, respond }) {
       paymentChannel: "paypal",
       transactionId: captureId || order.paypal_order_id,
       serviceStatus: "pending_contact",
-      status: "paid",
+      status: "awaiting_capture",
     });
-    if (updated) {
-      await sendOrderEmailIfNeeded(db, env, updated);
-    }
 
     return respond(200, { ok: true, order: updated, capture });
   }
