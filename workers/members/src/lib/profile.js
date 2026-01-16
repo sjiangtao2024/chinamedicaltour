@@ -12,6 +12,17 @@ export function normalizeProfile(input) {
     emergency_contact: normalizeString(input?.emergency_contact),
     email: normalizeString(input?.email).toLowerCase(),
     checkup_date: normalizeString(input?.checkup_date),
+    nationality: normalizeString(input?.nationality),
+    travel_date: normalizeString(input?.travel_date),
+    travel_group_size: normalizeString(input?.travel_group_size),
+  };
+}
+
+export function normalizeIntakeProfile(input) {
+  return {
+    nationality: normalizeString(input?.nationality),
+    travel_date: normalizeString(input?.travelDate || input?.travel_date),
+    travel_group_size: normalizeString(input?.travelGroupSize || input?.travel_group_size),
   };
 }
 
@@ -24,7 +35,7 @@ export async function insertOrderProfile(db, orderId, profile) {
   const now = new Date().toISOString();
   await db
     .prepare(
-      "INSERT INTO order_profiles (id, order_id, name, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO order_profiles (id, order_id, name, gender, birth_date, contact_info, companions, emergency_contact, email, checkup_date, nationality, travel_date, travel_group_size, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     )
     .bind(
       id,
@@ -37,6 +48,9 @@ export async function insertOrderProfile(db, orderId, profile) {
       profile.emergency_contact || null,
       profile.email || null,
       profile.checkup_date || null,
+      profile.nationality || null,
+      profile.travel_date || null,
+      profile.travel_group_size || null,
       now
     )
     .run();

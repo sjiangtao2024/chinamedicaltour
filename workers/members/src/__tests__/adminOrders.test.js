@@ -55,6 +55,10 @@ test("findAdminOrderDetails joins profile contact info", async () => {
   const { query, binds } = calls[0];
   assert.ok(query.includes("orders.payment_channel"));
   assert.ok(query.includes("orders.transaction_id"));
+  assert.ok(query.includes("order_profiles"));
+  assert.ok(query.includes("travel_date"));
+  assert.ok(query.includes("travel_group_size"));
+  assert.ok(query.includes("nationality"));
   assert.ok(query.includes("AS contact_info"));
   assert.ok(query.includes("AS user_email"));
   assert.ok(query.includes("AS user_name"));

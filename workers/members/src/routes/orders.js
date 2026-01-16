@@ -17,7 +17,12 @@ import {
 } from "../lib/orders.js";
 import { calculateRefund } from "../lib/refunds.js";
 import { applyCoupon, incrementCouponUsage, resolveCoupon } from "../lib/coupons.js";
-import { insertOrderProfile, normalizeProfile, updateUserFromProfile } from "../lib/profile.js";
+import {
+  insertOrderProfile,
+  normalizeIntakeProfile,
+  normalizeProfile,
+  updateUserFromProfile,
+} from "../lib/profile.js";
 import { requireAuth, requireDb, readJson } from "../lib/request.js";
 
 function matchProfilePath(pathname) {
@@ -225,6 +230,12 @@ export async function handleOrders({ request, env, url, respond }) {
       idempotencyKey: input.idempotencyKey,
     });
 
+    const intakeProfile = normalizeIntakeProfile(body?.intake_fields || {});
+    const hasIntakeProfile = Object.values(intakeProfile).some(Boolean);
+    if (hasIntakeProfile) {
+      await insertOrderProfile(db, order.id, intakeProfile);
+    }
+
     if (coupon?.id) {
       await incrementCouponUsage(db, coupon.id);
     }
@@ -272,14 +283,24 @@ export async function handleOrders({ request, env, url, respond }) {
 
     const mergedProfile = profile ? { ...profile } : {};
     const fallback = fallbackProfile || fallbackUser || {};
-    ["name", "gender", "birth_date", "contact_info", "companions", "emergency_contact", "email", "checkup_date"].forEach(
-      (key) => {
-        const value = profile?.[key];
-        if (!value && fallback[key]) {
-          mergedProfile[key] = fallback[key];
-        }
+    [
+      "name",
+      "gender",
+      "birth_date",
+      "contact_info",
+      "companions",
+      "emergency_contact",
+      "email",
+      "checkup_date",
+      "nationality",
+      "travel_date",
+      "travel_group_size",
+    ].forEach((key) => {
+      const value = profile?.[key];
+      if (!value && fallback[key]) {
+        mergedProfile[key] = fallback[key];
       }
-    );
+    });
 
     return respond(200, { ok: true, profile: mergedProfile });
   }
