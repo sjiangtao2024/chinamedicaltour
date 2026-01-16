@@ -4,8 +4,116 @@ import {
   parsePaypalFee,
   verifyWebhookSignature,
 } from "../lib/paypal.js";
-import { findOrderById, updateOrderPayment } from "../lib/orders.js";
+import { buildOrderConfirmationEmail, sendOrderConfirmationEmail } from "../lib/email.js";
+import { findOrderById, findServiceProduct, updateOrderPayment } from "../lib/orders.js";
 import { requireAuth, requireDb, readJson } from "../lib/request.js";
+
+const buildFromAddress = (name, email) => {
+  if (!email) {
+    return "";
+  }
+  if (email.includes("<")) {
+    return email;
+  }
+  if (!name) {
+    return email;
+  }
+  return `${name} <${email}>`;
+};
+
+const buildOrderPortalLinks = (baseUrl, orderId) => {
+  const base = (baseUrl || "https://chinamedicaltour.org").replace(/\/+$/, "");
+  const orderLink = `${base}/member-center/orders/${orderId}`;
+  return {
+    orderLink,
+    intakeLink: `${orderLink}#intake`,
+  };
+};
+
+const findOrderRecipient = async (db, userId) =>
+  db
+    .prepare(
+      "SELECT COALESCE(user_profiles.email, users.email) AS email, COALESCE(user_profiles.name, users.name) AS name FROM users LEFT JOIN user_profiles ON users.id = user_profiles.user_id WHERE users.id = ?"
+    )
+    .bind(userId)
+    .first();
+
+const recordOrderEmailEvent = async (db, eventId, orderId, status, error) => {
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      "INSERT INTO webhook_events (event_id, event_type, resource_id, status, error, created_at) VALUES (?, ?, ?, ?, ?, ?)"
+    )
+    .bind(eventId, "order_email", orderId, status, error || null, now)
+    .run();
+};
+
+const sendOrderEmailIfNeeded = async (db, env, order) => {
+  const emailEventId = `order_email:${order.id}`;
+  const existing = await db
+    .prepare("SELECT event_id FROM webhook_events WHERE event_id = ?")
+    .bind(emailEventId)
+    .first();
+  if (existing) {
+    return;
+  }
+
+  const fromEmail = env.ORDER_FROM_EMAIL || env.FROM_EMAIL || "";
+  const fromName = env.MAIL_FROM_NAME || "CMT Care Team";
+  const supportEmail = env.SUPPORT_EMAIL || fromEmail;
+  const from = buildFromAddress(fromName, fromEmail);
+  if (!env.RESEND_API_KEY || !from || !supportEmail) {
+    await recordOrderEmailEvent(db, emailEventId, order.id, "ignored", "missing_email_config");
+    return;
+  }
+
+  const recipient = await findOrderRecipient(db, order.user_id);
+  const toEmail = recipient?.email ? String(recipient.email).trim() : "";
+  if (!toEmail) {
+    await recordOrderEmailEvent(db, emailEventId, order.id, "ignored", "missing_recipient");
+    return;
+  }
+
+  const product = await findServiceProduct(db, {
+    itemType: order.item_type,
+    itemId: order.item_id,
+  });
+  const packageName = product?.name || order.item_id || "Service";
+  const { orderLink, intakeLink } = buildOrderPortalLinks(env.MEMBER_PORTAL_URL, order.id);
+  const email = buildOrderConfirmationEmail({
+    recipientName: recipient?.name || "",
+    orderId: order.id,
+    packageName,
+    amountPaid: Number(order.amount_paid || 0),
+    currency: order.currency || "USD",
+    paidAt: order.updated_at || order.created_at || new Date().toISOString(),
+    serviceStatus: order.service_status || "pending_contact",
+    orderLink,
+    intakeLink,
+    supportEmail,
+    brandName: fromName,
+  });
+
+  try {
+    await sendOrderConfirmationEmail({
+      apiKey: env.RESEND_API_KEY,
+      from,
+      to: toEmail,
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
+    });
+    await recordOrderEmailEvent(db, emailEventId, order.id, "processed", null);
+  } catch (error) {
+    await recordOrderEmailEvent(
+      db,
+      emailEventId,
+      order.id,
+      "failed",
+      error?.message || "send_failed"
+    );
+  }
+};
 
 export async function handlePaypal({ request, env, url, respond }) {
   if (!url.pathname.startsWith("/api/paypal")) {
@@ -111,6 +219,9 @@ export async function handlePaypal({ request, env, url, respond }) {
       serviceStatus: "pending_contact",
       status: "paid",
     });
+    if (updated) {
+      await sendOrderEmailIfNeeded(db, env, updated);
+    }
 
     return respond(200, { ok: true, order: updated, capture });
   }
@@ -229,7 +340,7 @@ export async function handlePaypal({ request, env, url, respond }) {
         .bind(order.user_id)
         .first();
       const nextStatus = profile ? "paid" : "paid_pending_profile";
-      await updateOrderPayment(db, customId, {
+      const updated = await updateOrderPayment(db, customId, {
         paypalCaptureId: resource.id,
         paymentGatewayFee: paymentGatewayFee ?? null,
         paymentChannel: "paypal",
@@ -238,6 +349,9 @@ export async function handlePaypal({ request, env, url, respond }) {
         status: nextStatus,
       });
       await recordEvent("processed", customId, null);
+      if (updated) {
+        await sendOrderEmailIfNeeded(db, env, updated);
+      }
       return respond(200, { ok: true });
     }
 
