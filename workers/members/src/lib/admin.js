@@ -36,9 +36,13 @@ export async function listAdminOrders(db, { status, userId, from, to, limit = 50
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
   const query =
     "SELECT orders.id, orders.user_id, orders.item_type, orders.item_id, orders.amount_paid, orders.currency, " +
-    "orders.status, orders.created_at, orders.paypal_order_id, orders.paypal_capture_id, " +
+    "orders.status, orders.created_at, orders.updated_at, orders.paypal_order_id, orders.paypal_capture_id, " +
+    "orders.payment_channel, orders.transaction_id, " +
     "COALESCE(user_profiles.name, users.name) AS user_name, " +
-    "COALESCE(user_profiles.email, users.email) AS user_email " +
+    "COALESCE(user_profiles.email, users.email) AS user_email, " +
+    "COALESCE(user_profiles.contact_info, users.preferred_contact) AS contact_info, " +
+    "COALESCE(orders.payment_channel, CASE WHEN orders.paypal_capture_id IS NOT NULL OR orders.paypal_order_id IS NOT NULL THEN 'paypal' ELSE NULL END) AS payment_channel, " +
+    "COALESCE(orders.transaction_id, orders.paypal_capture_id, orders.paypal_order_id) AS transaction_id " +
     "FROM orders " +
     "LEFT JOIN users ON orders.user_id = users.id " +
     "LEFT JOIN user_profiles ON orders.user_id = user_profiles.user_id " +
@@ -46,6 +50,25 @@ export async function listAdminOrders(db, { status, userId, from, to, limit = 50
     " ORDER BY orders.created_at DESC LIMIT ?";
 
   return db.prepare(query).bind(...params, limit).all();
+}
+
+export async function findAdminOrderDetails(db, orderId) {
+  if (!db || !orderId) {
+    return null;
+  }
+  const query =
+    "SELECT orders.*, " +
+    "orders.payment_channel, orders.transaction_id, " +
+    "COALESCE(user_profiles.name, users.name) AS user_name, " +
+    "COALESCE(user_profiles.email, users.email) AS user_email, " +
+    "COALESCE(user_profiles.contact_info, users.preferred_contact) AS contact_info, " +
+    "COALESCE(orders.payment_channel, CASE WHEN orders.paypal_capture_id IS NOT NULL OR orders.paypal_order_id IS NOT NULL THEN 'paypal' ELSE NULL END) AS payment_channel, " +
+    "COALESCE(orders.transaction_id, orders.paypal_capture_id, orders.paypal_order_id) AS transaction_id " +
+    "FROM orders " +
+    "LEFT JOIN users ON orders.user_id = users.id " +
+    "LEFT JOIN user_profiles ON orders.user_id = user_profiles.user_id " +
+    "WHERE orders.id = ? LIMIT 1";
+  return db.prepare(query).bind(orderId).first();
 }
 
 export function reconcilePaypalTransactions(orders, transactions) {

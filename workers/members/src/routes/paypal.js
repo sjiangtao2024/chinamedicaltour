@@ -52,6 +52,8 @@ export async function handlePaypal({ request, env, url, respond }) {
 
     const updated = await updateOrderPayment(db, order.id, {
       paypalOrderId: paypalOrder.id,
+      paymentChannel: "paypal",
+      transactionId: paypalOrder.id,
       status: "awaiting_payment",
     });
 
@@ -104,6 +106,8 @@ export async function handlePaypal({ request, env, url, respond }) {
       paypalOrderId: order.paypal_order_id,
       paypalCaptureId: captureId,
       paymentGatewayFee: paymentGatewayFee ?? null,
+      paymentChannel: "paypal",
+      transactionId: captureId || order.paypal_order_id,
       status: "paid",
     });
 
@@ -178,6 +182,8 @@ export async function handlePaypal({ request, env, url, respond }) {
       }
       await updateOrderPayment(db, customId, {
         paypalOrderId: resource.id,
+        paymentChannel: "paypal",
+        transactionId: resource.id,
         status: "awaiting_capture",
       });
       await recordEvent("processed", customId, null);
@@ -225,6 +231,8 @@ export async function handlePaypal({ request, env, url, respond }) {
       await updateOrderPayment(db, customId, {
         paypalCaptureId: resource.id,
         paymentGatewayFee: paymentGatewayFee ?? null,
+        paymentChannel: "paypal",
+        transactionId: resource.id,
         status: nextStatus,
       });
       await recordEvent("processed", customId, null);

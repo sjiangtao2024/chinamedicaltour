@@ -1,6 +1,6 @@
 import { findOrderById, updateOrderStatus } from "../lib/orders.js";
 import { listPaypalTransactions, parsePaypalFee, refundPaypalCapture } from "../lib/paypal.js";
-import { listAdminOrders, reconcilePaypalTransactions } from "../lib/admin.js";
+import { findAdminOrderDetails, listAdminOrders, reconcilePaypalTransactions } from "../lib/admin.js";
 import { requireAdmin, requireDb, readJson } from "../lib/request.js";
 
 export async function handleAdmin({ request, env, url, respond }) {
@@ -79,7 +79,7 @@ export async function handleAdmin({ request, env, url, respond }) {
       return respond(500, { ok: false, error: "missing_db" });
     }
     const orderId = adminOrderMatch[1];
-    const order = await findOrderById(db, orderId);
+    const order = await findAdminOrderDetails(db, orderId);
     if (!order) {
       return respond(404, { ok: false, error: "order_not_found" });
     }
