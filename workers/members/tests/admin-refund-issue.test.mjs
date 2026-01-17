@@ -7,6 +7,7 @@ const token = await createSessionToken({ userId: "admin-1" }, secret);
 
 let amountRefunded = 0;
 let orderStatus = "paid";
+let serviceStatus = "awaiting_customer";
 let insertedRefund = null;
 
 const orderRow = () => ({
@@ -16,6 +17,7 @@ const orderRow = () => ({
   amount_refunded: amountRefunded,
   currency: "USD",
   status: orderStatus,
+  service_status: serviceStatus,
   paypal_capture_id: "capture-123",
 });
 
@@ -37,6 +39,9 @@ const db = {
             if (sql.startsWith("UPDATE orders SET amount_refunded")) {
               amountRefunded = args[0];
               orderStatus = args[1];
+              if (sql.includes("service_status = NULL")) {
+                serviceStatus = null;
+              }
             }
             if (sql.startsWith("INSERT INTO payment_refunds")) {
               insertedRefund = {
@@ -93,6 +98,7 @@ assert.equal(response.status, 200);
 const payload = await response.json();
 assert.equal(payload.ok, true);
 assert.equal(payload.order.amount_refunded, 5000);
+assert.equal(payload.order.service_status, null);
 assert.equal(insertedRefund.gateway_refund_id, "refund-123");
 
 global.fetch = originalFetch;

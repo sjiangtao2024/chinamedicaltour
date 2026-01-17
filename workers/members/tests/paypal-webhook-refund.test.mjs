@@ -4,6 +4,7 @@ import { handlePaypal } from "../src/routes/paypal.js";
 let orderStatus = null;
 let amountRefunded = null;
 let refundStatus = null;
+let serviceStatus = "awaiting_customer";
 
 const db = {
   prepare(sql) {
@@ -21,7 +22,7 @@ const db = {
               return { total: 10000 };
             }
             if (sql.includes("FROM orders WHERE id = ?")) {
-              return { id: "order-1", amount_paid: 10000 };
+              return { id: "order-1", amount_paid: 10000, service_status: serviceStatus };
             }
             return null;
           },
@@ -29,6 +30,9 @@ const db = {
             if (sql.startsWith("UPDATE orders SET amount_refunded")) {
               amountRefunded = args[0];
               orderStatus = args[1];
+              if (sql.includes("service_status = NULL")) {
+                serviceStatus = null;
+              }
             }
             if (sql.startsWith("UPDATE payment_refunds SET status")) {
               refundStatus = args[0];
@@ -100,5 +104,6 @@ assert.equal(response.status, 200);
 assert.equal(orderStatus, "refunded");
 assert.equal(amountRefunded, 10000);
 assert.equal(refundStatus, "COMPLETED");
+assert.equal(serviceStatus, null);
 
 global.fetch = originalFetch;
