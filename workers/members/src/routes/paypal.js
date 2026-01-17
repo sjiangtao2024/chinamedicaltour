@@ -4,7 +4,12 @@ import {
   parsePaypalFee,
   verifyWebhookSignature,
 } from "../lib/paypal.js";
-import { buildOrderConfirmationEmail, sendOrderConfirmationEmail } from "../lib/email.js";
+import {
+  buildOrderConfirmationEmail,
+  buildRefundConfirmationEmail,
+  sendOrderConfirmationEmail,
+  sendRefundConfirmationEmail,
+} from "../lib/email.js";
 import { findOrderById, findServiceProduct, updateOrderPayment } from "../lib/orders.js";
 import { requireAuth, requireDb, readJson } from "../lib/request.js";
 
@@ -45,6 +50,21 @@ const recordOrderEmailEvent = async (db, eventId, orderId, status, error) => {
       "INSERT INTO webhook_events (event_id, event_type, resource_id, status, error, created_at) VALUES (?, ?, ?, ?, ?, ?)"
     )
     .bind(eventId, "order_email", orderId, status, error || null, now)
+    .run();
+};
+
+const buildPortalLink = (baseUrl, path) => {
+  const base = (baseUrl || "https://chinamedicaltour.org").replace(/\/+$/, "");
+  return `${base}${path}`;
+};
+
+const recordRefundEmailEvent = async (db, eventId, orderId, status, error) => {
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      "INSERT INTO webhook_events (event_id, event_type, resource_id, status, error, created_at) VALUES (?, ?, ?, ?, ?, ?)"
+    )
+    .bind(eventId, "refund_email", orderId, status, error || null, now)
     .run();
 };
 
@@ -106,6 +126,79 @@ const sendOrderEmailIfNeeded = async (db, env, order) => {
     await recordOrderEmailEvent(db, emailEventId, order.id, "processed", null);
   } catch (error) {
     await recordOrderEmailEvent(
+      db,
+      emailEventId,
+      order.id,
+      "failed",
+      error?.message || "send_failed"
+    );
+  }
+};
+
+const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount, refundStatus }) => {
+  const emailEventId = `refund_email:${refundId}`;
+  const existing = await db
+    .prepare("SELECT event_id FROM webhook_events WHERE event_id = ?")
+    .bind(emailEventId)
+    .first();
+  if (existing) {
+    return;
+  }
+
+  const fromEmail = env.ORDER_FROM_EMAIL || env.FROM_EMAIL || "";
+  const fromName = env.MAIL_FROM_NAME || "CMT Care Team";
+  const supportEmail = env.SUPPORT_EMAIL || "";
+  const from = buildFromAddress(fromName, fromEmail);
+  if (!env.RESEND_API_KEY || !from) {
+    await recordRefundEmailEvent(db, emailEventId, order.id, "ignored", "missing_email_config");
+    return;
+  }
+
+  const recipient = await findOrderRecipient(db, order.user_id);
+  const toEmail = recipient?.email ? String(recipient.email).trim() : "";
+  if (!toEmail) {
+    await recordRefundEmailEvent(db, emailEventId, order.id, "ignored", "missing_recipient");
+    return;
+  }
+
+  const product = await findServiceProduct(db, {
+    itemType: order.item_type,
+    itemId: order.item_id,
+  });
+  const packageName = product?.name || order.item_id || "Service";
+  const orderAmount = Number(order.amount_paid || 0);
+  const refundAmountValue = Number(refundAmount || 0);
+  const feeAmount = Math.max(orderAmount - refundAmountValue, 0) || null;
+  const { orderLink } = buildOrderPortalLinks(env.MEMBER_PORTAL_URL, order.id);
+  const termsUrl = env.TERMS_URL || buildPortalLink(env.MEMBER_PORTAL_URL, "/terms.html");
+  const email = buildRefundConfirmationEmail({
+    recipientName: recipient?.name || "",
+    orderId: order.id,
+    orderAmount,
+    refundAmount: refundAmountValue,
+    feeAmount,
+    currency: order.currency || "USD",
+    refundStatus,
+    productName: packageName,
+    orderLink,
+    termsVersion: order.terms_version || "",
+    termsUrl,
+    supportEmail,
+    paymentChannel: order.payment_channel || "",
+  });
+
+  try {
+    await sendRefundConfirmationEmail({
+      apiKey: env.RESEND_API_KEY,
+      from,
+      to: toEmail,
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
+    });
+    await recordRefundEmailEvent(db, emailEventId, order.id, "processed", null);
+  } catch (error) {
+    await recordRefundEmailEvent(
       db,
       emailEventId,
       order.id,
@@ -274,13 +367,15 @@ export async function handlePaypal({ request, env, url, respond }) {
     }
 
     const now = new Date().toISOString();
-    const recordEvent = async (status, resourceId, error) =>
+    const recordWebhookEvent = async ({ id, type, resourceId, status, error }) =>
       db
         .prepare(
           "INSERT INTO webhook_events (event_id, event_type, resource_id, status, error, created_at) VALUES (?, ?, ?, ?, ?, ?)"
         )
-        .bind(eventId, eventType, resourceId || null, status, error || null, now)
+        .bind(id, type, resourceId || null, status, error || null, now)
         .run();
+    const recordEvent = async (status, resourceId, error) =>
+      recordWebhookEvent({ id: eventId, type: eventType, resourceId, status, error });
 
     const allowMissingCustomId = eventType === "PAYMENT.CAPTURE.REFUNDED";
     if (!customId && !allowMissingCustomId) {
@@ -400,6 +495,14 @@ export async function handlePaypal({ request, env, url, respond }) {
       }
 
       await recordEvent("processed", refundId, null);
+      if (order) {
+        await sendRefundEmailIfNeeded(db, env, {
+          order,
+          refundId,
+          refundAmount: existingRefund.amount,
+          refundStatus,
+        });
+      }
       return respond(200, { ok: true });
     }
 
