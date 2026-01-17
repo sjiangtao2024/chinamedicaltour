@@ -5,6 +5,7 @@ let orderStatus = null;
 let amountRefunded = null;
 let refundStatus = null;
 let serviceStatus = "awaiting_customer";
+let refundEmailEvent = null;
 
 const db = {
   prepare(sql) {
@@ -22,7 +23,10 @@ const db = {
               return { total: 10000 };
             }
             if (sql.includes("FROM orders WHERE id = ?")) {
-              return { id: "order-1", amount_paid: 10000, service_status: serviceStatus };
+              return { id: "order-1", amount_paid: 10000, service_status: serviceStatus, user_id: "user-1" };
+            }
+            if (sql.includes("FROM users")) {
+              return { email: "member@example.com", name: "Jane Doe" };
             }
             return null;
           },
@@ -36,6 +40,14 @@ const db = {
             }
             if (sql.startsWith("UPDATE payment_refunds SET status")) {
               refundStatus = args[0];
+            }
+            if (sql.startsWith("INSERT INTO webhook_events")) {
+              refundEmailEvent = {
+                event_id: args[0],
+                event_type: args[1],
+                resource_id: args[2],
+                status: args[3],
+              };
             }
             return { success: true };
           },
@@ -55,6 +67,12 @@ const fetchMock = async (input) => {
   }
   if (url.endsWith("/v1/notifications/verify-webhook-signature")) {
     return new Response(JSON.stringify({ verification_status: "SUCCESS" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.endsWith("/emails")) {
+    return new Response(JSON.stringify({ id: "email-1" }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
@@ -91,6 +109,9 @@ const response = await handlePaypal({
     PAYPAL_CLIENT_ID: "client",
     PAYPAL_SECRET: "secret",
     PAYPAL_WEBHOOK_ID: "wh",
+    RESEND_API_KEY: "resend-key",
+    ORDER_FROM_EMAIL: "orders@example.com",
+    MEMBER_PORTAL_URL: "https://chinamedicaltour.org",
   },
   url: new URL(request.url),
   respond: (status, payload) =>
@@ -105,5 +126,7 @@ assert.equal(orderStatus, "refunded");
 assert.equal(amountRefunded, 10000);
 assert.equal(refundStatus, "COMPLETED");
 assert.equal(serviceStatus, null);
+assert.equal(refundEmailEvent?.event_type, "refund_email");
+assert.equal(refundEmailEvent?.status, "processed");
 
 global.fetch = originalFetch;
