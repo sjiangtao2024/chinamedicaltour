@@ -8,9 +8,9 @@
 
 <!-- 核心圆点：象征三位合伙人的凝聚点 -->
 <circle cx="60" cy="60" r="4.5" fill="#0A3D62" />
-</g><!-- 文字组：对标高端网页排版 --><g transform="translate(190, 82)"><!-- 英文主品牌：增加字重，体现权威 --><text font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="#0A3D62">Prime<tspan fill="#4A90E2">Care</tspan></text><!-- 中文名称：使用更具质感的灰色调，避免喧宾夺主 -->
+</g><!-- 文字组：对标高端网页排版 --><g transform="translate(190, 82)"><!-- 英文主品牌：增加字重，体现权威 --><text font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="#0A3D62">Prium<tspan fill="#4A90E2">Care</tspan></text><!-- 中文名称：使用更具质感的灰色调，避免喧宾夺主 -->
 <text x="2" y="48" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="34" font-weight="600" fill="#2C3E50" letter-spacing="5">
-  普瑞医疗
+  沛瑞医疗
 </text>
 
 <!-- 底部标识：增加间距，对标奢侈品/高端服务排版 -->

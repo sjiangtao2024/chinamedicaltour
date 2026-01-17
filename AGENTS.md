@@ -27,3 +27,12 @@
 
 - Front-end work must use the `new-cmt` repo and its worktrees.
 - If these rules conflict with other docs, treat the worktree protocol as authoritative.
+
+## Browser Automation (agent-browser)
+
+- Use `agent-browser` for web automation (testing flows, form filling, screenshots, data extraction).
+- Preferred workflow: `agent-browser open <url>` → `agent-browser snapshot -i --json` → interact via refs (`@e1`, `@e2`) → re-snapshot after page changes.
+- Prefer refs from `snapshot` over CSS/XPath selectors; use semantic `find role/label/text` when refs are not available.
+- Use `agent-browser wait --text/--url/--load` instead of fixed sleeps; only use `wait <ms>` as a last resort.
+- Isolate flows with sessions (`--session` or `AGENT_BROWSER_SESSION`) to avoid state leakage.
+- Close browsers when finished: `agent-browser close`.
