@@ -229,11 +229,18 @@ export async function handleAdmin({ request, env, url, respond }) {
     const nextRefunded = refundedAmount + refundAmount;
     const nextStatus = nextRefunded >= paidAmount ? "refunded" : "refund_partial";
     await db
-      .prepare("UPDATE orders SET amount_refunded = ?, status = ?, updated_at = ? WHERE id = ?")
+      .prepare(
+        "UPDATE orders SET amount_refunded = ?, status = ?, updated_at = ?, service_status = NULL WHERE id = ?"
+      )
       .bind(nextRefunded, nextStatus, now, order.id)
       .run();
 
-    const updatedOrder = { ...order, amount_refunded: nextRefunded, status: nextStatus };
+    const updatedOrder = {
+      ...order,
+      amount_refunded: nextRefunded,
+      status: nextStatus,
+      service_status: null,
+    };
 
     return respond(200, {
       ok: true,

@@ -266,7 +266,9 @@ export async function handlePaypal({ request, env, url, respond }) {
         const nextStatus =
           totalRefunded >= Number(order.amount_paid || 0) ? "refunded" : "refund_partial";
         await db
-          .prepare("UPDATE orders SET amount_refunded = ?, status = ?, updated_at = ? WHERE id = ?")
+          .prepare(
+            "UPDATE orders SET amount_refunded = ?, status = ?, updated_at = ?, service_status = NULL WHERE id = ?"
+          )
           .bind(totalRefunded, nextStatus, now, order.id)
           .run();
       }
