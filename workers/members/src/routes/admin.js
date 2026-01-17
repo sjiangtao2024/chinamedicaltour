@@ -1,6 +1,7 @@
 import { findOrderById, updateOrderStatus } from "../lib/orders.js";
 import { listPaypalTransactions, parsePaypalFee, refundPaypalCapture } from "../lib/paypal.js";
 import { listAdminOrders, reconcilePaypalTransactions } from "../lib/admin.js";
+import { calculateRefund } from "../lib/refunds.js";
 import { requireAdmin, requireDb, readJson } from "../lib/request.js";
 
 export async function handleAdmin({ request, env, url, respond }) {
@@ -84,6 +85,41 @@ export async function handleAdmin({ request, env, url, respond }) {
       return respond(404, { ok: false, error: "order_not_found" });
     }
     return respond(200, { ok: true, order });
+  }
+
+  const adminRefundEstimateMatch = url.pathname.match(
+    /^\/api\/admin\/orders\/([^/]+)\/refund-estimate$/
+  );
+  if (adminRefundEstimateMatch && request.method === "GET") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+
+    const orderId = adminRefundEstimateMatch[1];
+    const order = await findOrderById(db, orderId);
+    if (!order) {
+      return respond(404, { ok: false, error: "order_not_found" });
+    }
+
+    const refund = calculateRefund({ order });
+    const refunded = Number(order.amount_refunded || 0);
+    const remaining = Math.max(0, refund.refundable_amount - refunded);
+
+    return respond(200, {
+      ok: true,
+      refund: {
+        ...refund,
+        refundable_amount: remaining,
+        amount_refunded: refunded,
+      },
+    });
   }
 
   if (adminOrderMatch && request.method === "PATCH") {
