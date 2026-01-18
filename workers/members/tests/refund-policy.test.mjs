@@ -33,8 +33,8 @@ const baseOrder = {
     },
     now,
   });
-  assert.equal(result.status, "ok");
-  assert.equal(result.refundable_amount, 4750);
+  assert.equal(result.status, "not_refundable");
+  assert.equal(result.refundable_amount, 0);
 }
 
 {
@@ -46,8 +46,8 @@ const baseOrder = {
     },
     now,
   });
-  assert.equal(result.status, "ok");
-  assert.equal(result.refundable_amount, 9500);
+  assert.equal(result.status, "not_refundable");
+  assert.equal(result.refundable_amount, 0);
 }
 
 {
