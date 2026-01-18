@@ -1,11 +1,5 @@
 # Findings
 
-- Worktrees present:
-  - members: `/home/yukun/dev/chinamedicaltour/.worktrees/ai-a` on `mod/members/ai-a/2026-01-18`
-  - web: `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a` on `mod/web/ai-a/2026-01-18`
-- No unmerged branches vs main in both repos.
-- Requirements implemented:
-  - Pre-consultation: non-refundable once paid; one free revision if first report unsatisfactory.
-  - Enforce `checkup_date` required in backend/profile and UI.
-  - Admin refund UI tooltip with policy guidance.
-- Backend TDD updates ensure INTELLECTUAL refund policy is always not_refundable.
+- INTELLECTUAL is assigned to pre-consultation in seed data (`workers/members/migrations/0010_add_refund_policy_fields.sql`).
+- Request: make non-refundable apply only to pre-consultation; others follow STANDARD/CUSTOM schedules.
+- Update copy to "3 free revisions" and sync Order Details note.

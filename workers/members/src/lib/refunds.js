@@ -34,13 +34,17 @@ export function calculateRefund({ order, now = new Date() }) {
   const amountPaid = toInt(order.amount_paid);
   const gatewayFee = toInt(order.payment_gateway_fee || 0);
   const baseAmount = Math.max(0, amountPaid - gatewayFee);
+  let effectivePolicy = policy;
 
-  if (policy === "THIRD_PARTY") {
+  if (effectivePolicy === "THIRD_PARTY") {
     return { status: "requires_manual_review", reason: "third_party", refundable_amount: 0 };
   }
 
-  if (policy === "INTELLECTUAL") {
-    return { status: "not_refundable", reason: "intellectual_non_refundable", refundable_amount: 0 };
+  if (effectivePolicy === "INTELLECTUAL") {
+    if (String(order.item_id || "") === "pre-consultation") {
+      return { status: "not_refundable", reason: "intellectual_non_refundable", refundable_amount: 0 };
+    }
+    effectivePolicy = "STANDARD";
   }
 
   const serviceStart = parseDate(order.service_start_date);
@@ -52,7 +56,7 @@ export function calculateRefund({ order, now = new Date() }) {
   const diffHours = diffMs / (1000 * 60 * 60);
   const diffDays = diffMs / (1000 * 60 * 60 * 24);
 
-  if (policy === "STANDARD") {
+  if (effectivePolicy === "STANDARD") {
     if (diffHours > 168) {
       return { status: "ok", reason: "more_than_7_days", refundable_amount: clampAmount(baseAmount * 0.9) };
     }
@@ -69,7 +73,7 @@ export function calculateRefund({ order, now = new Date() }) {
     return { status: "not_refundable", reason: "less_than_48_hours", refundable_amount: 0 };
   }
 
-  if (policy === "CUSTOM") {
+  if (effectivePolicy === "CUSTOM") {
     if (diffDays >= 30) {
       return { status: "ok", reason: "more_than_30_days", refundable_amount: clampAmount(baseAmount * 0.8) };
     }

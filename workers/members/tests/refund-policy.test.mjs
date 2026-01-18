@@ -7,6 +7,7 @@ const baseOrder = {
   amount_paid: 10000,
   payment_gateway_fee: 500,
   refund_policy_type: "STANDARD",
+  item_id: "full-body",
   service_start_date: "2026-01-24T12:00:00Z",
 };
 
@@ -15,6 +16,7 @@ const baseOrder = {
     order: {
       ...baseOrder,
       refund_policy_type: "INTELLECTUAL",
+      item_id: "pre-consultation",
       delivery_status: "DELIVERED",
       delivered_at: "2026-01-10T12:00:00Z",
     },
@@ -29,6 +31,7 @@ const baseOrder = {
     order: {
       ...baseOrder,
       refund_policy_type: "INTELLECTUAL",
+      item_id: "pre-consultation",
       delivery_status: "IN_PROGRESS",
     },
     now,
@@ -42,12 +45,26 @@ const baseOrder = {
     order: {
       ...baseOrder,
       refund_policy_type: "INTELLECTUAL",
+      item_id: "pre-consultation",
       delivery_status: "PENDING",
     },
     now,
   });
   assert.equal(result.status, "not_refundable");
   assert.equal(result.refundable_amount, 0);
+}
+
+{
+  const result = calculateRefund({
+    order: {
+      ...baseOrder,
+      refund_policy_type: "INTELLECTUAL",
+      item_id: "full-body",
+    },
+    now,
+  });
+  assert.equal(result.status, "ok");
+  assert.equal(result.refundable_amount, 8550);
 }
 
 {
