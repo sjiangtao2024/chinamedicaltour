@@ -1,24 +1,22 @@
 # Task Plan
 
 ## Goal
-- Make INTELLECTUAL non-refundable only for pre-consultation orders.
-- Keep other packages refundable per existing policy.
-- Update pre-consultation copy to "3 free revisions" and sync order page.
+- Update refund policy documentation to reflect pre-consultation-only non-refundable rule.
+- Update pre-consultation documentation to note 3 free revisions.
+- Update Terms page copy in new-cmt accordingly.
 
 ## Phases
-- [x] Phase 1: Tests (TDD) for refund policy behavior
-- [x] Phase 2: Backend implementation
-- [x] Phase 3: Frontend copy updates
-- [ ] Phase 4: Verify + merge/push
+- [x] Phase 1: Review relevant docs and Terms content
+- [x] Phase 2: Update docs in main repo
+- [x] Phase 3: Update Terms page in new-cmt
+- [ ] Phase 4: Verify and merge/push
 
 ## Decisions
-- INTELLECTUAL policy applies non-refundable only when `item_id === "pre-consultation"`.
-- Other INTELLECTUAL (if any) should follow STANDARD schedule.
+- Terms: pre-consultation is non-refundable once payment is processed; includes 3 free revisions.
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
 | --- | --- | --- |
 
 ## Notes
-- Use TDD before backend logic change.
-- Use frontend-design skill for UI copy changes.
+- Use frontend-design skill for Terms copy changes.

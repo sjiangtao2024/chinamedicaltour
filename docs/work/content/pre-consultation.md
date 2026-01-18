@@ -37,3 +37,10 @@ We provide a structured 5-Phase Action Plan to guide you through the entire proc
 * **Phase 4 & 5:** Post-operative recovery support and long-term rehabilitation follow-up.
 
 **Disclaimer:** *We are a professional medical consultancy, not a healthcare provider. Our reports provide guidance and action plans based on existing records; the final treatment protocol is always determined by the attending physician following a personal consultation.*
+
+---
+
+## **Refund & Revision Policy**
+
+- Pre-consultation services begin immediately after payment and are **non-refundable**.
+- If the first report is not satisfactory, you may request **up to 3 free revisions**.

@@ -16,7 +16,7 @@
 ## 1. 核心策略概览
 
 ### 1.1 服务类型
-- **INTELLECTUAL**（智力交付类，如预咨询/报告）
+- **INTELLECTUAL**（智力交付类，仅限预咨询/报告）
 - **STANDARD**（标准化套餐，如体检/理疗）
 - **CUSTOM**（定制化治疗/管家服务，如手术/陪诊）
 - **THIRD_PARTY**（第三方透传，如酒店/医院代付）
@@ -43,10 +43,9 @@
 
 ## 3. 退款计算规则
 
-### 3.1 INTELLECTUAL（智力交付类）
-- 已交付（DELIVERED 或 delivered_at 有值）→ **不可退**
-- 工作中（PROCESSING / IN_PROGRESS）→ **退 50%**
-- 已付款未处理（PAID）→ **退全额 - 通道费**
+### 3.1 INTELLECTUAL（智力交付类，仅预咨询）
+- 预咨询一旦付款即开始服务 → **不可退**
+- 允许 **3 次免费修改**（首次报告不满意时提出）
 
 ### 3.2 STANDARD（标准化套餐）
 - 基于 `service_start_date` 与取消时间差（hours）
@@ -122,4 +121,3 @@
 - 当前系统 Order / OrderItem 是否存在（若没有，需要设计拆分）
 - ServiceProduct 是否存在（如无，需要新增映射或配置表）
 - 支付手续费获取方式（PayPal/Stripe API 接口细节）
-

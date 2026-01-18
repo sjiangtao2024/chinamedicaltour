@@ -5,16 +5,15 @@
 
 ## 退款策略概览
 ### 适用类型
-- **INTELLECTUAL**：智力交付类（如预咨询/报告）
+- **INTELLECTUAL**：智力交付类（仅限预咨询/报告）
 - **STANDARD**：标准化套餐（体检/理疗等）
 - **CUSTOM**：定制化服务（手术/陪诊等）
 - **THIRD_PARTY**：第三方透传（酒店/医院代付）
 
 ### 计算规则摘要
-- **INTELLECTUAL**
-  - 已交付（`DELIVERED` 或 `delivered_at` 有值）→ 不可退
-  - 处理中（`IN_PROGRESS`）→ 退 50%
-  - 已付款未处理 → 退全额 - 通道费
+- **INTELLECTUAL（仅预咨询）**
+  - 预咨询一旦付款即开始服务 → 不可退
+  - 允许 3 次免费修改（首次报告不满意时提出）
 - **STANDARD**（以 `service_start_date` 为基准）
   - > 7 天：退 90%
   - 3–7 天：退 50%
@@ -97,6 +96,7 @@
 - `THIRD_PARTY` 统一走人工审核。
 - `payment_gateway_fee` 以 PayPal/Stripe 实际返回为准，不允许估算。
 - `service_products` 是套餐唯一真源，新增/下架请更新此表。
+- INTELLECTUAL 当前仅用于预咨询；如出现其他用途，按 STANDARD 规则处理或单独制定政策。
 
 ## 变更记录
 - 2026-01-14：首次落地退款策略、退款估算与自动退款流程。
