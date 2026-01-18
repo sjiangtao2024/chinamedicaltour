@@ -43,6 +43,14 @@ const findOrderRecipient = async (db, userId) =>
     .bind(userId)
     .first();
 
+const findAccountRecipient = async (db, userId) =>
+  db
+    .prepare(
+      "SELECT users.email AS email, COALESCE(user_profiles.name, users.name) AS name FROM users LEFT JOIN user_profiles ON users.id = user_profiles.user_id WHERE users.id = ?"
+    )
+    .bind(userId)
+    .first();
+
 const recordOrderEmailEvent = async (db, eventId, orderId, status, error) => {
   const now = new Date().toISOString();
   await db
@@ -51,11 +59,6 @@ const recordOrderEmailEvent = async (db, eventId, orderId, status, error) => {
     )
     .bind(eventId, "order_email", orderId, status, error || null, now)
     .run();
-};
-
-const buildPortalLink = (baseUrl, path) => {
-  const base = (baseUrl || "https://chinamedicaltour.org").replace(/\/+$/, "");
-  return `${base}${path}`;
 };
 
 const recordRefundEmailEvent = async (db, eventId, orderId, status, error) => {
@@ -135,7 +138,7 @@ const sendOrderEmailIfNeeded = async (db, env, order) => {
   }
 };
 
-const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount, refundStatus }) => {
+const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount, refundedAt }) => {
   const emailEventId = `refund_email:${refundId}`;
   const existing = await db
     .prepare("SELECT event_id FROM webhook_events WHERE event_id = ?")
@@ -154,37 +157,22 @@ const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount,
     return;
   }
 
-  const recipient = await findOrderRecipient(db, order.user_id);
+  const recipient = await findAccountRecipient(db, order.user_id);
   const toEmail = recipient?.email ? String(recipient.email).trim() : "";
   if (!toEmail) {
     await recordRefundEmailEvent(db, emailEventId, order.id, "ignored", "missing_recipient");
     return;
   }
 
-  const product = await findServiceProduct(db, {
-    itemType: order.item_type,
-    itemId: order.item_id,
-  });
-  const packageName = product?.name || order.item_id || "Service";
-  const orderAmount = Number(order.amount_paid || 0);
   const refundAmountValue = Number(refundAmount || 0);
-  const feeAmount = Math.max(orderAmount - refundAmountValue, 0) || null;
-  const { orderLink } = buildOrderPortalLinks(env.MEMBER_PORTAL_URL, order.id);
-  const termsUrl = env.TERMS_URL || buildPortalLink(env.MEMBER_PORTAL_URL, "/terms.html");
   const email = buildRefundConfirmationEmail({
     recipientName: recipient?.name || "",
     orderId: order.id,
-    orderAmount,
+    refundId,
     refundAmount: refundAmountValue,
-    feeAmount,
     currency: order.currency || "USD",
-    refundStatus,
-    productName: packageName,
-    orderLink,
-    termsVersion: order.terms_version || "",
-    termsUrl,
+    refundedAt,
     supportEmail,
-    paymentChannel: order.payment_channel || "",
   });
 
   try {
@@ -195,6 +183,7 @@ const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount,
       subject: email.subject,
       text: email.text,
       html: email.html,
+      replyTo: supportEmail || fromEmail,
     });
     await recordRefundEmailEvent(db, emailEventId, order.id, "processed", null);
   } catch (error) {
@@ -500,7 +489,7 @@ export async function handlePaypal({ request, env, url, respond }) {
           order,
           refundId,
           refundAmount: existingRefund.amount,
-          refundStatus,
+          refundedAt: now,
         });
       }
       return respond(200, { ok: true });

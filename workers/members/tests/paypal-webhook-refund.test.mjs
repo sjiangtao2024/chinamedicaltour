@@ -23,7 +23,13 @@ const db = {
               return { total: 10000 };
             }
             if (sql.includes("FROM orders WHERE id = ?")) {
-              return { id: "order-1", amount_paid: 10000, service_status: serviceStatus, user_id: "user-1" };
+              return {
+                id: "order-1",
+                amount_paid: 10000,
+                service_status: serviceStatus,
+                user_id: "user-1",
+                currency: "USD",
+              };
             }
             if (sql.includes("FROM users")) {
               return { email: "member@example.com", name: "Jane Doe" };
@@ -57,7 +63,7 @@ const db = {
   },
 };
 
-const fetchMock = async (input) => {
+const fetchMock = async (input, init) => {
   const url = typeof input === "string" ? input : input.url;
   if (url.endsWith("/v1/oauth2/token")) {
     return new Response(JSON.stringify({ access_token: "token" }), {
@@ -111,7 +117,8 @@ const response = await handlePaypal({
     PAYPAL_WEBHOOK_ID: "wh",
     RESEND_API_KEY: "resend-key",
     ORDER_FROM_EMAIL: "orders@example.com",
-    MEMBER_PORTAL_URL: "https://chinamedicaltour.org",
+    SUPPORT_EMAIL: "support@chinamedicaltour.org",
+    MAIL_FROM_NAME: "CMT Care Team",
   },
   url: new URL(request.url),
   respond: (status, payload) =>

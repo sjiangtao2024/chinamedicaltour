@@ -194,113 +194,67 @@ export async function sendOrderConfirmationEmail({
 export function buildRefundConfirmationEmail({
   recipientName,
   orderId,
-  orderAmount,
+  refundId,
   refundAmount,
-  feeAmount,
   currency,
-  refundStatus,
-  productName,
-  orderLink,
-  termsVersion,
-  termsUrl,
+  refundedAt,
   supportEmail,
-  paymentChannel,
 }) {
-  const safeOrderId = orderId ? String(orderId) : "";
-  const subjectOrderId = safeOrderId ? safeOrderId.slice(0, 8).toUpperCase() : "";
-  const subject = subjectOrderId
-    ? `Refund confirmed for order ${subjectOrderId}`
-    : "Refund confirmed";
   const firstName = normalizeRecipientName(recipientName);
-  const lines = [`Hi ${firstName},`, "", "Your refund has been processed."];
+  const safeOrderId = orderId ? String(orderId) : "";
+  const safeRefundId = refundId ? String(refundId) : "";
+  const refundDate = refundedAt ? String(refundedAt).slice(0, 10) : "";
+  const amountLabel = formatCurrency(refundAmount, currency);
+  const supportLine = supportEmail ? `If you have any questions, reply to this email or contact us at ${supportEmail}.` : "";
 
-  if (productName) {
-    lines.push(`Package: ${productName}`);
-  }
-  if (safeOrderId) {
-    lines.push(`Order ID: ${safeOrderId}`);
-  }
-  if (paymentChannel) {
-    lines.push(`Payment method: ${paymentChannel}`);
-  }
-  if (refundStatus) {
-    lines.push(`Refund status: ${refundStatus}`);
-  }
+  const subject = "Your refund has been completed";
+  const text = [
+    `Hi ${firstName},`,
+    "",
+    `We've confirmed your refund for Order ${safeOrderId}. The refund has been completed through PayPal and will be returned to your original payment method.`,
+    "",
+    "Refund summary:",
+    `- Amount: ${amountLabel}`,
+    safeRefundId ? `- Refund ID: ${safeRefundId}` : null,
+    refundDate ? `- Date: ${refundDate}` : null,
+    "",
+    "When will it arrive?",
+    "Most refunds appear within 3-10 business days, depending on your bank or card issuer.",
+    "",
+    supportLine,
+    "",
+    "Thank you,",
+    "China Medical Tour Team",
+  ]
+    .filter(Boolean)
+    .join("\n");
 
-  const orderAmountLabel = formatCurrency(orderAmount, currency);
-  const refundAmountLabel = formatCurrency(refundAmount, currency);
-  const feeAmountLabel = formatCurrency(feeAmount, currency);
-  if (orderAmountLabel) {
-    lines.push(`Original payment: ${orderAmountLabel}`);
-  }
-  if (refundAmountLabel) {
-    lines.push(`Refund amount: ${refundAmountLabel}`);
-  }
-  if (feeAmountLabel) {
-    lines.push(`Payment processor fee: ${feeAmountLabel}`);
-    lines.push("Refunds exclude payment processor fees.");
-  }
+  const html = `
+    <p>Hi ${firstName},</p>
+    <p>We've confirmed your refund for Order <strong>${safeOrderId}</strong>. The refund has been completed through PayPal and will be returned to your original payment method.</p>
+    <p><strong>Refund summary:</strong></p>
+    <ul>
+      <li>Amount: ${amountLabel}</li>
+      ${safeRefundId ? `<li>Refund ID: ${safeRefundId}</li>` : ""}
+      ${refundDate ? `<li>Date: ${refundDate}</li>` : ""}
+    </ul>
+    <p><strong>When will it arrive?</strong><br />Most refunds appear within 3-10 business days, depending on your bank or card issuer.</p>
+    ${supportEmail ? `<p>If you have any questions, reply to this email or contact us at ${supportEmail}.</p>` : ""}
+    <p>Thank you,<br />China Medical Tour Team</p>
+  `.trim();
 
-  if (orderLink) {
-    lines.push("", `View your order: ${orderLink}`);
-  }
-  if (termsVersion) {
-    lines.push(`Terms version: ${termsVersion}`);
-  }
-  if (termsUrl) {
-    lines.push(`Terms: ${termsUrl}`);
-  }
-  if (supportEmail) {
-    lines.push("", `Need help? ${supportEmail}`);
-  }
-
-  const text = lines.join("\n");
-
-  const htmlLines = [
-    `<p>Hi ${firstName},</p>`,
-    "<p>Your refund has been processed.</p>",
-  ];
-
-  if (productName) {
-    htmlLines.push(`<p><strong>Package:</strong> ${productName}</p>`);
-  }
-  if (safeOrderId) {
-    htmlLines.push(`<p><strong>Order ID:</strong> ${safeOrderId}</p>`);
-  }
-  if (paymentChannel) {
-    htmlLines.push(`<p><strong>Payment method:</strong> ${paymentChannel}</p>`);
-  }
-  if (refundStatus) {
-    htmlLines.push(`<p><strong>Refund status:</strong> ${refundStatus}</p>`);
-  }
-  if (orderAmountLabel) {
-    htmlLines.push(`<p><strong>Original payment:</strong> ${orderAmountLabel}</p>`);
-  }
-  if (refundAmountLabel) {
-    htmlLines.push(`<p><strong>Refund amount:</strong> ${refundAmountLabel}</p>`);
-  }
-  if (feeAmountLabel) {
-    htmlLines.push(
-      `<p><strong>Payment processor fee:</strong> ${feeAmountLabel}<br/>Refunds exclude payment processor fees.</p>`
-    );
-  }
-  if (orderLink) {
-    htmlLines.push(`<p><a href="${orderLink}">View your order</a></p>`);
-  }
-  if (termsVersion) {
-    htmlLines.push(`<p><strong>Terms version:</strong> ${termsVersion}</p>`);
-  }
-  if (termsUrl) {
-    htmlLines.push(`<p><a href="${termsUrl}">Terms & Conditions</a></p>`);
-  }
-  if (supportEmail) {
-    htmlLines.push(`<p>Need help? ${supportEmail}</p>`);
-  }
-
-  return { subject, text, html: htmlLines.join("") };
+  return { subject, text, html };
 }
 
-export async function sendRefundConfirmationEmail({ apiKey, from, to, subject, text, html }) {
+export async function sendRefundConfirmationEmail({
+  apiKey,
+  from,
+  to,
+  subject,
+  text,
+  html,
+  replyTo,
+}) {
   if (!apiKey || !from) {
     throw new Error("missing_email_config");
   }
@@ -317,6 +271,7 @@ export async function sendRefundConfirmationEmail({ apiKey, from, to, subject, t
       subject,
       text,
       html,
+      reply_to: replyTo || undefined,
     }),
   });
 
