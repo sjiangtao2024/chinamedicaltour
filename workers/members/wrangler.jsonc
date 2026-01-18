@@ -11,6 +11,7 @@
 	"vars": {
 		"ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://members.chinamedicaltour.org,https://preview.chinamedicaltour.org,https://admin.chinamedicaltour.org,https://vipservices.chinamedicaltour.org",
 		"FROM_EMAIL": "orders@chinamedicaltour.org",
+		"SUPPORT_EMAIL": "support@chinamedicaltour.org",
 		"VERIFY_FROM_EMAIL": "verify@chinamedicaltour.org",
 		"GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
 		"SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",

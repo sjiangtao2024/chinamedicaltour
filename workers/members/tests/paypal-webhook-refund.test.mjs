@@ -4,6 +4,7 @@ import { handlePaypal } from "../src/routes/paypal.js";
 let orderStatus = null;
 let amountRefunded = null;
 let refundStatus = null;
+let resendPayloads = [];
 
 const db = {
   prepare(sql) {
@@ -21,7 +22,10 @@ const db = {
               return { total: 10000 };
             }
             if (sql.includes("FROM orders WHERE id = ?")) {
-              return { id: "order-1", amount_paid: 10000 };
+              return { id: "order-1", amount_paid: 10000, user_id: "user-1", currency: "USD" };
+            }
+            if (sql.includes("FROM users")) {
+              return { email: "user@example.com", name: "Test User" };
             }
             return null;
           },
@@ -41,7 +45,7 @@ const db = {
   },
 };
 
-const fetchMock = async (input) => {
+const fetchMock = async (input, init) => {
   const url = typeof input === "string" ? input : input.url;
   if (url.endsWith("/v1/oauth2/token")) {
     return new Response(JSON.stringify({ access_token: "token" }), {
@@ -51,6 +55,13 @@ const fetchMock = async (input) => {
   }
   if (url.endsWith("/v1/notifications/verify-webhook-signature")) {
     return new Response(JSON.stringify({ verification_status: "SUCCESS" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url === "https://api.resend.com/emails") {
+    resendPayloads.push(JSON.parse(init?.body || "{}"));
+    return new Response(JSON.stringify({ id: "email-1" }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
@@ -87,6 +98,9 @@ const response = await handlePaypal({
     PAYPAL_CLIENT_ID: "client",
     PAYPAL_SECRET: "secret",
     PAYPAL_WEBHOOK_ID: "wh",
+    RESEND_API_KEY: "resend",
+    FROM_EMAIL: "orders@chinamedicaltour.org",
+    SUPPORT_EMAIL: "support@chinamedicaltour.org",
   },
   url: new URL(request.url),
   respond: (status, payload) =>
@@ -100,5 +114,6 @@ assert.equal(response.status, 200);
 assert.equal(orderStatus, "refunded");
 assert.equal(amountRefunded, 10000);
 assert.equal(refundStatus, "COMPLETED");
+assert.equal(resendPayloads.length, 1);
 
 global.fetch = originalFetch;

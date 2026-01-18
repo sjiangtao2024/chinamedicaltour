@@ -4,6 +4,7 @@ import {
   parsePaypalFee,
   verifyWebhookSignature,
 } from "../lib/paypal.js";
+import { sendRefundEmail } from "../lib/email.js";
 import { findOrderById, updateOrderPayment } from "../lib/orders.js";
 import { requireAuth, requireDb, readJson } from "../lib/request.js";
 
@@ -271,7 +272,40 @@ export async function handlePaypal({ request, env, url, respond }) {
           .run();
       }
 
-      await recordEvent("processed", refundId, null);
+      let emailError = null;
+      if (!env.RESEND_API_KEY || !env.FROM_EMAIL) {
+        emailError = "refund_email_config_missing";
+      } else if (order?.user_id) {
+        const recipient = await db
+          .prepare(
+            "SELECT users.email AS email, COALESCE(user_profiles.name, users.name) AS name FROM users LEFT JOIN user_profiles ON users.id = user_profiles.user_id WHERE users.id = ?"
+          )
+          .bind(order.user_id)
+          .first();
+        if (recipient?.email) {
+          try {
+            await sendRefundEmail({
+              apiKey: env.RESEND_API_KEY,
+              from: env.FROM_EMAIL,
+              replyTo: env.SUPPORT_EMAIL || env.FROM_EMAIL,
+              to: recipient.email,
+              name: recipient.name || null,
+              orderId: order.id,
+              refundId,
+              amount: existingRefund.amount,
+              currency: String(order.currency || existingRefund.currency || "USD").toUpperCase(),
+              refundedAt: now,
+              supportEmail: env.SUPPORT_EMAIL || env.FROM_EMAIL,
+            });
+          } catch (error) {
+            emailError = "refund_email_failed";
+          }
+        } else {
+          emailError = "refund_email_missing";
+        }
+      }
+
+      await recordEvent("processed", refundId, emailError);
       return respond(200, { ok: true });
     }
 
