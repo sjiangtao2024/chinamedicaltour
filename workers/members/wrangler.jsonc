@@ -19,7 +19,8 @@
 		"GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
 		"SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
 		"PAYPAL_RETURN_URL": "https://preview.chinamedicaltour.org/payment?paypal=return",
-		"PAYPAL_CANCEL_URL": "https://preview.chinamedicaltour.org/payment?paypal=cancel"
+		"PAYPAL_CANCEL_URL": "https://preview.chinamedicaltour.org/payment?paypal=cancel",
+		"TERMS_URL": "https://chinamedicaltour.org/terms"
 	},
 	"d1_databases": [
 		{
