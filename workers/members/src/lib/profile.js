@@ -27,7 +27,7 @@ export function normalizeIntakeProfile(input) {
 }
 
 export function isProfileComplete(profile) {
-  return Boolean(profile?.user_id);
+  return Boolean(profile?.user_id && profile?.checkup_date);
 }
 
 export async function insertOrderProfile(db, orderId, profile) {

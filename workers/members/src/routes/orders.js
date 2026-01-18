@@ -312,6 +312,9 @@ export async function handleOrders({ request, env, url, respond }) {
     if (!profile.email) {
       return respond(400, { ok: false, error: "email_required" });
     }
+    if (!profile.checkup_date) {
+      return respond(400, { ok: false, error: "checkup_date_required" });
+    }
 
     let db;
     try {

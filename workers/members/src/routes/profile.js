@@ -20,6 +20,9 @@ export async function handleProfile({ request, env, url, respond }) {
     }
     const body = await readJson(request);
     const profile = normalizeProfile(body || {});
+    if (!profile.checkup_date) {
+      return respond(400, { ok: false, error: "checkup_date_required" });
+    }
     let db;
     try {
       db = requireDb(env);

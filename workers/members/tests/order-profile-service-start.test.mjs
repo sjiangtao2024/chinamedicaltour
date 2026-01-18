@@ -51,3 +51,32 @@ const response = await handleOrders({
 
 assert.equal(response.status, 200);
 assert.equal(serviceStartDate, "2026-02-01");
+
+serviceStartDate = null;
+
+const missingDateRequest = new Request(
+  `https://members.chinamedicaltour.org/api/orders/${orderId}/profile`,
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: "test@example.com",
+    }),
+  }
+);
+
+const missingDateResponse = await handleOrders({
+  request: missingDateRequest,
+  env: { MEMBERS_DB: db },
+  url: new URL(missingDateRequest.url),
+  respond: (status, payload) =>
+    new Response(JSON.stringify(payload), {
+      status,
+      headers: { "Content-Type": "application/json" },
+    }),
+});
+
+assert.equal(missingDateResponse.status, 400);
+assert.equal(serviceStartDate, null);

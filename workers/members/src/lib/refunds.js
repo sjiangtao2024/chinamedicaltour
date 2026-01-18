@@ -40,18 +40,7 @@ export function calculateRefund({ order, now = new Date() }) {
   }
 
   if (policy === "INTELLECTUAL") {
-    const deliveryStatus = String(order.delivery_status || "").toUpperCase();
-    if (order.delivered_at || deliveryStatus === "DELIVERED") {
-      return { status: "not_refundable", reason: "delivered", refundable_amount: 0 };
-    }
-    if (deliveryStatus === "IN_PROGRESS") {
-      return {
-        status: "ok",
-        reason: "in_progress",
-        refundable_amount: clampAmount(baseAmount * 0.5),
-      };
-    }
-    return { status: "ok", reason: "pending", refundable_amount: baseAmount };
+    return { status: "not_refundable", reason: "intellectual_non_refundable", refundable_amount: 0 };
   }
 
   const serviceStart = parseDate(order.service_start_date);
