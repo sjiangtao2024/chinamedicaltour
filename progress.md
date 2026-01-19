@@ -1,7 +1,87 @@
 # Progress Log
 
-- Updated refund policy spec + implementation docs to scope INTELLECTUAL to pre-consultation only and note 3 free revisions.
-- Updated docs/work/content/pre-consultation.md with refund & revision policy.
-- Updated new-cmt Terms page to reflect non-refundable pre-consultation + 3 free revisions.
-- Tests run:
-  - npm test -- --run (new-cmt)
+## Session: 2026-01-19
+
+### Phase 1: Requirements & Discovery
+- **Status:** complete
+- **Started:** 07:40
+- Actions taken:
+  - Confirmed EN market focus and canonical domain.
+  - Identified indexable vs noindex pages.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
+### Phase 2: Planning & Structure
+- **Status:** complete
+- Actions taken:
+  - Reviewed routes and current SEO-related assets.
+  - Drafted implementation plan for SEO changes.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+  - `docs/plans/2026-01-19-new-cmt-seo-implementation-plan.md`
+
+### Phase 3: Implementation
+- **Status:** in_progress
+- Actions taken:
+  - Added react-helmet-async and HelmetProvider.
+  - Added Seo component with tests.
+  - Added centralized SEO config with tests.
+  - Wired SEO metadata into indexable pages.
+  - Added JSON-LD for service pages and org schema on core pages.
+  - Added sitemap.xml and updated robots.txt.
+- Files created/modified:
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/package.json`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/package-lock.json`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/main.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/components/seo/Seo.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/lib/seo.ts`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/__tests__/seo.test.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/__tests__/seoConfig.test.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/__tests__/seoPages.test.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/public/sitemap.xml`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/public/robots.txt`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Index.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/HealthScreening.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/SpecializedCare.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/TCMWellness.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/ConciergeServices.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Stories.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/About.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Contact.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/HowToPay.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/SavingsCalculator.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Auth.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Payment.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Privacy.tsx`
+  - `/home/yukun/dev/chinamedicaltour/new-cmt/.worktrees/ai-a/src/pages/Terms.tsx`
+
+## Test Results
+
+| Test | Input | Expected | Actual | Status |
+|------|-------|----------|--------|--------|
+| npm test -- --run src/__tests__/seo.test.tsx | Seo component tests | PASS | PASS | ✅ |
+| npm test -- --run src/__tests__/seoConfig.test.tsx | SEO config tests | PASS | PASS | ✅ |
+| npm test -- --run src/__tests__/seoPages.test.tsx | Page SEO tests | PASS | PASS | ✅ |
+| npm test -- --run | Full test suite | PASS | PASS | ✅ |
+
+## Error Log
+
+| Timestamp | Error | Attempt | Resolution |
+|-----------|-------|---------|------------|
+| 09:49 | HelmetDispatcher init failure in tests | 1 | Wrapped affected page tests with HelmetProvider |
+
+## 5-Question Reboot Check
+| Question | Answer |
+|----------|--------|
+| Where am I? | Phase 2 |
+| Where am I going? | Phases 3-5 |
+| What's the goal? | Improve SEO metadata, schema, sitemap, and noindex rules |
+| What have I learned? | See findings.md |
+| What have I done? | See above |
+
+---
+*Update after completing each phase or encountering errors*
