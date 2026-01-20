@@ -149,6 +149,8 @@ const thirdResponse = await handleOrders({
     }),
 });
 
-assert.equal(thirdResponse.status, 400);
+assert.equal(thirdResponse.status, 201);
 const thirdPayload = await thirdResponse.json();
-assert.equal(thirdPayload.error, "refund_not_allowed");
+assert.equal(thirdPayload.ok, true);
+assert.equal(thirdPayload.order.status, "refund_requested");
+assert.equal(thirdPayload.refund_request.status, "pending");

@@ -162,6 +162,7 @@ export async function sendOrderConfirmationEmail({
   apiKey,
   from,
   to,
+  bcc,
   subject,
   text,
   html,
@@ -179,6 +180,7 @@ export async function sendOrderConfirmationEmail({
     body: JSON.stringify({
       from,
       to,
+      bcc: bcc || undefined,
       subject,
       text,
       html,
@@ -250,6 +252,7 @@ export async function sendRefundConfirmationEmail({
   apiKey,
   from,
   to,
+  bcc,
   subject,
   text,
   html,
@@ -268,6 +271,7 @@ export async function sendRefundConfirmationEmail({
     body: JSON.stringify({
       from,
       to,
+      bcc: bcc || undefined,
       subject,
       text,
       html,

@@ -84,6 +84,7 @@ const sendOrderEmailIfNeeded = async (db, env, order) => {
   const fromEmail = env.ORDER_FROM_EMAIL || env.FROM_EMAIL || "";
   const fromName = env.MAIL_FROM_NAME || "CMT Care Team";
   const supportEmail = env.SUPPORT_EMAIL || "";
+  const bccEmail = env.ORDER_BCC_EMAIL || "";
   const from = buildFromAddress(fromName, fromEmail);
   if (!env.RESEND_API_KEY || !from) {
     await recordOrderEmailEvent(db, emailEventId, order.id, "ignored", "missing_email_config");
@@ -122,6 +123,7 @@ const sendOrderEmailIfNeeded = async (db, env, order) => {
       apiKey: env.RESEND_API_KEY,
       from,
       to: toEmail,
+      bcc: bccEmail || undefined,
       subject: email.subject,
       text: email.text,
       html: email.html,
@@ -151,6 +153,7 @@ const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount,
   const fromEmail = env.ORDER_FROM_EMAIL || env.FROM_EMAIL || "";
   const fromName = env.MAIL_FROM_NAME || "CMT Care Team";
   const supportEmail = env.SUPPORT_EMAIL || "";
+  const bccEmail = env.ORDER_BCC_EMAIL || "";
   const from = buildFromAddress(fromName, fromEmail);
   if (!env.RESEND_API_KEY || !from) {
     await recordRefundEmailEvent(db, emailEventId, order.id, "ignored", "missing_email_config");
@@ -180,6 +183,7 @@ const sendRefundEmailIfNeeded = async (db, env, { order, refundId, refundAmount,
       apiKey: env.RESEND_API_KEY,
       from,
       to: toEmail,
+      bcc: bccEmail || undefined,
       subject: email.subject,
       text: email.text,
       html: email.html,

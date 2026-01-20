@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { handlePaypal } from "../src/routes/paypal.js";
 
 let resendCalled = false;
+let resendPayload = null;
 
 const db = {
   prepare(sql) {
@@ -40,7 +41,7 @@ const db = {
   },
 };
 
-const fetchMock = async (input) => {
+const fetchMock = async (input, init) => {
   const url = typeof input === "string" ? input : input.url;
   if (url.endsWith("/v1/oauth2/token")) {
     return new Response(JSON.stringify({ access_token: "token" }), {
@@ -56,6 +57,7 @@ const fetchMock = async (input) => {
   }
   if (url === "https://api.resend.com/emails") {
     resendCalled = true;
+    resendPayload = JSON.parse(init.body);
     return new Response("ok", { status: 200 });
   }
   return new Response("not found", { status: 404 });
@@ -99,6 +101,7 @@ const response = await handlePaypal({
     MAIL_FROM_NAME: "CMT Care Team",
     MEMBER_PORTAL_URL: "https://chinamedicaltour.org",
     SUPPORT_EMAIL: "support@chinamedicaltour.org",
+    ORDER_BCC_EMAIL: "info@chinamedicaltour.org",
   },
   url: new URL(request.url),
   respond: (status, payload) =>
@@ -110,5 +113,6 @@ const response = await handlePaypal({
 
 assert.equal(response.status, 200);
 assert.equal(resendCalled, true);
+assert.equal(resendPayload?.bcc, "info@chinamedicaltour.org");
 
 global.fetch = originalFetch;

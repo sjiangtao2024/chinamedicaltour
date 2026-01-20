@@ -12,6 +12,7 @@
 		"ALLOWED_ORIGINS": "https://chinamedicaltour.org,https://members.chinamedicaltour.org,https://preview.chinamedicaltour.org,https://admin.chinamedicaltour.org,https://vipservices.chinamedicaltour.org",
 		"FROM_EMAIL": "orders@chinamedicaltour.org",
 		"ORDER_FROM_EMAIL": "orders@chinamedicaltour.org",
+		"ORDER_BCC_EMAIL": "info@chinamedicaltour.org",
 		"MAIL_FROM_NAME": "CMT Care Team",
 		"MEMBER_PORTAL_URL": "https://chinamedicaltour.org",
 		"SUPPORT_EMAIL": "support@chinamedicaltour.org",
