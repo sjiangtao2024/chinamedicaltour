@@ -18,6 +18,18 @@ import { parseExportParams } from "./lib/export.js";
 import { insertLead, normalizeLead } from "./lib/member-leads.js";
 import { nextLeadQuestion, shouldUseLeadFlow } from "./lib/lead-flow.js";
 import {
+  buildLoginRequiredReply,
+  buildOrderInfoRequestReply,
+  buildPolicyFallbackReply,
+  classifySupportIntent,
+} from "./lib/guardrails.js";
+import { fetchOrderDetail } from "./lib/members-client.js";
+import {
+  buildOrderNotFoundReply,
+  extractOrderId,
+  formatOrderSummary,
+} from "./lib/order-support.js";
+import {
   buildLeadExtractionPrompt,
   isLeadComplete,
   parseLeadExtraction,
@@ -135,6 +147,28 @@ function buildCsv(rows) {
     lines.push(line.join(","));
   }
   return lines.join("\n");
+}
+
+function buildSseResponse({ replyText, requestId, corsHeaders }) {
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue(
+        encoder.encode(serializeSseData({ choices: [{ delta: { content: replyText } }] })),
+      );
+      controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+      controller.close();
+    },
+  });
+
+  return new Response(stream, {
+    status: 200,
+    headers: {
+      ...sseHeaders(),
+      ...(corsHeaders || {}),
+      "X-Request-Id": requestId,
+    },
+  });
 }
 
 async function generateSummary({ env, requestId, userText, assistantText, timeoutMs }) {
@@ -376,6 +410,7 @@ if (path === "/api/feedback") {
     const sysPrompt = getSystemPrompt();
     const ragEnabled = env.RAG_ENABLED === true || env.RAG_ENABLED === "true";
     const ragTopK = Number(env.RAG_TOP_K) || 3;
+    const ragMinScore = Number(env.RAG_MIN_SCORE) || 0.75;
 
     let ragChunks = [];
     if (ragEnabled) {
@@ -386,6 +421,10 @@ if (path === "/api/feedback") {
         ragChunks = [];
       }
     }
+
+    const filteredRagChunks = ragChunks.filter(
+      (chunk) => Number(chunk?.score || 0) >= ragMinScore,
+    );
 
     const realtimeIntent = parseRealtimeIntent(lastUserTextRaw);
     if (realtimeIntent) {
@@ -443,6 +482,36 @@ if (path === "/api/feedback") {
           },
         });
       }
+    }
+
+    const supportIntent = classifySupportIntent(userText);
+    if (supportIntent === "order") {
+      const authHeader = request.headers.get("Authorization") || "";
+      const hasAuth = authHeader.startsWith("Bearer ") && authHeader.length > 7;
+      if (!hasAuth) {
+        const replyText = buildLoginRequiredReply();
+        return buildSseResponse({ replyText, requestId, corsHeaders });
+      }
+
+      const orderId = extractOrderId(userText);
+      if (!orderId) {
+        const replyText = buildOrderInfoRequestReply();
+        return buildSseResponse({ replyText, requestId, corsHeaders });
+      }
+
+      const order = await fetchOrderDetail({
+        env,
+        authHeader,
+        orderId,
+      });
+
+      const replyText = order ? formatOrderSummary(order) : buildOrderNotFoundReply();
+      return buildSseResponse({ replyText, requestId, corsHeaders });
+    }
+
+    if (supportIntent === "policy" && filteredRagChunks.length === 0) {
+      const replyText = buildPolicyFallbackReply();
+      return buildSseResponse({ replyText, requestId, corsHeaders });
     }
 
     const leadFlowActive = shouldUseLeadFlow({ lastUserText: userText, messages: rawMessages });
@@ -536,9 +605,9 @@ if (path === "/api/feedback") {
       });
     }
 
-    const mergedSystemPrompt = shouldFallback(ragEnabled, ragChunks)
+    const mergedSystemPrompt = shouldFallback(ragEnabled, filteredRagChunks)
       ? sysPrompt
-      : mergeRagIntoSystemPrompt(sysPrompt, ragChunks);
+      : mergeRagIntoSystemPrompt(sysPrompt, filteredRagChunks);
 
     const systemMessage = { role: "system", content: mergedSystemPrompt };
     const messagesWithSystem = [systemMessage, ...rawMessages];

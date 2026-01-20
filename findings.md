@@ -1,5 +1,45 @@
 # Findings & Decisions
 
+## Active Task: Smart-CS Knowledge + Order Support
+
+### Requirements
+- Generate documentation first, then implement in steps.
+- Goals: update terms/policy knowledge coverage; enable order query/refund/FAQ.
+- Avoid out-of-scope answers for these topics.
+
+### Research Findings
+- `workers/smart-cs` uses RAG from Vectorize; when no chunks are returned, it falls back to system prompt (no hard refusal).
+- System prompt allows general knowledge and only soft refusal if RAG is missing for business facts.
+- `workers/ops` provides an admin UI and API to upload markdown knowledge and rebuild the vector index.
+- `workers/smart-cs/knowledge/knowledge.md` currently has services, visa, payments, and general FAQ, but no explicit terms/policy or order/refund flows.
+- `docs/work/legal/terms-update-checklist.md` documents the official terms update flow (front-end terms constants + D1 `service_products.terms_version` alignment), useful for policy scope and versioning references.
+- `docs/dev/upgrade-2025-payments/members-api.md` lists members worker endpoints, including `/api/orders/:id` and `/api/orders/:id/refund-request` (JWT required).
+- `workers/members/src/routes/orders.js` contains order and refund-request routes, confirming members worker handles these APIs.
+- `docs/work/smart-cs/` already contains `longcat-api-guide.md` and `smart-cs-features-and-guide.md`, but no terms/policy + order support scope document.
+- Smart CS frontend entry is `new-cmt/src/components/chat/SmartChatPanel.tsx`, posting to `VITE_SMART_CS_API_URL` or default `https://api.chinamedicaltour.org/api/chat` with no Authorization header.
+- Member JWT is stored in `sessionStorage` under `member_session_token` (e.g., `new-cmt/src/pages/Auth.tsx`) and used for members API calls elsewhere.
+- `new-cmt/src/pages/Auth.tsx` uses `https://members.chinamedicaltour.org` as API base, indicating direct calls to members domain are standard.
+- Members worker only serves API routes; `workers/members/src/index.js` returns JSON 404 for non-matching paths (no root UI), so visiting `https://members.chinamedicaltour.org/` in a browser yields a 404 response even if the worker is deployed.
+- Smart CS now uses a read-only order lookup flow: extracts order ID from user text, calls members API, and returns a summary plus Member Center link for actions.
+- Refund policy summary for customer-facing templates is documented in `docs/work/payments/COMPLIANCE_AND_PAYMENT_GUIDE.md` (deposit non-refundable after appointment confirmed; full payment 80% refund if cancelled 7 days prior; no refund within 24 hours).
+
+### Technical Decisions
+| Decision | Rationale |
+|----------|-----------|
+|          |           |
+
+### Resources
+- `workers/smart-cs/src/index.js`
+- `workers/smart-cs/src/lib/knowledge-base.js`
+- `workers/smart-cs/src/lib/rag-runtime.js`
+- `workers/smart-cs/knowledge/knowledge.md`
+- `workers/ops/src/index.js`
+
+### Visual/Browser Findings
+- N/A
+
+---
+
 ## Requirements
 - Optimize SEO for new-cmt with English focus.
 - Use canonical domain: https://chinamedicaltour.org.

@@ -60,6 +60,7 @@ This project uses a strict Multi-AI Worktree Protocol (`docs/ai-worktrees-protoc
 - **Mandatory**: Use `Skill` tool with `superpowers:using-superpowers` at start of session.
 - **Frontend**: Must use `frontend-design:frontend-design` skill.
 - **Agents**: See `AGENTS.md` for agent-specific instructions.
+- **Browser Automation**: Prefer built-in web search for simple informational lookups; use `agent-browser` only for interactive/stateful tasks (testing flows, form filling, screenshots, data extraction).
 
 ## Language
 - **Output Language**: Always communicate in Chinese (Simplified), unless the user explicitly requests another language.

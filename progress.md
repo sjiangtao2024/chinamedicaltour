@@ -1,5 +1,41 @@
 # Progress Log
 
+## Session: 2026-01-19 (Smart-CS Knowledge + Order Support)
+
+### Phase 1: Requirements & Discovery
+- **Status:** in_progress
+- **Started:** 10:30
+- Actions taken:
+  - Reviewed smart-cs RAG flow and knowledge base coverage.
+  - Identified ops worker for knowledge uploads and index rebuilds.
+  - Drafted documentation plan for terms/policy and order support.
+  - Implemented RAG score filtering and policy/order guardrails.
+  - Added chat Authorization header passthrough from the frontend.
+  - Implemented read-only order lookup via Members API with Member Center redirect for actions.
+  - Updated smart-cs knowledge base with terms/policy templates.
+  - Added PrimeCare Pre-Consultation content to the knowledge base.
+  - Added detailed Health Screening, TCM, and Specialized Care package lists to the knowledge base.
+  - Updated smart chat suggestions to cover TCM, specialized care, and pre-consultation pages.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+  - `docs/plans/2026-01-19-smart-cs-knowledge-order-support-plan.md`
+  - `docs/work/smart-cs/smart-cs-terms-policy-order-support.md`
+  - `workers/smart-cs/src/index.js`
+  - `workers/smart-cs/src/lib/cors.js`
+  - `workers/smart-cs/src/lib/guardrails.js`
+  - `workers/smart-cs/src/lib/members-client.js`
+  - `workers/smart-cs/src/lib/order-support.js`
+  - `workers/smart-cs/src/lib/rag-runtime.js`
+  - `new-cmt/src/components/chat/SmartChatPanel.tsx`
+  - `workers/smart-cs/tests/guardrails-order-intent.test.mjs`
+  - `workers/smart-cs/tests/members-client.test.mjs`
+  - `workers/smart-cs/tests/order-support.test.mjs`
+  - `workers/smart-cs/knowledge/knowledge.md`
+  - `new-cmt/src/components/chat/SmartChatPanel.tsx`
+  - `new-cmt/src/__tests__/smartChatSuggestions.test.ts`
+
 ## Session: 2026-01-19
 
 ### Phase 1: Requirements & Discovery
@@ -67,6 +103,10 @@
 | npm test -- --run src/__tests__/seoConfig.test.tsx | SEO config tests | PASS | PASS | ✅ |
 | npm test -- --run src/__tests__/seoPages.test.tsx | Page SEO tests | PASS | PASS | ✅ |
 | npm test -- --run | Full test suite | PASS | PASS | ✅ |
+| node workers/smart-cs/tests/order-support.test.mjs | Order support helpers | PASS | PASS | ✅ |
+| node workers/smart-cs/tests/members-client.test.mjs | Members API client | PASS | PASS | ✅ |
+| node workers/smart-cs/tests/guardrails-order-intent.test.mjs | Guardrails intent | PASS | PASS | ✅ |
+| npm test -- --run src/__tests__/smartChatSuggestions.test.ts | Smart chat suggestions | PASS | PASS | ✅ |
 
 ## Error Log
 

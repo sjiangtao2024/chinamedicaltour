@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildOrderConfirmationEmail, sendOrderConfirmationEmail } from "../lib/email.js";
+import {
+  buildOrderConfirmationEmail,
+  sendOrderConfirmationEmail,
+  sendRefundConfirmationEmail,
+} from "../lib/email.js";
 
 test("buildOrderConfirmationEmail renders required content", () => {
   const email = buildOrderConfirmationEmail({
@@ -69,6 +73,53 @@ test("sendOrderConfirmationEmail posts to Resend", async () => {
   assert.equal(capturedBody.subject, "Order confirmed");
   assert.equal(capturedBody.text, "Hello");
   assert.equal(capturedBody.html, "<p>Hello</p>");
+
+  global.fetch = originalFetch;
+});
+
+test("sendOrderConfirmationEmail includes bcc when provided", async () => {
+  let capturedBody = null;
+  const originalFetch = global.fetch;
+  global.fetch = async (_input, init) => {
+    capturedBody = JSON.parse(init.body);
+    return new Response("ok", { status: 200 });
+  };
+
+  await sendOrderConfirmationEmail({
+    apiKey: "resend-key",
+    from: "CMT Care Team <orders@chinamedicaltour.org>",
+    to: "jane.doe@example.com",
+    bcc: "info@chinamedicaltour.org",
+    subject: "Order confirmed",
+    text: "Hello",
+    html: "<p>Hello</p>",
+  });
+
+  assert.equal(capturedBody.bcc, "info@chinamedicaltour.org");
+
+  global.fetch = originalFetch;
+});
+
+test("sendRefundConfirmationEmail includes bcc when provided", async () => {
+  let capturedBody = null;
+  const originalFetch = global.fetch;
+  global.fetch = async (_input, init) => {
+    capturedBody = JSON.parse(init.body);
+    return new Response("ok", { status: 200 });
+  };
+
+  await sendRefundConfirmationEmail({
+    apiKey: "resend-key",
+    from: "CMT Care Team <orders@chinamedicaltour.org>",
+    to: "jane.doe@example.com",
+    bcc: "info@chinamedicaltour.org",
+    subject: "Refund completed",
+    text: "Hello",
+    html: "<p>Hello</p>",
+    replyTo: "support@chinamedicaltour.org",
+  });
+
+  assert.equal(capturedBody.bcc, "info@chinamedicaltour.org");
 
   global.fetch = originalFetch;
 });

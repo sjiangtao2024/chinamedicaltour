@@ -11,10 +11,17 @@ export async function fetchRagChunks({ env, query, topK }) {
     returnMetadata: true,
   });
   const matches = results?.matches || [];
-  return matches.map((m) => m?.metadata?.preview).filter(Boolean);
+  return matches
+    .map((match) => ({
+      text: match?.metadata?.preview || "",
+      score: Number(match?.score || 0),
+    }))
+    .filter((match) => match.text);
 }
 
 export function mergeRagIntoSystemPrompt(systemPrompt, chunks) {
   if (!chunks || chunks.length === 0) return systemPrompt;
-  return `${systemPrompt}${buildRagContext(chunks)}`;
+  const texts = chunks.map((chunk) => chunk.text).filter(Boolean);
+  if (texts.length === 0) return systemPrompt;
+  return `${systemPrompt}${buildRagContext(texts)}`;
 }
