@@ -6,6 +6,7 @@ let amountRefunded = null;
 let refundStatus = null;
 let serviceStatus = "awaiting_customer";
 let refundEmailEvent = null;
+let resendPayload = null;
 
 const db = {
   prepare(sql) {
@@ -78,6 +79,7 @@ const fetchMock = async (input, init) => {
     });
   }
   if (url.endsWith("/emails")) {
+    resendPayload = JSON.parse(init.body);
     return new Response(JSON.stringify({ id: "email-1" }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -119,6 +121,7 @@ const response = await handlePaypal({
     ORDER_FROM_EMAIL: "orders@example.com",
     SUPPORT_EMAIL: "support@chinamedicaltour.org",
     MAIL_FROM_NAME: "CMT Care Team",
+    ORDER_BCC_EMAIL: "info@chinamedicaltour.org",
   },
   url: new URL(request.url),
   respond: (status, payload) =>
@@ -135,5 +138,6 @@ assert.equal(refundStatus, "COMPLETED");
 assert.equal(serviceStatus, null);
 assert.equal(refundEmailEvent?.event_type, "refund_email");
 assert.equal(refundEmailEvent?.status, "processed");
+assert.equal(resendPayload?.bcc, "info@chinamedicaltour.org");
 
 global.fetch = originalFetch;

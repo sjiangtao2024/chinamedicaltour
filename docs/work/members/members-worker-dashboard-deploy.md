@@ -22,6 +22,7 @@ Recommended URLs for preview testing:
 3. Update:
    - `PAYPAL_RETURN_URL`
    - `PAYPAL_CANCEL_URL`
+   - `ORDER_BCC_EMAIL` (optional; set to `info@chinamedicaltour.org` to BCC order/refund emails, or leave empty to disable)
 4. Save and deploy (click **Save**, then **Deploy** if prompted).
 
 ## Verification
