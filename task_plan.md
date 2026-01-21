@@ -51,64 +51,6 @@ Phase 1
 |-------|---------|------------|
 |       | 1       |            |
 
----
-
-# Task Plan: Admin Dashboard Stats (Members + Smart-CS)
-
-## Goal
-Enhance the admin interface to show: total registered members (basic info), daily smart-cs customer chats, chat summaries, and next-step purchase intent indicators.
-
-## Current Phase
-Phase 1
-
-## Phases
-
-### Phase 1: Requirements & Discovery
-- [x] Confirm data sources and definitions for member counts and smart-cs daily summary.
-- [x] Locate existing smart-cs daily summary interface/logs and admin UI entry point.
-- [x] Document findings in findings.md.
-- **Status:** complete
-
-### Phase 2: Planning & Structure
-- [ ] Define data contract for dashboard cards/tables.
-- [ ] Define UI layout and component structure in new-cmt admin.
-- **Status:** pending
-
-### Phase 3: Implementation
-- [ ] Implement members count + basic info list from D1 via members worker API.
-- [ ] Implement smart-cs daily summary view (metrics + summary + intent).
-- [ ] Add loading/error states and empty data handling.
-- **Status:** pending
-
-### Phase 4: Testing & Verification
-- [ ] Validate UI rendering with mocked/real data.
-- [ ] Verify API responses and error handling.
-- **Status:** pending
-
-### Phase 5: Delivery
-- [ ] Review admin UI with user.
-- [ ] Confirm acceptance criteria met.
-- **Status:** pending
-
-## Notes
-- Frontend changes must be in new-cmt worktree.
-- Smart-cs summary source depends on existing logs/interface; confirm path before coding.
-
-## Key Questions
-1. Member “basic info” fields required (email, name, phone, status, created_at)?
-2. Smart-cs “daily” definition (timezone, date boundaries)?
-3. “Next-step purchase intent” source (existing field, heuristic, or model output)?
-
-## Decisions Made
-| Decision | Rationale |
-|          |           |
-
-## Errors Encountered
-| Error | Attempt | Resolution |
-|       | 1       |            |
-
----
-
 # Task Plan: New-CMT SEO Optimization (EN)
 
 ## Goal
@@ -170,3 +112,58 @@ Phase 5
 - Update phase status as you progress: pending → in_progress → complete
 - Re-read this plan before major decisions (attention manipulation)
 - Log ALL errors - they help avoid repetition
+
+---
+
+# Task Plan: Admin Dashboard Stats (Members + Smart-CS)
+
+## Goal
+Enhance the admin interface to show: total registered members (basic info), daily smart-cs customer chats, chat summaries, and next-step purchase intent indicators.
+
+## Current Phase
+Phase 4
+
+## Phases
+
+### Phase 1: Requirements & Discovery
+- [x] Confirm data sources and definitions for member counts and smart-cs daily summary.
+- [x] Locate existing smart-cs daily summary interface/logs and admin UI entry point.
+- [x] Document findings in findings.md.
+- **Status:** complete
+
+### Phase 2: Planning & Structure
+- [x] Define data contract for dashboard cards/tables.
+- [x] Define UI layout and component structure in new-cmt admin.
+- **Status:** complete
+
+### Phase 3: Implementation
+- [x] Implement members count + basic info list from D1 via members worker API.
+- [x] Implement smart-cs daily summary view (metrics + summary + intent).
+- [x] Add loading/error states and empty data handling.
+- **Status:** complete
+
+### Phase 4: Testing & Verification
+- [x] Validate UI rendering with mocked data tests.
+- [ ] Verify API responses and error handling.
+- **Status:** in_progress
+
+### Phase 5: Delivery
+- [ ] Review admin UI with user.
+- [ ] Confirm acceptance criteria met.
+- **Status:** pending
+
+## Notes
+- Frontend changes live in `new-cmt/.worktrees/ai-a`.
+- Smart-cs summary now requires `ADMIN_TOKEN` and is proxied via members admin endpoint.
+
+## Key Questions
+1. Confirm API token rollout and ops update for smart-cs schema migration.
+
+## Decisions Made
+| Decision | Rationale |
+|----------|-----------|
+| Dual-track session + member id analytics | Covers anonymous + logged-in users |
+
+## Errors Encountered
+| Error | Attempt | Resolution |
+|       | 1       |            |

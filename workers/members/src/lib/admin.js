@@ -52,6 +52,53 @@ export async function listAdminOrders(db, { status, userId, from, to, limit = 50
   return db.prepare(query).bind(...params, limit).all();
 }
 
+export async function listAdminMembers(db, { query, limit = 50, offset = 0 }) {
+  if (!db) {
+    return { results: [] };
+  }
+  const conditions = [];
+  const params = [];
+  if (query) {
+    conditions.push(
+      "(users.email LIKE ? OR user_profiles.contact_info LIKE ? OR users.preferred_contact LIKE ?)",
+    );
+    const like = `%${query}%`;
+    params.push(like, like, like);
+  }
+  const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+  const sql =
+    "SELECT users.id, users.email, " +
+    "COALESCE(user_profiles.contact_info, users.preferred_contact) AS contact_info, " +
+    "users.created_at " +
+    "FROM users " +
+    "LEFT JOIN user_profiles ON users.id = user_profiles.user_id " +
+    where +
+    " ORDER BY users.created_at DESC LIMIT ? OFFSET ?";
+  return db.prepare(sql).bind(...params, limit, offset).all();
+}
+
+export async function countAdminMembers(db, { query }) {
+  if (!db) {
+    return 0;
+  }
+  const conditions = [];
+  const params = [];
+  if (query) {
+    conditions.push(
+      "(users.email LIKE ? OR user_profiles.contact_info LIKE ? OR users.preferred_contact LIKE ?)",
+    );
+    const like = `%${query}%`;
+    params.push(like, like, like);
+  }
+  const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+  const sql =
+    "SELECT COUNT(*) AS total FROM users " +
+    "LEFT JOIN user_profiles ON users.id = user_profiles.user_id " +
+    where;
+  const row = await db.prepare(sql).bind(...params).first();
+  return Number(row?.total || 0);
+}
+
 export async function findAdminOrderDetails(db, orderId) {
   if (!db || !orderId) {
     return null;

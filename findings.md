@@ -87,24 +87,25 @@
 ### Requirements
 - Admin UI should show member registration count and basic member info from members D1.
 - Admin UI should show smart-cs daily summary (daily customers, summary text, and purchase intent signals).
-- Smart-cs daily summary source likely exists via prior interface/logs; needs confirmation.
+- Smart-cs daily summary should support intent filters.
 
 ### Research Findings
-- `workers/smart-cs/src/index.js` exposes admin endpoints:
-  - `GET /admin/exports` (HTML form) and `GET /admin/export.csv` (CSV) guarded by `ADMIN_TOKEN`.
-  - Export query reads `chat_logs` fields: `request_id`, `user_text`, `assistant_summary`, `rating`, `page_url`, `page_context`, `created_at`.
+- `workers/smart-cs` exposes `GET /admin/export.csv` for chat logs (ADMIN_TOKEN protected).
+- Export query reads `chat_logs` fields: `request_id`, `user_text`, `assistant_summary`, `rating`, `page_url`, `page_context`, `created_at`.
 - `workers/smart-cs/migrations/0002_add_chat_log_fields.sql` added `assistant_summary`, `rating`, `page_url`, `page_context` to `chat_logs`.
 - `docs/work/ops/ops-knowledge-guide.zh.md` documents how to export smart-cs logs from D1 via wrangler and lists the same chat log fields.
-- Admin dashboard page is `new-cmt/src/pages/admin/AdminDashboard.tsx` (currently only navigation cards).
-- Members admin API currently supports orders/payments/coupons only; no member listing/count endpoint found in `workers/members/src/routes/admin.js`.
-- Smart-cs `chat_logs` schema does not store user identifiers; “daily customers” will need a proxy metric (e.g., daily chat count) or a schema change.
+- Admin dashboard route is `new-cmt/src/pages/admin/AdminDashboard.tsx`.
 
 ### Decisions
 | Decision | Rationale |
 |----------|-----------|
 | Members data from D1 via members worker | User confirmed availability and best practice expectation |
+| Dual-track session + member ID analytics | Covers anonymous and logged-in customers |
+| Rule-based intent scoring | Fast, explainable baseline for purchase intent |
 
-### Open Questions
-- Which fields count as “basic info” for members (name/email/phone/status/created_at)?
-- What is the “daily” boundary and timezone for smart-cs summaries?
-- Where is the smart-cs daily summary API/log implemented?
+### Implementation Notes
+- Members admin API now supports `GET /api/admin/members` with search + pagination.
+- Members admin API now proxies smart-cs summary via `GET /api/admin/smart-cs-summary`.
+- Smart-cs added `GET /admin/summary` with stats + summary list and intent filter.
+- Smart-cs logs now store `session_id`, `member_id`, `intent_level`, `intent_reason` (migration `0005_add_chat_log_intent_fields.sql`).
+- SmartChatPanel sends `session_id` + decoded `member_id` in `meta`.

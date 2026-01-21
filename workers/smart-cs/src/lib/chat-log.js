@@ -1,5 +1,5 @@
 export function buildInsert() {
-  return "INSERT INTO chat_logs (request_id, user_text, assistant_text, assistant_summary, rating, page_url, page_context, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  return "INSERT INTO chat_logs (request_id, user_text, assistant_text, assistant_summary, rating, page_url, page_context, session_id, member_id, intent_level, intent_reason, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
 
 export function buildUpdateSummary() {

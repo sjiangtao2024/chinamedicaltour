@@ -1,6 +1,12 @@
 import { findOrderById, updateOrderServiceStatus, updateOrderStatus } from "../lib/orders.js";
 import { listPaypalTransactions, parsePaypalFee, refundPaypalCapture } from "../lib/paypal.js";
-import { findAdminOrderDetails, listAdminOrders, reconcilePaypalTransactions } from "../lib/admin.js";
+import {
+  countAdminMembers,
+  findAdminOrderDetails,
+  listAdminMembers,
+  listAdminOrders,
+  reconcilePaypalTransactions,
+} from "../lib/admin.js";
 import { calculateRefund } from "../lib/refunds.js";
 import { requireAdmin, requireDb, readJson } from "../lib/request.js";
 
@@ -65,6 +71,75 @@ export async function handleAdmin({ request, env, url, respond }) {
       limit,
     });
     return respond(200, { ok: true, orders: results || [] });
+  }
+
+  if (url.pathname === "/api/admin/members" && request.method === "GET") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    let db;
+    try {
+      db = requireDb(env);
+    } catch (error) {
+      return respond(500, { ok: false, error: "missing_db" });
+    }
+    const query = url.searchParams.get("q")?.trim();
+    const limitRaw = Number(url.searchParams.get("limit") || 50);
+    const offsetRaw = Number(url.searchParams.get("offset") || 0);
+    const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;
+    const offset = Number.isFinite(offsetRaw) ? Math.max(offsetRaw, 0) : 0;
+
+    const [count, list] = await Promise.all([
+      countAdminMembers(db, { query }),
+      listAdminMembers(db, { query, limit, offset }),
+    ]);
+
+    return respond(200, {
+      ok: true,
+      total: count,
+      members: list?.results || [],
+    });
+  }
+
+  if (url.pathname === "/api/admin/smart-cs-summary" && request.method === "GET") {
+    const admin = await requireAdmin(request, env);
+    if (!admin.ok) {
+      return respond(admin.status, { ok: false, error: admin.error });
+    }
+    if (!env.SMART_CS_ADMIN_TOKEN) {
+      return respond(500, { ok: false, error: "missing_smart_cs_admin_token" });
+    }
+    const base = env.SMART_CS_ADMIN_URL || "https://api.chinamedicaltour.org";
+    const params = new URLSearchParams();
+    const date = url.searchParams.get("date");
+    const from = url.searchParams.get("from");
+    const to = url.searchParams.get("to");
+    const intent = url.searchParams.get("intent");
+    const limit = url.searchParams.get("limit");
+    const offset = url.searchParams.get("offset");
+    if (date) params.set("date", date);
+    if (from) params.set("from", from);
+    if (to) params.set("to", to);
+    if (intent) params.set("intent", intent);
+    if (limit) params.set("limit", limit);
+    if (offset) params.set("offset", offset);
+
+    const summaryUrl = `${base.replace(/\/$/, "")}/admin/summary${
+      params.toString() ? `?${params.toString()}` : ""
+    }`;
+    let response;
+    try {
+      response = await fetch(summaryUrl, {
+        headers: {
+          Authorization: `Bearer ${env.SMART_CS_ADMIN_TOKEN}`,
+        },
+      });
+    } catch (error) {
+      return respond(502, { ok: false, error: "smart_cs_unreachable" });
+    }
+    const payload = await response.json().catch(() => ({}));
+    return respond(response.ok ? 200 : response.status, payload);
   }
 
   const adminOrderMatch = url.pathname.match(/^\/api\/admin\/orders\/([^/]+)$/);
