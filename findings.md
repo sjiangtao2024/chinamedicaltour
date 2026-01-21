@@ -79,3 +79,30 @@
 ---
 *Update this file after every 2 view/browser/search operations*
 *This prevents visual information from being lost*
+
+---
+
+## Active Task: Admin Dashboard Stats (Members + Smart-CS)
+
+### Requirements
+- Admin UI should show member registration count and basic member info from members D1.
+- Admin UI should show smart-cs daily summary (daily customers, summary text, and purchase intent signals).
+- Smart-cs daily summary should support intent filters.
+
+### Research Findings
+- `workers/smart-cs` exposes `GET /admin/export.csv` for chat logs (ADMIN_TOKEN protected).
+- Smart-cs chat logs include `assistant_summary`, `rating`, `page_url`, `page_context` fields via migration `0002_add_chat_log_fields.sql`.
+- Admin dashboard route is `new-cmt/src/pages/admin/AdminDashboard.tsx`.
+
+### Decisions
+| Decision | Rationale |
+|----------|-----------|
+| Dual-track session + member ID analytics | Covers anonymous and logged-in customers |
+| Rule-based intent scoring | Fast, explainable baseline for purchase intent |
+
+### Implementation Notes
+- Members admin API now supports `GET /api/admin/members` with search + pagination.
+- Members admin API now proxies smart-cs summary via `GET /api/admin/smart-cs-summary`.
+- Smart-cs added `GET /admin/summary` with stats + summary list and intent filter.
+- Smart-cs logs now store `session_id`, `member_id`, `intent_level`, `intent_reason` (migration `0004_add_chat_log_intent_fields.sql`).
+- SmartChatPanel sends `session_id` + decoded `member_id` in `meta`.

@@ -125,3 +125,43 @@
 
 ---
 *Update after completing each phase or encountering errors*
+
+---
+
+## Session: 2026-01-21 (Admin Dashboard Stats)
+
+### Phase 3: Implementation
+- **Status:** complete
+- Actions taken:
+  - Added members admin list + count helpers and admin route.
+  - Added smart-cs admin summary endpoint and intent scoring.
+  - Extended smart-cs chat logs with session/member/intent fields.
+  - Updated SmartChatPanel to send session_id + decoded member_id.
+  - Expanded AdminDashboard with stats cards, member table, and summary list.
+- Files created/modified:
+  - `workers/members/src/lib/admin.js`
+  - `workers/members/src/routes/admin.js`
+  - `workers/members/wrangler.jsonc`
+  - `workers/members/tests/admin-members.test.mjs`
+  - `workers/members/tests/admin-members-route.test.mjs`
+  - `workers/smart-cs/src/index.js`
+  - `workers/smart-cs/src/lib/chat-log.js`
+  - `workers/smart-cs/src/lib/admin-summary.js`
+  - `workers/smart-cs/src/lib/intent-score.js`
+  - `workers/smart-cs/migrations/0004_add_chat_log_intent_fields.sql`
+  - `workers/smart-cs/tests/chat-log.test.mjs`
+  - `workers/smart-cs/tests/admin-summary.test.mjs`
+  - `workers/smart-cs/tests/intent-score.test.mjs`
+  - `new-cmt/src/pages/admin/AdminDashboard.tsx`
+  - `new-cmt/src/components/chat/SmartChatPanel.tsx`
+  - `new-cmt/src/__tests__/adminDashboard.test.tsx`
+
+## Test Results (Admin Dashboard Stats)
+| Test | Status | Notes |
+|------|--------|-------|
+| node workers/members/tests/admin-members.test.mjs | ✅ PASS | List SQL helper |
+| node workers/members/tests/admin-members-route.test.mjs | ✅ PASS | Admin members route |
+| node workers/smart-cs/tests/intent-score.test.mjs | ✅ PASS | Intent classifier |
+| node workers/smart-cs/tests/admin-summary.test.mjs | ✅ PASS | Summary query builder |
+| node workers/smart-cs/tests/chat-log.test.mjs | ✅ PASS | Insert SQL updated |
+| npm test -- --run src/__tests__/adminDashboard.test.tsx | ✅ PASS | Admin dashboard UI |

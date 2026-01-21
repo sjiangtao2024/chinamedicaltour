@@ -17,6 +17,8 @@ import { collectSseText } from "./lib/sse-collector.js";
 import { parseExportParams } from "./lib/export.js";
 import { insertLead, normalizeLead } from "./lib/member-leads.js";
 import { nextLeadQuestion, shouldUseLeadFlow } from "./lib/lead-flow.js";
+import { classifyPurchaseIntent } from "./lib/intent-score.js";
+import { buildSummaryQueries, parseSummaryParams } from "./lib/admin-summary.js";
 import {
   buildLoginRequiredReply,
   buildOrderInfoRequestReply,
@@ -56,10 +58,14 @@ function normalizeMeta(body, lastUserText) {
   const meta = body && body.meta && typeof body.meta === "object" ? body.meta : {};
   const pageUrl = typeof meta.page_url === "string" ? meta.page_url.trim() : "";
   const pageContext = typeof meta.page_context === "string" ? meta.page_context.trim() : "";
+  const sessionId = typeof meta.session_id === "string" ? meta.session_id.trim() : "";
+  const memberId = typeof meta.member_id === "string" ? meta.member_id.trim() : "";
   const fallbackContext = extractContextHeader(lastUserText || "");
   return {
     page_url: pageUrl || null,
     page_context: pageContext || fallbackContext || null,
+    session_id: sessionId || null,
+    member_id: memberId || null,
   };
 }
 
@@ -283,6 +289,49 @@ export default {
       });
     }
 
+    if (path === "/admin/summary") {
+      if (!isAdminAuthorized(request, env)) {
+        return new Response("Unauthorized", { status: 401, headers: noIndexHeaders });
+      }
+      if (!env.DB) {
+        return new Response(JSON.stringify({ ok: false, error: "db_unavailable" }), {
+          status: 503,
+          headers: { "Content-Type": "application/json", ...noIndexHeaders },
+        });
+      }
+      const url = new URL(request.url);
+      const { startIso, endIso, intent, limit, offset } = parseSummaryParams(url);
+      const { statsSql, statsArgs, summariesSql, summariesArgs } = buildSummaryQueries({
+        startIso,
+        endIso,
+        intent,
+        limit,
+        offset,
+      });
+      const statsRow = await env.DB.prepare(statsSql).bind(...statsArgs).first();
+      const summaries = await env.DB.prepare(summariesSql).bind(...summariesArgs).all();
+      const summary = {
+        total_chats: Number(statsRow?.total_chats || 0),
+        unique_sessions: Number(statsRow?.unique_sessions || 0),
+        unique_members: Number(statsRow?.unique_members || 0),
+        unique_customers: Number(statsRow?.unique_customers || 0),
+        intent_high: Number(statsRow?.intent_high || 0),
+        intent_medium: Number(statsRow?.intent_medium || 0),
+        intent_low: Number(statsRow?.intent_low || 0),
+      };
+      return new Response(
+        JSON.stringify({
+          ok: true,
+          summary,
+          summaries: summaries?.results || [],
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...noIndexHeaders },
+        },
+      );
+    }
+
         if (path === "/api/leads") {
       if (request.method !== "POST") {
         return new Response("Method Not Allowed", {
@@ -458,6 +507,7 @@ if (path === "/api/feedback") {
           realtime_error: realtime.meta?.message || null,
         });
 
+        const intent = classifyPurchaseIntent(userText);
         if (env.DB) {
           const sql = buildInsert();
           const stmt = env.DB.prepare(sql).bind(
@@ -468,6 +518,10 @@ if (path === "/api/feedback") {
             null,
             meta.page_url,
             meta.page_context,
+            meta.session_id,
+            meta.member_id,
+            intent.level,
+            intent.reason,
             new Date().toISOString(),
           );
           ctx.waitUntil(stmt.run());
@@ -576,6 +630,7 @@ if (path === "/api/feedback") {
         lead_step: nextStep.step,
       });
 
+      const intent = classifyPurchaseIntent(userText);
       if (env.DB) {
         const sql = buildInsert();
         const stmt = env.DB.prepare(sql).bind(
@@ -586,6 +641,10 @@ if (path === "/api/feedback") {
           null,
           meta.page_url,
           meta.page_context,
+          meta.session_id,
+          meta.member_id,
+          intent.level,
+          intent.reason,
           new Date().toISOString(),
         );
         ctx.waitUntil(stmt.run());
@@ -680,6 +739,7 @@ if (path === "/api/feedback") {
             error_code: null,
           });
 
+          const intent = classifyPurchaseIntent(userText);
           if (env.DB) {
             const sql = buildInsert();
             const stmt = env.DB.prepare(sql).bind(
@@ -690,6 +750,10 @@ if (path === "/api/feedback") {
               null,
               meta.page_url,
               meta.page_context,
+              meta.session_id,
+              meta.member_id,
+              intent.level,
+              intent.reason,
               new Date().toISOString(),
             );
             ctx.waitUntil(stmt.run());

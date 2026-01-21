@@ -5,3 +5,6 @@ const sql = buildInsert();
 assert.match(sql, /insert into chat_logs/i);
 assert.match(sql, /assistant_summary/i);
 assert.match(sql, /page_context/i);
+assert.match(sql, /session_id/i);
+assert.match(sql, /member_id/i);
+assert.match(sql, /intent_level/i);
