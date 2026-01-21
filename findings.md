@@ -79,3 +79,32 @@
 ---
 *Update this file after every 2 view/browser/search operations*
 *This prevents visual information from being lost*
+
+---
+
+## Active Task: Admin Dashboard Stats (Members + Smart-CS)
+
+### Requirements
+- Admin UI should show member registration count and basic member info from members D1.
+- Admin UI should show smart-cs daily summary (daily customers, summary text, and purchase intent signals).
+- Smart-cs daily summary source likely exists via prior interface/logs; needs confirmation.
+
+### Research Findings
+- `workers/smart-cs/src/index.js` exposes admin endpoints:
+  - `GET /admin/exports` (HTML form) and `GET /admin/export.csv` (CSV) guarded by `ADMIN_TOKEN`.
+  - Export query reads `chat_logs` fields: `request_id`, `user_text`, `assistant_summary`, `rating`, `page_url`, `page_context`, `created_at`.
+- `workers/smart-cs/migrations/0002_add_chat_log_fields.sql` added `assistant_summary`, `rating`, `page_url`, `page_context` to `chat_logs`.
+- `docs/work/ops/ops-knowledge-guide.zh.md` documents how to export smart-cs logs from D1 via wrangler and lists the same chat log fields.
+- Admin dashboard page is `new-cmt/src/pages/admin/AdminDashboard.tsx` (currently only navigation cards).
+- Members admin API currently supports orders/payments/coupons only; no member listing/count endpoint found in `workers/members/src/routes/admin.js`.
+- Smart-cs `chat_logs` schema does not store user identifiers; “daily customers” will need a proxy metric (e.g., daily chat count) or a schema change.
+
+### Decisions
+| Decision | Rationale |
+|----------|-----------|
+| Members data from D1 via members worker | User confirmed availability and best practice expectation |
+
+### Open Questions
+- Which fields count as “basic info” for members (name/email/phone/status/created_at)?
+- What is the “daily” boundary and timezone for smart-cs summaries?
+- Where is the smart-cs daily summary API/log implemented?

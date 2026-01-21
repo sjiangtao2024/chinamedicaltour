@@ -125,3 +125,24 @@
 
 ---
 *Update after completing each phase or encountering errors*
+
+---
+
+## Session: 2026-01-21 (Admin Dashboard Stats)
+
+### Phase 1: Requirements & Discovery
+- **Status:** complete
+- Actions taken:
+  - Confirmed members data should come from D1 via members worker.
+  - Identified need to locate smart-cs daily summary interface/logs.
+  - Added task plan section for admin dashboard stats.
+  - Located smart-cs admin export endpoint and chat log fields for daily summaries.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
+## Test Results (Baseline)
+| Test | Status | Notes |
+|------|--------|-------|
+| `npm test -- --run` (new-cmt) | ✅ PASS | React Router future flag warnings + act() warnings in AdminPayments tests |
