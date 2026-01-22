@@ -120,6 +120,7 @@
 - `docs/dev/plans/2026-01-14-packages-api-implementation-plan.md`
 - `docs/dev/plans/2026-01-14-refund-policy-implementation.md`
 - `docs/dev/plans/2026-01-14-refund-policy-spec.md`
+- `docs/dev/plans/2026-01-22-admin-members-registry-design.md`
 - `docs/dev/requirements/2026医疗旅游全链路成本.md`
 - `docs/dev/requirements/Body check up package.en.xlsx`
 - `docs/dev/requirements/Body check up package.translations-ori.csv`
