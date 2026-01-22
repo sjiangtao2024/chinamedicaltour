@@ -85,14 +85,34 @@ export async function handleAdmin({ request, env, url, respond }) {
       return respond(500, { ok: false, error: "missing_db" });
     }
     const query = url.searchParams.get("q")?.trim();
+    const sort = url.searchParams.get("sort")?.trim();
+    const from = url.searchParams.get("from")?.trim();
+    const to = url.searchParams.get("to")?.trim();
     const limitRaw = Number(url.searchParams.get("limit") || 50);
     const offsetRaw = Number(url.searchParams.get("offset") || 0);
     const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;
     const offset = Number.isFinite(offsetRaw) ? Math.max(offsetRaw, 0) : 0;
 
+    let fromIso = "";
+    if (from) {
+      const fromDate = new Date(from);
+      if (Number.isNaN(fromDate.getTime())) {
+        return respond(400, { ok: false, error: "invalid_from" });
+      }
+      fromIso = fromDate.toISOString();
+    }
+    let toIso = "";
+    if (to) {
+      const toDate = new Date(to);
+      if (Number.isNaN(toDate.getTime())) {
+        return respond(400, { ok: false, error: "invalid_to" });
+      }
+      toIso = toDate.toISOString();
+    }
+
     const [count, list] = await Promise.all([
-      countAdminMembers(db, { query }),
-      listAdminMembers(db, { query, limit, offset }),
+      countAdminMembers(db, { query, from: fromIso, to: toIso }),
+      listAdminMembers(db, { query, from: fromIso, to: toIso, sort, limit, offset }),
     ]);
 
     return respond(200, {
