@@ -109,3 +109,7 @@
 - Smart-cs added `GET /admin/summary` with stats + summary list and intent filter.
 - Smart-cs logs now store `session_id`, `member_id`, `intent_level`, `intent_reason` (migration `0005_add_chat_log_intent_fields.sql`).
 - SmartChatPanel sends `session_id` + decoded `member_id` in `meta`.
+## 2026-01-22 Admin members minimal changes
+- `/api/admin/members` currently supports only `q`, `limit`, `offset`. No sort/filter/export/bulk params.
+- Sorting is hard-coded to `users.created_at DESC` in `workers/members/src/lib/admin.js` (`listAdminMembers`).
+- Endpoint implementation in `workers/members/src/routes/admin.js` only reads `q`, `limit`, `offset`.

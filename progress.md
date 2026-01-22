@@ -182,3 +182,17 @@
 | node workers/smart-cs/tests/admin-summary.test.mjs | ✅ PASS | Summary query builder |
 | node workers/smart-cs/tests/chat-log.test.mjs | ✅ PASS | Insert SQL updated |
 | npm test -- --run src/__tests__/adminDashboard.test.tsx | ✅ PASS | Admin dashboard UI |
+## 2026-01-22
+- Investigated members admin API; confirmed only `q/limit/offset` supported and sort is fixed to created_at desc.
+- Loaded planning + frontend-design + worktree + TDD skills in preparation for minimal-change implementation.
+- Checked main repo worktrees/branches: `.worktrees/ai-a` exists on `mod/members/ai-a/2026-01-21`, no unmerged branches.
+- Checked new-cmt worktrees/branches: `.worktrees/ai-a` exists on `mod/web/ai-a/2026-01-22`, no unmerged branches.
+- Reviewed members admin route test file to extend coverage for sort/date filter.
+- Added failing backend test for members sort/date filter; failing on missing ASC sort handling.
+- Added frontend test for sort/date filters; currently fails due to syntax error (extra brace) and needs fix.
+- Fixed test syntax; now failing as expected on missing sort/date UI controls.
+- Implemented backend sort/from/to handling and updated admin members tests; backend test now passes.
+- Added members page sort/date controls and applied params on submit; adminMembers tests now pass.
+- Verified: `node workers/members/tests/admin-members-route.test.mjs` and `npm test -- --run src/__tests__/adminMembers.test.tsx`.
+- Checked git status in main repo and new-cmt worktree to review pending changes.
+- Moved workers/members changes to worktree `mod/members/ai-a/2026-01-21` via stash apply; main repo now only has planning files modified.

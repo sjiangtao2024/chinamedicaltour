@@ -167,3 +167,17 @@ Phase 4
 ## Errors Encountered
 | Error | Attempt | Resolution |
 |       | 1       |            |
+## 2026-01-22 Admin members minimal changes (sort + date filter)
+- [x] Phase 1: Baseline & worktree checks (workers + new-cmt)
+- [x] Phase 2: RED tests (backend route + frontend members page)
+- [x] Phase 3: GREEN implementation (backend params + frontend UI)
+- [x] Phase 4: Refactor & verify targeted tests
+- [x] Phase 5: Report changes + next steps
+
+## Errors Encountered
+| Error | Attempt | Resolution |
+| --- | --- | --- |
+| admin-members-route.test.mjs expected ORDER BY ASC | 1 | Fixed in route/admin list SQL; test now passes |
+| adminMembers.test.tsx syntax error (extra brace) | 1 | Fixed; test now fails on missing sort/date controls (expected) |
+| admin-members-route.test.mjs date param assertion mismatch | 1 | Updated test to check includes(from/to) |
+| adminMembers.test.tsx picked initial fetch call | 1 | Updated test to locate call with sort/from/to |
