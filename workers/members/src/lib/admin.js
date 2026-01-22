@@ -52,7 +52,7 @@ export async function listAdminOrders(db, { status, userId, from, to, limit = 50
   return db.prepare(query).bind(...params, limit).all();
 }
 
-export async function listAdminMembers(db, { query, limit = 50, offset = 0 }) {
+export async function listAdminMembers(db, { query, from, to, sort, limit = 50, offset = 0 }) {
   if (!db) {
     return { results: [] };
   }
@@ -65,7 +65,16 @@ export async function listAdminMembers(db, { query, limit = 50, offset = 0 }) {
     const like = `%${query}%`;
     params.push(like, like, like);
   }
+  if (from) {
+    conditions.push("users.created_at >= ?");
+    params.push(from);
+  }
+  if (to) {
+    conditions.push("users.created_at <= ?");
+    params.push(to);
+  }
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+  const order = sort === "created_at_asc" ? "ASC" : "DESC";
   const sql =
     "SELECT users.id, users.email, " +
     "COALESCE(user_profiles.contact_info, users.preferred_contact) AS contact_info, " +
@@ -73,11 +82,11 @@ export async function listAdminMembers(db, { query, limit = 50, offset = 0 }) {
     "FROM users " +
     "LEFT JOIN user_profiles ON users.id = user_profiles.user_id " +
     where +
-    " ORDER BY users.created_at DESC LIMIT ? OFFSET ?";
+    ` ORDER BY users.created_at ${order} LIMIT ? OFFSET ?`;
   return db.prepare(sql).bind(...params, limit, offset).all();
 }
 
-export async function countAdminMembers(db, { query }) {
+export async function countAdminMembers(db, { query, from, to }) {
   if (!db) {
     return 0;
   }
@@ -89,6 +98,14 @@ export async function countAdminMembers(db, { query }) {
     );
     const like = `%${query}%`;
     params.push(like, like, like);
+  }
+  if (from) {
+    conditions.push("users.created_at >= ?");
+    params.push(from);
+  }
+  if (to) {
+    conditions.push("users.created_at <= ?");
+    params.push(to);
   }
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
   const sql =
