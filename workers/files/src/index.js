@@ -4,10 +4,32 @@ function getBearerToken(request) {
   return match ? match[1] : null;
 }
 
-function jsonResponse(status, payload) {
+const ALLOWED_ORIGINS = new Set([
+  "https://chinamedicaltour.org",
+  "https://www.chinamedicaltour.org",
+  "https://preview.chinamedicaltour.org",
+]);
+
+function getCorsHeaders(origin) {
+  if (!origin || !ALLOWED_ORIGINS.has(origin)) return null;
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Authorization, Content-Type",
+    "Access-Control-Expose-Headers": "Content-Disposition, Content-Type",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
+
+function jsonResponse(status, payload, origin) {
+  const cors = getCorsHeaders(origin);
   return new Response(JSON.stringify(payload), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(cors || {}),
+    },
   });
 }
 
@@ -42,31 +64,41 @@ export async function handleRequest({ request, env, url, respond }) {
     return new Response("Not Found", { status: 404 });
   }
 
+  const origin = request.headers.get("Origin");
+  const cors = getCorsHeaders(origin);
+
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: cors || {},
+    });
+  }
+
   if (request.method !== "GET") {
-    return jsonResponse(405, { ok: false, error: "method_not_allowed" });
+    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, origin);
   }
 
   const token = getBearerToken(request);
   if (!token) {
-    return jsonResponse(401, { ok: false, error: "unauthorized" });
+    return jsonResponse(401, { ok: false, error: "unauthorized" }, origin);
   }
 
   const isAuthorized = await verifyMemberSession(token);
   if (!isAuthorized) {
-    return jsonResponse(401, { ok: false, error: "unauthorized" });
+    return jsonResponse(401, { ok: false, error: "unauthorized" }, origin);
   }
 
   const year = url.searchParams.get("year");
   if (!year || !/^\d{4}$/.test(year)) {
-    return jsonResponse(400, { ok: false, error: "year_required" });
+    return jsonResponse(400, { ok: false, error: "year_required" }, origin);
   }
   const yearNumber = Number(year);
   if (yearNumber < 2000 || yearNumber > 2100) {
-    return jsonResponse(400, { ok: false, error: "year_invalid" });
+    return jsonResponse(400, { ok: false, error: "year_invalid" }, origin);
   }
 
   if (!env.FILES_BUCKET) {
-    return jsonResponse(500, { ok: false, error: "missing_bucket" });
+    return jsonResponse(500, { ok: false, error: "missing_bucket" }, origin);
   }
 
   const prefix = "whitepaper/";
@@ -74,7 +106,7 @@ export async function handleRequest({ request, env, url, respond }) {
   const key = `${prefix}${year}-${slug}.pdf`;
   const object = await env.FILES_BUCKET.get(key);
   if (!object) {
-    return jsonResponse(404, { ok: false, error: "not_found" });
+    return jsonResponse(404, { ok: false, error: "not_found" }, origin);
   }
 
   const contentType = object.httpMetadata?.contentType || "application/pdf";
@@ -86,6 +118,7 @@ export async function handleRequest({ request, env, url, respond }) {
       "Content-Type": contentType,
       "Content-Disposition": `attachment; filename="${filename}"`,
       "Cache-Control": "private, max-age=0, no-store",
+      ...(cors || {}),
     },
   });
 }

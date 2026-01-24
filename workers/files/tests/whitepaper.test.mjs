@@ -13,9 +13,6 @@ const makeEnv = (overrides = {}) => ({
       };
     },
   },
-  WHITE_PAPER_PREFIX: "whitepaper/",
-  WHITE_PAPER_SLUG: "china-cross-border-healthcare",
-  MEMBERS_API_BASE: "https://members.chinamedicaltour.org",
   ...overrides,
 });
 
@@ -24,6 +21,31 @@ const respond = (status, payload) =>
     status,
     headers: { "Content-Type": "application/json" },
   });
+
+const allowedOrigin = "https://chinamedicaltour.org";
+
+await (async () => {
+  const request = new Request("https://files.chinamedicaltour.org/api/whitepaper", {
+    method: "OPTIONS",
+    headers: {
+      Origin: allowedOrigin,
+      "Access-Control-Request-Method": "GET",
+      "Access-Control-Request-Headers": "authorization",
+    },
+  });
+
+  const response = await handleRequest({
+    request,
+    env: makeEnv(),
+    url: new URL(request.url),
+    respond,
+  });
+
+  assert.equal(response.status, 204);
+  assert.equal(response.headers.get("Access-Control-Allow-Origin"), allowedOrigin);
+  assert.ok(response.headers.get("Access-Control-Allow-Methods")?.includes("GET"));
+  assert.ok(response.headers.get("Access-Control-Allow-Headers")?.toLowerCase().includes("authorization"));
+})();
 
 await (async () => {
   let fetchCalled = false;
@@ -34,6 +56,9 @@ await (async () => {
 
   const request = new Request("https://files.chinamedicaltour.org/api/whitepaper", {
     method: "GET",
+    headers: {
+      Origin: allowedOrigin,
+    },
   });
 
   const response = await handleRequest({
@@ -44,6 +69,7 @@ await (async () => {
   });
 
   assert.equal(response.status, 401);
+  assert.equal(response.headers.get("Access-Control-Allow-Origin"), allowedOrigin);
   assert.equal(fetchCalled, false);
 })();
 
