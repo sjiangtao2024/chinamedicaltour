@@ -17,7 +17,7 @@
 		"MEMBER_PORTAL_URL": "https://chinamedicaltour.org",
 		"SUPPORT_EMAIL": "support@chinamedicaltour.org",
 		"VERIFY_FROM_EMAIL": "verify@chinamedicaltour.org",
-		"GOOGLE_REDIRECT_URI": "https://chinamedicaltour.org/api/auth/google/callback",
+		"GOOGLE_REDIRECT_URI": "https://members.chinamedicaltour.org/api/auth/google/callback",
 		"SMART_CS_LEAD_URL": "https://api.chinamedicaltour.org/api/leads",
 		"SMART_CS_ADMIN_URL": "https://api.chinamedicaltour.org",
 		"PAYPAL_RETURN_URL": "https://preview.chinamedicaltour.org/payment?paypal=return",

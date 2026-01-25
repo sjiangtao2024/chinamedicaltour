@@ -17,12 +17,13 @@ import {
   upsertGoogleIdentity,
   upsertPasswordIdentity,
 } from "../lib/users.js";
+import { buildPortalCallbackUrl } from "../lib/auth-callback.js";
 import { checkBearerToken } from "../lib/auth.js";
 import { buildAuthUrl, exchangeCode } from "../lib/google-oauth.js";
 import { requireDb, readJson } from "../lib/request.js";
 import { requireTurnstileToken, verifyTurnstile } from "../lib/turnstile.js";
 
-const DEFAULT_GOOGLE_REDIRECT = "https://chinamedicaltour.org/api/auth/google/callback";
+const DEFAULT_GOOGLE_REDIRECT = "https://members.chinamedicaltour.org/api/auth/google/callback";
 
 function base64UrlFromBytes(bytes) {
   return Buffer.from(bytes)
@@ -394,9 +395,8 @@ export async function handleAuth({ request, env, url, respond }) {
     await env.MEMBERS_KV.put(`oauth_login:${loginCode}`, user.id, {
       expirationTtl: 300,
     });
-    const callbackUrl = new URL("/auth-callback.html", url.origin);
-    callbackUrl.searchParams.set("code", loginCode);
-    return Response.redirect(callbackUrl.toString(), 302);
+    const callbackUrl = buildPortalCallbackUrl(env, loginCode);
+    return Response.redirect(callbackUrl, 302);
   }
 
   return null;
