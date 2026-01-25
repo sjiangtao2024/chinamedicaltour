@@ -58,10 +58,28 @@ export async function handleProfile({ request, env, url, respond }) {
       .prepare("SELECT * FROM user_profiles WHERE user_id = ?")
       .bind(auth.userId)
       .first();
+    let mergedProfile = profile ? { ...profile } : null;
+    if (!mergedProfile || !mergedProfile.email || !mergedProfile.name) {
+      const user = await db
+        .prepare("SELECT email, name FROM users WHERE id = ?")
+        .bind(auth.userId)
+        .first();
+      if (user) {
+        if (!mergedProfile) {
+          mergedProfile = { user_id: auth.userId };
+        }
+        if (!mergedProfile.email && user.email) {
+          mergedProfile.email = user.email;
+        }
+        if (!mergedProfile.name && user.name) {
+          mergedProfile.name = user.name;
+        }
+      }
+    }
     return respond(200, {
       ok: true,
-      profile: profile || null,
-      profile_required: !isProfileComplete(profile),
+      profile: mergedProfile || null,
+      profile_required: !isProfileComplete(mergedProfile),
     });
   }
 
