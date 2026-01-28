@@ -100,6 +100,7 @@
 **用途**：正在开发/迭代中的需求与计划。  
 **关键词**：plans、upgrade-2025、payments-2026、requirements
 - `docs/dev/payments-2026/manual-payment-test-cases.md`
+- `docs/plans/2026-01-28-arabic-rtl-frontend-plan.md`
 - `docs/dev/plans/2025-12-22-smart-cs-rag-detailed-plan.md`
 - `docs/dev/plans/2025-12-22-smart-cs-rag-ops-api-spec.md`
 - `docs/dev/plans/2025-12-22-smart-cs-rag-ops-design.md`
