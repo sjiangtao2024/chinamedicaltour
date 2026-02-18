@@ -1,4 +1,9 @@
 ﻿const SANDBOX_BASE = "https://api-m.sandbox.paypal.com";
+const LIVE_BASE = "https://api-m.paypal.com";
+
+export function resolvePaypalBase(paypalEnv) {
+  return String(paypalEnv || "").toLowerCase() === "live" ? LIVE_BASE : SANDBOX_BASE;
+}
 
 function toCurrencyValue(amount) {
   if (Number.isInteger(amount)) {
@@ -81,9 +86,10 @@ export function buildTransactionSearchParams({ startDate, endDate }) {
   return params;
 }
 
-async function getAccessToken({ clientId, secret }) {
+async function getAccessToken({ clientId, secret, paypalEnv }) {
+  const base = resolvePaypalBase(paypalEnv);
   const auth = Buffer.from(clientId + ":" + secret).toString("base64");
-  const res = await fetch(SANDBOX_BASE + "/v1/oauth2/token", {
+  const res = await fetch(base + "/v1/oauth2/token", {
     method: "POST",
     headers: {
       Authorization: "Basic " + auth,
@@ -101,10 +107,20 @@ async function getAccessToken({ clientId, secret }) {
   return data.access_token;
 }
 
-export async function createPaypalOrder({ clientId, secret, amount, currency, customId, returnUrl, cancelUrl }) {
-  const token = await getAccessToken({ clientId, secret });
+export async function createPaypalOrder({
+  clientId,
+  secret,
+  amount,
+  currency,
+  customId,
+  returnUrl,
+  cancelUrl,
+  paypalEnv,
+}) {
+  const base = resolvePaypalBase(paypalEnv);
+  const token = await getAccessToken({ clientId, secret, paypalEnv });
   const payload = buildOrderPayload({ amount, currency, customId, returnUrl, cancelUrl });
-  const res = await fetch(SANDBOX_BASE + "/v2/checkout/orders", {
+  const res = await fetch(base + "/v2/checkout/orders", {
     method: "POST",
     headers: {
       Authorization: "Bearer " + token,
@@ -121,9 +137,10 @@ export async function createPaypalOrder({ clientId, secret, amount, currency, cu
   return res.json();
 }
 
-export async function capturePaypalOrder({ clientId, secret, orderId }) {
-  const token = await getAccessToken({ clientId, secret });
-  const res = await fetch(SANDBOX_BASE + "/v2/checkout/orders/" + orderId + "/capture", {
+export async function capturePaypalOrder({ clientId, secret, orderId, paypalEnv }) {
+  const base = resolvePaypalBase(paypalEnv);
+  const token = await getAccessToken({ clientId, secret, paypalEnv });
+  const res = await fetch(base + "/v2/checkout/orders/" + orderId + "/capture", {
     method: "POST",
     headers: {
       Authorization: "Bearer " + token,
@@ -139,10 +156,11 @@ export async function capturePaypalOrder({ clientId, secret, orderId }) {
   return res.json();
 }
 
-export async function listPaypalTransactions({ clientId, secret, startDate, endDate }) {
-  const token = await getAccessToken({ clientId, secret });
+export async function listPaypalTransactions({ clientId, secret, startDate, endDate, paypalEnv }) {
+  const base = resolvePaypalBase(paypalEnv);
+  const token = await getAccessToken({ clientId, secret, paypalEnv });
   const params = buildTransactionSearchParams({ startDate, endDate });
-  const res = await fetch(SANDBOX_BASE + "/v1/reporting/transactions?" + params.toString(), {
+  const res = await fetch(base + "/v1/reporting/transactions?" + params.toString(), {
     method: "GET",
     headers: {
       Authorization: "Bearer " + token,
@@ -166,10 +184,12 @@ export async function refundPaypalCapture({
   currency,
   noteToPayer,
   invoiceId,
+  paypalEnv,
 }) {
-  const token = await getAccessToken({ clientId, secret });
+  const base = resolvePaypalBase(paypalEnv);
+  const token = await getAccessToken({ clientId, secret, paypalEnv });
   const payload = buildRefundPayload({ amount, currency, noteToPayer, invoiceId });
-  const res = await fetch(SANDBOX_BASE + "/v2/payments/captures/" + captureId + "/refund", {
+  const res = await fetch(base + "/v2/payments/captures/" + captureId + "/refund", {
     method: "POST",
     headers: {
       Authorization: "Bearer " + token,
@@ -192,8 +212,10 @@ export async function verifyWebhookSignature({
   webhookId,
   headers,
   body,
+  paypalEnv,
 }) {
-  const token = await getAccessToken({ clientId, secret });
+  const base = resolvePaypalBase(paypalEnv);
+  const token = await getAccessToken({ clientId, secret, paypalEnv });
   const payload = {
     auth_algo: headers.get("paypal-auth-algo"),
     cert_url: headers.get("paypal-cert-url"),
@@ -204,7 +226,7 @@ export async function verifyWebhookSignature({
     webhook_event: body,
   };
 
-  const res = await fetch(SANDBOX_BASE + "/v1/notifications/verify-webhook-signature", {
+  const res = await fetch(base + "/v1/notifications/verify-webhook-signature", {
     method: "POST",
     headers: {
       Authorization: "Bearer " + token,

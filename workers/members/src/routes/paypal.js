@@ -237,6 +237,7 @@ export async function handlePaypal({ request, env, url, respond }) {
     const paypalOrder = await createPaypalOrder({
       clientId: env.PAYPAL_CLIENT_ID,
       secret: env.PAYPAL_SECRET,
+      paypalEnv: env.PAYPAL_ENV,
       amount: order.amount_paid,
       currency: order.currency,
       customId: order.id,
@@ -291,6 +292,7 @@ export async function handlePaypal({ request, env, url, respond }) {
     const capture = await capturePaypalOrder({
       clientId: env.PAYPAL_CLIENT_ID,
       secret: env.PAYPAL_SECRET,
+      paypalEnv: env.PAYPAL_ENV,
       orderId: order.paypal_order_id,
     });
     const captureId = capture?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
@@ -326,6 +328,7 @@ export async function handlePaypal({ request, env, url, respond }) {
     const verified = await verifyWebhookSignature({
       clientId: env.PAYPAL_CLIENT_ID,
       secret: env.PAYPAL_SECRET,
+      paypalEnv: env.PAYPAL_ENV,
       webhookId: env.PAYPAL_WEBHOOK_ID,
       headers: request.headers,
       body: event,

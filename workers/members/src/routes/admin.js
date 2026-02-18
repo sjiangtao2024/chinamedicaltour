@@ -296,6 +296,7 @@ export async function handleAdmin({ request, env, url, respond }) {
       refund = await refundPaypalCapture({
         clientId: env.PAYPAL_CLIENT_ID,
         secret: env.PAYPAL_SECRET,
+        paypalEnv: env.PAYPAL_ENV,
         captureId: order.paypal_capture_id,
         amount: refundAmount,
         currency: order.currency,
@@ -477,6 +478,7 @@ export async function handleAdmin({ request, env, url, respond }) {
       const paypalReport = await listPaypalTransactions({
         clientId: env.PAYPAL_CLIENT_ID,
         secret: env.PAYPAL_SECRET,
+        paypalEnv: env.PAYPAL_ENV,
         startDate: fromDate.toISOString(),
         endDate: toDate.toISOString(),
       });

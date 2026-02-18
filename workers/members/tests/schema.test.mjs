@@ -79,3 +79,11 @@ assert.ok(agreementSql.includes("terms_doc_id"));
 assert.ok(agreementSql.includes("accepted_at"));
 assert.ok(agreementSql.includes("user_agent"));
 assert.ok(agreementSql.includes("ip_address"));
+
+const preConsultationPriceSql = fs.readFileSync(
+  migrationPath("0015_update_pre_consultation_price.sql"),
+  "utf8"
+);
+assert.ok(preConsultationPriceSql.includes("UPDATE service_products"));
+assert.ok(preConsultationPriceSql.includes("pre-consultation"));
+assert.ok(preConsultationPriceSql.includes("19900"));
