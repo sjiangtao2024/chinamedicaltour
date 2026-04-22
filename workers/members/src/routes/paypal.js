@@ -6,6 +6,7 @@ import {
 } from "../lib/paypal.js";
 import {
   buildOrderConfirmationEmail,
+  buildConsultationConfirmationEmail,
   buildRefundConfirmationEmail,
   sendOrderConfirmationEmail,
   sendRefundConfirmationEmail,
@@ -103,6 +104,45 @@ const sendOrderEmailIfNeeded = async (db, env, order) => {
     itemId: order.item_id,
   });
   const packageName = product?.name || order.item_id || "Service";
+  const isConsultation = order.item_id?.startsWith("consultation-");
+
+  if (isConsultation) {
+    const orderLink = `${env.MEMBER_PORTAL_URL}/orders/${order.id}`;
+    const email = buildConsultationConfirmationEmail({
+      recipientName: recipient?.name || "",
+      orderId: order.id,
+      packageName,
+      amountPaid: Number(order.amount_paid || 0),
+      currency: order.currency || "USD",
+      paidAt: order.updated_at || order.created_at || new Date().toISOString(),
+      orderLink,
+      supportEmail,
+      brandName: fromName,
+    });
+
+    try {
+      await sendOrderConfirmationEmail({
+        apiKey: env.RESEND_API_KEY,
+        from,
+        to: toEmail,
+        bcc: bccEmail || undefined,
+        subject: email.subject,
+        text: email.text,
+        html: email.html,
+      });
+      await recordOrderEmailEvent(db, emailEventId, order.id, "processed", null);
+    } catch (error) {
+      await recordOrderEmailEvent(
+        db,
+        emailEventId,
+        order.id,
+        "failed",
+        error?.message || "send_failed"
+      );
+    }
+    return;
+  }
+
   const { orderLink, intakeLink } = buildOrderPortalLinks(env.MEMBER_PORTAL_URL, order.id);
   const email = buildOrderConfirmationEmail({
     recipientName: recipient?.name || "",

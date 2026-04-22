@@ -248,6 +248,82 @@ export function buildRefundConfirmationEmail({
   return { subject, text, html };
 }
 
+export function buildConsultationConfirmationEmail({
+  recipientName,
+  orderId,
+  packageName,
+  amountPaid,
+  currency,
+  paidAt,
+  orderLink,
+  supportEmail,
+  brandName,
+}) {
+  const firstName = normalizeRecipientName(recipientName);
+  const amountLabel = formatCurrency(amountPaid, currency);
+  const paidAtLabel = formatShanghaiTime(paidAt);
+  const signature = brandName || "CMT Care Team";
+  const subject = `Your ${packageName} is confirmed — Next steps`;
+  const noReply = "Please do not reply to this email.";
+  const supportLine = supportEmail ? `Contact us at ${supportEmail}.` : "";
+
+  const text = `Hi ${firstName},
+
+Thank you for your purchase. Your ${packageName} is confirmed.
+
+Order summary
+- Order ID: ${orderId}
+- Package: ${packageName}
+- Amount: ${amountLabel} ${currency || ""}
+- Paid at: ${paidAtLabel} (China time)
+
+What happens next
+- Our care coordinator will contact you within 24-48 hours to schedule your consultation.
+- Please prepare your medical records and test results for upload.
+- Your consultation will be scheduled after we receive your documents.
+
+Quick links
+- View your order: ${orderLink}
+
+Need help?
+${supportLine}
+
+${noReply}
+
+-- ${signature}`;
+
+  const html = `
+    <p>Hi ${firstName},</p>
+    <p>Thank you for your purchase. Your <strong>${packageName}</strong> is confirmed.</p>
+    <h3>Order summary</h3>
+    <ul>
+      <li><strong>Order ID:</strong> ${orderId}</li>
+      <li><strong>Package:</strong> ${packageName}</li>
+      <li><strong>Amount:</strong> ${amountLabel} ${currency || ""}</li>
+      <li><strong>Paid at:</strong> ${paidAtLabel} (China time)</li>
+    </ul>
+    <h3>What happens next</h3>
+    <ol>
+      <li>Our care coordinator will contact you within 24-48 hours to schedule your consultation.</li>
+      <li>Please prepare your medical records and test results for upload.</li>
+      <li>Your consultation will be scheduled after we receive your documents.</li>
+    </ol>
+    <h3>Quick links</h3>
+    <ul>
+      <li><a href="${orderLink}">View your order</a></li>
+    </ul>
+    ${
+      supportEmail
+        ? `<p>Need help? Contact us at <a href="mailto:${supportEmail}">${supportEmail}</a>.</p>`
+        : ""
+    }
+    <p>${noReply}</p>
+    <p>-- ${signature}</p>
+  `.trim();
+
+  return { subject, text, html };
+}
+
 export async function sendRefundConfirmationEmail({
   apiKey,
   from,
